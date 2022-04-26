@@ -9,6 +9,7 @@ load("//tools/workspace/pycodestyle:repository.bzl", "pycodestyle_repository")
 load("//tools/workspace/rules_foreign_cc:repository.bzl", "rules_foreign_cc_repository")
 load("//tools/workspace/rules_python:repository.bzl", "rules_python_repository")
 load("//tools/workspace/spdlog:repository.bzl", "spdlog_repository")
+load("//tools/workspace/styleguide:repository.bzl", "styleguide_repository")
 
 def add_default_repositories():
     """
@@ -22,3 +23,4 @@ def add_default_repositories():
     rules_foreign_cc_repository()
     rules_python_repository()
     spdlog_repository()
+    styleguide_repository()
