@@ -1,9 +1,13 @@
+# Bazel configurations
+
 build --compilation_mode=fastbuild
 build --compiler=compiler
 build --copt="-Werror=return-type"
 build --cpu=k8
 build --cxxopt=-std=c++17
+build --output_groups=+mypy
 
+coverage --aspects @mypy_integration//:mypy.bzl%mypy_aspect
 coverage --combined_report=lcov
 coverage --compilation_mode=fastbuild
 coverage --compiler=compiler
@@ -11,10 +15,18 @@ coverage --copt="-Werror=return-type"
 coverage --cpu=k8
 coverage --cxxopt=-std=c++17
 coverage --instrument_test_targets
+coverage --output_groups=+mypy
 
+test --aspects @mypy_integration//:mypy.bzl%mypy_aspect
 test --compilation_mode=fastbuild
 test --compiler=compiler
 test --copt="-Werror=return-type"
 test --cpu=k8
 test --cxxopt=-std=c++17
+test --output_groups=+mypy
 test --test_output=errors
+
+# Run linter only, not unit tests
+# Usage: bazel test --config lint //...
+test:lint --build_tests_only
+test:lint --test_tag_filters=lint
