@@ -36,12 +36,19 @@ cc_library(
 )
 
 cc_library(
+    name = "realtime",
+    hdrs = ["realtime.h"],
+    include_prefix = "vulp/utils",
+)
+
+cc_library(
     name = "utils",
     deps = [
         ":datetime_now_string",
         ":low_pass_filter",
         ":math",
         ":random_string",
+        ":realtime",
     ],
 )
 
