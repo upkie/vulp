@@ -13,6 +13,17 @@ cc_library(
 )
 
 cc_library(
+    name = "low_pass_filter",
+    hdrs = [
+        "LowPassFilter.h",
+    ],
+    deps = [
+        "@eigen",
+    ],
+    include_prefix = "vulp/utils",
+)
+
+cc_library(
     name = "math",
     hdrs = ["math.h"],
     include_prefix = "vulp/utils",
@@ -28,6 +39,7 @@ cc_library(
     name = "utils",
     deps = [
         ":datetime_now_string",
+        ":low_pass_filter",
         ":math",
         ":random_string",
     ],
