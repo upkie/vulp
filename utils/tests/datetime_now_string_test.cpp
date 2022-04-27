@@ -24,7 +24,7 @@ namespace vulp::utils {
 
 TEST(DatetimeNowString, IsADatetimeString) {
   auto now = datetime_now_string();
-  ASSERT_TRUE(now.starts_with("20"));  // see at the turn of the next century!
+  ASSERT_EQ(now.rfind("20", 0), 0);  // see at the turn of the next century!
   ASSERT_EQ(now[8], '-');
 }
 
