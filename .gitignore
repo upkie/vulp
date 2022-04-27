@@ -1,0 +1,9 @@
+*.mpack
+*.out
+bazel-bin
+bazel-out
+bazel-testlogs
+bazel-vulp
+build
+coverage
+doc/html
