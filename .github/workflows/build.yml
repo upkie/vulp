@@ -1,0 +1,44 @@
+name: CI
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest]
+        steps:
+            - name: "Checkout sources"
+              uses: actions/checkout@v2
+
+            - name: "Install Eigen"
+              run: sudo apt-get install -y libeigen3-dev
+
+            - name: "Build the library"
+              env:
+                  BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
+              run: |
+                  tools/bazelisk build //...
+
+            - name: "Check code formatting"
+              env:
+                  BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
+              run: |
+                  tools/bazelisk test --config lint //...
+
+            - name: "Check unit tests"
+              env:
+                  BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
+              run: |
+                  tools/bazelisk test //...
+
+            - name: "Report test coverage"
+              run: |
+                  tools/bazelisk coverage --combined_report=lcov --instrument_test_targets //...
