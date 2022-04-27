@@ -24,7 +24,6 @@ cc_library(
         ":datetime_now_string",
         ":random_string",
     ],
-    include_prefix = "vulp/utils",
 )
 
 add_lint_tests(enable_clang_format_lint = True)
