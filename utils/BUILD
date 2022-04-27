@@ -13,6 +13,12 @@ cc_library(
 )
 
 cc_library(
+    name = "math",
+    hdrs = ["math.h"],
+    include_prefix = "vulp/utils",
+)
+
+cc_library(
     name = "random_string",
     hdrs = ["random_string.h"],
     include_prefix = "vulp/utils",
@@ -22,6 +28,7 @@ cc_library(
     name = "utils",
     deps = [
         ":datetime_now_string",
+        ":math",
         ":random_string",
     ],
 )
