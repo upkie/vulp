@@ -22,6 +22,13 @@ cc_library(
 )
 
 cc_library(
+    name = "handle_interrupts",
+    hdrs = ["handle_interrupts.h"],
+    srcs = ["handle_interrupts.cpp"],
+    include_prefix = "vulp/utils",
+)
+
+cc_library(
     name = "low_pass_filter",
     hdrs = [
         "low_pass_filter.h",
@@ -56,6 +63,7 @@ cc_library(
     deps = [
         ":circular_buffer",
         ":datetime_now_string",
+        ":handle_interrupts",
         ":low_pass_filter",
         ":math",
         ":random_string",
