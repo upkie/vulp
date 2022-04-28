@@ -7,6 +7,15 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
+    name = "circular_buffer",
+    hdrs = ["CircularBuffer.h"],
+    deps = [
+        "@spdlog",
+    ],
+    include_prefix = "vulp/utils",
+)
+
+cc_library(
     name = "datetime_now_string",
     hdrs = ["datetime_now_string.h"],
     include_prefix = "vulp/utils",
@@ -44,6 +53,7 @@ cc_library(
 cc_library(
     name = "utils",
     deps = [
+        ":circular_buffer",
         ":datetime_now_string",
         ":low_pass_filter",
         ":math",
