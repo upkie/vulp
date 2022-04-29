@@ -59,6 +59,17 @@ cc_library(
 )
 
 cc_library(
+    name = "synchronous_clock",
+    hdrs = ["SynchronousClock.h"],
+    srcs = ["SynchronousClock.cpp"],
+    deps = [
+        ":math",
+        "@spdlog",
+    ],
+    include_prefix = "vulp/utils",
+)
+
+cc_library(
     name = "utils",
     deps = [
         ":circular_buffer",
@@ -68,6 +79,7 @@ cc_library(
         ":math",
         ":random_string",
         ":realtime",
+        ":synchronous_clock",
     ],
 )
 

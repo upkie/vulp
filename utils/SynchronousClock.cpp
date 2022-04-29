@@ -1,0 +1,74 @@
+/*
+ * Copyright 2022 Stéphane Caron
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * This file incorporates work covered by the following copyright and
+ * permission notice:
+ *
+ *     moteus_control_example.cc from github.com:mjbots/pi3hat
+ *     Copyright 2020 Josh Pieper, jjp@pobox.com.
+ *     License: Apache-2.0
+ */
+
+#include "vulp/utils/SynchronousClock.h"
+
+#include <thread>
+
+#include "vulp/utils/math.h"
+
+namespace vulp::utils {
+
+SynchronousClock::SynchronousClock(double frequency)
+    : period_us_(microseconds(static_cast<int64_t>(1e6 / frequency))),
+      margin_(0.),
+      measured_period_(1. / frequency),
+      skip_count_(0) {
+  assert(math::divides(1000000u, static_cast<unsigned>(frequency)));
+  last_call_time_ = std::chrono::steady_clock::now();
+  measured_period_ = 1. / frequency;
+  next_tick_ = std::chrono::steady_clock::now() + period_us_;
+}
+
+void SynchronousClock::measure_period(
+    const std::chrono::time_point<std::chrono::steady_clock>& call_time) {
+  const auto measured_period = call_time - last_call_time_;
+  measured_period_ =
+      std::chrono::duration_cast<microseconds>(measured_period).count() / 1e6;
+  last_call_time_ = call_time;
+}
+
+void SynchronousClock::wait_for_next_tick() {
+  const auto call_time = std::chrono::steady_clock::now();
+  const double duration_tick_to_call_us =
+      std::chrono::duration_cast<microseconds>(call_time - next_tick_).count();
+  skip_count_ = std::ceil(duration_tick_to_call_us / period_us_.count());
+  if (skip_count_ > 0) {
+    next_tick_ += skip_count_ * period_us_;
+  }
+  std::this_thread::sleep_until(next_tick_);
+  if (skip_count_ > 0) {
+    spdlog::warn("Skipped {} clock cycles", skip_count_);
+    margin_ = 0.;
+  } else {
+    const auto wakeup_time = std::chrono::steady_clock::now();
+    const auto sleep_duration = wakeup_time - call_time;
+    const double duration_call_to_wakeup_us =
+        std::chrono::duration_cast<microseconds>(sleep_duration).count();
+    margin_ = duration_call_to_wakeup_us / period_us_.count();
+  }
+  next_tick_ += period_us_;
+  measure_period(call_time);
+}
+
+}  // namespace vulp::utils
