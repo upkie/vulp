@@ -36,7 +36,8 @@ class Spinlock {
 #if defined(__x86_64__) || defined(__i386__)
         // Reduce contention between hardware threads (SMT)
         // See https://www.felixcloutier.com/x86/pause
-        __builtin_ia32_pause();  // pause instruction + memory fence
+        // This is a pause instruction + memory fence
+        __builtin_ia32_pause();  // LCOV_EXCL_LINE
 #elif defined(__arm__)
         __asm__ __volatile__("yield");
 #else
