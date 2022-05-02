@@ -20,6 +20,7 @@ cc_library(
         "@palimpsest",
         "//utils:circular_buffer",
     ],
+    include_prefix = "vulp/logging",
 )
 
 cc_library(
