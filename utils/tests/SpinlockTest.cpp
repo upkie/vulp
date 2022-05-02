@@ -27,21 +27,30 @@ TEST(Spinlock, AcquireAndRelease) {
   ASSERT_NO_THROW(lock.release());
 }
 
-TEST(Spinlock, TwoThreads) {
+TEST(Spinlock, OtherThreadAcquiresAndReleases) {
   Spinlock lock;
   lock.acquire();
   unsigned step = 0;
+  bool thread_acquired_lock = false;
+  bool test_wants_lock = false;
 
-  auto thread = std::thread([&lock, &step]() {
-    lock.acquire();
-    step = 42;
-    lock.release();
-  });
+  auto thread =
+      std::thread([&lock, &step, &thread_acquired_lock, &test_wants_lock]() {
+        lock.acquire();
+        step = 42;
+        thread_acquired_lock = true;
+        while (!test_wants_lock) {
+        }
+        lock.release();
+      });
 
   ASSERT_EQ(step, 0);
   ASSERT_NO_THROW(lock.release());
-  ASSERT_NO_THROW(thread.join());
+  while (!thread_acquired_lock) {
+  }
+  test_wants_lock = true;
   ASSERT_NO_THROW(lock.acquire());
+  ASSERT_NO_THROW(thread.join());
   ASSERT_EQ(step, 42);
 }
 
