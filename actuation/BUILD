@@ -33,7 +33,7 @@ cc_library(
         "Interface.h",
     ],
     deps = [
-        "//vulp/observation:imu_data",
+        ":imu_data",
         ":resolution",
         ":servo_layout",
     ],
