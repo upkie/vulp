@@ -10,7 +10,7 @@ cc_library(
     name = "resolution",
     hdrs = ["resolution.h"],
     deps = [
-        "//vulp/actuation/moteus",
+        "//actuation/moteus",
     ],
     include_prefix = "vulp/actuation",
 )
