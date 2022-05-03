@@ -27,4 +27,17 @@ cc_library(
     include_prefix = "vulp/actuation",
 )
 
+cc_library(
+    name = "interface",
+    hdrs = [
+        "Interface.h",
+    ],
+    deps = [
+        "//vulp/observation:imu_data",
+        ":resolution",
+        ":servo_layout",
+    ],
+    include_prefix = "vulp/actuation",
+)
+
 add_lint_tests(enable_clang_format_lint = True)

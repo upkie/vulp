@@ -23,7 +23,7 @@ namespace vulp::actuation {
 
 /*! Query resolution settings for all servo commands.
  *
- * \returns Query resolution settings.
+ * \return Query resolution settings.
  *
  * For now these settings are common to all interfaces but we can easily turn
  * them into parameters.
@@ -46,7 +46,7 @@ inline actuation::moteus::QueryCommand get_query_resolution() {
 
 /*! Resolution settings for all servo commands.
  *
- * \returns Resolution settings.
+ * \return Resolution settings.
  *
  * For now these settings are common to all interfaces but we can easily turn
  * them into parameters.
