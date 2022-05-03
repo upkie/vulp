@@ -10,7 +10,7 @@ Motion control in Python, lightweight and real-time.
 
 > Why the name "Vulp"?
 
-[Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons.
+[Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably lightweight and quite reliable in their reaction times 😉
 
 > How can it be real-time in Python, with garbage collection and all?
 
