@@ -41,13 +41,13 @@ class Interface {
       : servo_layout_(servo_layout) {
     auto query = get_query_resolution();
     auto resolution = get_position_resolution();
-
     for (const auto& pair : servo_layout.servo_bus_map()) {
       commands_.push_back({});
       commands_.back().id = pair.first;
       commands_.back().resolution = resolution;
       commands_.back().query = query;
     }
+
     replies_.resize(commands_.size());
     data_.commands = {commands_.data(), commands_.size()};
     data_.replies = {replies_.data(), replies_.size()};
@@ -61,6 +61,8 @@ class Interface {
    * The callback will be invoked from an arbitrary thread when the
    * communication cycle has completed. All memory pointed to by @p data must
    * remain valid until the callback is invoked.
+   *
+   * TODO(scaron): use internal data, const param makes no sense any more.
    */
   virtual void cycle(const moteus::Data& data,
                      std::function<void(const moteus::Output&)> callback) = 0;

@@ -36,6 +36,7 @@ cc_library(
         ":imu_data",
         ":resolution",
         ":servo_layout",
+        "@palimpsest",
     ],
     include_prefix = "vulp/actuation",
 )
