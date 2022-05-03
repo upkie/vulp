@@ -12,6 +12,7 @@ cc_library(
     deps = [
         "//vulp/actuation/moteus",
     ],
+    include_prefix = "vulp/actuation",
 )
 
 add_lint_tests(enable_clang_format_lint = True)
