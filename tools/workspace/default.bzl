@@ -2,6 +2,9 @@
 #
 # Copyright 2022 Stéphane Caron
 
+load("//tools/workspace/bullet:repository.bzl", "bullet_repository")
+load("//tools/workspace/bullet_robotics:repository.bzl", "bullet_robotics_repository")
+load("//tools/workspace/bullet_robotics_gui:repository.bzl", "bullet_robotics_gui_repository")
 load("//tools/workspace/eigen:repository.bzl", "eigen_repository")
 load("//tools/workspace/fmt:repository.bzl", "fmt_repository")
 load("//tools/workspace/googletest:repository.bzl", "googletest_repository")
@@ -19,6 +22,9 @@ def add_default_repositories():
     Declare workspace repositories for all dependencies. This function should
     be loaded and called from a WORKSPACE file.
     """
+    bullet_repository()
+    bullet_robotics_gui_repository()
+    bullet_robotics_repository()
     eigen_repository()
     fmt_repository()
     googletest_repository()
