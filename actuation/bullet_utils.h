@@ -21,6 +21,7 @@
 #include <string>
 
 #include "RobotSimulator/b3RobotSimulatorClientAPI.h"
+#include "vulp/actuation/BulletImuData.h"
 
 namespace vulp::actuation {
 
@@ -49,6 +50,53 @@ inline Eigen::Quaterniond eigen_from_bullet(const btQuaternion& quat) {
  */
 inline Eigen::Vector3d eigen_from_bullet(const btVector3& v) {
   return Eigen::Vector3d(v.getX(), v.getY(), v.getZ());
+}
+
+/*! Compute IMU readings from the IMU link state.
+ *
+ * \param[out] imu_data IMU data to update.
+ * \param[in] bullet Bullet client.
+ * \param[in] robot Bullet index of the robot model.
+ * \param[in] imu_link_index Index of the IMU link in the robot.
+ * \param[in] dt Simulation timestep in [s].
+ */
+inline void read_imu_data(BulletImuData& imu_data,
+                          b3RobotSimulatorClientAPI& bullet, int robot,
+                          const int imu_link_index, double dt) {
+  b3LinkState link_state;
+  bullet.getLinkState(robot, imu_link_index, /* computeVelocity = */ true,
+                      /* computeForwardKinematics = */ true, &link_state);
+  imu_data.orientation_imu_in_world.x() =
+      link_state.m_worldLinkFrameOrientation[0];
+  imu_data.orientation_imu_in_world.y() =
+      link_state.m_worldLinkFrameOrientation[1];
+  imu_data.orientation_imu_in_world.z() =
+      link_state.m_worldLinkFrameOrientation[2];
+  imu_data.orientation_imu_in_world.w() =
+      link_state.m_worldLinkFrameOrientation[3];
+  Eigen::Vector3d linear_velocity_imu_in_world = {
+      link_state.m_worldLinearVelocity[0],
+      link_state.m_worldLinearVelocity[1],
+      link_state.m_worldLinearVelocity[2],
+  };
+  Eigen::Vector3d angular_velocity_imu_to_world_in_world = {
+      link_state.m_worldAngularVelocity[0],
+      link_state.m_worldAngularVelocity[1],
+      link_state.m_worldAngularVelocity[2],
+  };
+
+  // Compute linear acceleration in the world frame by discrete differentiation
+  const auto& previous_linear_velocity = imu_data.linear_velocity_imu_in_world;
+  Eigen::Vector3d linear_acceleration_imu_in_world =
+      (linear_velocity_imu_in_world - previous_linear_velocity) / dt;
+
+  auto rotation_world_to_imu =
+      imu_data.orientation_imu_in_world.normalized().inverse();
+  imu_data.angular_velocity_imu_in_imu =
+      rotation_world_to_imu * angular_velocity_imu_to_world_in_world;
+  imu_data.linear_acceleration_imu_in_imu =
+      rotation_world_to_imu * linear_acceleration_imu_in_world;
+  imu_data.linear_velocity_imu_in_world = linear_velocity_imu_in_world;
 }
 
 }  // namespace vulp::actuation
