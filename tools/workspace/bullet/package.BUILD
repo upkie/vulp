@@ -562,6 +562,26 @@ cc_library(
 )
 
 cc_library(
+    name = "fracture_demo",
+    srcs = [
+        "examples/FractureDemo/FractureDemo.cpp",
+        "examples/FractureDemo/btFractureBody.cpp",
+        "examples/FractureDemo/btFractureDynamicsWorld.cpp",
+    ],
+    hdrs = [
+        "examples/FractureDemo/FractureDemo.h",
+        "examples/FractureDemo/btFractureBody.h",
+        "examples/FractureDemo/btFractureDynamicsWorld.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":src",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
+
+cc_library(
     name = "voronoi_fracture",
     srcs = [
         "examples/VoronoiFracture/VoronoiFractureDemo.cpp",
@@ -586,6 +606,22 @@ cc_library(
     ],
     hdrs = [
         "examples/Vehicles/Hinge2Vehicle.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":src",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "raycast",
+    srcs = [
+        "examples/Raycast/RaytestDemo.cpp",
+    ],
+    hdrs = [
+        "examples/Raycast/RaytestDemo.h",
     ],
     deps = [
         ":common_interfaces",
@@ -691,16 +727,18 @@ cc_library(
         ":constraints",
         ":extras",
         ":forklift",
+        ":fracture_demo",
         ":gwen",
         ":gyroscopic_demo",
         ":heightfield",
         ":importers",
         ":multi_body",
-        ":rigid_body",
         ":multi_threaded_demo",
         ":multi_threading",
         ":planar_2d",
+        ":raycast",
         ":rendering_examples",
+        ":rigid_body",
         ":src",
         ":tiny_renderer",
         ":utils",
