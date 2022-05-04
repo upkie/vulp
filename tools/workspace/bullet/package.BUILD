@@ -19,14 +19,16 @@ cc_library(
         "src/BulletCollision/**/*.cpp",
         "src/BulletDynamics/**/*.cpp",
         "src/BulletInverseDynamics/**/*.cpp",
+        "src/BulletSoftBody/**/*.cpp",
         "src/LinearMath/**/*.cpp",
     ]),
     hdrs = glob([
+        "src/Bullet3Collision/**/*.h",
         "src/Bullet3Common/**/*.h",
         "src/BulletCollision/**/*.h",
-        "src/Bullet3Collision/**/*.h",
         "src/BulletDynamics/**/*.h",
         "src/BulletInverseDynamics/**/*.hpp",
+        "src/BulletSoftBody/**/*.h",
         "src/LinearMath/**/*.h",
         "src/btBulletCollisionCommon.h",
         "src/btBulletDynamicsCommon.h",
@@ -222,6 +224,7 @@ cc_library(
         "examples/Importers/ImportBsp/BspConverter.cpp",
         "examples/Importers/ImportBsp/BspLoader.cpp",
         "examples/Importers/ImportBsp/ImportBspExample.cpp",
+        "examples/Importers/ImportBullet/SerializeSetup.cpp",
         "examples/Importers/ImportColladaDemo/ImportColladaSetup.cpp",
         "examples/Importers/ImportColladaDemo/LoadMeshFromCollada.cpp",
         "examples/Importers/ImportMJCFDemo/BulletMJCFImporter.cpp",
@@ -243,6 +246,7 @@ cc_library(
         "examples/Importers/ImportBsp/BspConverter.h",
         "examples/Importers/ImportBsp/BspLoader.h",
         "examples/Importers/ImportBsp/ImportBspExample.h",
+        "examples/Importers/ImportBullet/SerializeSetup.h",
         "examples/Importers/ImportColladaDemo/ColladaGraphicsInstance.h",
         "examples/Importers/ImportColladaDemo/ImportColladaSetup.h",
         "examples/Importers/ImportColladaDemo/LoadMeshFromCollada.h",
@@ -302,21 +306,6 @@ cc_library(
         ":opengl_window",
         ":src",
         ":utils",
-    ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
-    copts = bullet_copts,
-)
-
-cc_library(
-    name = "heightfield",
-    srcs = [
-        "examples/Heightfield/HeightfieldExample.cpp",
-    ],
-    hdrs = [
-        "examples/Heightfield/HeightfieldExample.h",
-    ],
-    deps = [
-        ":src",
     ],
     defines = ["BT_USE_DOUBLE_PRECISION"],
     copts = bullet_copts,
@@ -450,6 +439,26 @@ cc_library(
 )
 
 cc_library(
+    name = "heightfield",
+    srcs = [
+        "examples/Heightfield/HeightfieldExample.cpp",
+    ],
+    hdrs = [
+        "examples/Heightfield/HeightfieldExample.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":importers",
+        ":multi_threaded_demo",
+        ":opengl_window",
+        ":src",
+        ":utils",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
+
+cc_library(
     name = "benchmarks",
     srcs = [
         "examples/Benchmarks/BenchmarkDemo.cpp",
@@ -488,12 +497,18 @@ cc_library(
 cc_library(
     name = "constraints",
     srcs = [
+        "examples/Constraints/ConstraintDemo.cpp",
+        "examples/Constraints/ConstraintPhysicsSetup.cpp",
+        "examples/Constraints/Dof6Spring2Setup.cpp",
     ],
-    hdrs = glob([
-        "examples/Constraints/Dof6Spring2Setup.h",
+    hdrs = [
+        "examples/Constraints/ConstraintDemo.h",
         "examples/Constraints/ConstraintPhysicsSetup.h",
-    ]),
+        "examples/Constraints/Dof6Spring2Setup.h",
+    ],
     deps = [
+        ":common_interfaces",
+        ":src",
     ],
     defines = ["BT_USE_DOUBLE_PRECISION"],
     copts = bullet_copts,
@@ -563,10 +578,28 @@ cc_library(
     defines = ["BT_USE_DOUBLE_PRECISION"],
     copts = bullet_copts,
 )
+
+cc_library(
+    name = "vehicles",
+    srcs = [
+        "examples/Vehicles/Hinge2Vehicle.cpp",
+    ],
+    hdrs = [
+        "examples/Vehicles/Hinge2Vehicle.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":src",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
+
 cc_library(
     name = "shared_memory",
     srcs = [
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.cpp",
+        "examples/ExampleBrowser/GL_ShapeDrawer.cpp",
         "examples/ExampleBrowser/ExampleEntries.cpp",
         "examples/ExampleBrowser/InProcessExampleBrowser.cpp",  # yes...
         "examples/ExampleBrowser/OpenGLExampleBrowser.cpp",
@@ -577,6 +610,7 @@ cc_library(
         "examples/SharedMemory/PhysicsClientC_API.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory2_C_API.cpp",
+        "examples/SoftDemo/SoftDemo.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory_C_API.cpp",
         "examples/SharedMemory/PhysicsDirect.cpp",
         "examples/SharedMemory/PhysicsLoopBackC_API.cpp",
@@ -603,6 +637,9 @@ cc_library(
         "examples/ExampleBrowser/ExampleBrowserInterface.h",
         "examples/ExampleBrowser/ExampleEntries.h",
         "examples/ExampleBrowser/InProcessExampleBrowser.h",  # yes...
+        "examples/SoftDemo/BunnyMesh.h",
+        "examples/SoftDemo/SoftDemo.h",
+        "examples/SoftDemo/TorusMesh.h",
         "examples/ExampleBrowser/OpenGLExampleBrowser.h",
         "examples/RenderingExamples/TinyRendererSetup.h",  # yes...
         "examples/SharedMemory/BodyJointInfoUtility.h",
@@ -611,6 +648,7 @@ cc_library(
         "examples/SharedMemory/GraphicsSharedMemoryBlock.h",
         "examples/SharedMemory/GraphicsSharedMemoryCommands.h",
         "examples/SharedMemory/GraphicsSharedMemoryPublic.h",
+        "examples/ExampleBrowser/GL_ShapeDrawer.h",
         "examples/SharedMemory/InProcessMemory.h",
         "examples/SharedMemory/PhysicsClient.h",
         "examples/SharedMemory/PhysicsClientC_API.h",
@@ -666,6 +704,7 @@ cc_library(
         ":src",
         ":tiny_renderer",
         ":utils",
+        ":vehicles",
         ":voronoi_fracture",
     ],
     defines = ["BT_USE_DOUBLE_PRECISION"],
