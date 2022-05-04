@@ -17,4 +17,13 @@ cc_test(
     ],
 )
 
+cc_test(
+    name = "mock_interface_test",
+    srcs = ["MockInterfaceTest.cpp"],
+    deps = [
+        "//actuation:mock_interface",
+        "@googletest//:main",
+    ],
+)
+
 add_lint_tests(enable_clang_format_lint = True)
