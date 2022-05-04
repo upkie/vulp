@@ -41,4 +41,20 @@ cc_library(
     include_prefix = "vulp/actuation",
 )
 
+cc_library(
+    name = "mock_interface",
+    hdrs = [
+        "MockInterface.h",
+    ],
+    srcs = [
+        "MockInterface.cpp",
+    ],
+    deps = [
+        "//actuation:interface",
+        "//utils:synchronous_clock",
+        "@eigen",
+    ],
+    include_prefix = "vulp/actuation",
+)
+
 add_lint_tests(enable_clang_format_lint = True)
