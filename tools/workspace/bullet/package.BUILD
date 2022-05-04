@@ -669,6 +669,63 @@ cc_library(
 )
 
 cc_library(
+    name = "bunny_mesh",
+    hdrs = [
+        "examples/SoftDemo/BunnyMesh.h",
+        "examples/SoftDemo/bunny.inl",
+        "examples/SoftDemo/cube.inl",
+    ],
+)
+
+cc_library(
+    name = "deformable_demo",
+    srcs = [
+        "examples/DeformableDemo/ClothFriction.cpp",
+        "examples/DeformableDemo/Collide.cpp",
+        "examples/DeformableDemo/DeformableClothAnchor.cpp",
+        "examples/DeformableDemo/DeformableContact.cpp",
+        "examples/DeformableDemo/DeformableMultibody.cpp",
+        "examples/DeformableDemo/DeformableRigid.cpp",
+        "examples/DeformableDemo/DeformableSelfCollision.cpp",
+        "examples/DeformableDemo/GraspDeformable.cpp",
+        "examples/DeformableDemo/LargeDeformation.cpp",
+        "examples/DeformableDemo/LoadDeformed.cpp",
+        "examples/DeformableDemo/MultibodyClothAnchor.cpp",
+        "examples/DeformableDemo/Pinch.cpp",
+        "examples/DeformableDemo/PinchFriction.cpp",
+        "examples/DeformableDemo/SplitImpulse.cpp",
+        "examples/DeformableDemo/VolumetricDeformable.cpp",
+    ],
+    hdrs = [
+        "examples/DeformableDemo/ClothFriction.h",
+        "examples/DeformableDemo/Collide.h",
+        "examples/DeformableDemo/DeformableClothAnchor.h",
+        "examples/DeformableDemo/DeformableContact.h",
+        "examples/DeformableDemo/DeformableMultibody.h",
+        "examples/DeformableDemo/DeformableRigid.h",
+        "examples/DeformableDemo/DeformableSelfCollision.h",
+        "examples/DeformableDemo/GraspDeformable.h",
+        "examples/DeformableDemo/LargeDeformation.h",
+        "examples/DeformableDemo/LoadDeformed.h",
+        "examples/DeformableDemo/MultibodyClothAnchor.h",
+        "examples/DeformableDemo/Pinch.h",
+        "examples/DeformableDemo/PinchFriction.h",
+        "examples/DeformableDemo/SplitImpulse.h",
+        "examples/DeformableDemo/VolumetricDeformable.h",
+    ],
+    deps = [
+        ":bunny_mesh",
+        ":common_interfaces",
+        ":extras",
+        ":importers",
+        ":src",
+        ":utils",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
+
+cc_library(
     name = "shared_memory",
     srcs = [
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.cpp",
@@ -762,6 +819,7 @@ cc_library(
         ":collision",
         ":common_interfaces",
         ":constraints",
+        ":deformable_demo",
         ":dynamic_control_demo",
         ":extras",
         ":forklift",
