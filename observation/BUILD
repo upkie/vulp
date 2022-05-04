@@ -7,6 +7,12 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
+    name = "observer_error",
+    hdrs = ["ObserverError.h"],
+    include_prefix = "vulp/observation",
+)
+
+cc_library(
     name = "observer",
     hdrs = ["Observer.h"],
     deps = [
@@ -27,6 +33,7 @@ cc_library(
 cc_library(
     name = "observation",
     deps = [
+        ":observer_error",
         ":observer",
         ":source",
     ],
