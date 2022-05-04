@@ -72,10 +72,12 @@ cc_library(
     srcs = glob([
         "Extras/InverseDynamics/**/*.cpp",
         "Extras/Serialize/BulletFileLoader/**/*.cpp",
+        "Extras/Serialize/BulletWorldImporter/**/*.cpp",
     ]),
     hdrs = glob([
         "Extras/InverseDynamics/**/*.hpp",
         "Extras/Serialize/BulletFileLoader/**/*.h",
+        "Extras/Serialize/BulletWorldImporter/**/*.h",
     ]),
     deps = [
         ":src",
@@ -90,6 +92,7 @@ cc_library(
         "examples/CommonInterfaces/Common2dCanvasInterface.h",
         "examples/CommonInterfaces/CommonCallbacks.h",
         "examples/CommonInterfaces/CommonCameraInterface.h",
+        "examples/CommonInterfaces/CommonDeformableBodyBase.h",
         "examples/CommonInterfaces/CommonExampleInterface.h",
         "examples/CommonInterfaces/CommonFileIOInterface.h",
         "examples/CommonInterfaces/CommonGUIHelperInterface.h",
@@ -277,6 +280,7 @@ cc_library(
     deps = [
         ":common_interfaces",
         ":gwen_gui_support",
+        ":extras",
         ":src",
         ":tinyxml2",
         ":utils",
