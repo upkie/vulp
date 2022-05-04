@@ -531,9 +531,11 @@ cc_library(
 cc_library(
     name = "rigid_body",
     srcs = [
+        "examples/RigidBody/KinematicRigidBodyExample.cpp",
         "examples/RigidBody/RigidBodySoftContact.cpp",
     ],
     hdrs = [
+        "examples/RigidBody/KinematicRigidBodyExample.h",
         "examples/RigidBody/RigidBodySoftContact.h",
     ],
     deps = [
@@ -544,6 +546,23 @@ cc_library(
     copts = bullet_copts,
 )
 
+cc_library(
+    name = "voronoi_fracture",
+    srcs = [
+        "examples/VoronoiFracture/VoronoiFractureDemo.cpp",
+        "examples/VoronoiFracture/btConvexConvexMprAlgorithm.cpp",
+    ],
+    hdrs = [
+        "examples/VoronoiFracture/VoronoiFractureDemo.h",
+        "examples/VoronoiFracture/btConvexConvexMprAlgorithm.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":src",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
 cc_library(
     name = "shared_memory",
     srcs = [
@@ -647,6 +666,7 @@ cc_library(
         ":src",
         ":tiny_renderer",
         ":utils",
+        ":voronoi_fracture",
     ],
     defines = ["BT_USE_DOUBLE_PRECISION"],
     copts = bullet_copts,

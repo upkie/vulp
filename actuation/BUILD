@@ -66,8 +66,6 @@ cc_library(
     deps = [
         ":imu_data",
         "@bullet",
-        "@bullet_robotics",
-        "@bullet_robotics_gui",
         "@eigen",
         "@palimpsest",
     ],
