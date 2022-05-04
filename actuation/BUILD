@@ -57,4 +57,28 @@ cc_library(
     include_prefix = "vulp/actuation",
 )
 
+cc_library(
+    name = "bullet_utils",
+    hdrs = [
+        "BulletImuData.h",
+        "bullet_utils.h",
+    ],
+    deps = [
+        ":imu_data",
+        "@bullet",
+        "@bullet_robotics",
+        "@bullet_robotics_gui",
+        "@eigen",
+        "@palimpsest",
+    ],
+    include_prefix = "vulp/actuation",
+)
+
+cc_library(
+    name = "actuation",
+    deps = [
+        ":mock_interface",
+    ],
+)
+
 add_lint_tests(enable_clang_format_lint = True)
