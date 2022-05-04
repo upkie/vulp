@@ -555,6 +555,7 @@ cc_library(
     ],
     deps = [
         ":common_interfaces",
+        ":opengl_window",
         ":src",
     ],
     defines = ["BT_USE_DOUBLE_PRECISION"],
@@ -632,11 +633,43 @@ cc_library(
 )
 
 cc_library(
+    name = "dynamic_control_demo",
+    srcs = [
+        "examples/DynamicControlDemo/MotorDemo.cpp",
+    ],
+    hdrs = [
+        "examples/DynamicControlDemo/MotorDemo.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":src",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "rolling_friction_demo",
+    srcs = [
+        "examples/RollingFrictionDemo/RollingFrictionDemo.cpp",
+    ],
+    hdrs = [
+        "examples/RollingFrictionDemo/RollingFrictionDemo.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":src",
+    ],
+    defines = ["BT_USE_DOUBLE_PRECISION"],
+    copts = bullet_copts,
+)
+
+cc_library(
     name = "shared_memory",
     srcs = [
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.cpp",
-        "examples/ExampleBrowser/GL_ShapeDrawer.cpp",
         "examples/ExampleBrowser/ExampleEntries.cpp",
+        "examples/ExampleBrowser/GL_ShapeDrawer.cpp",
         "examples/ExampleBrowser/InProcessExampleBrowser.cpp",  # yes...
         "examples/ExampleBrowser/OpenGLExampleBrowser.cpp",
         "examples/RenderingExamples/TinyRendererSetup.cpp",  # yes...
@@ -646,11 +679,11 @@ cc_library(
         "examples/SharedMemory/PhysicsClientC_API.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory2_C_API.cpp",
-        "examples/SoftDemo/SoftDemo.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory_C_API.cpp",
         "examples/SharedMemory/PhysicsDirect.cpp",
         "examples/SharedMemory/PhysicsLoopBackC_API.cpp",
         "examples/SharedMemory/PhysicsServer.cpp",
+        "examples/SharedMemory/PhysicsServerCommandProcessor.cpp",
         "examples/SharedMemory/PhysicsServerExample.cpp",
         "examples/SharedMemory/PhysicsServerExampleBullet2.cpp",  # needed
         "examples/SharedMemory/PhysicsServerSharedMemory.cpp",
@@ -661,21 +694,19 @@ cc_library(
         "examples/SharedMemory/Win32SharedMemory.cpp",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoDirect.cpp",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoGUI.cpp",
+        "examples/SoftDemo/SoftDemo.cpp",
         # "examples/SharedMemory/IKTrajectoryHelper.cpp",
         # "examples/SharedMemory/PhysicsClientExample.cpp",
         # "examples/SharedMemory/PhysicsDirectC_API.cpp",
         # "examples/SharedMemory/PhysicsLoopBack.cpp",
-        # "examples/SharedMemory/PhysicsServerCommandProcessor.cpp",
     ],
     hdrs = [
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.h",
         "examples/ExampleBrowser/EmptyExample.h",
         "examples/ExampleBrowser/ExampleBrowserInterface.h",
         "examples/ExampleBrowser/ExampleEntries.h",
+        "examples/ExampleBrowser/GL_ShapeDrawer.h",
         "examples/ExampleBrowser/InProcessExampleBrowser.h",  # yes...
-        "examples/SoftDemo/BunnyMesh.h",
-        "examples/SoftDemo/SoftDemo.h",
-        "examples/SoftDemo/TorusMesh.h",
         "examples/ExampleBrowser/OpenGLExampleBrowser.h",
         "examples/RenderingExamples/TinyRendererSetup.h",  # yes...
         "examples/SharedMemory/BodyJointInfoUtility.h",
@@ -684,7 +715,6 @@ cc_library(
         "examples/SharedMemory/GraphicsSharedMemoryBlock.h",
         "examples/SharedMemory/GraphicsSharedMemoryCommands.h",
         "examples/SharedMemory/GraphicsSharedMemoryPublic.h",
-        "examples/ExampleBrowser/GL_ShapeDrawer.h",
         "examples/SharedMemory/InProcessMemory.h",
         "examples/SharedMemory/PhysicsClient.h",
         "examples/SharedMemory/PhysicsClientC_API.h",
@@ -697,6 +727,7 @@ cc_library(
         "examples/SharedMemory/PhysicsLoopBack.h",
         "examples/SharedMemory/PhysicsLoopBackC_API.h",
         "examples/SharedMemory/PhysicsServer.h",
+        "examples/SharedMemory/PhysicsServerCommandProcessor.h",
         "examples/SharedMemory/PhysicsServerExample.h",
         "examples/SharedMemory/PhysicsServerExampleBullet2.h",
         "examples/SharedMemory/PhysicsServerSharedMemory.h",
@@ -715,9 +746,11 @@ cc_library(
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoDirect.h",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoGUI.h",
         "examples/SharedMemory/plugins/b3PluginCollisionInterface.h",
+        "examples/SoftDemo/BunnyMesh.h",
+        "examples/SoftDemo/SoftDemo.h",
+        "examples/SoftDemo/TorusMesh.h",
         # "examples/SharedMemory/IKTrajectoryHelper.h",
         # "examples/SharedMemory/PhysicsClientExample.h",
-        # "examples/SharedMemory/PhysicsServerCommandProcessor.h",
     ],
     deps = [
         ":basic_demo",
@@ -725,6 +758,7 @@ cc_library(
         ":collision",
         ":common_interfaces",
         ":constraints",
+        ":dynamic_control_demo",
         ":extras",
         ":forklift",
         ":fracture_demo",
@@ -739,6 +773,7 @@ cc_library(
         ":raycast",
         ":rendering_examples",
         ":rigid_body",
+        ":rolling_friction_demo",
         ":src",
         ":tiny_renderer",
         ":utils",
