@@ -23,9 +23,9 @@
 #include <map>
 #include <string>
 
+#include "vulp/actuation/ImuData.h"
 #include "vulp/actuation/Interface.h"
 #include "vulp/actuation/moteus/protocol.h"
-#include "vulp/observation/ImuData.h"
 
 namespace vulp::actuation {
 

@@ -68,6 +68,9 @@ class ServoLayout {
     return servo_joint_map_;
   }
 
+  //! Get the number of servos in the layout.
+  size_t size() const noexcept { return servo_bus_map_.size(); }
+
  private:
   //! Map from servo ID to the CAN bus the servo is connected to.
   std::map<int, int> servo_bus_map_;

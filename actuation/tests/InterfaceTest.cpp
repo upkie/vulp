@@ -21,6 +21,7 @@
 
 #include "gtest/gtest.h"
 #include "vulp/actuation/Interface.h"
+#include "vulp/actuation/tests/coffee_machine_layout.h"
 
 namespace vulp::actuation {
 
@@ -40,14 +41,7 @@ class InterfaceTest : public ::testing::Test {
  protected:
   //! Set up a new test fixture
   void SetUp() override {
-    ServoLayout layout;
-    layout.add_servo(1, 1, "right_mill");
-    layout.add_servo(2, 1, "right_grinder");
-    layout.add_servo(3, 1, "right_pump");
-    layout.add_servo(4, 2, "left_mill");
-    layout.add_servo(5, 2, "left_grinder");
-    layout.add_servo(6, 2, "left_pump");
-
+    const auto layout = get_coffee_machine_layout();
     interface_ = std::make_unique<SmallInterface>(layout);
   }
 
@@ -66,11 +60,11 @@ class InterfaceTest : public ::testing::Test {
 };
 
 TEST_F(InterfaceTest, CommandsAreInitialized) {
-  ASSERT_EQ(interface_->commands().size(), 6);
+  ASSERT_EQ(interface_->commands().size(), get_coffee_machine_layout().size());
 }
 
 TEST_F(InterfaceTest, RepliesAreInitialized) {
-  ASSERT_EQ(interface_->replies().size(), 6);
+  ASSERT_EQ(interface_->replies().size(), get_coffee_machine_layout().size());
 }
 
 TEST_F(InterfaceTest, DataIsInitialized) {

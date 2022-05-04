@@ -6,6 +6,14 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+cc_library(
+    name = "test_common",
+    hdrs = [
+        "coffee_machine_layout.h",
+    ],
+    include_prefix = "vulp/actuation/tests",
+)
+
 cc_test(
     name = "interface_test",
     srcs = [
@@ -13,6 +21,7 @@ cc_test(
     ],
     deps = [
         "//actuation:interface",
+        ":test_common",
         "@googletest//:main",
     ],
 )
@@ -22,6 +31,7 @@ cc_test(
     srcs = ["MockInterfaceTest.cpp"],
     deps = [
         "//actuation:mock_interface",
+        ":test_common",
         "@googletest//:main",
     ],
 )
