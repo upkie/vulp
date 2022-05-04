@@ -36,4 +36,19 @@ cc_test(
     ],
 )
 
+cc_test(
+    name = "bullet_utils_test",
+    srcs = [
+        "bullet_utils_test.cpp",
+    ],
+    data = [
+        "//models/upkie_description",
+    ],
+    deps = [
+        "//actuation:bullet_utils",
+        "@bazel_tools//tools/cpp/runfiles",
+        "@googletest//:main",
+    ],
+)
+
 add_lint_tests(enable_clang_format_lint = True)
