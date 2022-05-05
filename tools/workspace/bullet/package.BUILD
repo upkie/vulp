@@ -327,6 +327,7 @@ cc_library(
         "examples/RenderingExamples/RaytracerSetup.cpp",
         "examples/RenderingExamples/RenderInstancingDemo.cpp",
         "examples/RenderingExamples/TimeSeriesCanvas.cpp",
+        "examples/RenderingExamples/TimeSeriesExample.cpp",
         "examples/RenderingExamples/TinyVRGui.cpp",
     ],
     hdrs = [
@@ -335,6 +336,7 @@ cc_library(
         "examples/RenderingExamples/RaytracerSetup.h",
         "examples/RenderingExamples/RenderInstancingDemo.h",
         "examples/RenderingExamples/TimeSeriesCanvas.h",
+        "examples/RenderingExamples/TimeSeriesExample.h",
         "examples/RenderingExamples/TimeSeriesFontData.h",
         "examples/RenderingExamples/TinyVRGui.h",
     ],
@@ -733,7 +735,26 @@ cc_library(
         ":src",
         ":utils",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "tutorial",
+    srcs = [
+        "examples/Tutorial/Dof6ConstraintTutorial.cpp",
+        "examples/Tutorial/Tutorial.cpp",
+    ],
+    hdrs = [
+        "examples/Tutorial/Dof6ConstraintTutorial.h",
+        "examples/Tutorial/Tutorial.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":rendering_examples",
+        ":src",
+    ],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -769,7 +790,7 @@ cc_library(
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoGUI.cpp",
         "examples/SoftDemo/SoftDemo.cpp",
         # "examples/SharedMemory/IKTrajectoryHelper.cpp",
-        # "examples/SharedMemory/PhysicsClientExample.cpp",
+        "examples/SharedMemory/PhysicsClientExample.cpp",
         # "examples/SharedMemory/PhysicsDirectC_API.cpp",
         # "examples/SharedMemory/PhysicsLoopBack.cpp",
     ],
@@ -823,7 +844,7 @@ cc_library(
         "examples/SoftDemo/SoftDemo.h",
         "examples/SoftDemo/TorusMesh.h",
         # "examples/SharedMemory/IKTrajectoryHelper.h",
-        # "examples/SharedMemory/PhysicsClientExample.h",
+        "examples/SharedMemory/PhysicsClientExample.h",
     ],
     deps = [
         ":basic_demo",
@@ -850,11 +871,12 @@ cc_library(
         ":rolling_friction_demo",
         ":src",
         ":tiny_renderer",
+        ":tutorial",
         ":utils",
         ":vehicles",
         ":voronoi_fracture",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -879,7 +901,7 @@ cc_library(
         ":shared_memory",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
