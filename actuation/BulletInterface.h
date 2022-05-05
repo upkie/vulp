@@ -78,7 +78,12 @@ class BulletInterface : public Interface {
     //! If true, fire up the graphical user interface.
     bool gui = false;
 
-    //! Path to the URDF model of the robot.
+    /*! Path to the URDF model of the robot.
+     *
+     * A path from the root of the Bazel workspace works. For instance, use
+     * "models/upkie_description/urdf/upkie.urdf" to load the URDF from
+     * //models/upkie_description.
+     */
     std::string urdf_path;
 
     //! Whether to use CONTROL_MODE_TORQUE or CONTROL_MODE_POSITION_VELOCITY_PD
