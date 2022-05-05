@@ -8,6 +8,10 @@ Motion control for Python, lightweight and real-time.
 
 * Real-time does not mean *high frequency*. Many meaningful tasks in robotics do not require 1 kHz, hard real-time guarantees. Balancing a full-fledged humanoid robot can be performed as slow as 5 Hz (200 ms), which is a remarkable [theoretical and empirical result](https://arxiv.org/pdf/1907.01805.pdf).
 
+## Things to keep in mind
+
+* Bazel's [compilation mode](https://bazel.build/reference/command-line-reference#flag--compilation_mode) is "fastbuild" by default. Switch to ``-c opt`` for better performance when running robot experiments or simulations.
+
 ## Q and A
 
 > Why the name "Vulp"?
