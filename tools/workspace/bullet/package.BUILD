@@ -1032,6 +1032,10 @@ cc_library(
         ":vehicles",
         ":voronoi_fracture",
     ],
+    includes = [
+        "examples",  # for user code
+        "examples/ExampleBrowser",  # for SoftDemo.cpp
+    ],
     defines = bullet_defines,
     copts = bullet_copts,
 )
