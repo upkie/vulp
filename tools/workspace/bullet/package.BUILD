@@ -182,11 +182,19 @@ cc_library(
     name = "gwen_gui_support",
     srcs = [
         "examples/ExampleBrowser/GwenGUISupport/GraphingTexture.cpp",
+        "examples/ExampleBrowser/GwenGUISupport/GwenParameterInterface.cpp",
+        "examples/ExampleBrowser/GwenGUISupport/GwenTextureWindow.cpp",
+        "examples/ExampleBrowser/GwenGUISupport/gwenUserInterface.cpp",
     ],
     hdrs = [
         "examples/ExampleBrowser/GwenGUISupport/GraphingTexture.h",
+        "examples/ExampleBrowser/GwenGUISupport/GwenParameterInterface.h",
+        "examples/ExampleBrowser/GwenGUISupport/GwenTextureWindow.h",
+        "examples/ExampleBrowser/GwenGUISupport/gwenInternalData.h",
+        "examples/ExampleBrowser/GwenGUISupport/gwenUserInterface.h",
     ],
     deps = [
+        ":gwen",
         ":opengl_window",
         ":src",
     ],
@@ -235,6 +243,7 @@ cc_library(
     ],
     hdrs = [
         "examples/Utils/ChromeTraceUtil.h",
+        "examples/Utils/RobotLoggingUtil.h",
         "examples/Utils/b3BulletDefaultFileIO.h",
         "examples/Utils/b3Clock.h",
         "examples/Utils/b3ERPCFMHelper.hpp",
@@ -323,6 +332,7 @@ cc_library(
         "examples/TinyRenderer/TinyRenderer.cpp",
         "examples/TinyRenderer/geometry.cpp",
         "examples/TinyRenderer/our_gl.cpp",
+        "examples/TinyRenderer/model.cpp",
         "examples/TinyRenderer/tgaimage.cpp",
     ],
     hdrs = [
@@ -351,6 +361,7 @@ cc_library(
         "examples/RenderingExamples/RenderInstancingDemo.cpp",
         "examples/RenderingExamples/TimeSeriesCanvas.cpp",
         "examples/RenderingExamples/TimeSeriesExample.cpp",
+        "examples/RenderingExamples/TimeSeriesFontData.cpp",
         "examples/RenderingExamples/TinyVRGui.cpp",
     ],
     hdrs = [
@@ -432,6 +443,7 @@ cc_library(
 cc_library(
     name = "gyroscopic_demo",
     srcs = [
+        "examples/GyroscopicDemo/GyroscopicSetup.cpp",
     ],
     hdrs = [
         "examples/GyroscopicDemo/GyroscopicSetup.h",
@@ -461,6 +473,7 @@ cc_library(
 cc_library(
     name = "multi_threaded_demo",
     srcs = [
+        "examples/MultiThreadedDemo/CommonRigidBodyMTBase.cpp",
         "examples/MultiThreadedDemo/MultiThreadedDemo.cpp",
     ],
     hdrs = [
@@ -705,11 +718,12 @@ cc_library(
 )
 
 cc_library(
-    name = "bunny_mesh",
+    name = "meshes",
     hdrs = [
         "examples/SoftDemo/BunnyMesh.h",
         "examples/SoftDemo/bunny.inl",
         "examples/SoftDemo/cube.inl",
+        "examples/SoftDemo/TorusMesh.h",
     ],
     defines = bullet_defines,
     copts = bullet_copts,
@@ -752,10 +766,10 @@ cc_library(
         "examples/DeformableDemo/VolumetricDeformable.h",
     ],
     deps = [
-        ":bunny_mesh",
         ":common_interfaces",
         ":extras",
         ":importers",
+        ":meshes",
         ":src",
         ":utils",
     ],
@@ -827,9 +841,9 @@ cc_library(
         "examples/ReducedDeformableDemo/*.h",
     ]),
     deps = [
-        ":bunny_mesh",
         ":common_interfaces",
         ":importers",
+        ":meshes",
         ":src",
         ":utils",
     ],
@@ -876,17 +890,19 @@ cc_library(
 
 cc_library(
     name = "robot_simulator",
-    srcs = [
+
+    srcs = glob([
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.cpp",
         "examples/ExampleBrowser/ExampleEntries.cpp",
         "examples/ExampleBrowser/GL_ShapeDrawer.cpp",
-        "examples/ExampleBrowser/InProcessExampleBrowser.cpp",  # yes...
+        "examples/ExampleBrowser/InProcessExampleBrowser.cpp",
         "examples/ExampleBrowser/OpenGLExampleBrowser.cpp",
-        "examples/RenderingExamples/TinyRendererSetup.cpp",  # yes...
+        "examples/ExampleBrowser/OpenGLGuiHelper.cpp",
+        "examples/RenderingExamples/TinyRendererSetup.cpp",
         "examples/RobotSimulator/b3RobotSimulatorClientAPI.cpp",
         "examples/RoboticsLearning/GripperGraspExample.cpp",
         "examples/RoboticsLearning/KukaGraspExample.cpp",
-        "examples/RoboticsLearning/R2D2GraspExample.cpp",  # needs SharedMemory/PhysicsServerSharedMemory
+        "examples/RoboticsLearning/R2D2GraspExample.cpp",  # needs PhysicsServerSharedMemory
         "examples/SharedMemory/GraphicsClientExample.cpp",
         "examples/SharedMemory/GraphicsServerExample.cpp",
         "examples/SharedMemory/IKTrajectoryHelper.cpp",
@@ -908,23 +924,29 @@ cc_library(
         "examples/SharedMemory/SharedMemoryCommandProcessor.cpp",
         "examples/SharedMemory/SharedMemoryInProcessPhysicsC_API.cpp",  # needed
         "examples/SharedMemory/Win32SharedMemory.cpp",
+        "examples/SharedMemory/b3PluginManager.cpp",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoDirect.cpp",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoGUI.cpp",
+        "examples/SharedMemory/plugins/collisionFilterPlugin/*.cpp",
+        "examples/SharedMemory/plugins/pdControlPlugin/*.cpp",
+        "examples/SharedMemory/plugins/tinyRendererPlugin/*.cpp",
         "examples/SoftDemo/SoftDemo.cpp",
-        # "examples/SharedMemory/IKTrajectoryHelper.cpp",
-        # "examples/SharedMemory/PhysicsDirectC_API.cpp",
-        # "examples/SharedMemory/PhysicsLoopBack.cpp",
-    ],
-    hdrs = [
+    ]),
+
+    hdrs = glob([
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.h",
         "examples/ExampleBrowser/EmptyExample.h",
         "examples/ExampleBrowser/ExampleBrowserInterface.h",
         "examples/ExampleBrowser/ExampleEntries.h",
-        "examples/RobotSimulator/b3RobotSimulatorClientAPI.h",
         "examples/ExampleBrowser/GL_ShapeDrawer.h",
-        "examples/ExampleBrowser/InProcessExampleBrowser.h",  # yes...
+        "examples/ExampleBrowser/InProcessExampleBrowser.h",
         "examples/ExampleBrowser/OpenGLExampleBrowser.h",
-        "examples/RenderingExamples/TinyRendererSetup.h",  # yes...
+        "examples/ExampleBrowser/OpenGLGuiHelper.h",
+        "examples/RenderingExamples/TinyRendererSetup.h",
+        "examples/RobotSimulator/b3RobotSimulatorClientAPI.h",
+        "examples/RoboticsLearning/GripperGraspExample.h",
+        "examples/RoboticsLearning/KukaGraspExample.h",
+        "examples/RoboticsLearning/R2D2GraspExample.h",  # needs PhysicsServerSharedMemory
         "examples/SharedMemory/BodyJointInfoUtility.h",
         "examples/SharedMemory/GraphicsClientExample.h",
         "examples/SharedMemory/GraphicsServerExample.h",
@@ -944,9 +966,6 @@ cc_library(
         "examples/SharedMemory/PhysicsDirectC_API.h",
         "examples/SharedMemory/PhysicsLoopBack.h",
         "examples/SharedMemory/PhysicsLoopBackC_API.h",
-        "examples/RoboticsLearning/GripperGraspExample.h",
-        "examples/RoboticsLearning/KukaGraspExample.h",
-        "examples/RoboticsLearning/R2D2GraspExample.h",  # needs SharedMemory/PhysicsServerSharedMemory
         "examples/SharedMemory/PhysicsServer.h",
         "examples/SharedMemory/PhysicsServerCommandProcessor.h",
         "examples/SharedMemory/PhysicsServerExample.h",
@@ -963,15 +982,19 @@ cc_library(
         "examples/SharedMemory/SharedMemoryPublic.h",
         "examples/SharedMemory/SharedMemoryUserData.h",
         "examples/SharedMemory/Win32SharedMemory.h",
+        "examples/SharedMemory/b3PluginManager.h",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_InternalData.h",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoDirect.h",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoGUI.h",
+        "examples/SharedMemory/plugins/b3PluginAPI.h",
         "examples/SharedMemory/plugins/b3PluginCollisionInterface.h",
-        "examples/SoftDemo/BunnyMesh.h",
+        "examples/SharedMemory/plugins/b3PluginContext.h",
+        "examples/SharedMemory/plugins/collisionFilterPlugin/collisionFilterPlugin.h",
+        "examples/SharedMemory/plugins/pdControlPlugin/pdControlPlugin.h",
+        "examples/SharedMemory/plugins/tinyRendererPlugin/*.h",
         "examples/SoftDemo/SoftDemo.h",
-        "examples/SoftDemo/TorusMesh.h",
-        # "examples/SharedMemory/IKTrajectoryHelper.h",
-    ],
+    ]),
+
     deps = [
         ":basic_demo",
         ":benchmarks",
@@ -992,6 +1015,7 @@ cc_library(
         ":importers",
         ":inverse_dynamics",
         ":inverse_kinematics",
+        ":meshes",
         ":multi_body",
         ":multi_threaded_demo",
         ":multi_threading",
