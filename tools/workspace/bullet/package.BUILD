@@ -43,35 +43,6 @@ cc_library(
 )
 
 cc_library(
-    name = "glad",
-    srcs = glob([
-        "examples/ThirdPartyLibs/glad/**/*.cpp",
-    ]),
-    hdrs = glob([
-        "examples/ThirdPartyLibs/glad/**/*.h",
-    ]),
-    strip_include_prefix = "examples/ThirdPartyLibs/glad",
-    defines = bullet_defines,
-    copts = bullet_copts,
-)
-
-cc_library(
-    name = "gwen",
-    srcs = glob([
-        "examples/ThirdPartyLibs/Gwen/**/*.cpp",
-    ]),
-    hdrs = glob([
-        "examples/ThirdPartyLibs/Gwen/**/*.h",
-    ]),
-    deps = [
-        ":glad",
-    ],
-    includes = ["examples/ThirdPartyLibs"],
-    defines = bullet_defines,
-    copts = bullet_copts,
-)
-
-cc_library(
     name = "extras",
     srcs = glob([
         "Extras/InverseDynamics/**/*.cpp",
@@ -107,6 +78,48 @@ cc_library(
         "examples/CommonInterfaces/CommonRigidBodyBase.h",
         "examples/CommonInterfaces/CommonWindowInterface.h",
     ],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "buss_ik",
+    srcs = glob([
+        "examples/ThirdPartyLibs/BussIK/**/*.cpp",
+    ]),
+    hdrs = glob([
+        "examples/ThirdPartyLibs/BussIK/**/*.h",
+    ]),
+    strip_include_prefix = "examples/ThirdPartyLibs",
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "glad",
+    srcs = glob([
+        "examples/ThirdPartyLibs/glad/**/*.cpp",
+    ]),
+    hdrs = glob([
+        "examples/ThirdPartyLibs/glad/**/*.h",
+    ]),
+    strip_include_prefix = "examples/ThirdPartyLibs/glad",
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "gwen",
+    srcs = glob([
+        "examples/ThirdPartyLibs/Gwen/**/*.cpp",
+    ]),
+    hdrs = glob([
+        "examples/ThirdPartyLibs/Gwen/**/*.h",
+    ]),
+    deps = [
+        ":glad",
+    ],
+    includes = ["examples/ThirdPartyLibs"],
     defines = bullet_defines,
     copts = bullet_copts,
 )
@@ -675,6 +688,7 @@ cc_library(
     deps = [
         ":common_interfaces",
         ":src",
+        ":utils",
     ],
     defines = bullet_defines,
     copts = bullet_copts,
@@ -759,7 +773,94 @@ cc_library(
 )
 
 cc_library(
-    name = "shared_memory",
+    name = "inverse_dynamics",
+    srcs = [
+        "examples/InverseDynamics/InverseDynamicsExample.cpp",
+    ],
+    hdrs = [
+        "examples/InverseDynamics/InverseDynamicsExample.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":importers",
+        ":rendering_examples",
+        ":src",
+        ":utils",
+    ],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "inverse_kinematics",
+    srcs = [
+        "examples/InverseKinematics/InverseKinematicsExample.cpp",
+    ],
+    hdrs = [
+        "examples/InverseKinematics/InverseKinematicsExample.h",
+    ],
+    deps = [
+        ":buss_ik",
+        ":common_interfaces",
+        ":src",
+    ],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "reduced_deformable_demo",
+    srcs = glob([
+        "examples/ReducedDeformableDemo/*.cpp",
+    ]),
+    hdrs = glob([
+        "examples/ReducedDeformableDemo/*.h",
+    ]),
+    deps = [
+        ":bunny_mesh",
+        ":common_interfaces",
+        ":importers",
+        ":src",
+        ":utils",
+    ],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "extended_tutorials",
+    srcs = glob([
+        "examples/ExtendedTutorials/*.cpp",
+    ]),
+    hdrs = glob([
+        "examples/ExtendedTutorials/*.h",
+    ]),
+    deps = [
+        ":common_interfaces",
+        ":importers",
+        ":src",
+        ":utils",
+    ],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "evolution",
+    srcs = [
+        "examples/Evolution/NN3DWalkers.cpp",
+    ],
+    hdrs = [
+        "examples/Evolution/NN3DWalkers.h",
+    ],
+    deps = [
+    ],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
+    name = "robot_simulator",
     srcs = [
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.cpp",
         "examples/ExampleBrowser/ExampleEntries.cpp",
@@ -767,10 +868,16 @@ cc_library(
         "examples/ExampleBrowser/InProcessExampleBrowser.cpp",  # yes...
         "examples/ExampleBrowser/OpenGLExampleBrowser.cpp",
         "examples/RenderingExamples/TinyRendererSetup.cpp",  # yes...
+        "examples/RobotSimulator/b3RobotSimulatorClientAPI.cpp",
+        "examples/RoboticsLearning/GripperGraspExample.cpp",
+        "examples/RoboticsLearning/KukaGraspExample.cpp",
+        "examples/RoboticsLearning/R2D2GraspExample.cpp",  # needs SharedMemory/PhysicsServerSharedMemory
         "examples/SharedMemory/GraphicsClientExample.cpp",
         "examples/SharedMemory/GraphicsServerExample.cpp",
+        "examples/SharedMemory/IKTrajectoryHelper.cpp",
         "examples/SharedMemory/InProcessMemory.cpp",
         "examples/SharedMemory/PhysicsClientC_API.cpp",
+        "examples/SharedMemory/PhysicsClientExample.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory2_C_API.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory_C_API.cpp",
@@ -790,7 +897,6 @@ cc_library(
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoGUI.cpp",
         "examples/SoftDemo/SoftDemo.cpp",
         # "examples/SharedMemory/IKTrajectoryHelper.cpp",
-        "examples/SharedMemory/PhysicsClientExample.cpp",
         # "examples/SharedMemory/PhysicsDirectC_API.cpp",
         # "examples/SharedMemory/PhysicsLoopBack.cpp",
     ],
@@ -799,6 +905,7 @@ cc_library(
         "examples/ExampleBrowser/EmptyExample.h",
         "examples/ExampleBrowser/ExampleBrowserInterface.h",
         "examples/ExampleBrowser/ExampleEntries.h",
+        "examples/RobotSimulator/b3RobotSimulatorClientAPI.h",
         "examples/ExampleBrowser/GL_ShapeDrawer.h",
         "examples/ExampleBrowser/InProcessExampleBrowser.h",  # yes...
         "examples/ExampleBrowser/OpenGLExampleBrowser.h",
@@ -809,9 +916,11 @@ cc_library(
         "examples/SharedMemory/GraphicsSharedMemoryBlock.h",
         "examples/SharedMemory/GraphicsSharedMemoryCommands.h",
         "examples/SharedMemory/GraphicsSharedMemoryPublic.h",
+        "examples/SharedMemory/IKTrajectoryHelper.h",
         "examples/SharedMemory/InProcessMemory.h",
         "examples/SharedMemory/PhysicsClient.h",
         "examples/SharedMemory/PhysicsClientC_API.h",
+        "examples/SharedMemory/PhysicsClientExample.h",
         "examples/SharedMemory/PhysicsClientSharedMemory.h",
         "examples/SharedMemory/PhysicsClientSharedMemory2_C_API.h",
         "examples/SharedMemory/PhysicsClientSharedMemory_C_API.h",
@@ -820,6 +929,9 @@ cc_library(
         "examples/SharedMemory/PhysicsDirectC_API.h",
         "examples/SharedMemory/PhysicsLoopBack.h",
         "examples/SharedMemory/PhysicsLoopBackC_API.h",
+        "examples/RoboticsLearning/GripperGraspExample.h",
+        "examples/RoboticsLearning/KukaGraspExample.h",
+        "examples/RoboticsLearning/R2D2GraspExample.h",  # needs SharedMemory/PhysicsServerSharedMemory
         "examples/SharedMemory/PhysicsServer.h",
         "examples/SharedMemory/PhysicsServerCommandProcessor.h",
         "examples/SharedMemory/PhysicsServerExample.h",
@@ -844,7 +956,6 @@ cc_library(
         "examples/SoftDemo/SoftDemo.h",
         "examples/SoftDemo/TorusMesh.h",
         # "examples/SharedMemory/IKTrajectoryHelper.h",
-        "examples/SharedMemory/PhysicsClientExample.h",
     ],
     deps = [
         ":basic_demo",
@@ -854,18 +965,24 @@ cc_library(
         ":constraints",
         ":deformable_demo",
         ":dynamic_control_demo",
+        ":evolution",
+        ":extended_tutorials",
         ":extras",
         ":forklift",
         ":fracture_demo",
         ":gwen",
+        ":gwen_gui_support",
         ":gyroscopic_demo",
         ":heightfield",
         ":importers",
+        ":inverse_dynamics",
+        ":inverse_kinematics",
         ":multi_body",
         ":multi_threaded_demo",
         ":multi_threading",
         ":planar_2d",
         ":raycast",
+        ":reduced_deformable_demo",
         ":rendering_examples",
         ":rigid_body",
         ":rolling_friction_demo",
@@ -875,31 +992,6 @@ cc_library(
         ":utils",
         ":vehicles",
         ":voronoi_fracture",
-    ],
-    defines = bullet_defines,
-    copts = bullet_copts,
-)
-
-cc_library(
-    name = "robot_simulator",
-
-    srcs = glob([
-        "examples/RobotSimulator/b3RobotSimulatorClientAPI.cpp",
-    ]),
-
-    hdrs = glob([
-        "examples/RobotSimulator/b3RobotSimulatorClientAPI.h",
-    ]),
-
-    strip_include_prefix = "examples",
-    deps = [
-        ":collision",
-        ":common_interfaces",
-        ":extras",
-        ":gwen",
-        ":gwen_gui_support",
-        ":shared_memory",
-        ":src",
     ],
     defines = bullet_defines,
     copts = bullet_copts,
