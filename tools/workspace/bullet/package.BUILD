@@ -139,15 +139,16 @@ cc_library(
 
 cc_library(
     name = "opengl_window",
-    srcs = [
-        "examples/OpenGLWindow/GLInstancingRenderer.cpp",
-        "examples/OpenGLWindow/GLPrimitiveRenderer.cpp",
-        "examples/OpenGLWindow/SimpleCamera.cpp",
-        "examples/OpenGLWindow/SimpleOpenGL2App.cpp",
-        "examples/OpenGLWindow/SimpleOpenGL3App.cpp",
-        "examples/OpenGLWindow/TwFonts.cpp",
-        "examples/OpenGLWindow/X11OpenGLWindow.cpp",
-    ],
+    srcs = glob([
+        # "examples/OpenGLWindow/GLInstancingRenderer.cpp",
+        # "examples/OpenGLWindow/GLPrimitiveRenderer.cpp",
+        # "examples/OpenGLWindow/SimpleCamera.cpp",
+        # "examples/OpenGLWindow/SimpleOpenGL2App.cpp",
+        # "examples/OpenGLWindow/SimpleOpenGL3App.cpp",
+        # "examples/OpenGLWindow/TwFonts.cpp",
+        # "examples/OpenGLWindow/X11OpenGLWindow.cpp",
+        "examples/OpenGLWindow/**/*.cpp",
+    ]),
     hdrs = glob([
         "examples/OpenGLWindow/**/*.h",
         # "examples/OpenGLWindow/GLInstanceRendererInternalData.h",
@@ -165,6 +166,9 @@ cc_library(
         # "examples/OpenGLWindow/X11OpenGLWindow.h",
     ]),
     defines = bullet_defines,
+    includes = [
+        # "examples",  # for TinyRenderer/main.cpp
+    ],
     deps = [
         ":common_interfaces",
         ":glad",
