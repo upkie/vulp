@@ -9,6 +9,6 @@ def palimpsest_repository():
     git_repository(
         name = "palimpsest",
         remote = "https://github.com/stephane-caron/palimpsest.git",
-        commit = "eda89d4f513b4a154534644bdc53a39c0137fe13",
-        shallow_since = "1650629043 +0200"
+        commit = "4ea456791079c5e44b00e3759f65450cce417e4b",
+        shallow_since = "1651657866 +0200"
     )
