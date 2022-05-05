@@ -229,6 +229,8 @@ cc_library(
         "examples/Utils/ChromeTraceUtil.h",
         "examples/Utils/b3BulletDefaultFileIO.h",
         "examples/Utils/b3Clock.h",
+        "examples/Utils/b3ERPCFMHelper.hpp",
+        "examples/Utils/b3ReferenceFrameHelper.hpp",
         "examples/Utils/b3ResourcePath.h",
     ],
     deps = [
@@ -852,8 +854,13 @@ cc_library(
     ],
     hdrs = [
         "examples/Evolution/NN3DWalkers.h",
+        "examples/Evolution/NN3DWalkersTimeWarpBase.h",
     ],
     deps = [
+        ":common_interfaces",
+        ":rendering_examples",
+        ":src",
+        ":utils",
     ],
     defines = bullet_defines,
     copts = bullet_copts,
