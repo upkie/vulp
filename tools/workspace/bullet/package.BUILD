@@ -12,6 +12,10 @@ bullet_copts = [
     "-Wno-format-overflow",
 ]
 
+bullet_defines = [
+    "BT_USE_DOUBLE_PRECISION",
+]
+
 cc_library(
     name = "src",
     srcs = glob([
@@ -33,7 +37,7 @@ cc_library(
         "src/btBulletCollisionCommon.h",
         "src/btBulletDynamicsCommon.h",
     ]),
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     includes = ["src"],
     copts = bullet_copts,
 )
@@ -47,7 +51,7 @@ cc_library(
         "examples/ThirdPartyLibs/glad/**/*.h",
     ]),
     strip_include_prefix = "examples/ThirdPartyLibs/glad",
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -63,7 +67,7 @@ cc_library(
         ":glad",
     ],
     includes = ["examples/ThirdPartyLibs"],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -82,7 +86,7 @@ cc_library(
     deps = [
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -103,7 +107,7 @@ cc_library(
         "examples/CommonInterfaces/CommonRigidBodyBase.h",
         "examples/CommonInterfaces/CommonWindowInterface.h",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -112,7 +116,7 @@ cc_library(
     srcs = glob(["examples/ThirdPartyLibs/stb_image/*.cpp"]),
     hdrs = glob(["examples/ThirdPartyLibs/stb_image/*.h"]),
     includes = ["examples/ThirdPartyLibs"],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -143,7 +147,7 @@ cc_library(
         # "examples/OpenGLWindow/TwFonts.h",
         # "examples/OpenGLWindow/X11OpenGLWindow.h",
     ]),
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     deps = [
         ":common_interfaces",
         ":glad",
@@ -166,7 +170,7 @@ cc_library(
         ":src",
     ],
     strip_include_prefix = "examples/ExampleBrowser",
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -180,7 +184,7 @@ cc_library(
     deps = [
         ":common_interfaces",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -197,7 +201,7 @@ cc_library(
     deps = [
         ":common_interfaces",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -217,7 +221,7 @@ cc_library(
     deps = [
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -286,7 +290,7 @@ cc_library(
         ":utils",
         ":wavefront",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -311,7 +315,7 @@ cc_library(
         ":src",
         ":utils",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -343,7 +347,7 @@ cc_library(
         ":tinyxml2",
         ":wavefront",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -352,15 +356,19 @@ cc_library(
     srcs = [
         "examples/MultiThreading/b3PosixThreadSupport.cpp",
         "examples/MultiThreading/b3ThreadSupportInterface.cpp",
+        "examples/MultiThreading/MultiThreadingExample.cpp",
     ],
     hdrs = [
         "examples/MultiThreading/b3PosixThreadSupport.h",
         "examples/MultiThreading/b3ThreadSupportInterface.h",
+        "examples/MultiThreading/MultiThreadingExample.h",
     ],
     deps = [
+        ":common_interfaces",
+        ":rendering_examples",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -376,7 +384,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -392,7 +400,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -405,7 +413,7 @@ cc_library(
     ],
     deps = [
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -421,7 +429,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -438,7 +446,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -458,7 +466,7 @@ cc_library(
         ":src",
         ":utils",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -477,7 +485,7 @@ cc_library(
         ":multi_threaded_demo",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -494,7 +502,7 @@ cc_library(
         ":rendering_examples",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -504,17 +512,19 @@ cc_library(
         "examples/Constraints/ConstraintDemo.cpp",
         "examples/Constraints/ConstraintPhysicsSetup.cpp",
         "examples/Constraints/Dof6Spring2Setup.cpp",
+        "examples/Constraints/TestHingeTorque.cpp",
     ],
     hdrs = [
         "examples/Constraints/ConstraintDemo.h",
         "examples/Constraints/ConstraintPhysicsSetup.h",
         "examples/Constraints/Dof6Spring2Setup.h",
+        "examples/Constraints/TestHingeTorque.h",
     ],
     deps = [
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -543,7 +553,7 @@ cc_library(
         ":src",
         ":utils",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -562,7 +572,7 @@ cc_library(
         ":opengl_window",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -582,7 +592,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -600,7 +610,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -616,7 +626,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -632,7 +642,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -648,7 +658,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -664,7 +674,7 @@ cc_library(
         ":common_interfaces",
         ":src",
     ],
-    defines = ["BT_USE_DOUBLE_PRECISION"],
+    defines = bullet_defines,
     copts = bullet_copts,
 )
 
@@ -675,6 +685,8 @@ cc_library(
         "examples/SoftDemo/bunny.inl",
         "examples/SoftDemo/cube.inl",
     ],
+    defines = bullet_defines,
+    copts = bullet_copts,
 )
 
 cc_library(
