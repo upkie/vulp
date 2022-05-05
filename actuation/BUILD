@@ -86,6 +86,7 @@ cc_library(
         "//actuation/bullet/plane",
     ],
     deps = [
+        "@bazel_tools//tools/cpp/runfiles",
         "@bullet",
         "@eigen",
         "@palimpsest",
