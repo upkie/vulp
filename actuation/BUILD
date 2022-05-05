@@ -82,6 +82,9 @@ cc_library(
     srcs = [
         "BulletInterface.cpp",
     ],
+    data = [
+        "//actuation/bullet/plane",
+    ],
     deps = [
         "@bullet",
         "@eigen",
