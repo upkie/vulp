@@ -92,6 +92,7 @@ cc_library(
         "@vulp//actuation:interface",
         "@vulp//utils:synchronous_clock",
     ],
+    include_prefix = "vulp/actuation",
 )
 
 cc_library(
