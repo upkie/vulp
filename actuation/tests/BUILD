@@ -28,7 +28,9 @@ cc_test(
 
 cc_test(
     name = "mock_interface_test",
-    srcs = ["MockInterfaceTest.cpp"],
+    srcs = [
+        "MockInterfaceTest.cpp",
+    ],
     deps = [
         "//actuation:mock_interface",
         ":test_common",
@@ -47,6 +49,21 @@ cc_test(
     deps = [
         "//actuation:bullet_utils",
         "@bazel_tools//tools/cpp/runfiles",
+        "@googletest//:main",
+    ],
+)
+
+cc_test(
+    name = "bullet_interface_test",
+    srcs = [
+        "BulletInterfaceTest.cpp",
+    ],
+    data = [
+        "//models/upkie_description",
+    ],
+    deps = [
+        "//actuation:bullet_interface",
+        ":test_common",
         "@googletest//:main",
     ],
 )
