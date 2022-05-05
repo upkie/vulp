@@ -4,12 +4,13 @@
 
 package(default_visibility = ["//visibility:public"])
 
-# Disable common Bullet warnings (we are users, not developers)
+# Disable Bullet warnings
 bullet_copts = [
     "-Wno-all",
     "-Wno-error=unused-but-set-variable",
     "-Wno-error=unused-variable",
     "-Wno-format-overflow",
+    "-Wno-format-truncation",
 ]
 
 bullet_defines = [
@@ -134,9 +135,15 @@ cc_library(
 
 cc_library(
     name = "stb_image",
-    srcs = glob(["examples/ThirdPartyLibs/stb_image/*.cpp"]),
-    hdrs = glob(["examples/ThirdPartyLibs/stb_image/*.h"]),
-    includes = ["examples/ThirdPartyLibs"],
+    srcs = glob([
+        "examples/ThirdPartyLibs/stb_image/*.cpp",
+    ]),
+    hdrs = glob([
+        "examples/ThirdPartyLibs/stb_image/*.h",
+    ]),
+    includes = [
+        "examples/ThirdPartyLibs",
+    ],
     defines = bullet_defines,
     copts = bullet_copts,
 )
@@ -144,35 +151,12 @@ cc_library(
 cc_library(
     name = "opengl_window",
     srcs = glob([
-        # "examples/OpenGLWindow/GLInstancingRenderer.cpp",
-        # "examples/OpenGLWindow/GLPrimitiveRenderer.cpp",
-        # "examples/OpenGLWindow/SimpleCamera.cpp",
-        # "examples/OpenGLWindow/SimpleOpenGL2App.cpp",
-        # "examples/OpenGLWindow/SimpleOpenGL3App.cpp",
-        # "examples/OpenGLWindow/TwFonts.cpp",
-        # "examples/OpenGLWindow/X11OpenGLWindow.cpp",
         "examples/OpenGLWindow/**/*.cpp",
     ]),
     hdrs = glob([
         "examples/OpenGLWindow/**/*.h",
-        # "examples/OpenGLWindow/GLInstanceRendererInternalData.h",
-        # "examples/OpenGLWindow/GLInstancingRenderer.h",
-        # "examples/OpenGLWindow/GLPrimInternalData.h",
-        # "examples/OpenGLWindow/GLPrimitiveRenderer.h",
-        # "examples/OpenGLWindow/LoadShader.h",
-        # "examples/OpenGLWindow/OpenGLInclude.h",
-        # "examples/OpenGLWindow/ShapeData.h",
-        # "examples/OpenGLWindow/SimpleCamera.h",
-        # "examples/OpenGLWindow/SimpleOpenGL2App.h",
-        # "examples/OpenGLWindow/SimpleOpenGL3App.h",
-        # "examples/OpenGLWindow/Shaders/*.h",
-        # "examples/OpenGLWindow/TwFonts.h",
-        # "examples/OpenGLWindow/X11OpenGLWindow.h",
     ]),
     defines = bullet_defines,
-    includes = [
-        # "examples",  # for TinyRenderer/main.cpp
-    ],
     deps = [
         ":common_interfaces",
         ":glad",
@@ -209,8 +193,12 @@ cc_library(
 
 cc_library(
     name = "tinyxml2",
-    srcs = glob(["examples/ThirdPartyLibs/tinyxml2/*.cpp"]),
-    hdrs = glob(["examples/ThirdPartyLibs/tinyxml2/*.h"]),
+    srcs = glob([
+        "examples/ThirdPartyLibs/tinyxml2/*.cpp",
+    ]),
+    hdrs = glob([
+        "examples/ThirdPartyLibs/tinyxml2/*.h",
+    ]),
     includes = [
         "examples/ThirdPartyLibs",
     ],
@@ -224,7 +212,8 @@ cc_library(
 cc_library(
     name = "wavefront",
     srcs = glob([
-        "examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp"]),
+        "examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp",
+    ]),
     hdrs = glob([
         "examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.h",
     ]),
@@ -911,7 +900,6 @@ cc_library(
 
 cc_library(
     name = "robot_simulator",
-
     srcs = glob([
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.cpp",
         "examples/ExampleBrowser/ExampleEntries.cpp",
@@ -956,7 +944,6 @@ cc_library(
         "examples/SharedMemory/plugins/tinyRendererPlugin/*.cpp",
         "examples/SoftDemo/SoftDemo.cpp",
     ]),
-
     hdrs = glob([
         "examples/ExampleBrowser/CollisionShape2TriangleMesh.h",
         "examples/ExampleBrowser/EmptyExample.h",
@@ -1018,7 +1005,6 @@ cc_library(
         "examples/SharedMemory/plugins/tinyRendererPlugin/*.h",
         "examples/SoftDemo/SoftDemo.h",
     ]),
-
     deps = [
         ":basic_demo",
         ":benchmarks",
@@ -1057,9 +1043,8 @@ cc_library(
         ":vehicles",
         ":voronoi_fracture",
     ],
-
     includes = [
-        "examples",  # for user code
+        "examples",                 # for user code
         "examples/ExampleBrowser",  # for SoftDemo.cpp
     ],
     defines = bullet_defines,
@@ -1072,5 +1057,4 @@ cc_library(
         ":robot_simulator",
         ":src",
     ],
-    # linkstatic = 1,
 )
