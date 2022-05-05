@@ -73,9 +73,29 @@ cc_library(
 )
 
 cc_library(
+    name = "bullet_interface",
+    hdrs = [
+        "BulletImuData.h",
+        "BulletInterface.h",
+        "bullet_utils.h",
+    ],
+    srcs = [
+        "BulletInterface.cpp",
+    ],
+    deps = [
+        "@bullet",
+        "@eigen",
+        "@palimpsest",
+        "@vulp//actuation:interface",
+        "@vulp//utils:synchronous_clock",
+    ],
+)
+
+cc_library(
     name = "actuation",
     deps = [
         ":mock_interface",
+        ":bullet_interface",
     ],
 )
 
