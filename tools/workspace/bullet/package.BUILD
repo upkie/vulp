@@ -247,7 +247,6 @@ cc_library(
     ],
     hdrs = [
         "examples/Utils/ChromeTraceUtil.h",
-        "examples/Utils/RobotLoggingUtil.h",
         "examples/Utils/b3BulletDefaultFileIO.h",
         "examples/Utils/b3Clock.h",
         "examples/Utils/b3ERPCFMHelper.hpp",
@@ -895,6 +894,22 @@ cc_library(
 )
 
 cc_library(
+    name = "robot_logging_util",
+    srcs = [
+        "examples/Utils/RobotLoggingUtil.cpp",
+    ],
+    hdrs = [
+        "examples/Utils/RobotLoggingUtil.h",
+    ],
+    deps = [
+        ":importers",
+        ":src",
+    ],
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
+cc_library(
     name = "robot_simulator",
 
     srcs = glob([
@@ -913,22 +928,25 @@ cc_library(
         "examples/SharedMemory/GraphicsServerExample.cpp",
         "examples/SharedMemory/IKTrajectoryHelper.cpp",
         "examples/SharedMemory/InProcessMemory.cpp",
+        "examples/SharedMemory/PhysicsClient.cpp",
         "examples/SharedMemory/PhysicsClientC_API.cpp",
         "examples/SharedMemory/PhysicsClientExample.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory2_C_API.cpp",
         "examples/SharedMemory/PhysicsClientSharedMemory_C_API.cpp",
         "examples/SharedMemory/PhysicsDirect.cpp",
+        "examples/SharedMemory/PhysicsDirectC_API.cpp",
+        "examples/SharedMemory/PhysicsLoopBack.cpp",
         "examples/SharedMemory/PhysicsLoopBackC_API.cpp",
         "examples/SharedMemory/PhysicsServer.cpp",
         "examples/SharedMemory/PhysicsServerCommandProcessor.cpp",
         "examples/SharedMemory/PhysicsServerExample.cpp",
-        "examples/SharedMemory/PhysicsServerExampleBullet2.cpp",  # needed
+        "examples/SharedMemory/PhysicsServerExampleBullet2.cpp",
         "examples/SharedMemory/PhysicsServerSharedMemory.cpp",
         "examples/SharedMemory/PosixSharedMemory.cpp",
         "examples/SharedMemory/RemoteGUIHelper.cpp",
         "examples/SharedMemory/SharedMemoryCommandProcessor.cpp",
-        "examples/SharedMemory/SharedMemoryInProcessPhysicsC_API.cpp",  # needed
+        "examples/SharedMemory/SharedMemoryInProcessPhysicsC_API.cpp",
         "examples/SharedMemory/Win32SharedMemory.cpp",
         "examples/SharedMemory/b3PluginManager.cpp",
         "examples/SharedMemory/b3RobotSimulatorClientAPI_NoDirect.cpp",
@@ -1030,6 +1048,7 @@ cc_library(
         ":reduced_deformable_demo",
         ":rendering_examples",
         ":rigid_body",
+        ":robot_logging_util",
         ":rolling_friction_demo",
         ":src",
         ":tiny_renderer",
@@ -1038,6 +1057,7 @@ cc_library(
         ":vehicles",
         ":voronoi_fracture",
     ],
+
     includes = [
         "examples",  # for user code
         "examples/ExampleBrowser",  # for SoftDemo.cpp
