@@ -4,7 +4,7 @@
 
 package(default_visibility = ["//visibility:public"])
 
-# Disable common Bullet warnings
+# Disable common Bullet warnings (we are users, not developers)
 bullet_copts = [
     "-Wno-all",
     "-Wno-error=unused-but-set-variable",
@@ -110,6 +110,10 @@ cc_library(
     strip_include_prefix = "examples/ThirdPartyLibs/glad",
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = [
+        "-ldl",
+        "-lm",
+    ],
 )
 
 cc_library(
