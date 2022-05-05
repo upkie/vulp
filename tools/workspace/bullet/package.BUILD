@@ -449,6 +449,8 @@ cc_library(
         "examples/GyroscopicDemo/GyroscopicSetup.h",
     ],
     deps = [
+        ":common_interfaces",
+        ":src",
     ],
     defines = bullet_defines,
     copts = bullet_copts,
