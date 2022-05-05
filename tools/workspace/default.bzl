@@ -3,6 +3,9 @@
 # Copyright 2022 Stéphane Caron
 
 load("//tools/workspace/bullet:repository.bzl", "bullet_repository")
+load("//tools/workspace/bullet_pc:repository.bzl", "bullet_pc_repository")
+load("//tools/workspace/bullet_pc_robotics:repository.bzl", "bullet_pc_robotics_repository")
+load("//tools/workspace/bullet_pc_robotics_gui:repository.bzl", "bullet_pc_robotics_gui_repository")
 load("//tools/workspace/eigen:repository.bzl", "eigen_repository")
 load("//tools/workspace/fmt:repository.bzl", "fmt_repository")
 load("//tools/workspace/googletest:repository.bzl", "googletest_repository")
@@ -21,6 +24,9 @@ def add_default_repositories():
     be loaded and called from a WORKSPACE file.
     """
     bullet_repository()
+    bullet_pc_repository()
+    bullet_pc_robotics_repository()
+    bullet_pc_robotics_gui_repository()
     eigen_repository()
     fmt_repository()
     googletest_repository()
