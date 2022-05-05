@@ -14,6 +14,10 @@ bullet_copts = [
 
 bullet_defines = [
     "BT_USE_DOUBLE_PRECISION",
+    "DYNAMIC_LOAD_X11_FUNCTIONS=1",
+    "GLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1",
+    "GLEW_INIT_OPENGL11_FUNCTIONS=1",
+    "GLEW_STATIC",
 ]
 
 cc_library(
