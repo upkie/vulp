@@ -102,7 +102,7 @@ cc_library(
 cc_library(
     name = "glad",
     srcs = glob([
-        "examples/ThirdPartyLibs/glad/**/*.cpp",
+        "examples/ThirdPartyLibs/glad/**/*.c",
     ]),
     hdrs = glob([
         "examples/ThirdPartyLibs/glad/**/*.h",
