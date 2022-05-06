@@ -32,8 +32,12 @@ Joystick::~Joystick() {
 }
 
 void Joystick::read_event() {
+  if (fd_ < 0) {
+    return;
+  }
+
   ssize_t bytes = ::read(fd_, &event_, sizeof(event_));
-  if (bytes != sizeof(event_)) {  // no input or fd_ < 0
+  if (bytes != sizeof(event_)) {  // no input
     return;
   }
 

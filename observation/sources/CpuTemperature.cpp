@@ -20,12 +20,19 @@ namespace vulp::observation::sources {
 
 CpuTemperature::CpuTemperature() : has_warned_(false) {
   fd_ = ::open("/sys/class/thermal/thermal_zone0/temp", O_RDONLY | O_NONBLOCK);
+  if (fd_ < 0) {
+    spdlog::warn("CPU temperature observation disabled: file not found");
+  }
   ::memset(buffer_, 0, sizeof(buffer_));
 }
 
 CpuTemperature::~CpuTemperature() { ::close(fd_); }
 
 void CpuTemperature::write(Dictionary& observation) {
+  if (fd_ < 0) {
+    return;
+  }
+
   ssize_t size = ::pread(fd_, buffer_, kCpuTemperatureBufferSize, 0);
   if (size <= 0) {
     spdlog::warn("Read {} bytes from temperature file", size);
