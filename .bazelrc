@@ -1,5 +1,7 @@
 # Bazel configurations
 
+## Host platform
+
 build --compilation_mode=fastbuild
 build --compiler=compiler
 build --copt="-Werror=return-type"
@@ -24,7 +26,19 @@ test --cxxopt=-std=c++17
 test --output_groups=+mypy
 test --test_output=errors
 
-# Run linter only, not unit tests
-# Usage: bazel test --config lint //...
+# Run linter only (usage: bazel test --config lint //...)
 test:lint --build_tests_only
 test:lint --test_tag_filters=lint
+
+## Target platform (Raspberry Pi)
+
+build:pi --compilation_mode=opt
+build:pi --compiler=clang
+build:pi --cpu=armeabihf
+build:pi --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
+
+test:pi --compilation_mode=opt
+test:pi --compiler=clang
+test:pi --cpu=armeabihf
+test:pi --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
+test:pi --test_output=errors

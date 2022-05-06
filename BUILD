@@ -11,4 +11,11 @@ exports_files([
     ".clang-format",
 ])
 
+config_setting(
+    name = "pi_config",
+    values = {
+        "cpu": "armeabihf",
+    }
+)
+
 add_lint_tests()
