@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-#include "vulp/observation/CpuTemperature.h"
+#include "vulp/observation/sources/CpuTemperature.h"
 
-namespace vulp::observation {
+namespace vulp::observation::sources {
 
 CpuTemperature::CpuTemperature() : has_warned_(false) {
   fd_ = ::open("/sys/class/thermal/thermal_zone0/temp", O_RDONLY | O_NONBLOCK);
@@ -54,4 +54,4 @@ void CpuTemperature::check_temperature_warning(
   }
 }
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::sources

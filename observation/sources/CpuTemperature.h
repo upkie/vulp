@@ -20,7 +20,7 @@
 
 #include "vulp/observation/Source.h"
 
-namespace vulp::observation {
+namespace vulp::observation::sources {
 
 //! Characters required to read the temperature in [mC] from the kernel.
 constexpr unsigned kCpuTemperatureBufferSize = 12;
@@ -63,4 +63,4 @@ class CpuTemperature : public Source {
   bool has_warned_;
 };
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::sources

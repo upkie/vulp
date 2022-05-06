@@ -11,12 +11,13 @@ cc_library(
     hdrs = ["CpuTemperature.h"],
     srcs = ["CpuTemperature.cpp"],
     deps = [
-        "@vulp//observation:source",
+        "//observation:source",
     ],
+    include_prefix = "vulp/observation/sources",
 )
 
 cc_library(
-    name = "observers",
+    name = "sources",
     deps = [
         ":cpu_temperature",
     ],
