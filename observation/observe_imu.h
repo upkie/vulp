@@ -26,13 +26,12 @@
 
 namespace vulp::observation {
 
-using palimpsest::Dictionary;
-
 /*! Observe the orientation of the IMU and its derivatives.
  *
  * \param[out] observation Observation dictionary.
  * \param[in] imu_data IMU data filtered by the pi3hat.
  */
-void observe_imu(Dictionary& observation, const actuation::ImuData& imu_data);
+void observe_imu(palimpsest::Dictionary& observation,
+                 const actuation::ImuData& imu_data);
 
 }  // namespace vulp::observation

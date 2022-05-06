@@ -16,6 +16,8 @@
 
 #include "vulp/observation/observe_imu.h"
 
+using palimpsest::Dictionary;
+
 namespace vulp::observation {
 
 void observe_imu(Dictionary& observation, const actuation::ImuData& imu_data) {

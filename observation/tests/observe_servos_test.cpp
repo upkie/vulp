@@ -23,9 +23,11 @@
 #include "gtest/gtest.h"
 #include "vulp/actuation/moteus/ServoReply.h"
 
-namespace vulp::observation {
+namespace moteus = vulp::actuation::moteus;
 
-namespace moteus = actuation::moteus;
+using palimpsest::Dictionary;
+
+namespace vulp::observation {
 
 TEST(Servo, ReadTorques) {
   Dictionary observation;
