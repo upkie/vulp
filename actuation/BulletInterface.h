@@ -71,10 +71,13 @@ class BulletInterface : public Interface {
 
     /*! Value of argv[0] used to locate runfiles (e.g. plane.urdf) in Bazel.
      *
-     * This value helps because Bazel does not seem to set the
+     * This value helps find runfiles because Bazel does not seem to set the
      * RUNFILES_MANIFEST_FILE environment variable from cc_binary rules,
-     * although it does that from py_binary rules that depend on
-     * "@rules_python//python/runfiles". The following issues are related:
+     * although in a similar context it does set it from py_binary rules that
+     * depend on "@rules_python//python/runfiles". When RUNFILES_MANIFEST_FILE
+     * is unset, knowing argv[0] triggers an alternative way to find runfiles.
+     *
+     * The following issues are related:
      *
      * https://github.com/bazelbuild/bazel/issues/4586
      * https://github.com/bazelbuild/bazel/issues/7994
