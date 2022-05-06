@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "vulp/observation/Joystick.h"
+#include "vulp/observation/sources/Joystick.h"
 
 namespace vulp::observation::sources {
 
