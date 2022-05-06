@@ -17,9 +17,20 @@ cc_library(
 )
 
 cc_library(
+    name = "joystick",
+    hdrs = ["Joystick.h"],
+    srcs = ["Joystick.cpp"],
+    deps = [
+        "//observation:source",
+    ],
+    include_prefix = "vulp/observation/sources",
+)
+
+cc_library(
     name = "sources",
     deps = [
         ":cpu_temperature",
+        ":joystick",
     ],
 )
 
