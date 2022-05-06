@@ -11,6 +11,9 @@ BAZEL_VERSION_SHA_PI = "02fcc51686a2f7b360a629747134d62dec885012454fac4c8634fc52
 load("//tools/workspace:default.bzl", "add_default_repositories")
 add_default_repositories()
 
+load("@pi3hat//tools/workspace:default.bzl", add_pi3hat_repositories = "add_default_repositories")
+add_pi3hat_repositories()
+
 load("@mypy_integration//repositories:repositories.bzl", mypy_integration_repositories = "repositories")
 mypy_integration_repositories()
 
