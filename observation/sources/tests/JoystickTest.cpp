@@ -15,17 +15,14 @@
  */
 
 #include "gtest/gtest.h"
-#include "vulp/observation/sources/CpuTemperature.h"
+#include "vulp/observation/sources/Joystick.h"
 
 namespace vulp::observation::sources {
 
-TEST(CpuTemperature, WriteOnce) {
-  CpuTemperature cpu_temperature;
+TEST(Joystick, WriteOnce) {
+  Joystick joystick;
   Dictionary observation;
-  cpu_temperature.write(observation);
-  double temperature = observation(cpu_temperature.prefix());
-  ASSERT_GT(temperature, 0.0);
-  ASSERT_LT(temperature, 100.0);
+  ASSERT_NO_THROW(joystick.write(observation));
 }
 
 }  // namespace vulp::observation::sources
