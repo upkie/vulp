@@ -31,11 +31,24 @@ cc_library(
 )
 
 cc_library(
-    name = "observation",
+    name = "observer_pipeline",
+    hdrs = ["ObserverPipeline.h"],
+    srcs = ["ObserverPipeline.cpp"],
     deps = [
         ":observer_error",
         ":observer",
         ":source",
+    ],
+    include_prefix = "vulp/observation",
+)
+
+cc_library(
+    name = "observation",
+    deps = [
+        ":observer",
+        ":observer_error",
+        ":source",
+        ":observer_pipeline",
     ],
 )
 
