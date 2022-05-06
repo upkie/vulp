@@ -18,4 +18,4 @@ load("@mypy_integration//:config.bzl", "mypy_configuration")
 mypy_configuration("//tools/mypy:mypy.ini")
 
 load("@mypy_integration//repositories:deps.bzl", mypy_integration_deps = "deps")
-mypy_integration_deps(mypy_requirements_file="//tools/mypy:version.txt")
+mypy_integration_deps(mypy_requirements_file = "//tools/mypy:version.txt")
