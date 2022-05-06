@@ -18,7 +18,7 @@
 
 #include <palimpsest/KeyError.h>
 
-#include "vulp/observation/exceptions.h"
+#include "vulp/observation/ObserverError.h"
 
 namespace vulp::observation {
 
