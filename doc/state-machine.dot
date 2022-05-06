@@ -1,0 +1,46 @@
+/*
+ * Copyright 2022 Stéphane Caron
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+digraph spine_state_machine {
+    bgcolor="transparent"
+    rankdir="LR";
+
+    node [shape=point, label=""] initial, terminal;
+    node [shape=square];
+
+    kSendStops[label="stop"];
+    kReset[label="reset"];
+    kIdle[label="idle"];
+    kObserve[label="observe"];
+    kAct[label="act"];
+    kShutdown[label="shutdown"];
+
+    initial->kSendStops[label="Initialization"];
+    kSendStops->kReset[label="begin [req=start, stop_cycles>=5]"];
+    kSendStops->kSendStops[label="begin [req!=reset]"];
+    kSendStops->kSendStops[label="end"];
+    kSendStops->kShutdown[label="SIGINT", style=dashed];
+    kReset->kIdle[label="end"];
+    kIdle->kObserve[label="begin [req=obs]"];
+    kIdle->kAct[label="begin [req=act]"];
+    kIdle->kSendStops[label="begin [req=stop]"];
+    kIdle->kShutdown[label="SIGINT", style=dashed];
+    kObserve->kIdle[label="end"];
+    kObserve->kShutdown[label="SIGINT", style=dashed];
+    kAct->kIdle[label="end"];
+    kAct->kShutdown[label="SIGINT", style=dashed];
+    kShutdown->terminal[label="stop_cycles>=5"];
+}
