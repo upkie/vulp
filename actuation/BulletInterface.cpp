@@ -33,7 +33,7 @@ std::string find_plane_urdf() {
   std::unique_ptr<Runfiles> runfiles(Runfiles::Create(argv0, &error));
   if (runfiles == nullptr) {
     throw std::runtime_error(
-        "Could not retrieve the package path to plane.urdf");
+        "Could not retrieve the package path to plane.urdf: " + error);
   }
   return runfiles->Rlocation("vulp/actuation/bullet/plane/plane.urdf");
 }
