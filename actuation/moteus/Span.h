@@ -17,7 +17,7 @@
  * permission notice:
  *
  *     Copyright 2019-2021 Josh Pieper, jjp@pobox.com.
- *     License: Apache-2.0
+ *     License: Apache-2.0 (see licenses/LICENSE-pi3hat)
  */
 
 #pragma once

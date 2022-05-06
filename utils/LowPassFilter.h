@@ -18,7 +18,7 @@
  *
  *     LowPassFilter classes of lipm_walking_controller
  *     Copyright (c) 2018-2019, CNRS-UM LIRMM
- *     License: BSD-2-Clause
+ *     License: BSD-2-Clause (see licenses/LICENSE-lipm_walking_controller)
  */
 
 #pragma once

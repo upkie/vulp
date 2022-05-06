@@ -6,7 +6,7 @@
 # notice:
 #
 #     Copyright 2012-2016 Robot Locomotion Group @ CSAIL
-#     License: BSD-3-Clause
+#     License: BSD-3-Clause (see licenses/LICENSE-drake)
 
 def path(repo_ctx, additional_search_paths = []):
     """

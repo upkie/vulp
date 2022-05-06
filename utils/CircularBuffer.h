@@ -17,8 +17,8 @@
  * permission notice:
  *
  *     CircularBuffer class of mc_rtc
- *     Copyright 2015-2019 CNRS-UM LIRMM, CNRS-AIST JRL
- *     License: BSD-2-Clause
+ *     Copyright 2012-2019 CNRS-UM LIRMM, CNRS-AIST JRL
+ *     License: BSD-2-Clause (see licenses/LICENSE-mc_rtc)
  */
 
 #pragma once

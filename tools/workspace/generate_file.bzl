@@ -6,7 +6,7 @@
 # notice:
 #
 #     Copyright 2012-2016 Robot Locomotion Group @ CSAIL
-#     License: BSD-3-Clause
+#     License: BSD-3-Clause (see licenses/LICENSE-drake)
 
 def _generate_file_impl(ctx):
     out = ctx.actions.declare_file(ctx.label.name)
