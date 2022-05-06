@@ -97,10 +97,30 @@ cc_library(
 )
 
 cc_library(
+    name = "pi3hat_interface",
+    hdrs = [
+        "Pi3HatInterface.h",
+    ],
+    srcs = [
+        "Pi3HatInterface.cpp",
+    ],
+    deps = [
+        "//utils:realtime",
+        ":interface",
+        "@pi3hat//lib/cpp/mjbots/pi3hat:libpi3hat",
+    ] + select({
+        "//:pi_config": ["@org_llvm_libcxx//:libcxx"],
+        "//conditions:default": [],
+    }),
+    include_prefix = "vulp/actuation",
+)
+
+cc_library(
     name = "actuation",
     deps = [
-        ":mock_interface",
         ":bullet_interface",
+        ":mock_interface",
+        ":pi3hat_interface",
     ],
 )
 
