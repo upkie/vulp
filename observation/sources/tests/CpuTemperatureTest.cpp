@@ -25,7 +25,7 @@ TEST(CpuTemperature, WriteOnce) {
   ASSERT_NO_THROW(cpu_temperature.write(observation));
 
   // Write may have failed, e.g. in GitHub Actions
-  if (observation.has(cpu_temperature.prefix()) {
+  if (observation.has(cpu_temperature.prefix())) {
     double temperature = observation(cpu_temperature.prefix());
     ASSERT_GT(temperature, 0.0);
     ASSERT_LT(temperature, 100.0);
