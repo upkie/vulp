@@ -22,10 +22,14 @@ namespace vulp::observation::sources {
 TEST(CpuTemperature, WriteOnce) {
   CpuTemperature cpu_temperature;
   Dictionary observation;
-  cpu_temperature.write(observation);
-  double temperature = observation(cpu_temperature.prefix());
-  ASSERT_GT(temperature, 0.0);
-  ASSERT_LT(temperature, 100.0);
+  ASSERT_NO_THROW(cpu_temperature.write(observation));
+
+  // Write may have failed, e.g. in GitHub Actions
+  if (observation.has(cpu_temperature.prefix()) {
+    double temperature = observation(cpu_temperature.prefix());
+    ASSERT_GT(temperature, 0.0);
+    ASSERT_LT(temperature, 100.0);
+  }
 }
 
 }  // namespace vulp::observation::sources
