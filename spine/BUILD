@@ -12,7 +12,19 @@ cc_library(
         "stop_commands.h",
     ],
     deps = [
-        "@vulp//actuation/moteus",
+        "//actuation/moteus",
+    ],
+    include_prefix = "vulp/spine",
+)
+
+cc_library(
+    name = "position_commands",
+    hdrs = [
+        "position_commands.h",
+    ],
+    deps = [
+        "@palimpsest",
+        "//actuation/moteus",
     ],
     include_prefix = "vulp/spine",
 )
