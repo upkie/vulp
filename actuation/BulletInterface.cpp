@@ -23,12 +23,11 @@
 #include "tools/cpp/runfiles/runfiles.h"
 #include "vulp/actuation/bullet_utils.h"
 
+using bazel::tools::cpp::runfiles::Runfiles;
+
 namespace vulp::actuation {
 
-std::string find_plane_urdf() {
-  using bazel::tools::cpp::runfiles::Runfiles;
-
-  const std::string argv0 = "";
+std::string find_plane_urdf(const std::string argv0) {
   std::string error;
   std::unique_ptr<Runfiles> runfiles(Runfiles::Create(argv0, &error));
   if (runfiles == nullptr) {
@@ -54,7 +53,7 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
   bullet_.configureDebugVisualizer(COV_ENABLE_SHADOWS, 0);
   bullet_.setGravity(btVector3(0, 0, -9.81));
   bullet_.setRealTimeSimulation(false);  // making sure
-  bullet_.loadURDF(find_plane_urdf());
+  bullet_.loadURDF(find_plane_urdf(params.argv0));
 
   // Load robot model
   robot_ = bullet_.loadURDF(params.urdf_path);

@@ -69,6 +69,18 @@ class BulletInterface : public Interface {
       }
     }
 
+    /*! Value of argv[0] used to locate runfiles (e.g. plane.urdf) in Bazel.
+     *
+     * This value helps because Bazel does not seem to set the
+     * RUNFILES_MANIFEST_FILE environment variable from cc_binary rules,
+     * although it does that from py_binary rules that depend on
+     * "@rules_python//python/runfiles". The following issues are related:
+     *
+     * https://github.com/bazelbuild/bazel/issues/4586
+     * https://github.com/bazelbuild/bazel/issues/7994
+     */
+    std::string argv0 = "";
+
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
 
