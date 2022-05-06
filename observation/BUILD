@@ -8,14 +8,35 @@ package(default_visibility = ["//visibility:public"])
 
 cc_library(
     name = "observer_error",
-    hdrs = ["ObserverError.h"],
+    hdrs = [
+        "ObserverError.h",
+    ],
+    include_prefix = "vulp/observation",
+)
+
+cc_library(
+    name = "observe_imu",
+    hdrs = [
+        "observe_imu.h",
+    ],
+    srcs = [
+        "observe_imu.cpp",
+    ],
+    deps = [
+        "@palimpsest",
+        "@vulp//actuation:imu_data",
+    ],
     include_prefix = "vulp/observation",
 )
 
 cc_library(
     name = "observe_servos",
-    hdrs = ["observe_servos.h"],
-    srcs = ["observe_servos.cpp"],
+    hdrs = [
+        "observe_servos.h",
+    ],
+    srcs = [
+        "observe_servos.cpp",
+    ],
     deps = [
         "@palimpsest",
         "@vulp//actuation/moteus",
@@ -25,8 +46,12 @@ cc_library(
 
 cc_library(
     name = "observe_time",
-    hdrs = ["observe_time.h"],
-    srcs = ["observe_time.cpp"],
+    hdrs = [
+        "observe_time.h",
+    ],
+    srcs = [
+        "observe_time.cpp",
+    ],
     deps = [
         "@palimpsest",
     ],
@@ -35,7 +60,9 @@ cc_library(
 
 cc_library(
     name = "observer",
-    hdrs = ["Observer.h"],
+    hdrs = [
+        "Observer.h",
+    ],
     deps = [
         "@palimpsest",
     ],
@@ -44,7 +71,9 @@ cc_library(
 
 cc_library(
     name = "source",
-    hdrs = ["Source.h"],
+    hdrs = [
+        "Source.h",
+    ],
     deps = [
         "@palimpsest",
     ],
@@ -53,11 +82,15 @@ cc_library(
 
 cc_library(
     name = "observer_pipeline",
-    hdrs = ["ObserverPipeline.h"],
-    srcs = ["ObserverPipeline.cpp"],
+    hdrs = [
+        "ObserverPipeline.h",
+    ],
+    srcs = [
+        "ObserverPipeline.cpp",
+    ],
     deps = [
-        ":observer_error",
         ":observer",
+        ":observer_error",
         ":source",
     ],
     include_prefix = "vulp/observation",
@@ -66,12 +99,13 @@ cc_library(
 cc_library(
     name = "observation",
     deps = [
-        ":observer",
-        ":observer_error",
-        ":source",
+        ":observe_imu",
         ":observe_servos",
         ":observe_time",
+        ":observer",
+        ":observer_error",
         ":observer_pipeline",
+        ":source",
     ],
 )
 
