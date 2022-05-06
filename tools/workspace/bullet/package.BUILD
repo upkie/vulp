@@ -9,10 +9,10 @@ genrule(
     outs = ["compilation_mode.txt"],
     cmd  = """
     if [ $(COMPILATION_MODE) = dbg ]; then
-    echo '\033[33;1mWARNING:\033[0m Building Bullet in dbg compilation mode, this will be VERY slow!';
+    echo '\033[33;1mWARNING:\033[0m Building Bullet in dbg compilation mode, simulation will be VERY slow!';
     echo '\033[32mINFO:\033[0m Build Bullet with "-c opt" for better performance.';
     elif [ $(COMPILATION_MODE) = fastbuild ]; then
-    echo '\033[33;1mWARNING:\033[0m Building Bullet in fastbuild compilation mode, this will be slow.';
+    echo '\033[33;1mWARNING:\033[0m Building Bullet in fastbuild compilation mode, simulation will be slow.';
     echo '\033[32mINFO:\033[0m Build Bullet with "-c opt" for better performance.';
     elif [ $(COMPILATION_MODE) = opt ]; then
     echo '\033[32mINFO:\033[0m Building Bullet in opt compilation mode.';
