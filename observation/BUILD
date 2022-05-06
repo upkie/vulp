@@ -13,6 +13,16 @@ cc_library(
 )
 
 cc_library(
+    name = "observe_time",
+    hdrs = ["observe_time.h"],
+    srcs = ["observe_time.cpp"],
+    deps = [
+        "@palimpsest",
+    ],
+    include_prefix = "vulp/observation",
+)
+
+cc_library(
     name = "observer",
     hdrs = ["Observer.h"],
     deps = [
@@ -48,6 +58,7 @@ cc_library(
         ":observer",
         ":observer_error",
         ":source",
+        ":observe_time",
         ":observer_pipeline",
     ],
 )
