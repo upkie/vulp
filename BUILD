@@ -14,6 +14,13 @@ exports_files([
 config_setting(
     name = "pi_config",
     values = {
+        "cpu": "aarch64",
+    }
+)
+
+config_setting(
+    name = "pi32_config",
+    values = {
         "cpu": "armeabihf",
     }
 )

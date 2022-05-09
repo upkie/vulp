@@ -30,15 +30,28 @@ test --test_output=errors
 test:lint --build_tests_only
 test:lint --test_tag_filters=lint
 
-## Target platform (Raspberry Pi)
+## Target platform (64-bit Raspberry Pi OS)
 
 build:pi --compilation_mode=opt
 build:pi --compiler=clang
-build:pi --cpu=armeabihf
+build:pi --cpu=aarch64
 build:pi --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
 
 test:pi --compilation_mode=opt
 test:pi --compiler=clang
-test:pi --cpu=armeabihf
+test:pi --cpu=aarch64
 test:pi --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
 test:pi --test_output=errors
+
+## Target platform (32-bit Raspberry Pi OS)
+
+build:pi32 --compilation_mode=opt
+build:pi32 --compiler=clang
+build:pi32 --cpu=armeabihf
+build:pi32 --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
+
+test:pi32 --compilation_mode=opt
+test:pi32 --compiler=clang
+test:pi32 --cpu=armeabihf
+test:pi32 --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
+test:pi32 --test_output=errors
