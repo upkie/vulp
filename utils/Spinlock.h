@@ -38,10 +38,10 @@ class Spinlock {
         // See https://www.felixcloutier.com/x86/pause
         // This is a pause instruction + memory fence
         __builtin_ia32_pause();  // LCOV_EXCL_LINE
-#elif defined(__arm__)
+#elif defined(__arm__) || defined(__aarch64__)
         __asm__ __volatile__("yield");
 #else
-#error "What is the equivalent of PAUSE for this CPU architecture?"
+#error "What is the equivalent of an x86 PAUSE / ARM YIELD for this CPU?"
 #endif
       }
     }
