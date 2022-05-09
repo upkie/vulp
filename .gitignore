@@ -1,5 +1,6 @@
 *.mpack
 *.out
+__pycache__
 bazel-bin
 bazel-out
 bazel-testlogs
