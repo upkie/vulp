@@ -38,6 +38,7 @@ cc_library(
         "StateMachine.cpp",
     ],
     deps = [
+        ":agent_interface",
     ],
     include_prefix = "vulp/spine",
 )
