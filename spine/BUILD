@@ -29,4 +29,17 @@ cc_library(
     include_prefix = "vulp/spine",
 )
 
+cc_library(
+    name = "state_machine",
+    hdrs = [
+        "StateMachine.h",
+    ],
+    srcs = [
+        "StateMachine.cpp",
+    ],
+    deps = [
+    ],
+    include_prefix = "vulp/spine",
+)
+
 add_lint_tests(enable_clang_format_lint = True)
