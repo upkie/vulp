@@ -1,0 +1,67 @@
+/*
+ * Copyright 2022 Stéphane Caron
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#pragma once
+
+#include "vulp/spine/AgentInterface.h"
+#include "vulp/spine/protocol.h"
+
+namespace vulp::spine {
+
+//! States of the state machine.
+enum class State : uint32_t {
+  kSendStops = 0,
+  kReset = 1,
+  kIdle = 2,
+  kObserve = 3,
+  kAct = 4,
+  kShutdown = 5,
+  kOver = 6
+};
+
+//! Events that may trigger transitions between states.
+enum class Event : uint32_t {
+  kCycleBeginning = 0,
+  kCycleEnd = 1,
+  kInterrupt = 2,
+};
+
+/*! Name of a state.
+ *
+ * \param[in] state State to name.
+ */
+constexpr const char* state_name(const State& state) noexcept {
+  switch (state) {
+    case State::kSendStops:
+      return "State::kSendStops";
+    case State::kReset:
+      return "State::kReset";
+    case State::kIdle:
+      return "State::kIdle";
+    case State::kObserve:
+      return "State::kObserve";
+    case State::kAct:
+      return "State::kAct";
+    case State::kShutdown:
+      return "State::kShutdown";
+    case State::kOver:
+      return "State::kOver";
+    default:
+      return "?";
+  }
+}
+
+}  // namespace vulp::spine
