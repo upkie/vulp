@@ -64,4 +64,46 @@ constexpr const char* state_name(const State& state) noexcept {
   }
 }
 
+//! Spine state machine.
+class StateMachine {
+ public:
+  /*! Initialize state machine.
+   *
+   * \param[in] interface Interface to communicate with the agent.
+   */
+  explicit StateMachine(AgentInterface& interface) noexcept;
+
+  /*! Process a new event.
+   *
+   * \param[in] event New event.
+   */
+  void process_event(const Event& event) noexcept;
+
+  //! Get current state.
+  const State& state() const noexcept { return state_; }
+
+ private:
+  /*! Go to a target state, triggering entry instructions if applicable.
+   *
+   * \param[in] next_state Target state.
+   */
+  void enter_state(const State& next_state) noexcept;
+
+  //! Process Event::kCycleBeginning
+  void process_cycle_beginning();
+
+  //! Process Event::kCycleEnd
+  void process_cycle_end();
+
+ private:
+  //! Shared-memory interface to communicate with the agent.
+  AgentInterface& interface_;
+
+  //! Current state
+  State state_;
+
+  //! Cycle counter for startup and shutdown phases
+  unsigned stop_cycles_;
+};
+
 }  // namespace vulp::spine
