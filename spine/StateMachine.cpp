@@ -146,8 +146,7 @@ void StateMachine::process_cycle_end() {
     case State::kOver:
       break;
     default:
-      spdlog::error("Invalid FSM state '{}', shutting down...",
-                    state_name(state_));
+      spdlog::error("Invalid FSM state '{}', shutting down...", state_);
       enter_state(State::kShutdown);
       break;
   }
