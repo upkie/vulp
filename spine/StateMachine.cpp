@@ -169,7 +169,8 @@ void StateMachine::enter_state(const State& next_state) noexcept {
     case State::kOver:
       break;
     default:
-      spdlog::error("Cannot go to state '{}', shutting down...", state_);
+      spdlog::error("Cannot go to state '{}', shutting down...",
+                    state_name(state_));
       return enter_state(State::kShutdown);
   }
   state_ = next_state;
