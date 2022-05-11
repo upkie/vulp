@@ -66,6 +66,7 @@ cc_library(
     ],
     deps = [
         ":agent_interface",
+        "//utils:handle_interrupts",
     ],
     include_prefix = "vulp/spine",
 )
