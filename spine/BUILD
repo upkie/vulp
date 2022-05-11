@@ -30,6 +30,19 @@ cc_library(
 )
 
 cc_library(
+    name = "agent_interface",
+    hdrs = [
+        "AgentInterface.h",
+    ],
+    srcs = [
+        "AgentInterface.cpp",
+    ],
+    deps = [
+    ],
+    include_prefix = "vulp/spine",
+)
+
+cc_library(
     name = "state_machine",
     hdrs = [
         "StateMachine.h",
