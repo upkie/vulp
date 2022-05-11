@@ -38,6 +38,7 @@ cc_library(
         "AgentInterface.cpp",
     ],
     deps = [
+        "@spdlog",
     ],
     include_prefix = "vulp/spine",
 )
