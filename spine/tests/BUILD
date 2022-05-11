@@ -13,13 +13,14 @@ cc_test(
         "*.h",
     ]),
     deps = [
-        "//legacy/command_line",
-        "//vulp/spine:spine",
+        "//actuation:mock_interface",
+        "//spine:agent_interface",
+        "//spine:state_machine",
+        "//utils:random_string",
         "@googletest//:main",
         "@palimpsest",
-        "@vulp//actuation:mock_interface",
-        "@vulp//utils:random_string",
     ],
 )
+
 
 add_lint_tests(enable_clang_format_lint = True)
