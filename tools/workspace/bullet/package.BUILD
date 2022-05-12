@@ -27,6 +27,7 @@ bullet_copts = [
     "-Wno-error=unused-variable",
     "-Wno-format-overflow",
     "-Wno-format-truncation",
+    "-Wno-unused-result",
 ]
 
 bullet_defines = [
