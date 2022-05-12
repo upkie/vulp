@@ -14,6 +14,7 @@ cc_test(
     ]),
     deps = [
         "//actuation:mock_interface",
+        "//observation:observer_pipeline",
         "//spine:agent_interface",
         "//spine:position_commands",
         "//spine:state_machine",
