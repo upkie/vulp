@@ -75,6 +75,7 @@ py_library(
     name = "python",
     srcs = [
         "__init__.py",
+        "request.py",
         "serialize.py",
         "spine_error.py",
     ],
