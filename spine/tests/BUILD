@@ -15,7 +15,9 @@ cc_test(
     deps = [
         "//actuation:mock_interface",
         "//spine:agent_interface",
+        "//spine:position_commands",
         "//spine:state_machine",
+        "//spine:stop_commands",
         "//utils:random_string",
         "@googletest//:main",
         "@palimpsest",
