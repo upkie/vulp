@@ -71,4 +71,13 @@ cc_library(
     include_prefix = "vulp/spine",
 )
 
+py_library(
+    name = "python",
+    srcs = [
+        "__init__.py",
+        "serialize.py",
+        "spine_error.py",
+    ],
+)
+
 add_lint_tests(enable_clang_format_lint = True)

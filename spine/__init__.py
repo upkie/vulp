@@ -3,8 +3,10 @@
 #
 # Copyright 2022 Stéphane Caron
 
-from .spine_interface import SpineInterface
+from .spine_error import SpineError
+from .serialize import serialize
 
 __all__ = [
-    "SpineInterface",
+    "SpineError",
+    "serialize",
 ]
