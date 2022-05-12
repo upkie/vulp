@@ -17,7 +17,6 @@
 #pragma once
 
 #include "vulp/spine/AgentInterface.h"
-#include "vulp/spine/protocol.h"
 
 namespace vulp::spine {
 

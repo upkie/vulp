@@ -30,9 +30,9 @@ cc_library(
 )
 
 cc_library(
-    name = "protocol",
+    name = "request",
     hdrs = [
-        "protocol.h",
+        "Request.h",
     ],
     srcs = [
     ],
@@ -50,7 +50,7 @@ cc_library(
         "AgentInterface.cpp",
     ],
     deps = [
-        ":protocol",
+        ":request",
         "@spdlog",
     ],
     include_prefix = "vulp/spine",

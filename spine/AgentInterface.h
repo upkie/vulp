@@ -24,7 +24,7 @@
 #include <cstring>
 #include <string>
 
-#include "vulp/spine/protocol.h"
+#include "vulp/spine/Request.h"
 
 /*! Inter-process communication protocol with the spine.
  *
