@@ -21,7 +21,7 @@
 
 #include "vulp/observation/Observer.h"
 
-namespace vulp::observation {
+namespace vulp::observation::tests {
 
 using palimpsest::KeyError;
 
@@ -44,4 +44,4 @@ class SchwiftyObserver : public observation::Observer {
   bool throw_key_error = false;
 };
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::tests

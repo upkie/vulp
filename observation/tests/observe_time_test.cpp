@@ -18,7 +18,7 @@
 
 #include "gtest/gtest.h"
 
-namespace vulp::observation {
+namespace vulp::observation::tests {
 
 TEST(Time, ObserveTime) {
   Dictionary observation;
@@ -26,4 +26,4 @@ TEST(Time, ObserveTime) {
   ASSERT_GT(observation.get<double>("time"), 1634311511.42);
 }
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::tests

@@ -27,7 +27,7 @@ namespace moteus = vulp::actuation::moteus;
 
 using palimpsest::Dictionary;
 
-namespace vulp::observation {
+namespace vulp::observation::tests {
 
 TEST(Servo, ReadTorques) {
   Dictionary observation;
@@ -48,4 +48,4 @@ TEST(Servo, ReadTorques) {
   ASSERT_DOUBLE_EQ(observation("servo")("bar")("torque"), -10.);
 }
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::tests

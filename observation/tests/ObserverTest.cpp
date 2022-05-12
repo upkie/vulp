@@ -20,7 +20,7 @@
 #include "gtest/gtest.h"
 #include "vulp/observation/Observer.h"
 
-namespace vulp::observation {
+namespace vulp::observation::tests {
 
 TEST(Observer, BaseClassObservesNothing) {
   Observer observer;
@@ -31,4 +31,4 @@ TEST(Observer, BaseClassObservesNothing) {
   ASSERT_TRUE(observation.is_empty());
 }
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::tests

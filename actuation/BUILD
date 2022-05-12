@@ -19,13 +19,17 @@ cc_library(
 
 cc_library(
     name = "servo_layout",
-    hdrs = ["ServoLayout.h"],
+    hdrs = [
+        "ServoLayout.h",
+    ],
     include_prefix = "vulp/actuation",
 )
 
 cc_library(
     name = "resolution",
-    hdrs = ["resolution.h"],
+    hdrs = [
+        "resolution.h",
+    ],
     deps = [
         "//actuation/moteus",
     ],

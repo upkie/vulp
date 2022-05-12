@@ -21,7 +21,7 @@
 
 #include "vulp/observation/Observer.h"
 
-namespace vulp::observation {
+namespace vulp::observation::tests {
 
 //! Exception-throwing observer
 class ThrowingObserver : public observation::Observer {
@@ -31,4 +31,4 @@ class ThrowingObserver : public observation::Observer {
   }
 };
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::tests

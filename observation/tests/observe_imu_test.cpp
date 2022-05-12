@@ -28,7 +28,7 @@
 
 using palimpsest::Dictionary;
 
-namespace vulp::observation {
+namespace vulp::observation::tests {
 
 TEST(IMU, ReadOrientation) {
   actuation::ImuData imu_data;
@@ -43,4 +43,4 @@ TEST(IMU, ReadOrientation) {
                   .isApprox(imu_data.orientation_imu_in_world));
 }
 
-}  // namespace vulp::observation
+}  // namespace vulp::observation::tests
