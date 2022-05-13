@@ -71,6 +71,34 @@ cc_library(
     include_prefix = "vulp/spine",
 )
 
+cc_library(
+    name = "spine",
+    hdrs = [
+        "Spine.h",
+    ],
+    srcs = [
+        "Spine.cpp",
+    ],
+    linkopts = [
+        "-lrt",
+    ],
+    deps = [
+        "//actuation:imu_data",
+        "//actuation:interface",
+        "//logging:logger",
+        "//observation:observe_imu",
+        "//observation:observe_servos",
+        "//observation:observe_time",
+        "//observation:observer_pipeline",
+        "//utils:realtime",
+        "//utils:synchronous_clock",
+        ":position_commands",
+        ":state_machine",
+        ":stop_commands",
+    ],
+    include_prefix = "vulp/spine",
+)
+
 py_library(
     name = "python",
     srcs = [
