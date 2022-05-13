@@ -78,6 +78,7 @@ py_library(
         "request.py",
         "serialize.py",
         "spine_error.py",
+        "spine_interface.py",
     ],
 )
 
