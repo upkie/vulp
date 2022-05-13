@@ -25,5 +25,12 @@ cc_test(
     ],
 )
 
+py_test(
+    name = "spine_interface_test",
+    srcs = ["spine_interface_test.py"],
+    deps = [
+        "//spine:python",
+    ],
+)
 
 add_lint_tests(enable_clang_format_lint = True)
