@@ -18,6 +18,14 @@ clean:
 open:
 	firefox $(HTMLDIR)/index.html
 
+images/%.eps : figures/%.dot
+	dot $< -Teps -o $@
+
+images/%.svg : figures/%.dot
+	dot $< -Tsvg -o $@
+
+figures: images/state-machine.eps images/state-machine.svg
+
 upload: clean html
 	# rsync -auvz --delete-after $(HTMLDIR)/ $(REMOTEDIR)/
 	@echo "\n\tVulp is not released yet\n"
