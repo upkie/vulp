@@ -66,7 +66,26 @@ constexpr const char* state_name(const State& state) noexcept {
   }
 }
 
-//! Spine state machine.
+/*! Spine state machine.
+ *
+ * The overall specification of the state machine is summarized in the
+ * following diagram:
+ *
+ * \image html state-machine.svg
+ * \image latex state-machine.eps
+ *
+ * There are three possible events:
+ *
+ * - ``begin``: beginning of a control cycle,
+ * - ``end``: end of a control cycle.
+ * - ``SIGINT``: the process received an interrupt signal.
+ *
+ * Guards, indicated between brackets, may involve two variables:
+ *
+ * - ``req``: the current request from the agent.
+ * - ``stop_cycles``: the number of stop commands cycled in the current state
+ *   (only available in "stop" and "shutdown" states).
+ */
 class StateMachine {
  public:
   /*! Initialize state machine.

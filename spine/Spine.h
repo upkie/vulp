@@ -40,12 +40,15 @@ namespace vulp::spine {
 
 constexpr size_t kMebibytes = 1 << 20;
 
-/*! Main loop transmitting actions and observations back and forth.
+/*! Loop transmitting actions to the actuation and observations to the agent.
  *
  * The spine acts as the intermediary between the actuation interface (e.g.
  * moteus servos connected to the CAN-FD bus) and an agent communicating over
  * shared memory (the agent interface). It packs observations to the agent from
  * actuation replies and commands to the actuation from agent actions.
+ *
+ * The spine processes requests at the beginning and end of each control cycle
+ * according to its StateMachine.
  */
 class Spine {
  public:
