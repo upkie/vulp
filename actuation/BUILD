@@ -118,7 +118,8 @@ cc_library(
         ":interface",
         "@pi3hat//lib/cpp/mjbots/pi3hat:libpi3hat",
     ] + select({
-        "//:pi_config": ["@org_llvm_libcxx//:libcxx"],
+        "//:pi32_config": ["@org_llvm_libcxx//:libcxx"],
+        "//:pi64_config": ["@org_llvm_libcxx//:libcxx"],
         "//conditions:default": [],
     }),
     include_prefix = "vulp/actuation",
