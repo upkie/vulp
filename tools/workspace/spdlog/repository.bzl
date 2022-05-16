@@ -19,5 +19,5 @@ def spdlog_repository(
         commit = "v{}".format(version),
         strip_prefix = "spdlog-{}".format(version),
         sha256 = sha256,
-        build_file = "//tools/workspace/{repo}:package.BUILD".format(repo="spdlog"),
+        build_file = Label("//tools/workspace/spdlog:package.BUILD"),
     )
