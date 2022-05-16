@@ -13,5 +13,5 @@ def bullet_repository(**kwargs):
         repository = "bulletphysics/bullet3",
         commit = "3.24",
         sha256 = "1179bcc5cdaf7f73f92f5e8495eaadd6a7216e78cad22f1027e9ce49b7a0bfbe",
-        build_file = "@vulp//tools/workspace/{repo}:package.BUILD".format(repo="bullet"),
+        build_file = Label("//tools/workspace/bullet:package.BUILD"),
     )

@@ -20,5 +20,5 @@ def fmt_repository(
         repository = "fmtlib/fmt",
         commit = version,
         sha256 = sha256,
-        build_file = "//tools/workspace/{repo}:package.BUILD".format(repo="fmt"),
+        build_file = Label("//tools/workspace/fmt:package.BUILD"),
     )

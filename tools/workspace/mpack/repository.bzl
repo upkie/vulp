@@ -12,5 +12,5 @@ def mpack_repository():
         url = "https://github.com/ludocode/mpack/releases/download/v1.0/mpack-amalgamation-1.0.tar.gz",
         strip_prefix = "mpack-amalgamation-1.0/src/mpack",
         sha256 = "25c2f22a30b5207288ffededc092c7d2cb5599cc0eea9d5787d738088429cd56",
-        build_file = "//tools/workspace/{name}:package.BUILD".format(name="mpack")
+        build_file = Label("//tools/workspace/mpack:package.BUILD"),
     )
