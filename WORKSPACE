@@ -14,6 +14,9 @@ add_default_repositories()
 load("@pi3hat//tools/workspace:default.bzl", add_pi3hat_repositories = "add_default_repositories")
 add_pi3hat_repositories()
 
+load("@rpi_bazel//tools/workspace:default.bzl", add_rpi_bazel_repositories = "add_default_repositories")
+add_rpi_bazel_repositories()
+
 load("@mypy_integration//repositories:repositories.bzl", mypy_integration_repositories = "repositories")
 mypy_integration_repositories()
 
