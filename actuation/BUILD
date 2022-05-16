@@ -110,16 +110,23 @@ cc_library(
     hdrs = [
         "Pi3HatInterface.h",
     ],
-    srcs = [
-        "Pi3HatInterface.cpp",
-    ],
+    srcs = select({
+        "//:pi32_config": ["Pi3HatInterface.cpp"],
+        "//:pi64_config": ["Pi3HatInterface.cpp"],
+        "//conditions:default": [],
+    }),
     deps = [
         "//utils:realtime",
         ":interface",
-        "@pi3hat//lib/cpp/mjbots/pi3hat:libpi3hat",
     ] + select({
-        "//:pi32_config": ["@org_llvm_libcxx//:libcxx"],
-        "//:pi64_config": ["@org_llvm_libcxx//:libcxx"],
+        "//:pi32_config": [
+            "@org_llvm_libcxx//:libcxx",
+            "@pi3hat//lib/cpp/mjbots/pi3hat:libpi3hat",
+        ],
+        "//:pi64_config": [
+            "@org_llvm_libcxx//:libcxx",
+            "@pi3hat//lib/cpp/mjbots/pi3hat:libpi3hat",
+        ],
         "//conditions:default": [],
     }),
     include_prefix = "vulp/actuation",
@@ -130,8 +137,11 @@ cc_library(
     deps = [
         ":bullet_interface",
         ":mock_interface",
-        ":pi3hat_interface",
-    ],
+    ] + select({
+        "//:pi32_config": [":pi3hat_interface"],
+        "//:pi64_config": [":pi3hat_interface"],
+        "//conditions:default": [],
+    }),
 )
 
 add_lint_tests(enable_clang_format_lint = True)
