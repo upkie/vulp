@@ -37,7 +37,7 @@ class BulletTest : public ::testing::Test {
     ASSERT_NE(runfiles, nullptr);
 
     std::string urdf_path =
-        runfiles->Rlocation("/models/upkie_description/urdf/upkie.urdf");
+        runfiles->Rlocation("upkie_description/urdf/upkie.urdf");
 
     bullet_ = std::make_unique<b3RobotSimulatorClientAPI>();
     bool is_connected = bullet_->connect(eCONNECT_DIRECT);

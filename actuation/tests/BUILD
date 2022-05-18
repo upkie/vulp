@@ -44,7 +44,7 @@ cc_test(
         "bullet_utils_test.cpp",
     ],
     data = [
-        "//models/upkie_description",
+        "@upkie_description",
     ],
     deps = [
         "//actuation:bullet_utils",
@@ -59,11 +59,12 @@ cc_test(
         "BulletInterfaceTest.cpp",
     ],
     data = [
-        "//models/upkie_description",
+        "@upkie_description",
     ],
     deps = [
         "//actuation:bullet_interface",
         ":test_common",
+        "@bazel_tools//tools/cpp/runfiles",
         "@googletest//:main",
     ],
 )

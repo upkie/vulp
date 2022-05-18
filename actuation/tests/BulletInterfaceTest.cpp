@@ -20,9 +20,12 @@
 #include <vector>
 
 #include "gtest/gtest.h"
+#include "tools/cpp/runfiles/runfiles.h"
 #include "vulp/actuation/BulletInterface.h"
 
 namespace vulp::actuation {
+
+using bazel::tools::cpp::runfiles::Runfiles;
 
 class BulletInterfaceTest : public ::testing::Test {
  protected:
@@ -40,8 +43,12 @@ class BulletInterfaceTest : public ::testing::Test {
     layout.add_servo(5, 2, "left_knee");
     layout.add_servo(6, 2, "left_wheel");
 
+    std::string error;
+    std::unique_ptr<Runfiles> runfiles(Runfiles::CreateForTest(&error));
+    ASSERT_NE(runfiles, nullptr);
+
     BulletInterface::Parameters params(config);
-    params.urdf_path = "models/upkie_description/urdf/upkie.urdf";
+    params.urdf_path = runfiles->Rlocation("upkie_description/urdf/upkie.urdf");
     interface_ = std::make_unique<BulletInterface>(layout, params);
 
     for (const auto& pair : layout.servo_joint_map()) {
