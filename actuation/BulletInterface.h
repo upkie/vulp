@@ -96,8 +96,12 @@ class BulletInterface : public Interface {
     /*! Path to the URDF model of the robot.
      *
      * A path from the root of the Bazel workspace works. For instance, use
-     * "models/upkie_description/urdf/upkie.urdf" to load the URDF from
-     * //models/upkie_description.
+     * "models/upkie_description/urdf/upkie.urdf" to load the URDF from Bazel
+     * data such as ``data = ["//models/upkie_description"]``.
+     *
+     * For external targets, add the "external/" prefix. For instance, use
+     * "external/upkie_description/urdf/upkie.urdf" to load the URDF from Bazel
+     * data loaded from a dependency: ``data = ["@upkie_description"]``.
      */
     std::string urdf_path;
 
