@@ -35,7 +35,7 @@ class FilterError : public std::runtime_error {
    *
    * \return Error message.
    */
-  const char* what() const throw() { return exception::what(); }
+  const char* what() const throw() { return std::runtime_error::what(); }
 };
 
 /*! Low-pass filter as an inline function.
