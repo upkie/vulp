@@ -14,6 +14,7 @@ load("//tools/workspace/pycodestyle:repository.bzl", "pycodestyle_repository")
 load("//tools/workspace/rules_python:repository.bzl", "rules_python_repository")
 load("//tools/workspace/spdlog:repository.bzl", "spdlog_repository")
 load("//tools/workspace/styleguide:repository.bzl", "styleguide_repository")
+load("//tools/workspace/upkie_description:repository.bzl", "upkie_description_repository")
 
 def add_default_repositories():
     """
@@ -32,3 +33,4 @@ def add_default_repositories():
     rules_python_repository()
     spdlog_repository()
     styleguide_repository()
+    upkie_description_repository()
