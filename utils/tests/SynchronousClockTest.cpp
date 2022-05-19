@@ -21,21 +21,21 @@ namespace vulp::utils {
 
 TEST(SynchronousClock, GetsSomeSleep) {
   SynchronousClock clock(10 /* Hz */);  // 100 ms loop
-  ASSERT_DOUBLE_EQ(clock.margin(), 0.);
+  ASSERT_DOUBLE_EQ(clock.slack(), 0.);
   for (unsigned i = 0; i < 10; ++i) {
     clock.wait_for_next_tick();
   }
-  ASSERT_GT(clock.margin(), 0.1);
+  ASSERT_GT(clock.slack(), 0.01);  // 10% of 100 ms loop
 }
 
 TEST(SynchronousClock, NoMarginWhenSkippingCycles) {
   SynchronousClock clock(100 /* Hz */);  // 10 ms loop
-  ASSERT_DOUBLE_EQ(clock.margin(), 0.);
+  ASSERT_DOUBLE_EQ(clock.slack(), 0.);
   clock.wait_for_next_tick();
-  ASSERT_GT(clock.margin(), 0.1);
+  ASSERT_GT(clock.slack(), 0.001);  // 10% of 10 ms loop
   std::this_thread::sleep_for(std::chrono::milliseconds(20));
   clock.wait_for_next_tick();
-  ASSERT_DOUBLE_EQ(clock.margin(), 0.);
+  ASSERT_DOUBLE_EQ(clock.slack(), 0.);
 }
 
 }  // namespace vulp::utils

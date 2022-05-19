@@ -31,9 +31,9 @@ namespace vulp::utils {
 
 SynchronousClock::SynchronousClock(double frequency)
     : period_us_(microseconds(static_cast<int64_t>(1e6 / frequency))),
-      margin_(0.),
-      measured_period_(1. / frequency),
-      skip_count_(0) {
+      measured_period_(1.0 / frequency),
+      skip_count_(0),
+      slack_(0.0) {
   assert(math::divides(1000000u, static_cast<unsigned>(frequency)));
   last_call_time_ = std::chrono::steady_clock::now();
   measured_period_ = 1. / frequency;
@@ -59,13 +59,13 @@ void SynchronousClock::wait_for_next_tick() {
   std::this_thread::sleep_until(next_tick_);
   if (skip_count_ > 0) {
     spdlog::warn("Skipped {} clock cycles", skip_count_);
-    margin_ = 0.;
+    slack_ = 0.0;
   } else {
     const auto wakeup_time = std::chrono::steady_clock::now();
     const auto sleep_duration = wakeup_time - call_time;
     const double duration_call_to_wakeup_us =
         std::chrono::duration_cast<microseconds>(sleep_duration).count();
-    margin_ = duration_call_to_wakeup_us / period_us_.count();
+    slack_ = duration_call_to_wakeup_us / 1e6;
   }
   next_tick_ += period_us_;
   measure_period(call_time);

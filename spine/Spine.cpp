@@ -97,9 +97,9 @@ void Spine::run() {
   while (state_machine_.state() != State::kOver) {
     cycle();
     if (state_machine_.state() != State::kSendStops) {
-      spine("clock")("margin") = clock.margin();
       spine("clock")("measured_period") = clock.measured_period();
       spine("clock")("skip_count") = clock.skip_count();
+      spine("clock")("slack") = clock.slack();
       log_dict();
     }
     clock.wait_for_next_tick();

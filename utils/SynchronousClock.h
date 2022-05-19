@@ -54,14 +54,14 @@ class SynchronousClock {
    */
   void wait_for_next_tick();
 
-  //! Get ratio of latest sleep duration over the clock period
-  double margin() const noexcept { return margin_; }
-
-  //! Get measured period in [s]
+  //! Get measured period in seconds.
   double measured_period() const noexcept { return measured_period_; }
 
-  //! Get last number of clock cycles skipped
+  //! Get last number of clock cycles skipped>
   int skip_count() const noexcept { return skip_count_; }
+
+  //! Get the last sleep duration duration in seconds>
+  double slack() const noexcept { return slack_; }
 
  private:
   /*! Measure period between two calls to `wait_for_next_tick`.
@@ -72,23 +72,23 @@ class SynchronousClock {
       const std::chrono::time_point<std::chrono::steady_clock>& call_time);
 
  private:
-  //! Desired loop duration, in microseconds
+  //! Desired loop duration, in microseconds.
   const microseconds period_us_;
 
-  //! Point in time of the next clock tick
+  //! Point in time of the next clock tick.
   std::chrono::time_point<std::chrono::steady_clock> next_tick_;
 
-  //! Ratio of remaining time until next tick over the clock period
-  double margin_;
-
-  //! Time of last call to \ref wait_for_next_tick
+  //! Time of last call to \ref wait_for_next_tick>
   std::chrono::time_point<std::chrono::steady_clock> last_call_time_;
 
-  //! Measured period in [s]
+  //! Measured period in seconds.
   double measured_period_;
 
-  //! Number of clock cycles skipped when the tick was missed
+  //! Number of clock cycles skipped when the tick was missed.
   int skip_count_;
+
+  //! Last sleep duration in seconds.
+  double slack_;
 };
 
 }  // namespace vulp::utils
