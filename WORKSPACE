@@ -11,9 +11,11 @@ BAZEL_VERSION_SHA_PI = "02fcc51686a2f7b360a629747134d62dec885012454fac4c8634fc52
 load("//tools/workspace:default.bzl", "add_default_repositories")
 add_default_repositories()
 
+# @pi3hat is a default repository
 load("@pi3hat//tools/workspace:default.bzl", add_pi3hat_repositories = "add_default_repositories")
 add_pi3hat_repositories()
 
+# @rpi_bazel is a @pi3hat repository
 load("@rpi_bazel//tools/workspace:default.bzl", add_rpi_bazel_repositories = "add_default_repositories")
 add_rpi_bazel_repositories()
 
