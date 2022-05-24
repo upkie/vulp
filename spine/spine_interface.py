@@ -21,9 +21,10 @@ from time import perf_counter_ns
 
 import msgpack
 import posix_ipc
+
 from .request import Request
-from .spine_error import SpineError
 from .serialize import serialize
+from .spine_error import SpineError
 
 
 class SpineInterface:
@@ -78,12 +79,30 @@ class SpineInterface:
     def get_observation(self) -> dict:
         """
         Ask the spine to write the latest observation to shared memory.
+
+        Returns:
+            Observation dictionary.
+
+        Note:
+            In simulation, the first observation after a reset was collected
+            before that reset. Use :func:`get_first_observation` in that case
+            to skip to the first post-reset observation.
         """
         self._wait_for_spine()
         self._write_request(Request.kObservation)
         self._wait_for_spine()
         observation = self._read_dict()
         return observation
+
+    def get_first_observation(self) -> dict:
+        """
+        Get first observation after a reset.
+
+        Returns:
+            Observation dictionary.
+        """
+        self.get_observation()  # pre-reset observation, skipped
+        return self.spine.get_observation()
 
     def set_action(self, action: dict) -> None:
         self._wait_for_spine()
