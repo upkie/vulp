@@ -1,10 +1,10 @@
 # Vulp
 
-![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
+![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat) 
 
-Real-time motion control for Python.
+Real-time motion control for Python. 🚧 **Pre-release.**
 
-Vulp is grounded on the observation that many high-value robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp takes this idea to code by giving Python code an interface to interact at low-frequency with high-frequency actuators and simulators.
+Vulp is grounded in the observation that many high-value robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp takes this idea to code by giving Python code an interface to interact at low-frequency with high-frequency actuators and simulators.
 
 <!-- https://user-images.githubusercontent.com/1189580/170522853-45d8a499-17a4-41a6-8dac-6add5d02f0fd.svg -->
 
@@ -15,7 +15,7 @@ Vulp is grounded on the observation that many high-value robotic tasks require [
 <img src="https://user-images.githubusercontent.com/1189580/170533494-840dcf5e-5529-4211-9e80-65fb715a8392.svg" width="500" align="right">
 
 
-Vulp binaries, called _spines_, talk to Python programs, called _agents_, in a standard action-observation loop. Simultaneously, they talk to actuators or simulator threads so that this loop does what we expect. In its simplest form, the ``action`` dictionary is a list of actuator commands that the spine merely forwards while collecting actuator readings in the ``observation`` dictionary. But Vulp provides an API of controller/observer pipelines to grow spines that handle more high-level objects. For example, a spine could have a model predictive controller in its pipeline reading its targets from ``action``, or a multi-contact state estimator that writing to ``observation``.
+Vulp binaries, called _spines_, talk to Python programs, called _agents_, in a standard action-observation loop. Simultaneously, they talk to actuators or simulator threads so that this loop does what we think it does. In its simplest form, the ``action`` dictionary is a list of actuator commands that the spine merely forwards while collecting actuator readings in the ``observation`` dictionary. But Vulp provides an API of controller/observer pipelines to grow spines that handle more high-level objects. For example, a spine could have a model predictive controller in its pipeline reading targets from ``action``, or a multi-contact state estimator writing to ``observation``.
 
 ### Try it out!
 
@@ -34,6 +34,8 @@ There is no dependency to install on Linux. Vulp comes with batteries included t
 
 ## Features and non-features
 
+All design decisions have their pros and cons. Take a look at the features and non-features below to decide if Vulp is a fit to your use case.
+
 ### Features
 
 - Interface to the [mjbots pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b) and mjbots actuators
@@ -44,15 +46,11 @@ There is no dependency to install on Linux. Vulp comes with batteries included t
 
 ### Non-features
 
-- Hard real-time: 
+- There is no hard real-time guarantee: the code is empirically reliable, that's it
 
 ## Getting started
 
 Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to get started with a minimal Python controller and Vulp spine.
-
-## Things to keep in mind
-
-* Bazel's [compilation mode](https://bazel.build/reference/command-line-reference#flag--compilation_mode) is "fastbuild" by default. Switch to ``-c opt`` for better performance when running robot experiments or simulations.
 
 ## Q and A
 
@@ -60,8 +58,12 @@ Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to ge
 
 [Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably lightweight and quite reliable in their reaction times 😉
 
-> How can it be real-time in Python, with garbage collection and all?
+> How can motion controllers be real-time in Python, with garbage collection and all?
 
-Vulp's code is written in C++ and runs at a reliable rate. The ``SpineInterface`` API it exposes in Python is quite thin and also runs at a reliable rate (up to the kilohertz). Of course Vulp's . Here is for example the measured control period of a complete Python controller for Upkie (the pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B. It includes useful tasks like balancing and whole-body inverse kinematics by quadratic programming:
+Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations at a steady rate up to the kilohertz. This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in modern 3.8+ versions of CPython). To consider one data point, here is the measured control period of a complete Python controller for Upkie (the pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B (Quad core Cortex-A72 64-bit SoC @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
 
-[[[PLOT HERE]]]
+[[[[ PLOT HERE ]]]]
+
+> I just started a simulation spine but it's surprisingly slow, how come?
+
+Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/command-line-reference#flag--compilation_mode) to "opt" when running both robot experiments and simulations. The compilation mode is "fastbuild" by default. Note that it is totally fine to run agents in "fastbuild" during development while testing them with a spine that runs in "opt".
