@@ -15,7 +15,7 @@ genrule(
     echo '\033[33;1mWARNING:\033[0m Building Bullet in \033[33mfastbuild\033[0m compilation mode, simulation will be slow.';
     echo '\033[32mINFO:\033[0m Build Bullet with "-c opt" for better performance.';
     elif [ $(COMPILATION_MODE) = opt ]; then
-    echo '\033[32mINFO:\033[0m Building Bullet in \033[33mopt\033[0m compilation mode.';
+    echo '\033[32mINFO:\033[0m Building Bullet in \033[32mopt\033[0m compilation mode.';
     fi;
     echo $(COMPILATION_MODE) > $@""",
 )
