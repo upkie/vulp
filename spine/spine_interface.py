@@ -102,7 +102,7 @@ class SpineInterface:
             Observation dictionary.
         """
         self.get_observation()  # pre-reset observation, skipped
-        return self.spine.get_observation()
+        return self.get_observation()
 
     def set_action(self, action: dict) -> None:
         self._wait_for_spine()
