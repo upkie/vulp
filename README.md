@@ -2,11 +2,11 @@
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 
-Real-time motion control for Python.
+Real-time motion control for Python. Yes.
 
-> [real-time](https://en.wiktionary.org/wiki/real-time#English): of a system that responds to events or signals within a predictable time after their occurrence; specifically the response time must be within the maximum allowed, but is typically synchronous.
+Vulp is grounded on the observation that many high-value robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp takes this idea to code by giving Python code an interface to interact at low-frequency with high-frequency actuators and simulators.
 
-* Real-time does not mean *high frequency*. Many meaningful tasks in robotics do not require 1 kHz, hard real-time guarantees. Balancing a full-fledged humanoid robot can be performed as slow as 5 Hz (200 ms), which is a remarkable [theoretical and empirical result](https://arxiv.org/pdf/1907.01805.pdf).
+... arch here ...
 
 ### Try it out!
 
@@ -23,18 +23,20 @@ cd upkie_locomotion
 
 There is no dependency to install on Linux. Vulp comes with batteries included thanks to [Bazel](https://bazel.build/), which figures out the dependencies, builds and runs the Python controller above all in one go. The syntax is the same to deploy to the Raspberry Pi [on the real robot](https://www.youtube.com/shorts/8b36XcCgh7s).
 
-Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to get started with a minimal Python controller and Vulp spine.
-
 ## Features and non-features
 
 ### Features
 
-- Compatible with mjbots actuators via the [pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b)
+- Compatible with [mjbots pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b) and mjbots actuators
 - ...
 
 ### Non-features
 
 - ...
+
+## Getting started
+
+Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to get started with a minimal Python controller and Vulp spine.
 
 ## Things to keep in mind
 
