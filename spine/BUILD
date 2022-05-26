@@ -102,7 +102,7 @@ cc_library(
 py_library(
     name = "python",
     deps = [
-        "@pip//pypi__posix_ipc",
+        "@pip_vulp//pypi__posix_ipc",
     ],
     srcs = [
         "__init__.py",
