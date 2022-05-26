@@ -2,11 +2,39 @@
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 
-Motion control for Python, lightweight and real-time.
+Real-time motion control for Python.
 
 > [real-time](https://en.wiktionary.org/wiki/real-time#English): of a system that responds to events or signals within a predictable time after their occurrence; specifically the response time must be within the maximum allowed, but is typically synchronous.
 
 * Real-time does not mean *high frequency*. Many meaningful tasks in robotics do not require 1 kHz, hard real-time guarantees. Balancing a full-fledged humanoid robot can be performed as slow as 5 Hz (200 ms), which is a remarkable [theoretical and empirical result](https://arxiv.org/pdf/1907.01805.pdf).
+
+### Try it out!
+
+<!-- GIF: https://user-images.githubusercontent.com/1189580/170491850-dfbb4786-12ff-4fe8-8080-9413d68acfc1.gif -->
+<!-- Issue: https://github.com/github/feedback/discussions/17256 -->
+
+<img src="https://user-images.githubusercontent.com/1189580/170496331-e1293dd3-b50c-40ee-9c2e-f75f3096ebd8.png" height="100" align="right" />
+
+```console
+git clone https://github.com/tasts-robots/upkie_locomotion.git
+cd upkie_locomotion
+./tools/bazelisk run -c opt //agents/blue_balancer:bullet
+```
+
+There is no dependency to install on Linux. Vulp comes with batteries included thanks to [Bazel](https://bazel.build/), which figures out the dependencies, builds and runs the Python controller above all in one go. The syntax is the same to deploy to the Raspberry Pi [on the real robot](https://www.youtube.com/shorts/8b36XcCgh7s).
+
+Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to get started with a minimal Python controller and Vulp spine.
+
+## Features and non-features
+
+### Features
+
+- Compatible with mjbots actuators via the [pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b)
+- ...
+
+### Non-features
+
+- ...
 
 ## Things to keep in mind
 
