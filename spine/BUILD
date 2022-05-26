@@ -101,6 +101,9 @@ cc_library(
 
 py_library(
     name = "python",
+    deps = [
+        "@posix_ipc",
+    ],
     srcs = [
         "__init__.py",
         "request.py",
