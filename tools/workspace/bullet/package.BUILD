@@ -117,8 +117,16 @@ cc_library(
     copts = bullet_copts,
 )
 
-# TODO(scaron): glad/glx.h includes <X11/Xlib.h> which is in libx11-dev on
-# Debian. Add a cc_library from examples/ThirdPartyLibs/optionalX11?
+cc_library(
+    name = "optional_x11",
+    hdrs = glob([
+        "examples/ThirdPartyLibs/optionalX11/**/*.h",
+    ]),
+    strip_include_prefix = "examples/ThirdPartyLibs/optionalX11",
+    defines = bullet_defines,
+    copts = bullet_copts,
+)
+
 cc_library(
     name = "glad",
     srcs = glob([
@@ -127,6 +135,9 @@ cc_library(
     hdrs = glob([
         "examples/ThirdPartyLibs/glad/**/*.h",
     ]),
+    deps = [
+        ":optional_x11",
+    ],
     strip_include_prefix = "examples/ThirdPartyLibs/glad",
     defines = bullet_defines,
     copts = bullet_copts,
