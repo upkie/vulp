@@ -6,7 +6,7 @@ Real-time motion control for Python. 🚧 **Pre-release.**
 
 Vulp is grounded in the observation that many high-value robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp takes this idea to code by giving Python code an interface to interact at low-frequency with high-frequency actuators and simulators.
 
-<img src="https://user-images.githubusercontent.com/1189580/170716571-d684a2a3-4636-4554-ab1d-1331344f8323.svg" width="500" align="right">
+<img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
 
 A Vulp program, called a _spine_, talks to a Python program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, the ``action`` dictionary is a list of commands that the spine forwards to the actuators or simulators, while replying sensor readings in the ``observation`` dictionary. But Vulp provides a pipeline API to grow more complex spines by plugging additional controllers (for higher-level actions) or observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads task targets from ``action``, or include a ground contact estimator that writes additional entries to ``observation``.
 
