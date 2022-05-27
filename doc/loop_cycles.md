@@ -46,3 +46,8 @@ async def main(spine: vulp.spine.SpineInterface, frequency: int = 200):
 This loop runs at 0.7 ± 0.3 ms (average and standard deviation over 10,000 cycles).
 
 Note that we observe the same outcome, to the digit, for ``frequency in [50, 100, 200, 400]``; however, performance on the Pi degrades to 0.9 ± 0.4 ms for ``frequency = 500`` Hz. This is why we rate Vulp for frequencies up to 400 Hz.
+
+## See also
+
+- [pi3hat multi-servo example](https://github.com/mjbots/moteus/blob/main/lib/python/examples/pi3hat_multiservo.py) from the moteus repository
+- Run function of the [blue balancer](https://github.com/tasts-robots/upkie_locomotion/blob/5c4ece2577f6e71132c1ab2625142364c567e0fa/agents/blue_balancer/main.py#L54) which implements the observation-action loop for a full controller.
