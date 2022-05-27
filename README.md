@@ -38,6 +38,7 @@ All design decisions have their pros and cons. Take a look at the features and n
 
 ### Features
 
+- Run the same Python code on simulated and real robots
 - Interface to the [mjbots pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b) and mjbots actuators
 - Interface to the [Bullet](http://bulletphysics.org/) simulator
 - Observer pipeline to extend observations
