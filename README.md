@@ -1,6 +1,6 @@
 # Vulp
 
-![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat) 
+![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 
 Real-time motion control for Python. 🚧 **Pre-release.**
 
@@ -60,7 +60,7 @@ Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to ge
 
 > How can motion controllers be real-time in Python, with garbage collection and all?
 
-Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations at a steady rate up to the kilohertz. This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in modern 3.8+ versions of CPython). To consider one data point, here is the measured control period of a complete Python controller for Upkie (the pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B (Quad core Cortex-A72 64-bit SoC @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
+Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](doc/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in modern 3.8+ versions of CPython). To consider one data point, here is the measured control period of a complete Python controller for Upkie (the pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B (Quad core Cortex-A72 64-bit SoC @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
 
 [[[[ PLOT HERE ]]]]
 
