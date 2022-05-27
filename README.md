@@ -15,7 +15,7 @@ Vulp is grounded in the observation that many high-value robotic tasks require [
 <img src="https://user-images.githubusercontent.com/1189580/170533494-840dcf5e-5529-4211-9e80-65fb715a8392.svg" width="500" align="right">
 
 
-Vulp binaries, called _spines_, talk to Python programs, called _agents_, in a standard action-observation loop. Simultaneously, they talk to actuators or simulator threads so that this loop does what we think it does. In its simplest form, the ``action`` dictionary is a list of actuator commands that the spine merely forwards while collecting actuator readings in the ``observation`` dictionary. But Vulp provides an API of controller/observer pipelines to grow spines that handle more high-level objects. For example, a spine could have a model predictive controller in its pipeline reading targets from ``action``, or a multi-contact state estimator writing to ``observation``.
+Vulp binaries, called _spines_, talk to Python programs, called _agents_, in a standard action-observation loop. Simultaneously, they talk to actuators or simulator threads so that this loop does what we think it does. In its simplest form, the ``action`` dictionary is a list of actuator commands that the spine merely forwards it while collecting actuator readings in the ``observation`` dictionary. But Vulp provides a pipeline API to plug additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics controller that reads task targets from ``action``, or a ground-contact state estimator that writes additional entries to ``observation``.
 
 ### Try it out!
 
