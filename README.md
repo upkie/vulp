@@ -65,7 +65,7 @@ Python agents talk with Vulp spines via the ``SpineInterface``, which can proces
     <img src="https://user-images.githubusercontent.com/1189580/170681724-6b4eec14-779e-442a-969a-5fa053a457c0.svg" width="800">
 </p>
 
-Note that the 0.7 ± 0.3 ms processing time mentioned above runs on the Python side, and is therefore included in the 5.0 ms cycles represented by the orange curve above. Meanwhile the spine is set to a reference frequency of 1.0 kHz and its corresponding cycle period was measured here at 1.0 ± 0.05 ms.
+Note that the 0.7 ± 0.3 ms processing time mentioned above happens on the Python side, and is thus included in the 5.0 ms cycles represented by the orange curve. Meanwhile the spine is set to a reference frequency of 1.0 kHz and its corresponding cycle period was measured here at 1.0 ± 0.05 ms.
 
 > I just started a simulation spine but it's surprisingly slow, how come?
 
