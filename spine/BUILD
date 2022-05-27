@@ -101,10 +101,16 @@ cc_library(
 
 py_library(
     name = "python",
-    deps = [
-        # "@pip_vulp//pypi__msgpack",
-        # "@pip_vulp//pypi__posix_ipc",
-    ],
+    deps = select({
+        # TODO(scaron): cross-compiled pip install for the Raspberry Pi
+        # Related issue: https://github.com/bazelbuild/rules_python/issues/260
+        "//:pi32_config": [],
+        "//:pi64_config": [],
+        "//conditions:default": [
+            "@pip_vulp//pypi__msgpack",
+            "@pip_vulp//pypi__posix_ipc",
+        ],
+    }),
     srcs = [
         "__init__.py",
         "request.py",
