@@ -6,22 +6,20 @@ Real-time motion control for Python. 🚧 **Pre-release.**
 
 Vulp is grounded in the observation that many high-value robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp takes this idea to code by giving Python code an interface to interact at low-frequency with high-frequency actuators and simulators.
 
-<!-- https://user-images.githubusercontent.com/1189580/170533494-840dcf5e-5529-4211-9e80-65fb715a8392.svg -->
-<img src="https://user-images.githubusercontent.com/1189580/170685599-fc763737-d217-4f81-b0c9-e3728321e3c4.svg" width="500" align="right">
+<img src="https://user-images.githubusercontent.com/1189580/170716571-d684a2a3-4636-4554-ab1d-1331344f8323.svg" width="500" align="right">
 
-Vulp binaries, called _spines_, talk to Python programs, called _agents_, in a standard action-observation loop. Simultaneously, they talk to actuators or simulator threads so that this loop does what we think it does. In its simplest form, the ``action`` dictionary is a list of actuator commands that the spine merely forwards it while collecting actuator readings in the ``observation`` dictionary. But Vulp provides a pipeline API to plug additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads task targets from ``action``, or a ground-contact state estimator that writes additional entries to ``observation``.
+A Vulp program, called a _spine_, talks to a Python program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, the ``action`` dictionary is a list of commands that the spine forwards to the actuators or simulators, while replying sensor readings in the ``observation`` dictionary. But Vulp provides a pipeline API to grow more complex spines by plugging additional controllers (for higher-level actions) or observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads task targets from ``action``, or include a ground contact estimator that writes additional entries to ``observation``.
 
 ### Try it out!
 
 <!-- GIF: https://user-images.githubusercontent.com/1189580/170491850-dfbb4786-12ff-4fe8-8080-9413d68acfc1.gif -->
 <!-- Issue: https://github.com/github/feedback/discussions/17256 -->
-
 <img src="https://user-images.githubusercontent.com/1189580/170496331-e1293dd3-b50c-40ee-9c2e-f75f3096ebd8.png" height="100" align="right" />
 
 ```console
-$ git clone https://github.com/tasts-robots/upkie_locomotion.git
-$ cd upkie_locomotion
-$ ./tools/bazelisk run -c opt //agents/blue_balancer:bullet
+git clone https://github.com/tasts-robots/upkie_locomotion.git
+cd upkie_locomotion
+./tools/bazelisk run -c opt //agents/blue_balancer:bullet
 ```
 
 There is no dependency to install on Linux. Vulp comes with batteries included thanks to [Bazel](https://bazel.build/), which builds all dependencies  and runs the Python controller in one go. The syntax is the same to deploy to the Raspberry Pi [of the real robot](https://www.youtube.com/shorts/8b36XcCgh7s).
