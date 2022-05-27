@@ -46,7 +46,7 @@ All design decisions have their pros and cons. Take a look at the features and n
 
 ### Alternatives
 
-If any of these points is a no-go to you, you may also want to check out these existing alternatives:
+If any of the non-features is a no-go to you, you may also want to check out these existing alternatives:
 
 * [mc\_rtc](https://github.com/jrl-umi3218/mc_rtc/) - C++ real-time control framework from which Vulp inherited, among others, the idea of running the same code on simulated and real robots. C++ controllers are bigger cathedrals to build but they can run at higher frequencies.
 * [moteus](https://pypi.org/project/moteus/) - Python bindings for moteus brushless controllers also [run well up to 200 Hz](https://github.com/tasts-robots/vulp/blob/main/doc/loop_cycles.md#moteus-python-api), which makes them a simpler alternative if you don't need the simulation/real-robot switch.
