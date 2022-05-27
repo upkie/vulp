@@ -55,10 +55,6 @@ Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to ge
 
 ## Q and A
 
-> Why the name "Vulp"?
-
-[Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably lightweight and quite reliable in their reaction times 😉
-
 > How can motion controllers be real-time in Python, with garbage collection and all?
 
 Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](doc/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in modern 3.8+ versions of CPython). To consider one data point, here is the measured control period of a complete Python controller for Upkie (the pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B (Quad core Cortex-A72 64-bit SoC @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
@@ -72,3 +68,7 @@ Note that the 0.7 ± 0.3 ms processing time mentioned above runs on the Python s
 > I just started a simulation spine but it's surprisingly slow, how come?
 
 Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/command-line-reference#flag--compilation_mode) to "opt" when running both robot experiments and simulations. The compilation mode is "fastbuild" by default. Note that it is totally fine to run agents in "fastbuild" during development while testing them with a spine that runs in "opt".
+
+> Why the name "Vulp"?
+
+[Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably lightweight and quite reliable in their reaction times 😉
