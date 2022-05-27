@@ -19,12 +19,12 @@ Vulp binaries, called _spines_, talk to Python programs, called _agents_, in a s
 <img src="https://user-images.githubusercontent.com/1189580/170496331-e1293dd3-b50c-40ee-9c2e-f75f3096ebd8.png" height="100" align="right" />
 
 ```console
-git clone https://github.com/tasts-robots/upkie_locomotion.git
-cd upkie_locomotion
-./tools/bazelisk run -c opt //agents/blue_balancer:bullet
+$ git clone https://github.com/tasts-robots/upkie_locomotion.git
+$ cd upkie_locomotion
+$ ./tools/bazelisk run -c opt //agents/blue_balancer:bullet
 ```
 
-There is no dependency to install on Linux. Vulp comes with batteries included thanks to [Bazel](https://bazel.build/), which figures out dependencies, builds them and runs the Python controller all in one go. The syntax is the same to deploy to the Raspberry Pi [of the real robot](https://www.youtube.com/shorts/8b36XcCgh7s).
+There is no dependency to install on Linux. Vulp comes with batteries included thanks to [Bazel](https://bazel.build/), which builds all dependencies  and runs the Python controller in one go. The syntax is the same to deploy to the Raspberry Pi [of the real robot](https://www.youtube.com/shorts/8b36XcCgh7s).
 
 ## Features and non-features
 
