@@ -6,14 +6,8 @@ Real-time motion control for Python. 🚧 **Pre-release.**
 
 Vulp is grounded in the observation that many high-value robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp takes this idea to code by giving Python code an interface to interact at low-frequency with high-frequency actuators and simulators.
 
-<!-- https://user-images.githubusercontent.com/1189580/170522853-45d8a499-17a4-41a6-8dac-6add5d02f0fd.svg -->
-
-<!-- <p align=center>
-    <img src="https://user-images.githubusercontent.com/1189580/170526614-ffaf2bc3-73c0-4fb6-b9dc-e00be3dc8e5b.svg">
-</p> -->
-
-<img src="https://user-images.githubusercontent.com/1189580/170533494-840dcf5e-5529-4211-9e80-65fb715a8392.svg" width="500" align="right">
-
+<!-- https://user-images.githubusercontent.com/1189580/170533494-840dcf5e-5529-4211-9e80-65fb715a8392.svg -->
+<img src="https://user-images.githubusercontent.com/1189580/170685599-fc763737-d217-4f81-b0c9-e3728321e3c4.svg" width="500" align="right">
 
 Vulp binaries, called _spines_, talk to Python programs, called _agents_, in a standard action-observation loop. Simultaneously, they talk to actuators or simulator threads so that this loop does what we think it does. In its simplest form, the ``action`` dictionary is a list of actuator commands that the spine merely forwards it while collecting actuator readings in the ``observation`` dictionary. But Vulp provides a pipeline API to plug additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics controller that reads task targets from ``action``, or a ground-contact state estimator that writes additional entries to ``observation``.
 
@@ -47,7 +41,15 @@ All design decisions have their pros and cons. Take a look at the features and n
 
 ### Non-features
 
+- Low frequency: Vulp is designed for tasks that run in the 1–400 Hz range (like balancing bipeds and quadrupeds)
 - No hard real-time guarantee: the code is empirically reliable, that's it
+
+### Alternatives
+
+If any of these points is a no-go to you, you may also want to check out these existing alternatives:
+
+* [mc\_rtc](https://github.com/jrl-umi3218/mc_rtc/) - C++ real-time control framework from which Vulp inherited, among others, the idea of running the same code on simulated and real robots. C++ controllers are bigger cathedrals to build but they can run at higher frequencies.
+* [moteus](https://pypi.org/project/moteus/) - Python bindings for moteus brushless controllers also [run well up to 200 Hz](https://github.com/tasts-robots/vulp/blob/main/doc/loop_cycles.md#moteus-python-api), which makes them a simpler alternative if you don't need the simulation/real-robot switch.
 
 ## Getting started
 
