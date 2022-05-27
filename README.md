@@ -40,13 +40,13 @@ All design decisions have their pros and cons. Take a look at the features and n
 
 - Interface to the [mjbots pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b) and mjbots actuators
 - Interface to the [Bullet](http://bulletphysics.org/) simulator
-- Observer pipeline to output custom observations
-- 🏗️ Controller pipeline to handle custom actions
-- Soft real-time: spine-agent loop execution times are predictable and repeatble
+- Observer pipeline to extend observations
+- 🏗️ Controller pipeline to extend actions
+- Soft real-time: spine-agent loop interactions are predictable and repeatble
 
 ### Non-features
 
-- There is no hard real-time guarantee: the code is empirically reliable, that's it
+- No hard real-time guarantee: the code is empirically reliable, that's it
 
 ## Getting started
 
