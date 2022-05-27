@@ -63,7 +63,7 @@ Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to ge
 Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](doc/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in modern 3.8+ versions of CPython). To consider one data point, here is the measured control period of a complete Python controller for Upkie (the pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B (Quad core Cortex-A72 64-bit SoC @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/1189580/170681724-6b4eec14-779e-442a-969a-5fa053a457c0.svg" width="900">
+    <img src="https://user-images.githubusercontent.com/1189580/170681724-6b4eec14-779e-442a-969a-5fa053a457c0.svg" width="800">
 </p>
 
 Note that the 0.7 ± 0.3 ms processing time mentioned above runs on the Python side, and is therefore included in the 5.0 ms cycles represented by the orange curve above. Meanwhile the spine is set to a reference frequency of 1.0 kHz and its corresponding cycle period was measured here at 1.0 ± 0.05 ms.
