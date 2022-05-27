@@ -73,4 +73,4 @@ Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/co
 
 > Why the name "Vulp"?
 
-[Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably lightweight and quite reliable in their reaction times 😉
+[Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably lightweight and quite consistent in their reaction times 😉
