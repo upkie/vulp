@@ -32,7 +32,6 @@ cc_library(
     name = "low_pass_filter",
     hdrs = [
         "low_pass_filter.h",
-        "LowPassFilter.h",
     ],
     deps = [
         "@eigen",
