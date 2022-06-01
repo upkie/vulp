@@ -2,7 +2,7 @@
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 
-Real-time motion control for Python. 🚧 **Pre-release.**
+Real-time low-frequency motion control. 🚧 **Pre-release.**
 
 Vulp is grounded in the observation that many high-value robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp takes this idea to code by giving Python code an interface to interact at low-frequency with high-frequency actuators and simulators.
 
