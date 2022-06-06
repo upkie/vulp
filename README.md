@@ -4,7 +4,7 @@
 
 Real-time low-frequency motion control. 🚧 **Pre-release.**
 
-Vulp is a small inter-process communication protocol that allows Python code to interact with faster actuators and simulators. It is grounded in the observation that many valuable robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp provides one way to take this idea to code.
+Vulp is a small inter-process communication protocol that allows Python code to control faster actuators and simulators. It is grounded in the observation that many valuable robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp provides one way to take this idea to code.
 
 <img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
 
@@ -44,6 +44,7 @@ All design decisions have their pros and cons. Take a look at the features and n
 
 - Low frequency: Vulp is designed for tasks that run in the 1–400 Hz range (like balancing bipeds and quadrupeds)
 - No hard real-time guarantee: the code is empirically reliable, that's it
+- Made for prototyping: actions and observations are fast to change in code, but have no centralized spec
 
 ### Alternatives
 
@@ -76,8 +77,11 @@ Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/co
 
 > I have a Bullet simulation where the robot balances fine, but the agent repeatedly warns it "Skipped X clock cycles". What could be causing this?
 
-<!-- TODO(scaron): link to Spine::simulate in the doc below -->
-This happens when your CPU is not powerful enough to run the simulator in real-time along with your agent and spine. You can call ``Spine::simulate`` with ``nb_substeps = 1`` instead of ``Spine::run``, which will result in the correct simulation time from the agent's point of view but make the simulation slower than real-time from your point of view.
+This happens when your CPU is not powerful enough to run the simulator in real-time along with your agent and spine. You can call [`Spine::simulate`](https://tasts-robots.org/doc/vulp/classvulp_1_1spine_1_1Spine.html#a886ef5562b33f365d86e77465dd86204) with ``nb_substeps = 1`` instead of ``Spine::run``, which will result in the correct simulation time from the agent's point of view but make the simulation slower than real-time from your point of view.
+
+> Why use dictionaries rather than an [interface description language](https://en.wikipedia.org/wiki/Interface_description_language) like Protocol Buffers?
+
+Interface description languages formally specify an API, which costs some overhead to write down and maintain, but can bring versioning, breaking change detection and other benefits, especially when the API is stable. Vulp, on the other hand, is designed for prototyping with rapidly-changing APIs: the spec is in the code. If an agent and spine communicate with incompatible/incomplete actions/observations, execution will immediately break, begging for developers to fix it.
 
 > Why the name "Vulp"?
 
