@@ -7,7 +7,7 @@
 
 Real-time low-frequency motion control. 🚧 **Pre-release.**
 
-Vulp is a small inter-process communication protocol that allows Python code to control faster actuators and simulators. It is grounded in the observation that many valuable robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp provides one way to take this idea to code.
+Vulp is a small inter-process communication (IPC) protocol that allows Python code to control faster actuators and simulators. It is grounded in the observation that many valuable robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp provides one way to take this idea to code.
 
 <img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
 
@@ -47,13 +47,13 @@ All design decisions have their pros and cons. Take a look at the features and n
 
 - Low frequency: Vulp is designed for tasks that run in the 1–400 Hz range (like balancing bipeds or quadrupeds)
 - No hard real-time guarantee: the code is empirically reliable, that's it
-- Typing is used within agents and spines, but the interface between them is only checked at runtime
+- Weakly-typed IPC: typing is used within agents and spines, but the interface between them is only checked at runtime
 
 ### Alternatives
 
 If any of the non-features is a no-go to you, you may also want to check out these existing alternatives:
 
-* [mc\_rtc](https://github.com/jrl-umi3218/mc_rtc/) - C++ real-time control framework from which Vulp inherited, among others, the idea of running the same code on simulated and real robots. C++ controllers are bigger cathedrals to build but they can run at higher frequencies.
+* [mc\_rtc](https://github.com/jrl-umi3218/mc_rtc/) - C++ real-time control framework from which Vulp inherited, among others, the idea of running the same code on simulated and real robots. (The choice of a weakly-typed dictionary-based IPC was also inspired by mc_rtc's data store.) C++ controllers are bigger cathedrals to build but they can run at higher frequencies.
 * [moteus](https://pypi.org/project/moteus/) - Python bindings for moteus brushless controllers also [run well up to 200 Hz](https://github.com/tasts-robots/vulp/blob/main/doc/loop_cycles.md#moteus-python-api), which makes them a simpler alternative if you don't need the simulation/real-robot switch.
 * [robot\_interfaces](https://github.com/open-dynamic-robot-initiative/robot_interfaces) - Similar IPC between non-realtime Python and real-time C++ processes. The main difference lies in the use of Python bindings and action/observation types (more overhead, more safeguards) where Vulp goes structureless (faster changes, faster blunders). Also, robot_interfaces enforces process synchronization with a [time-series API](https://people.tuebingen.mpg.de/mpi-is-software/robotfingers/docs/robot_interfaces/doc/timeseries.html) while in Vulp this is up to the agent.
 
