@@ -1,6 +1,8 @@
 # Vulp
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
+[![C++ docs](https://img.shields.io/badge/C++-docs-blue.svg)](https://tasts-robots.org/doc/vulp/)
+[![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
 Real-time low-frequency motion control. 🚧 **Pre-release.**
 
