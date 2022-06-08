@@ -3,7 +3,7 @@
 [![Continuous integration](https://github.com/tasts-robots/vulp/actions/workflows/build.yml/badge.svg)](https://github.com/tasts-robots/vulp/actions/workflows/build.yml)
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![C++ docs](https://img.shields.io/badge/C++-docs-blue.svg)](https://tasts-robots.org/doc/vulp/)
-[![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
+[![Example project](https://img.shields.io/badge/Example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
 Real-time low-frequency motion control. 🚧 **Pre-release.**
 
@@ -64,6 +64,8 @@ The [``upkie_locomotion``](https://github.com/tasts-robots/upkie_locomotion) rep
 
 ## Q and A
 
+### Performance
+
 > How can motion control be real-time in Python, with garbage collection and all?
 
 Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](doc/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in CPython 3.8+). To consider one data point, here are the cycle periods measured in a complete Python agent for Upkie (the Pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B (Quad core ARM Cortex-A72 @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
@@ -81,6 +83,8 @@ Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/co
 > I have a Bullet simulation where the robot balances fine, but the agent repeatedly warns it "Skipped X clock cycles". What could be causing this?
 
 This happens when your CPU is not powerful enough to run the simulator in real-time along with your agent and spine. You can call [`Spine::simulate`](https://tasts-robots.org/doc/vulp/classvulp_1_1spine_1_1Spine.html#a886ef5562b33f365d86e77465dd86204) with ``nb_substeps = 1`` instead of ``Spine::run``, which will result in the correct simulation time from the agent's point of view but make the simulation slower than real-time from your point of view.
+
+### Design choices
 
 > Why use dictionaries rather than an [interface description language](https://en.wikipedia.org/wiki/Interface_description_language) like Protocol Buffers?
 
