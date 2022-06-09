@@ -71,7 +71,7 @@ constexpr const char* state_name(const State& state) noexcept {
  * The overall specification of the state machine is summarized in the
  * following diagram:
  *
- * \image html state-machine.svg
+ * \image html state-machine.png
  * \image latex state-machine.eps
  *
  * There are three possible events:

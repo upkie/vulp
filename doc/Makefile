@@ -21,6 +21,9 @@ open:
 images/%.eps : figures/%.dot
 	dot $< -Teps -o $@
 
+images/%.png : figures/%.dot
+	dot $< -Tpng -o $@
+
 images/%.svg : figures/%.dot
 	dot $< -Tsvg -o $@
 
