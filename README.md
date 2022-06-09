@@ -5,13 +5,13 @@
 [![C++ docs](https://img.shields.io/badge/C++-docs-blue.svg)](https://tasts-robots.org/doc/vulp/)
 [![Example project](https://img.shields.io/badge/Example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
-Real-time low-frequency motion control. 🚧 **Pre-release.**
+Real-time motion control for Python. 🚧 **Pre-release.**
 
-Vulp is a small inter-process communication (IPC) protocol that allows Python code to control faster actuators and simulators. It is grounded in the observation that many valuable robotic tasks require [real-time](https://en.wiktionary.org/wiki/real-time#English) but **not high-frequency** performance. Notably, there is [both theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves at 5–15 Hz, despite being commonly implemented at 200–1000 Hz, with little impact to their performance. Vulp provides one way to take this idea to code.
+Vulp is a small inter-process communication (IPC) protocol that allows Python code to control faster actuators and simulators. It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main example of such a task is balancing: there is [theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, despite being frequently implemented at 200–1000 Hz.
 
 <img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
 
-In Vulp, a fast program, called a _spine_, talks to a slower program, called an _agent_, in a standard action-observation loop. (Currently the library supports C++ spines and Python agents, other languages are welcome!) Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, the ``action`` dictionary is a list of commands that the spine forwards to the actuators or simulators, while replying sensor readings in the ``observation`` dictionary. But Vulp provides a pipeline API to grow more complex spines by plugging additional controllers (for higher-level actions) or observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads task targets from ``action``, or include a ground contact estimator that writes additional entries to ``observation``.
+In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. (Currently the library supports C++ spines and Python agents, other languages are welcome.) Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, ``action`` is a set of joint commands and ``observation`` reports joint observations, but Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads its targets from ``action``, or include a ground contact estimator that writes to ``observation``.
 
 ### Try it out!
 
@@ -46,7 +46,7 @@ All design decisions have their pros and cons. Take a look at the features and n
 ### Non-features
 
 - Low frequency: Vulp is designed for tasks that run in the 1–400 Hz range (like balancing bipeds or quadrupeds)
-- No hard real-time guarantee: the code is empirically reliable, that's it
+- Soft, not hard real-time guarantee: the code is empirically reliable by a large margin, that's it
 - Weakly-typed IPC: typing is used within agents and spines, but the interface between them is only checked at runtime
 
 ### Alternatives
@@ -84,6 +84,10 @@ Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/co
 > I have a Bullet simulation where the robot balances fine, but the agent repeatedly warns it "Skipped X clock cycles". What could be causing this?
 
 This happens when your CPU is not powerful enough to run the simulator in real-time along with your agent and spine. You can call [`Spine::simulate`](https://tasts-robots.org/doc/vulp/classvulp_1_1spine_1_1Spine.html#a886ef5562b33f365d86e77465dd86204) with ``nb_substeps = 1`` instead of ``Spine::run``, which will result in the correct simulation time from the agent's point of view but make the simulation slower than real-time from your point of view.
+
+> I'm running a pi3hat spine, why are my timings more erratic than the ones plotted above?
+
+Make sure you configure CPU isolation and set the scaling governor to ``performance`` for real-time performance on a Raspberry Pi.
 
 ### Design choices
 
