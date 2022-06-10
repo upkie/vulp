@@ -1,7 +1,8 @@
 # Vulp
 
-[![Build](https://img.shields.io/github/workflow/status/tasts-robots/vulp/CI)](https://github.com/tasts-robots/vulp/actions)
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
+[![Build](https://img.shields.io/github/workflow/status/tasts-robots/vulp/CI)](https://github.com/tasts-robots/vulp/actions)
+[![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?logo=read-the-docs&style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Example project](https://img.shields.io/badge/Example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
