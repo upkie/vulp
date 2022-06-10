@@ -29,18 +29,17 @@ from .spine_error import SpineError
 
 class SpineInterface:
 
-    """
-    Spine interface conform to the DeepMind Environment API.
+    """!
+    Interface to interact with a spine from a Python agent.
     """
 
     _mmap: mmap.mmap
 
     def __init__(self, shm_name: str = "/vulp"):
-        """
+        """!
         Connect to the spine shared memory.
 
-        Args:
-            shm_name: Name of the shared memory object.
+        @param shm_name Name of the shared memory object.
         """
         try:
             shared_memory = posix_ipc.SharedMemory(
@@ -66,27 +65,24 @@ class SpineInterface:
         self._stop_waiting = set([Request.kNone, Request.kError])
 
     def __del__(self):
-        """
+        """!
         Close memory mapping.
 
-        Note:
-            The spine process will unlink the shared memory object, so we don't
-            unlink it here.
+        Note that the spine process will unlink the shared memory object, so we
+        don't unlink it here.
         """
         if hasattr(self, "_mmap"):  # handle ctor exceptions
             self._mmap.close()
 
     def get_observation(self) -> dict:
-        """
+        """!
         Ask the spine to write the latest observation to shared memory.
 
-        Returns:
-            Observation dictionary.
+        @returns Observation dictionary.
 
-        Note:
-            In simulation, the first observation after a reset was collected
-            before that reset. Use :func:`get_first_observation` in that case
-            to skip to the first post-reset observation.
+        @note In simulation, the first observation after a reset was collected
+        before that reset. Use @ref get_first_observation in that case to skip
+        to the first post-reset observation.
         """
         self._wait_for_spine()
         self._write_request(Request.kObservation)
@@ -95,11 +91,10 @@ class SpineInterface:
         return observation
 
     def get_first_observation(self) -> dict:
-        """
+        """!
         Get first observation after a reset.
 
-        Returns:
-            Observation dictionary.
+        @returns Observation dictionary.
         """
         self.get_observation()  # pre-reset observation, skipped
         return self.get_observation()
@@ -110,36 +105,34 @@ class SpineInterface:
         self._write_request(Request.kAction)
 
     def start(self, config: dict) -> None:
-        """
+        """!
         Reset the spine to a new configuration.
 
-        Args:
-            config: Configuration dictionary.
+        @param config Configuration dictionary.
         """
         self._wait_for_spine()
         self._write_dict(config)
         self._write_request(Request.kStart)
 
     def stop(self) -> None:
-        """
+        """!
         Tell the spine to stop all actuators.
         """
         self._wait_for_spine()
         self._write_request(Request.kStop)
 
     def _read_request(self) -> int:
-        """
+        """!
         Read current request from shared memory.
         """
         self._mmap.seek(0)
         return int.from_bytes(self._mmap.read(4), byteorder=sys.byteorder)
 
     def _read_dict(self) -> dict:
-        """
+        """!
         Read dictionary from shared memory.
 
-        Returns:
-            Observation dictionary.
+        @returns Observation dictionary.
         """
         assert self._read_request() == Request.kNone
         self._mmap.seek(0)
@@ -156,16 +149,16 @@ class SpineInterface:
         return last_dict
 
     def _wait_for_spine(self, timeout_ns: int = 100000000) -> None:
-        """
+        """!
         Wait for the spine to signal itself as available, which it does by
         setting the current request to none in shared memory.
 
-        Args:
-            timeout_ns: Don't wait for more than this duration in nanoseconds.
+        @param timeout_ns Don't wait for more than this duration in
+            nanoseconds.
         """
         stop = perf_counter_ns() + timeout_ns
         while self._read_request() not in self._stop_waiting:  # sets are fast
-            # fun fact: `not in set` is 3-4x faster than `!=` on the raspi
+            # Fun fact: `not in set` is 3-4x faster than `!=` on the raspi
             # perf_counter_ns clocks ~1 us on the raspi
             if perf_counter_ns() > stop:
                 raise TimeoutError(
@@ -178,18 +171,17 @@ class SpineInterface:
             raise SpineError("Invalid request, is the spine started?")
 
     def _write_request(self, request: int) -> None:
-        """
+        """!
         Set request in shared memory.
         """
         self._mmap.seek(0)
         self._mmap.write(request.to_bytes(4, byteorder=sys.byteorder))
 
     def _write_dict(self, dictionary: dict) -> None:
-        """
+        """!
         Set the shared memory to a given dictionary.
 
-        Args:
-            dictionary: Dictionary to pack and write.
+        @param dictionary Dictionary to pack and write.
         """
         assert self._read_request() == Request.kNone
         data = self._packer.pack(dictionary)

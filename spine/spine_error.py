@@ -18,7 +18,7 @@
 
 class SpineError(Exception):
 
-    """
+    """!
     Exception raised when the spine sets an error flag in the request field of
     the shared memory map.
     """

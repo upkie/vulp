@@ -15,6 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""!
+@brief Python library for an agent to interact with a spine.
+"""
+
 from .request import Request
 from .serialize import serialize
 from .spine_error import SpineError
