@@ -96,6 +96,10 @@ Make sure you configure CPU isolation and set the scaling governor to ``performa
 
 Interface description languages formally specify an API, which costs some overhead to write down and maintain, but can bring versioning, breaking change detection and other benefits, especially when the API is stable. Vulp, on the other hand, is designed for prototyping with rapidly-changing APIs: the spec is in the code. If an agent and spine communicate with incompatible/incomplete actions/observations, execution will immediately break, begging for developers to fix it.
 
+> Why make Python programs that read and write dictionaries rather than Python bindings?
+
+Vulp is designed for prototyping and strives to eliminate intermediaries when it can. (The underlying belief is that the most valuable time when developing locomotion algorithms is the time spent running code on robots.) Python bindings bring the benefits of typing and would be better e.g. in a production context, but they also add overhead in terms of bookkeeping code and compilation time. Vulp goes for the "faster changes, fast blunders, faster fixes" approach.
+
 > Why the name "Vulp"?
 
 [Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably quite reliable in their reaction times 🦊
