@@ -18,6 +18,7 @@
 
 #include <cstdint>
 
+//! Utility functions.
 namespace vulp::utils {
 
 //! Mathematical functions.

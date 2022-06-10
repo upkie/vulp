@@ -33,6 +33,7 @@
 
 #include "vulp/utils/CircularBuffer.h"
 
+//! Log action and observation dictionaries to MessagePack binary files.
 namespace vulp::logging {
 
 using palimpsest::Dictionary;

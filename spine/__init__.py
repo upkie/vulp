@@ -16,7 +16,7 @@
 # limitations under the License.
 
 """!
-@brief Python library for an agent to interact with a spine.
+Python library for an agent to interact with a spine.
 """
 
 from .request import Request

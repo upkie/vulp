@@ -18,6 +18,7 @@
 
 #include <palimpsest/Dictionary.h>
 
+//! WIP: Process higher-level actions down to joint commands.
 namespace vulp::control {
 
 using palimpsest::Dictionary;

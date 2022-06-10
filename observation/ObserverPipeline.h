@@ -22,6 +22,7 @@
 #include "vulp/observation/Observer.h"
 #include "vulp/observation/Source.h"
 
+//! State observation.
 namespace vulp::observation {
 
 /*! Observer pipeline.

@@ -28,6 +28,7 @@
 #include "vulp/actuation/moteus/Output.h"
 #include "vulp/actuation/resolution.h"
 
+//! Send actions to actuators or simulators.
 namespace vulp::actuation {
 
 //! Base class for actuation interfaces.
