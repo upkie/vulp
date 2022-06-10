@@ -1,8 +1,8 @@
 # Vulp
 
-[![CI](https://github.com/tasts-robots/vulp/actions/workflows/build.yml/badge.svg)](https://github.com/tasts-robots/vulp/actions/workflows/build.yml)
+[![Build](https://img.shields.io/github/workflow/status/tasts-robots/vulp/CI)](https://github.com/tasts-robots/vulp/actions)
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
-[![C++ docs](https://img.shields.io/badge/C++-docs-blue.svg)](https://tasts-robots.org/doc/vulp/)
+[![Documentation](https://img.shields.io/badge/docs-online-brightgreen?logo=read-the-docs&style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Example project](https://img.shields.io/badge/Example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
 Real-time motion control for Python. 🚧 **Pre-release.**
