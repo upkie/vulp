@@ -1,4 +1,4 @@
-# Vulp
+# Vulp — Real-time motion control for Python
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![Build](https://img.shields.io/github/workflow/status/tasts-robots/vulp/CI)](https://github.com/tasts-robots/vulp/actions)
@@ -6,13 +6,13 @@
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?logo=read-the-docs&style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Example project](https://img.shields.io/badge/Example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
-Real-time motion control for Python.
-
-Vulp is a small inter-process communication (IPC) protocol that allows Python code to control faster actuators and simulators. It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main example of such a task is balancing: there is [theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, despite being frequently implemented at 200–1000 Hz.
-
 <img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
 
-In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. (Currently the library supports C++ spines and Python agents, other languages are welcome.) Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, ``action`` is a set of joint commands and ``observation`` reports joint observations, but Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads its targets from ``action``, or include a ground contact estimator that writes to ``observation``.
+Vulp provides a standard action-observation loop for Python code to control faster actuators and simulators.
+
+More precisely, Vulp is a tiny inter-process communication (IPC) protocol, and a library that implements this protocol (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing: there is [theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, despite being frequently implemented at 200–1000 Hz.
+
+In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, ``action`` is a set of joint commands and ``observation`` reports joint observations, but Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads its targets from ``action``, or include a ground contact estimator that writes to ``observation``.
 
 ### Try it out!
 
