@@ -2,7 +2,7 @@
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![Build](https://img.shields.io/github/workflow/status/tasts-robots/vulp/build)](https://github.com/tasts-robots/vulp/actions/workflows/build.yml)
-[![Test](https://img.shields.io/github/workflow/status/tasts-robots/vulp/test)](https://github.com/tasts-robots/vulp/actions/workflows/test.yml)
+[![Test](https://img.shields.io/github/workflow/status/tasts-robots/vulp/test?label=test)](https://github.com/tasts-robots/vulp/actions/workflows/test.yml)
 [![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?logo=read-the-docs&style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Example project](https://img.shields.io/badge/Example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
@@ -99,7 +99,7 @@ Interface description languages formally specify an API, which costs some overhe
 
 > Why make Python programs that read and write dictionaries rather than Python bindings?
 
-Vulp is designed for prototyping and strives to eliminate intermediaries when it can. (The underlying belief is that the most valuable time when developing locomotion algorithms is the time spent running code on robots.) Python bindings bring the benefits of typing and would be better e.g. in a production context, but they also add overhead in terms of bookkeeping code and compilation time. Vulp goes for the "faster changes, fast blunders, faster fixes" approach.
+Vulp is designed for prototyping and strives to eliminate intermediaries when it can. (The underlying belief is that the most valuable time when developing locomotion algorithms is the time spent running code on robots.) Python bindings bring the benefits of typing and would be better *e.g.* in a production context, but they also add overhead in terms of bookkeeping code and compilation time. Vulp rather goes for a crash-early approach (fast changes, fast blunders, fast fixes).
 
 > Why the name "Vulp"?
 
