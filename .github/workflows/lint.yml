@@ -1,4 +1,4 @@
-name: build
+name: lint
 
 on: [push, pull_request]
 
@@ -15,8 +15,8 @@ jobs:
               with:
                   submodules: recursive
 
-            - name: "Build the library"
+            - name: "Check code formatting"
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
-                  tools/bazelisk build //...
+                  tools/bazelisk test --config lint //...
