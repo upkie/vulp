@@ -14,6 +14,7 @@ html:
 
 clean:
 	rm -rf $(HTMLDIR)
+	rm -f $(wildcard images/*.eps images/*.png images/*.svg)
 
 open:
 	firefox $(HTMLDIR)/index.html
@@ -27,7 +28,7 @@ images/%.png : figures/%.dot
 images/%.svg : figures/%.dot
 	dot $< -Tsvg -o $@
 
-figures: images/state-machine.eps images/state-machine.svg
+figures: images/state-machine.eps images/state-machine.png
 
-upload: clean html
+upload: clean figures html
 	rsync -auvz --delete-after $(HTMLDIR)/ $(REMOTEDIR)/
