@@ -5,7 +5,7 @@
 [![Test](https://img.shields.io/github/workflow/status/tasts-robots/vulp/test?label=test)](https://github.com/tasts-robots/vulp/actions/workflows/test.yml)
 [![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?logo=read-the-docs&style=flat)](https://tasts-robots.org/doc/vulp/)
-[![Example project](https://img.shields.io/badge/Example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
+[![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
 <img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
 
