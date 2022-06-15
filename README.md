@@ -7,11 +7,11 @@
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?logo=read-the-docs&style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
-<img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
-
 Vulp provides a standard action-observation loop for Python code to control faster actuators and simulators.
 
-More precisely, Vulp is a tiny inter-process communication (IPC) protocol, and a library that implements this protocol (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing: there is [theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, despite being frequently implemented at 200–1000 Hz.
+<img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
+
+More accurately, Vulp is a tiny inter-process communication (IPC) protocol, and a library that implements this protocol (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing: there is [theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, despite being frequently implemented at 200–1000 Hz.
 
 In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, ``action`` is a set of joint commands and ``observation`` reports joint observations, but Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads its targets from ``action``, or include a ground contact estimator that writes to ``observation``.
 
@@ -29,7 +29,7 @@ cd upkie_locomotion
 
 Connect a USB controller to move the robot around. 🎮
 
-There is no dependency to install on Linux thanks to [Bazel](https://bazel.build/), which builds all dependencies and runs the Python agent in one go. (This will take a while the first time.) The syntax is the same to deploy to the Raspberry Pi of the [real robot](https://www.youtube.com/shorts/8b36XcCgh7s).
+There is no requirement to install on Linux thanks to [Bazel](https://bazel.build/), which builds all dependencies and runs the Python agent in one go. (This will take a while the first time.) The syntax is the same to deploy to the Raspberry Pi of a real robot like [Upkie](https://hackaday.io/project/185729-upkie-homemade-wheeled-biped-robot).
 
 ## Features and non-features
 
@@ -42,7 +42,7 @@ All design decisions have their pros and cons. Take a look at the features and n
 - Interfaces with to the [Bullet](http://bulletphysics.org/) simulator
 - Observer pipeline to extend observations
 - 🏗️ Controller pipeline to extend actions
-- Soft real-time: spine-agent loop interactions are predictable and repeatble
+- Soft real-time: spine-agent loop interactions are predictable and repeatable
 - Unit tested, and not only with end-to-end tests
 
 ### Non-features
@@ -97,9 +97,9 @@ Make sure you configure CPU isolation and set the scaling governor to ``performa
 
 Interface description languages formally specify an API, which costs some overhead to write down and maintain, but can bring versioning, breaking change detection and other benefits, especially when the API is stable. Vulp, on the other hand, is designed for prototyping with rapidly-changing APIs: the spec is in the code. If an agent and spine communicate with incompatible/incomplete actions/observations, execution will immediately break, begging for developers to fix it.
 
-> Why make Python programs that read and write dictionaries rather than Python bindings?
+> Why the weakly-typed dictionary IPC rather than Python–C++ bindings?
 
-Vulp is designed for prototyping and strives to eliminate intermediaries when it can. (The underlying belief is that the most valuable time when developing locomotion algorithms is the time spent running code on robots.) Python bindings bring the benefits of typing and would be better *e.g.* in a production context, but they also add overhead in terms of bookkeeping code and compilation time. Vulp rather goes for a crash-early approach (fast changes, fast blunders, fast fixes).
+Vulp is designed for prototyping: it strives to eliminate intermediaries when it can, and keep a low barrier of entry. Python bindings bring the benefits of typing and are a good choice in production contexts, but like interface description languages, they also add overhead in terms of developer training, bookkeeping code and compilation time. Vulp rather goes for a crash-early approach: fast changes, fast blunders (interface errors raise exceptions that end execution), fast fixes (know immediately when an error was introduced).
 
 > Why the name "Vulp"?
 
