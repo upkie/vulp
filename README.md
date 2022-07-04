@@ -62,9 +62,7 @@ If any of the non-features is a no-go to you, you may also want to check out the
 
 ## Getting started
 
-Check out [``vulp_example``](https://github.com/tasts-robots/vulp_example) to get started with a minimal Python agent and Vulp spine.
-
-The [``upkie_locomotion``](https://github.com/tasts-robots/upkie_locomotion) repository has more advanced patterns such as custom observers and multi-stage agents.
+Check out [``upkie_locomotion``](https://github.com/tasts-robots/upkie_locomotion) to get started with a simulation and real-robot spines, custom observers and locomotion agents.
 
 ## Q and A
 
