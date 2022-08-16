@@ -57,10 +57,10 @@ class SynchronousClock {
   //! Get measured period in seconds.
   double measured_period() const noexcept { return measured_period_; }
 
-  //! Get last number of clock cycles skipped>
+  //! Get last number of clock cycles skipped.
   int skip_count() const noexcept { return skip_count_; }
 
-  //! Get the last sleep duration duration in seconds>
+  //! Get the last sleep duration duration in seconds.
   double slack() const noexcept { return slack_; }
 
  private:
