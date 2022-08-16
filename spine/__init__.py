@@ -20,7 +20,6 @@ Python library for an agent to interact with a spine.
 """
 
 from .request import Request
-from .serialize import serialize
 from .spine_error import SpineError
 from .spine_interface import SpineInterface
 
@@ -28,5 +27,4 @@ __all__ = [
     "Request",
     "SpineError",
     "SpineInterface",
-    "serialize",
 ]

@@ -27,7 +27,7 @@ import msgpack
 import posix_ipc
 
 from vulp.spine.request import Request
-from vulp.spine.serialize import serialize
+from vulp.utils.serialize import serialize
 from vulp.spine.spine_interface import SpineInterface
 
 wait_pre_monkeypatch = SpineInterface._wait_for_spine

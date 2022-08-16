@@ -110,11 +110,12 @@ py_library(
             "@pip_vulp//pypi__msgpack",
             "@pip_vulp//pypi__posix_ipc",
         ],
-    }),
+    }) + [
+        "//utils:serialize",
+    ],
     srcs = [
         "__init__.py",
         "request.py",
-        "serialize.py",
         "spine_error.py",
         "spine_interface.py",
     ],

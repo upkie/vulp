@@ -23,7 +23,7 @@ import msgpack
 import posix_ipc
 
 from .request import Request
-from .serialize import serialize
+from vulp.utils.serialize import serialize
 from .spine_error import SpineError
 
 
