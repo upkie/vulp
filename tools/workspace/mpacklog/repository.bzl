@@ -9,6 +9,6 @@ def mpacklog_repository():
     git_repository(
         name = "mpacklog",
         remote = "https://github.com/stephane-caron/mpacklog.git",
-        commit = "13dabf5592966fab963ffa2a09534ba259031914",
-        shallow_since = "1660725656 +0200"
+        commit = "6b8be72e7f2a3bbd620e9d478d53be294a33d214",
+        shallow_since = "1660727671 +0200"
     )
