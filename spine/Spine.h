@@ -23,9 +23,9 @@
 #include <string>
 #include <vector>
 
+#include "mpacklog/Logger.h"
 #include "vulp/actuation/ImuData.h"
 #include "vulp/actuation/Interface.h"
-#include "vulp/logging/Logger.h"
 #include "vulp/observation/ObserverPipeline.h"
 #include "vulp/observation/observe_imu.h"
 #include "vulp/observation/observe_servos.h"
@@ -166,7 +166,7 @@ class Spine {
   observation::ObserverPipeline observer_pipeline_;
 
   //! Logger for the dictionary \ref dict_ produced at each cycle
-  logging::Logger logger_;
+  mpacklog::Logger logger_;
 
   //! Buffer used to serialize/deserialize dictionaries in IPC.
   std::vector<char> ipc_buffer_;

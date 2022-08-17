@@ -85,7 +85,6 @@ cc_library(
     deps = [
         "//actuation:imu_data",
         "//actuation:interface",
-        "//logging:logger",
         "//observation:observe_imu",
         "//observation:observe_servos",
         "//observation:observe_time",
@@ -95,6 +94,7 @@ cc_library(
         ":position_commands",
         ":state_machine",
         ":stop_commands",
+        "@mpacklog//mpacklog:cpp",
     ],
     include_prefix = "vulp/spine",
 )
