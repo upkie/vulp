@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <mpacklog/Logger.h>
+
 #include <algorithm>
 #include <future>
 #include <map>
@@ -23,7 +25,6 @@
 #include <string>
 #include <vector>
 
-#include "mpacklog/Logger.h"
 #include "vulp/actuation/ImuData.h"
 #include "vulp/actuation/Interface.h"
 #include "vulp/observation/ObserverPipeline.h"

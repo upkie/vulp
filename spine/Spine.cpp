@@ -22,9 +22,10 @@
 
 #include "vulp/spine/Spine.h"
 
+#include <mpacklog/Logger.h>
+
 #include <limits>
 
-#include "mpacklog/Logger.h"
 #include "vulp/observation/ObserverError.h"
 #include "vulp/spine/position_commands.h"
 #include "vulp/spine/stop_commands.h"
