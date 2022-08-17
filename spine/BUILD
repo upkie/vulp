@@ -94,7 +94,7 @@ cc_library(
         ":position_commands",
         ":state_machine",
         ":stop_commands",
-        "@mpacklog//mpacklog:cpp",
+        "@mpacklog:cpp",
     ],
     include_prefix = "vulp/spine",
 )
