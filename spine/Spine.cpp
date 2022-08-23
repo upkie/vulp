@@ -85,11 +85,11 @@ void Spine::reset(const Dictionary& config) {
 
 void Spine::log_dict() {
   Dictionary& spine = dict_("spine");
-  spine("logger")("last_write_size") = logger_.last_write_size();
+  spine("logger")("last_size") = logger_.last_size();
   spine("state")("cycle_beginning") =
       static_cast<uint32_t>(state_cycle_beginning_);
   spine("state")("cycle_end") = static_cast<uint32_t>(state_cycle_end_);
-  logger_.write(dict_);
+  logger_.put(dict_);
 }
 
 void Spine::run() {
