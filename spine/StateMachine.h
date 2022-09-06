@@ -62,8 +62,9 @@ constexpr const char* state_name(const State& state) noexcept {
     case State::kOver:
       return "State::kOver";
     default:
-      return "?";
+      break;
   }
+  return "?";
 }
 
 /*! Spine state machine.
