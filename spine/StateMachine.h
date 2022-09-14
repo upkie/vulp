@@ -78,7 +78,7 @@ constexpr const char* state_name(const State& state) noexcept {
  * States have the following purposes:
  *
  * - Stop: do nothing, send stop commands to servos
- * - Reset: configure actuation interface and observers
+ * - Reset: apply runtime configuration to actuation interface and observers
  *   - The reset state is not time-critical, *i.e.*, configuration can take
  *   time.
  * - Idle: do nothing
