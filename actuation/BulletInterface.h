@@ -51,21 +51,22 @@ class BulletInterface : public Interface {
      * \param[in] config Global configuration dictionary.
      */
     void configure(const Dictionary& config) {
-      if (config.has("spine_frequency")) {
-        dt = 1.0 / config.get<unsigned>("spine_frequency");
+      if (!config.has("bullet")) {
+        spdlog::warn("No \"bullet\" configuration");
+        return;
       }
-      if (config.has("bullet")) {
-        const auto& bullet = config("bullet");
-        follower_camera = bullet.get<bool>("follower_camera", follower_camera);
-        gui = bullet.get<bool>("gui", gui);
-        const auto& mode = bullet.get<std::string>("control_mode", "torque");
-        use_torque_control = (mode == "torque");
-        position_init_base_in_world = bullet.get<Eigen::Vector3d>(
-            "position_init_base_in_world", Eigen::Vector3d::Zero());
-        if (bullet.has("torque_control")) {
-          torque_control_kd = bullet("torque_control")("kd");
-          torque_control_kp = bullet("torque_control")("kp");
-        }
+
+      spdlog::info("Applying \"bullet\" configuration...");
+      const auto& bullet = config("bullet");
+      follower_camera = bullet.get<bool>("follower_camera", follower_camera);
+      gui = bullet.get<bool>("gui", gui);
+      const auto& mode = bullet.get<std::string>("control_mode", "torque");
+      use_torque_control = (mode == "torque");
+      position_init_base_in_world = bullet.get<Eigen::Vector3d>(
+          "position_init_base_in_world", Eigen::Vector3d::Zero());
+      if (bullet.has("torque_control")) {
+        torque_control_kd = bullet("torque_control")("kd");
+        torque_control_kp = bullet("torque_control")("kp");
       }
     }
 

@@ -33,7 +33,6 @@ class BulletInterfaceTest : public ::testing::Test {
   void SetUp() override {
     Dictionary config;
     config("bullet")("gui") = false;
-    config("spine_frequency") = 1000u;
 
     ServoLayout layout;
     layout.add_servo(1, 1, "right_hip");
