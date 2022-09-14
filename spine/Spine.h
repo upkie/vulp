@@ -49,7 +49,13 @@ constexpr size_t kMebibytes = 1 << 20;
  * actuation replies and commands to the actuation from agent actions.
  *
  * The spine processes requests at the beginning and end of each control cycle
- * according to its StateMachine.
+ * according to its StateMachine. The overall specification of the state
+ * machine is summarized in the following diagram:
+ *
+ * \image html state-machine.png
+ * \image latex state-machine.eps
+ *
+ * See StateMachine for more details.
  */
 class Spine {
  public:
