@@ -79,6 +79,8 @@ constexpr const char* state_name(const State& state) noexcept {
  *
  * - Stop: do nothing, send stop commands to servos
  * - Reset: configure actuation interface and observers
+ *   - The reset state is not time-critical, *i.e.*, configuration can take
+ *   time.
  * - Idle: do nothing
  * - Observe: write observation from the actuation interface
  * - Act: send action to the actuation interface

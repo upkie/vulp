@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Spine state machine documentation
+
 ### Changed
 
 - Moved Python `serialize` function to utils
