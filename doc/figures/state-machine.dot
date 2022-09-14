@@ -21,12 +21,12 @@ digraph spine_state_machine {
     node [shape=point, label=""] initial, terminal;
     node [shape=square];
 
-    kSendStops[label="stop"];
-    kReset[label="reset"];
-    kIdle[label="idle"];
-    kObserve[label="observe"];
-    kAct[label="act"];
-    kShutdown[label="shutdown"];
+    kSendStops[label="Stop"];
+    kReset[label="Reset"];
+    kIdle[label="Idle"];
+    kObserve[label="Observe"];
+    kAct[label="Act"];
+    kShutdown[label="Shutdown"];
 
     initial->kSendStops[label="Initialization"];
     kSendStops->kReset[label="begin [req=start, stop_cycles>=5]"];
