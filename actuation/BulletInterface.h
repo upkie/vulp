@@ -52,11 +52,11 @@ class BulletInterface : public Interface {
      */
     void configure(const Dictionary& config) {
       if (!config.has("bullet")) {
-        spdlog::warn("No \"bullet\" configuration");
+        spdlog::debug("No \"bullet\" runtime configuration");
         return;
       }
 
-      spdlog::info("Applying \"bullet\" configuration...");
+      spdlog::info("Applying \"bullet\" runtime configuration...");
       const auto& bullet = config("bullet");
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
