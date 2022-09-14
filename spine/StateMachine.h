@@ -75,6 +75,15 @@ constexpr const char* state_name(const State& state) noexcept {
  * \image html state-machine.png
  * \image latex state-machine.eps
  *
+ * States have the following purposes:
+ *
+ * - Stop: do nothing, send stop commands to servos
+ * - Reset: configure actuation interface and observers
+ * - Idle: do nothing
+ * - Observe: write observation from the actuation interface
+ * - Act: send action to the actuation interface
+ * - Shutdown: terminal state, exit the control loop
+ *
  * There are three possible events:
  *
  * - ``begin``: beginning of a control cycle,
