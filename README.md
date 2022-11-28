@@ -7,18 +7,18 @@
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?logo=read-the-docs&style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 
-Vulp provides a standard action-observation loop for Python code to control faster actuators and simulators.
+Vulp provides a standard action-observation loop to control actuators/simulators from Python.
 
 <img src="https://user-images.githubusercontent.com/1189580/170735874-39550a66-5792-44a5-98e8-898a004dec39.png" width=500 align="right">
 
-More accurately, Vulp is a tiny inter-process communication (IPC) protocol, and a library that implements this protocol (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing: there is [theoretical and empirical evidence](https://arxiv.org/pdf/1907.01805.pdf) that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, despite being frequently implemented at 200–1000 Hz.
+More accurately, Vulp is a tiny inter-process communication (IPC) protocol shipped with reference libraries (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing, as there is [theoretical and empirical evidence](https://arxiv.org/abs/1907.01805) that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, despite being frequently implemented at 200–1000 Hz. And if you are wondering whether Python is suitable for real-time applications, we were too! Until we [tried it out](#performance).
 
-In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. In its simplest form, ``action`` is a set of joint commands and ``observation`` reports joint observations, but Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver that reads its targets from ``action``, or include a ground contact estimator that writes to ``observation``.
+In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. For instance, ``action`` can be a set of joint commands and ``observation`` a set of joint observations. Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver, or output its own ground contact estimation.
 
 ### Try it out!
 
-<!-- GIF: https://user-images.githubusercontent.com/1189580/170491850-dfbb4786-12ff-4fe8-8080-9413d68acfc1.gif -->
-<!-- Issue: https://github.com/github/feedback/discussions/17256 -->
+No installation required on Linux:
+
 <img src="https://user-images.githubusercontent.com/1189580/170496331-e1293dd3-b50c-40ee-9c2e-f75f3096ebd8.png" height="100" align="right" />
 
 ```console
@@ -29,7 +29,7 @@ cd upkie_locomotion
 
 Connect a USB controller to move the robot around. 🎮
 
-There is no requirement to install on Linux thanks to [Bazel](https://bazel.build/), which builds all dependencies and runs the Python agent in one go. (This will take a while the first time.) The syntax is the same to deploy to the Raspberry Pi of a real robot like [Upkie](https://hackaday.io/project/185729-upkie-homemade-wheeled-biped-robot).
+The syntax is the same to deploy to the Raspberry Pi of a real robot like [Upkie](https://hackaday.io/project/185729-upkie-homemade-wheeled-biped-robot).
 
 ## Features and non-features
 
