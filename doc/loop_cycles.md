@@ -7,6 +7,7 @@ Code without time measurements:
 ```python
 import moteus
 import moteus_pi3hat
+from loop_rate_limiters import AsyncRateLimiter
 
 async def main(frequency: int = 200):
     transport = moteus_pi3hat.Pi3HatRouter(
@@ -19,7 +20,7 @@ async def main(frequency: int = 200):
         servo_id: moteus.Controller(id=servo_id, transport=transport)
         for servo_id in [1, 2, 3, 4, 5, 6]
     }
-    rate = aiorate.Rate(frequency)
+    rate = AsyncRateLimiter(frequency)
     for i in range(10_000):
         commands = [c.make_stop(query=True) for c in servos.values()]
         await transport.cycle(commands)
@@ -36,7 +37,7 @@ We run the same test with the pi3hat spine from [`upkie_locomotion`](https://git
 import vulp.spine
 
 async def main(spine: vulp.spine.SpineInterface, frequency: int = 200):
-    rate = aiorate.Rate(frequency)
+    rate = AsyncRateLimiter(frequency)
     for i in range(10_000):
         spine.get_observation()
         spine.set_action({})

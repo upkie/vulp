@@ -28,11 +28,11 @@ namespace vulp::utils {
  * next tick (which is always blocking, see below), and reports missed ticks if
  * applicable.
  *
- * The difference between a blocking clock and a rate limiter (such as
- * aiorate.Rate) lies in the behavior when skipping cycles. A rate limiter does
- * nothing if there is no time left, as the caller's rate does not need to be
- * limited. On the contrary, a synchronous clock waits for the next tick, which
- * is by definition in the future, so it always waits for a non-zero duration.
+ * The difference between a blocking clock and a rate limiter lies in the
+ * behavior when skipping cycles. A rate limiter does nothing if there is no
+ * time left, as the caller's rate does not need to be limited. On the
+ * contrary, a synchronous clock waits for the next tick, which is by
+ * definition in the future, so it always waits for a non-zero duration.
  *
  * Internally all durations in this class are stored in microseconds.
  */
