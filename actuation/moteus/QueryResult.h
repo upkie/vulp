@@ -35,7 +35,7 @@ struct QueryResult {
   //! Angular position in [rev]
   double position = std::numeric_limits<double>::quiet_NaN();
 
-  //! Angular velocity in [rps]
+  //! Angular velocity in [rev] / [s]
   double velocity = std::numeric_limits<double>::quiet_NaN();
 
   //! Torque in [Nm]
@@ -47,7 +47,14 @@ struct QueryResult {
   //! D-phase current in [A]
   double d_current = std::numeric_limits<double>::quiet_NaN();
 
+  /*! Boolean flag used to figure out the output zero of a servo.
+   *
+   * When this flag is true, we assume the output is currently in the same
+   * sextant (for a qdd100) as its zero. We then recover absolute calibration
+   * based on the absolute encoder on the motor side.
+   */
   bool rezero_state = false;
+
   double voltage = std::numeric_limits<double>::quiet_NaN();
   double temperature = std::numeric_limits<double>::quiet_NaN();
   int fault = 0;
