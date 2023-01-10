@@ -20,16 +20,4 @@ cc_test(
     ],
 )
 
-cc_library(
-    name = "observers",
-    hdrs = [
-        "SchwiftyObserver.h",
-        "ThrowingObserver.h",
-    ],
-    deps = [
-        "//observation:observer",
-    ],
-    include_prefix = "vulp/observation/tests",
-)
-
 add_lint_tests(enable_clang_format_lint = True)
