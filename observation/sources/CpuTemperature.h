@@ -30,9 +30,11 @@ class CpuTemperature : public Source {
  public:
   /*! Open file to query temperature from the kernel.
    *
-   * \param[in] temp_path Path to thermal-zone special file from the Linux kernel.
+   * \param[in] temp_path Path to thermal-zone special file from the Linux
+   * kernel.
    */
-  CpuTemperature(const std::string& temp_path = "/sys/class/thermal/thermal_zone0/temp");
+  CpuTemperature(
+      const char* temp_path = "/sys/class/thermal/thermal_zone0/temp");
 
   //! Close file.
   ~CpuTemperature() override;

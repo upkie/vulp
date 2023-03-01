@@ -18,7 +18,7 @@
 
 namespace vulp::observation::sources {
 
-CpuTemperature::CpuTemperature(const std::string &temp_path) : has_warned_(false) {
+CpuTemperature::CpuTemperature(const char* temp_path) : has_warned_(false) {
   fd_ = ::open(temp_path, O_RDONLY | O_NONBLOCK);
   ::memset(buffer_, 0, sizeof(buffer_));
 }
