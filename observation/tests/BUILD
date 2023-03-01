@@ -27,7 +27,7 @@ cc_library(
         "SchwiftyObserver.h",
         "ThrowingObserver.h",
     ],
-    include_prefix = "vulp/observers/tests",
+    include_prefix = "vulp/observation/tests",
 )
 
 add_lint_tests(enable_clang_format_lint = True)
