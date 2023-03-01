@@ -18,11 +18,8 @@
 
 namespace vulp::observation::sources {
 
-CpuTemperature::CpuTemperature() : has_warned_(false) {
-  fd_ = ::open("/sys/class/thermal/thermal_zone0/temp", O_RDONLY | O_NONBLOCK);
-  if (fd_ < 0) {
-    spdlog::warn("CPU temperature observation disabled: file not found");
-  }
+CpuTemperature::CpuTemperature(const std::string &temp_path) : has_warned_(false) {
+  fd_ = ::open(temp_path, O_RDONLY | O_NONBLOCK);
   ::memset(buffer_, 0, sizeof(buffer_));
 }
 
