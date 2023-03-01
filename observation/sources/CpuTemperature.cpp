@@ -30,7 +30,11 @@ CpuTemperature::~CpuTemperature() {
 }
 
 void CpuTemperature::write(Dictionary& observation) {
-  if (fd_ < 0) {
+  if (is_disabled_) {
+    return;
+  } else if (fd_ < 0) {
+    spdlog::warn("CPU temperature observation disabled: file not found");
+    is_disabled_ = true;
     return;
   }
 
