@@ -23,7 +23,11 @@ CpuTemperature::CpuTemperature(const std::string &temp_path) : has_warned_(false
   ::memset(buffer_, 0, sizeof(buffer_));
 }
 
-CpuTemperature::~CpuTemperature() { ::close(fd_); }
+CpuTemperature::~CpuTemperature() {
+  if (fd_ >= 0) {
+    ::close(fd_);
+  }
+}
 
 void CpuTemperature::write(Dictionary& observation) {
   if (fd_ < 0) {
