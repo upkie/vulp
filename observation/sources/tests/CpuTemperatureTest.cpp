@@ -19,6 +19,14 @@
 
 namespace vulp::observation::sources {
 
+TEST(CpuTemperature, NoWriteIfDisabled) {
+  CpuTemperature cpu_temperature("/bogus/temp");
+  Dictionary observation;
+  ASSERT_FALSE(cpu_temperature.is_disabled());
+  ASSERT_NO_THROW(cpu_temperature.write(observation));
+  ASSERT_TRUE(cpu_temperature.is_disabled());
+}
+
 TEST(CpuTemperature, WriteOnce) {
   CpuTemperature cpu_temperature;
   Dictionary observation;
