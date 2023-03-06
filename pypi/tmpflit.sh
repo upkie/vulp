@@ -34,13 +34,13 @@ echo "[debug] COMMAND=${COMMAND}"
 echo "[debug] SRCDIR=${SRCDIR}"
 echo "[debug] TMPDIR=${TMPDIR}"
 
-mkdir ${TMPDIR}/vulp
 for folder in spine utils; do
+    mkdir -p ${TMPDIR}/vulp/$(dirname ${folder})
     cp -r ${SRCDIR}/${folder} ${TMPDIR}/vulp/${folder}
 done
-cp ${BASEDIR}/pyproject.toml ${TMPDIR}/pyproject.toml
-cp ${SRCDIR}/README.md ${TMPDIR}/README.md
-cp ${BASEDIR}/vulp/__init__.py ${TMPDIR}/vulp/__init__.py
 
-cd ${TMPDIR}
-flit ${COMMAND}
+cp ${BASEDIR}/pyproject.toml ${TMPDIR}/pyproject.toml
+cp ${BASEDIR}/vulp/__init__.py ${TMPDIR}/vulp/__init__.py
+cp ${SRCDIR}/README.md ${TMPDIR}/README.md
+
+cd ${TMPDIR} && flit ${COMMAND}
