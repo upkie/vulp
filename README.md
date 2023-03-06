@@ -9,7 +9,7 @@
 Vulp provides a standard action-observation loop to control actuators/simulators from Python. It looks like this:
 
 <p align="center">
-<img src="doc/figures/action-observation-loop-full.svg" alt="Action-observation loop with Vulp" class="center"/>
+<img src="https://raw.githubusercontent.com/tasts-robots/vulp/main/doc/figures/action-observation-loop-full.svg" alt="Action-observation loop with Vulp" class="center"/>
 </p>
 
 More accurately, Vulp is a tiny inter-process communication (IPC) protocol shipped with reference libraries (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing, as there is [theoretical and empirical evidence](https://arxiv.org/abs/1907.01805) suggesting that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, although balance control is frequently implemented at 200–1000 Hz. And if you are wondering whether Python is suitable for real-time applications, we were too! Until we [tried it out](#performance).
