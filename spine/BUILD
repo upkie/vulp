@@ -3,6 +3,7 @@
 # Copyright 2022 Stéphane Caron
 
 load("//tools/lint:lint.bzl", "add_lint_tests")
+load("@pip_vulp//:requirements.bzl", "requirement")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -107,8 +108,8 @@ py_library(
         "//:pi32_config": [],
         "//:pi64_config": [],
         "//conditions:default": [
-            "@pip_vulp//pypi__msgpack",
-            "@pip_vulp//pypi__posix_ipc",
+            requirement("msgpack"),
+            requirement("posix_ipc"),
         ],
     }) + [
         "//utils:serialize",

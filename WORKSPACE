@@ -12,8 +12,10 @@ load("@palimpsest//tools/workspace:default.bzl", add_palimpsest_repositories = "
 add_palimpsest_repositories()
 
 # We can load this now that @rules_python has been added as a @palimpsest repository
-load("//tools/workspace:install_python_deps.bzl", "install_python_deps")
-install_python_deps()
+load("//tools/workspace/pip_vulp:parse_deps.bzl", "parse_deps")
+parse_deps()
+load("@pip_vulp//:requirements.bzl", "install_deps")
+install_deps()
 
 # @pi3hat is a default repository
 load("@pi3hat//tools/workspace:default.bzl", add_pi3hat_repositories = "add_default_repositories")
