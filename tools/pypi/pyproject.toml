@@ -30,7 +30,6 @@ classifiers = [
 dependencies = [
     "msgpack >=1.0.2",
     "posix_ipc >=1.0.5",
-    "setuptools >=67.4.0",
 ]
 keywords = ["motion control", "real time", "robotics"]
 
