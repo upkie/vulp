@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+PROJECT_NAME=vulp
+
 if [ "$#" -lt 1 ]; then
     echo "usage: same as flit"
     echo ""
@@ -35,12 +37,12 @@ echo "[debug] SRCDIR=${SRCDIR}"
 echo "[debug] TMPDIR=${TMPDIR}"
 
 for folder in spine utils; do
-    mkdir -p ${TMPDIR}/vulp/$(dirname ${folder})
-    cp -r ${SRCDIR}/${folder} ${TMPDIR}/vulp/${folder}
+    mkdir -p ${TMPDIR}/${PROJECT_NAME}/$(dirname ${folder})
+    cp -r ${SRCDIR}/${folder} ${TMPDIR}/${PROJECT_NAME}/${folder}
 done
 
 cp ${BASEDIR}/pyproject.toml ${TMPDIR}/pyproject.toml
-cp ${BASEDIR}/vulp/__init__.py ${TMPDIR}/vulp/__init__.py
+cp ${BASEDIR}/${PROJECT_NAME}/__init__.py ${TMPDIR}/${PROJECT_NAME}/__init__.py
 cp ${SRCDIR}/README.md ${TMPDIR}/README.md
 
 cd ${TMPDIR} && flit ${COMMAND}
