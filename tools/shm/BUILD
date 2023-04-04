@@ -17,4 +17,4 @@ cc_binary(
     ],
 )
 
-add_lint_tests(enable_clang_format_lint = True)
+add_lint_tests()

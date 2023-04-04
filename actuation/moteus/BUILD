@@ -13,4 +13,4 @@ cc_library(
     include_prefix = "vulp/actuation/moteus",
 )
 
-add_lint_tests(enable_clang_format_lint = True)
+add_lint_tests()
