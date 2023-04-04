@@ -51,9 +51,13 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
   bullet_.configureDebugVisualizer(COV_ENABLE_GUI, 0);
   bullet_.configureDebugVisualizer(COV_ENABLE_RENDERING, 0);
   bullet_.configureDebugVisualizer(COV_ENABLE_SHADOWS, 0);
-  bullet_.setGravity(btVector3(0, 0, -9.81));
+  if (params.gravity) {
+    bullet_.setGravity(btVector3(0, 0, -9.81));
+  }
   bullet_.setRealTimeSimulation(false);  // making sure
-  bullet_.loadURDF(find_plane_urdf(params.argv0));
+  if (params.floor) {
+    bullet_.loadURDF(find_plane_urdf(params.argv0));
+  }
 
   // Load robot model
   robot_ = bullet_.loadURDF(params.urdf_path);

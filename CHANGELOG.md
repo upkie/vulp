@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Added
+
+- Bullet: floor parameter
+- Bullet: gravity parameter
+
 ## [1.1.1] - 2023/03/13
 
 ### Changed
