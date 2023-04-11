@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 - Bullet: floor parameter
 - Bullet: gravity parameter
 
+### Fixed
+
+- Shared-memory file permissions
+
 ## [1.1.1] - 2023/03/13
 
 ### Changed
