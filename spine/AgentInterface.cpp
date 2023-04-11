@@ -38,8 +38,11 @@ void allocate_file(int file_descriptor, int bytes) {
 AgentInterface::AgentInterface(const std::string& name, size_t size)
     : name_(name), size_(size) {
   // Allocate shared memory
+  // About umask: see https://stackoverflow.com/a/11909753
+  mode_t existing_umask = ::umask(0);
   int file_descriptor =
       ::shm_open(name.c_str(), O_RDWR | O_CREAT | O_EXCL, 0666);
+  ::umask(existing_umask);
   if (file_descriptor < 0) {
     if (errno == EINVAL) {
       spdlog::error("Cannot open shared memory \"{}\": file name is invalid.",
