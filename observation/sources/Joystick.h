@@ -32,8 +32,10 @@ constexpr double kJoystickDeadband = 0.1;
 
 /*! Source for a joystick controller.
  *
- * \note Axes are the same for PS4 and Xbox controllers, but buttons differ
+ * Axes are the same for PS4 and Xbox controllers, but buttons differ
  * slightly. See comments in \ref read for the exact mapping.
+ *
+ * \note This source only works on Linux.
  */
 class Joystick : public Source {
  public:

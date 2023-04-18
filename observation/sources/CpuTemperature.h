@@ -25,7 +25,10 @@ namespace vulp::observation::sources {
 //! Characters required to read the temperature in [mC] from the kernel.
 constexpr unsigned kCpuTemperatureBufferSize = 12;
 
-//! Source for CPU temperature readings.
+/*! Source for CPU temperature readings.
+ *
+ * \note This source only works on Linux.
+ */
 class CpuTemperature : public Source {
  public:
   /*! Open file to query temperature from the kernel.
