@@ -54,8 +54,13 @@ Spine::Spine(const Parameters& params, actuation::Interface& actuation,
       state_machine_(agent_interface_),
       state_cycle_beginning_(State::kOver),
       state_cycle_end_(State::kOver) {
+
   // Thread name as it appears in the `cmd` column of `ps`
-  pthread_setname_np(pthread_self(), "spine_thread");
+  #ifdef __APPLE__
+      pthread_setname_np("spine_thread");
+  #else
+      pthread_setname_np(pthread_self(), "spine_thread");
+  #endif
 
   // Real-time configuration
   // NB: it is too late to lock memory here, this should be done by the caller
