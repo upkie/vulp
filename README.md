@@ -6,6 +6,7 @@
 [![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
 [![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
+[![Chat](https://img.shields.io/badge/matrix-joint%20chat-%234eb899)](https://matrix.to/#/#tasts-robots:matrix.org)
 
 Vulp provides a standard action-observation loop to control actuators/simulators from Python. It looks like this:
 
