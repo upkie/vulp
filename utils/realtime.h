@@ -21,6 +21,10 @@
 
 #include <stdexcept>
 
+#ifdef __APPLE__
+#include <spdlog/spdlog.h>
+#endif
+
 namespace vulp::utils {
 
 /*! Set the current thread to run on a given CPU core.
