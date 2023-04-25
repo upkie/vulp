@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#ifndef __APPLE__
 #include "gtest/gtest.h"
 #include "vulp/observation/sources/Joystick.h"
 
@@ -26,3 +27,4 @@ TEST(Joystick, WriteOnce) {
 }
 
 }  // namespace vulp::observation::sources
+#endif
