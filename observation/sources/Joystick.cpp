@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#ifndef __APPLE__
 #include "vulp/observation/sources/Joystick.h"
 
 namespace vulp::observation::sources {
@@ -140,3 +141,4 @@ void Joystick::write(Dictionary& observation) {
 }
 
 }  // namespace vulp::observation::sources
+#endif

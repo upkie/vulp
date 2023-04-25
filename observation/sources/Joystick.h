@@ -16,6 +16,7 @@
 
 #pragma once
 
+#ifndef __APPLE__
 #include <fcntl.h>
 #include <linux/joystick.h>
 #include <stdio.h>
@@ -100,3 +101,4 @@ class Joystick : public Source {
 };
 
 }  // namespace vulp::observation::sources
+#endif
