@@ -80,9 +80,10 @@ cc_library(
     srcs = [
         "Spine.cpp",
     ],
-    linkopts = [
-        "-lrt",
-    ],
+    linkopts = select({
+        "//:linux": ["-lrt"],
+        "@//conditions:default": [],
+    }),
     deps = [
         "//actuation:imu_data",
         "//actuation:interface",
