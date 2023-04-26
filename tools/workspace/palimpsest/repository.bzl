@@ -8,7 +8,7 @@ def palimpsest_repository():
     """
     git_repository(
         name = "palimpsest",
-        remote = "https://github.com/stephane-caron/palimpsest.git",
+        remote = "https://github.com/tasts-robots/palimpsest.git",
         commit = "4a2d4935ca3394cb036cfad4c9030d3b22b8cc42",
         shallow_since = "1654192305 +0200"
     )

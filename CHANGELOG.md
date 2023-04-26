@@ -9,8 +9,13 @@ All notable changes to this project will be documented in this file.
 - Bullet: floor parameter
 - Bullet: gravity parameter
 
+### Changed
+
+- Update mpacklog to v2.1.0
+
 ### Fixed
 
+- Only apply -lrt linker flag on Linux
 - Shared-memory file permissions
 
 ## [1.1.1] - 2023/03/13
@@ -35,7 +40,7 @@ All notable changes to this project will be documented in this file.
 - CI: merge into a single workflow with multiple jobs
 - CPU temperature observer: read from custom file
 - Moved Python `serialize` function to utils
-- Moved logging to [mpacklog](https://github.com/stephane-caron/mpacklog/)
+- Moved logging to [mpacklog](https://github.com/tasts-robots/mpacklog/)
 - Removed unused ``//models``
 - Switch from aiorate to loop-rate-limiters
 - Update mpacklog dependency
