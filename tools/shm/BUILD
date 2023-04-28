@@ -9,9 +9,10 @@ package(default_visibility = ["//visibility:public"])
 cc_binary(
     name = "clean",
     srcs = ["clean.cpp"],
-    linkopts = [
-        "-lrt",
-    ],
+    linkopts = select({
+        "//:linux": ["-lrt"],
+        "@//conditions:default": [],
+    }),
     deps = [
         "@spdlog",
     ],
