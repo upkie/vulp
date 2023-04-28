@@ -5,7 +5,6 @@
 build --compilation_mode=fastbuild
 build --copt="-Werror=return-type"
 build --cxxopt=-std=c++17
-build --output_groups=+mypy
 
 coverage --combined_report=lcov
 coverage --compilation_mode=fastbuild
@@ -13,11 +12,9 @@ coverage --copt="-Werror=return-type"
 coverage --cxxopt=-std=c++17
 coverage --instrument_test_targets
 
-test --aspects @mypy_integration//:mypy.bzl%mypy_aspect
 test --compilation_mode=fastbuild
 test --copt="-Werror=return-type"
 test --cxxopt=-std=c++17
-test --output_groups=+mypy
 test --test_output=errors
 
 ## Linter
