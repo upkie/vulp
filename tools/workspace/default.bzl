@@ -4,7 +4,6 @@
 
 load("//tools/workspace/bullet:repository.bzl", "bullet_repository")
 load("//tools/workspace/mpacklog:repository.bzl", "mpacklog_repository")
-load("//tools/workspace/mypy_integration:repository.bzl", "mypy_integration_repository")
 load("//tools/workspace/palimpsest:repository.bzl", "palimpsest_repository")
 load("//tools/workspace/pi3hat:repository.bzl", "pi3hat_repository")
 load("//tools/workspace/pycodestyle:repository.bzl", "pycodestyle_repository")
@@ -17,7 +16,6 @@ def add_default_repositories():
     """
     bullet_repository()
     mpacklog_repository()
-    mypy_integration_repository()
     palimpsest_repository()
     pi3hat_repository()
     pycodestyle_repository()

@@ -24,12 +24,3 @@ add_pi3hat_repositories()
 # @rpi_bazel is a @pi3hat repository
 load("@rpi_bazel//tools/workspace:default.bzl", add_rpi_bazel_repositories = "add_default_repositories")
 add_rpi_bazel_repositories()
-
-load("@mypy_integration//repositories:repositories.bzl", mypy_integration_repositories = "repositories")
-mypy_integration_repositories()
-
-load("@mypy_integration//:config.bzl", "mypy_configuration")
-mypy_configuration("//tools/mypy:mypy.ini")
-
-load("@mypy_integration//repositories:deps.bzl", mypy_integration_deps = "deps")
-mypy_integration_deps(mypy_requirements_file = "//tools/mypy:version.txt")
