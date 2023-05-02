@@ -45,7 +45,7 @@ def get_clang_format_path():
     """Get path to clang-format."""
     if platform.system() == "Darwin":
         candidates = glob.glob(
-            "/opt/homebrew/*/clang-format/**/" "bin/clang-format",
+            "/opt/homebrew/*/clang-format/**/bin/clang-format",
             recursive=True,
         )
         if len(candidates) < 1:
