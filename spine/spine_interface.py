@@ -22,8 +22,9 @@ from time import perf_counter_ns
 import msgpack
 import posix_ipc
 
-from .request import Request
 from vulp.utils.serialize import serialize
+
+from .request import Request
 from .spine_error import SpineError
 
 
@@ -43,7 +44,7 @@ class SpineInterface:
         """
         try:
             shared_memory = posix_ipc.SharedMemory(
-                shm_name, posix_ipc.O_RDWR, size=0
+                shm_name, size=0, read_only=False
             )
         except posix_ipc.ExistentialError as exn:
             raise RuntimeError(f"spine {shm_name} is not running") from exn
