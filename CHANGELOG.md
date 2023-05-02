@@ -11,11 +11,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Avoid the ``posix_ipc.O_RDWR`` flag in the Python spine interface
 - Remove ``mypy_integration``
 - Update mpacklog to v2.1.0
 
 ### Fixed
 
+- Find ``clang-format`` path on macOS (thanks to @boragokbakan)
 - Only apply -lrt linker flag on Linux
 - Shared-memory file permissions
 

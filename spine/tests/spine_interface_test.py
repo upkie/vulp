@@ -27,14 +27,13 @@ import msgpack
 import posix_ipc
 
 from vulp.spine.request import Request
-from vulp.utils.serialize import serialize
 from vulp.spine.spine_interface import SpineInterface
+from vulp.utils.serialize import serialize
 
 wait_pre_monkeypatch = SpineInterface._wait_for_spine
 
 
 class TestSpineInterface(unittest.TestCase):
-
     last_action: dict
     last_config: dict
     shm_name: str
@@ -50,7 +49,7 @@ class TestSpineInterface(unittest.TestCase):
             size: Size of shared memory file in bytes.
         """
         shared_memory = posix_ipc.SharedMemory(
-            shm_name, posix_ipc.O_RDWR | posix_ipc.O_CREAT, size=size
+            shm_name, posix_ipc.O_CREAT, size=size, read_only=False
         )
         _mmap = mmap.mmap(
             shared_memory.fd,
