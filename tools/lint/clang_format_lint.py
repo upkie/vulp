@@ -10,6 +10,7 @@
 #     License: BSD-3-Clause (see licenses/LICENSE-drake)
 
 import os
+import glob
 import platform
 import subprocess
 import sys
@@ -46,16 +47,16 @@ def get_clang_format_path():
         homebrew = (
             "/opt/homebrew" if platform.machine() == "arm64" else "/usr/local"
         )
-        candidates = [
-            fname
-            for fname in os.listdir(homebrew)
-            if fname.startswith("clang-format")
-        ]
+
+        candidates = glob.glob("/opt/homebrew/*/clang-format/**/bin/clang-format", recursive=True)
+
         if len(candidates) < 1:
             raise RuntimeError("clang-format not found in {homebrew}")
         elif len(candidates) > 1:
-            print(f"WARNING: multiple versions of clang-format: {candidates}")
-        path = f"{candidates[0]}/bin/clang-format"
+            print(f"WARNING: multiple versions of clang-format: {candidates}, selecting '{candidates[0]}'")
+    
+        path = candidates[0]
+    
     else:  # platform.system() == "Linux"
         path = "/usr/bin/clang-format"
     if os.path.isfile(path):
