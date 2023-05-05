@@ -102,6 +102,19 @@ class Interface {
    */
   moteus::Data& data() { return data_; }
 
+  /*! Stop all servos.
+   *
+   * \param[out] commands Servo commands to set to stop.
+   *
+   * This function does not and should not throw, as it will be called by
+   * default if any exception is caught from the spine control loop.
+   */
+  inline void write_stop_commands() noexcept {
+    for (auto& command : commands_) {
+      command.mode = actuation::moteus::Mode::kStopped;
+    }
+  }
+
  private:
   //! Servo layout.
   ServoLayout servo_layout_;

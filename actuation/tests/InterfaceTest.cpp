@@ -72,4 +72,14 @@ TEST_F(InterfaceTest, DataIsInitialized) {
   ASSERT_EQ(interface_->data().replies.data(), interface_->replies().data());
 }
 
+TEST_F(InterfaceTest, WriteStopCommands) {
+  for (auto& command : interface_->commands()) {
+    command.mode = actuation::moteus::Mode::kFault;
+  }
+  interface_->write_stop_commands();
+  for (const auto& command : interface_->commands()) {
+    ASSERT_EQ(command.mode, actuation::moteus::Mode::kStopped);
+  }
+}
+
 }  // namespace vulp::actuation
