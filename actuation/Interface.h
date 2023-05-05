@@ -102,6 +102,18 @@ class Interface {
    */
   moteus::Data& data() { return data_; }
 
+  /*! Initialize action dictionary with keys corresponding to the servo layout.
+   *
+   * \param[out] action Action dictionary.
+   */
+  void initialize_action_dict(palimpsest::Dictionary& action);
+
+  /*! Write position commands from an action dictionary.
+   *
+   * \param[in] action Action to read commands from.
+   */
+  void write_position_commands(const palimpsest::Dictionary& action);
+
   /*! Stop all servos.
    *
    * \param[out] commands Servo commands to set to stop.
