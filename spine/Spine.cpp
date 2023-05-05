@@ -194,6 +194,7 @@ void Spine::cycle_actuation() {
       Dictionary& action = dict_("action");
       write_position_commands(actuation_.commands(),
                               actuation_.servo_joint_map(), action);
+      spdlog::info("[Spine::cycle_actuation] ok");
     } else {
       spdlog::warn("[Spine::cycle_actuation] re-sending previous commands");
     }
