@@ -8,36 +8,9 @@ load("@pip_vulp//:requirements.bzl", "requirement")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "stop_commands",
-    hdrs = [
-        "stop_commands.h",
-    ],
-    deps = [
-        "//actuation/moteus",
-    ],
-    include_prefix = "vulp/spine",
-)
-
-cc_library(
-    name = "position_commands",
-    hdrs = [
-        "position_commands.h",
-    ],
-    deps = [
-        "@palimpsest",
-        "//actuation/moteus",
-    ],
-    include_prefix = "vulp/spine",
-)
-
-cc_library(
     name = "request",
     hdrs = [
         "Request.h",
-    ],
-    srcs = [
-    ],
-    deps = [
     ],
     include_prefix = "vulp/spine",
 )
@@ -93,9 +66,7 @@ cc_library(
         "//observation:observer_pipeline",
         "//utils:realtime",
         "//utils:synchronous_clock",
-        ":position_commands",
         ":state_machine",
-        ":stop_commands",
         "@mpacklog",
     ],
     include_prefix = "vulp/spine",

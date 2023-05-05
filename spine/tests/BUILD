@@ -17,7 +17,6 @@ cc_test(
         "//observation/tests:observers",
         "//observation:observer_pipeline",
         "//spine:agent_interface",
-        "//spine:position_commands",
         "//spine:spine",
         "//spine:state_machine",
         "//utils:random_string",

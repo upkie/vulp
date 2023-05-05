@@ -27,7 +27,6 @@
 #include <limits>
 
 #include "vulp/observation/ObserverError.h"
-#include "vulp/spine/position_commands.h"
 
 namespace vulp::spine {
 
@@ -78,7 +77,7 @@ void Spine::reset(const Dictionary& config) {
   actuation_.reset(config);
   dict_("action").clear();
   expect_timestamp(dict_("action"));
-  expect_position_commands(dict_("action"), actuation_.servo_joint_map());
+  actuation_.initialize_action_dict(dict_("action"));
   observer_pipeline_.reset(config);
 }
 
@@ -191,8 +190,7 @@ void Spine::cycle_actuation() {
       actuation_.write_stop_commands();
     } else if (state_machine_.state() == State::kAct) {
       Dictionary& action = dict_("action");
-      write_position_commands(actuation_.commands(),
-                              actuation_.servo_joint_map(), action);
+      actuation_.write_position_commands(action);
       spdlog::info("[Spine::cycle_actuation] ok");
     } else {
       spdlog::warn("[Spine::cycle_actuation] re-sending previous commands");

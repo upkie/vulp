@@ -41,7 +41,11 @@ cc_library(
     hdrs = [
         "Interface.h",
     ],
+    srcs = [
+        "Interface.cpp",
+    ],
     deps = [
+        "//actuation/moteus",
         ":imu_data",
         ":resolution",
         ":servo_layout",
