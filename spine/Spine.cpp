@@ -195,8 +195,7 @@ void Spine::cycle_actuation() {
       write_position_commands(actuation_.commands(),
                               actuation_.servo_joint_map(), action);
     } else {
-      // TODO(scaron): clear commands, otherwise the previous ones will be
-      // sent again!
+      spdlog::warn("[Spine::cycle_actuation] re-sending previous commands");
     }
   } catch (const std::exception& e) {
     spdlog::error("[Spine::cycle_actuation] Caught an exception: {}", e.what());
