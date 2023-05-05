@@ -20,7 +20,6 @@ cc_test(
         "//spine:position_commands",
         "//spine:spine",
         "//spine:state_machine",
-        "//spine:stop_commands",
         "//utils:random_string",
         "@googletest//:main",
         "@palimpsest",

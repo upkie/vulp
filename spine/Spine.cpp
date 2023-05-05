@@ -28,7 +28,6 @@
 
 #include "vulp/observation/ObserverError.h"
 #include "vulp/spine/position_commands.h"
-#include "vulp/spine/stop_commands.h"
 
 namespace vulp::spine {
 
@@ -189,7 +188,7 @@ void Spine::cycle_actuation() {
     // 2. Action
     if (state_machine_.state() == State::kSendStops ||
         state_machine_.state() == State::kShutdown) {
-      write_stop_commands(actuation_.commands());
+      actuation_.write_stop_commands();
     } else if (state_machine_.state() == State::kAct) {
       Dictionary& action = dict_("action");
       write_position_commands(actuation_.commands(),
@@ -202,12 +201,12 @@ void Spine::cycle_actuation() {
     spdlog::error("[Spine::cycle_actuation] Caught an exception: {}", e.what());
     spdlog::error("[Spine::cycle_actuation] Sending stop commands...");
     state_machine_.process_event(Event::kInterrupt);
-    write_stop_commands(actuation_.commands());
+    actuation_.write_stop_commands();
   } catch (...) {
     spdlog::error("[Spine::cycle_actuation] Caught an unknown exception!");
     spdlog::error("[Spine::cycle_actuation] Sending stop commands...");
     state_machine_.process_event(Event::kInterrupt);
-    write_stop_commands(actuation_.commands());
+    actuation_.write_stop_commands();
   }
 
   // Whatever exceptions were thrown around, we caught them and at this
