@@ -106,7 +106,7 @@ class Interface {
    *
    * \param[out] action Action dictionary.
    */
-  void initialize_action_dict(palimpsest::Dictionary& action);
+  void initialize_action(palimpsest::Dictionary& action);
 
   /*! Write position commands from an action dictionary.
    *
