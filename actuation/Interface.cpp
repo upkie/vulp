@@ -48,7 +48,7 @@ constexpr double kVelocity = 0.0;  // rad/s
 
 }  // namespace defaults
 
-void Interface::initialize_action_dict(palimpsest::Dictionary& action) {
+void Interface::initialize_action(palimpsest::Dictionary& action) {
   for (const auto& id_joint : servo_layout_.servo_joint_map()) {
     const std::string& joint_name = id_joint.second;
     auto& servo_action = action("servo")(joint_name);

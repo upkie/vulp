@@ -86,7 +86,7 @@ TEST_F(InterfaceTest, WriteStopCommands) {
 
 TEST_F(InterfaceTest, ExpectFillsDictionaryKeys) {
   Dictionary action;
-  interface_->initialize_action_dict(action);
+  interface_->initialize_action(action);
   ASSERT_TRUE(action.has("servo"));
   const Dictionary& servo = action("servo");
   for (const auto joint_name :

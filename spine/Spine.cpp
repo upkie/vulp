@@ -77,7 +77,7 @@ void Spine::reset(const Dictionary& config) {
   actuation_.reset(config);
   dict_("action").clear();
   expect_timestamp(dict_("action"));
-  actuation_.initialize_action_dict(dict_("action"));
+  actuation_.initialize_action(dict_("action"));
   observer_pipeline_.reset(config);
 }
 
