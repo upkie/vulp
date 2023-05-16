@@ -179,12 +179,10 @@ void Spine::cycle_actuation() {
     } else if (state_machine_.state() == State::kAct) {
       Dictionary& action = working_dict_("action");
       actuation_.write_position_commands(action);
+      actuation_.write_position_continue_commands();
       spdlog::info("[Spine] position");
     } else {
       spdlog::info("[Spine] position continue");
-      Dictionary& action = dict_("action");
-      actuation_.write_position_commands(action);
-      actuation_.write_position_continue_commands();
     }
   } catch (const std::exception& e) {
     spdlog::error("[Spine] Caught an exception: {}", e.what());
