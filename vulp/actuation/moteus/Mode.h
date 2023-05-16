@@ -27,7 +27,7 @@ enum class Mode {
   kPosition = 10,
   kPositionTimeout = 11,
   kZeroVelocity = 12,
-  kNumModes,
+  kPositionContinue,  // Vulp-specific, not from moteus lib
 };
 
 }  // namespace vulp::actuation::moteus
