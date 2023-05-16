@@ -191,9 +191,11 @@ void Spine::cycle_actuation() {
     } else if (state_machine_.state() == State::kAct) {
       Dictionary& action = dict_("action");
       actuation_.write_position_commands(action);
-      spdlog::info("[Spine::cycle_actuation] ok");
+      // TODO(scaron): don't re-send actuation
+      // See https://github.com/tasts-robots/vulp/issues/2
+      // spdlog::info("[Spine::cycle_actuation] ok");
     } else {
-      spdlog::warn("[Spine::cycle_actuation] re-sending previous commands");
+      // spdlog::warn("[Spine::cycle_actuation] re-sending previous commands");
     }
   } catch (const std::exception& e) {
     spdlog::error("[Spine::cycle_actuation] Caught an exception: {}", e.what());
