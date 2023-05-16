@@ -3,6 +3,8 @@
 
 #include "vulp/actuation/BulletInterface.h"
 
+#include <spdlog/spdlog.h>
+
 #include <algorithm>
 #include <memory>
 #include <string>
@@ -215,6 +217,9 @@ void BulletInterface::send_commands(const moteus::Data& data) {
     }
     servo_reply_[joint_name].result.mode = command.mode;
 
+    spdlog::info(
+        "[BulletInterface::send_commands] command mode for servo {} is {}",
+        servo_id, command.mode);
     if (command.mode == moteus::Mode::kStopped) {
       motor_args.m_controlMode = CONTROL_MODE_VELOCITY;
       motor_args.m_maxTorqueValue = 100.;  // [N m]
