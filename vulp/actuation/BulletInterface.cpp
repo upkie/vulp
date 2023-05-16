@@ -229,8 +229,6 @@ void BulletInterface::send_commands(const moteus::Data& data) {
           std::to_string(static_cast<unsigned>(command.mode)));
     }
 
-    // TODO(scaron): introduce control_position/velocity intermediates
-    // See https://github.com/mjbots/moteus/blob/main/docs/reference.md
     const double target_position = command.position.position * (2.0 * M_PI);
     const double target_velocity = command.position.velocity * (2.0 * M_PI);
     const double feedforward_torque = command.position.feedforward_torque;
