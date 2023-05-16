@@ -221,10 +221,11 @@ void BulletInterface::send_commands(const moteus::Data& data) {
       motor_args.m_targetVelocity = 0.;    // [rad] / [s]
       bullet_.setJointMotorControl(robot_, joint_index, motor_args);
       continue;
+    } else if (command.mode == moteus::Mode::kPositionContinue) {
+      command.mode = moteus::Mode::kPosition;
     }
 
-    if (command.mode != moteus::Mode::kPosition &&
-        command.mode != moteus::Mode::kPositionContinue) {
+    if (command.mode != moteus::Mode::kPosition) {
       throw std::runtime_error(
           "Bullet interface does not support command mode " +
           std::to_string(static_cast<unsigned>(command.mode)));
