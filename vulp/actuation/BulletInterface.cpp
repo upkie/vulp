@@ -215,14 +215,10 @@ void BulletInterface::send_commands(const moteus::Data& data) {
       motor_args.m_maxTorqueValue = 0.;  // [N m]
       bullet_.setJointMotorControl(robot_, joint_index, motor_args);
     }
-
-    // NOT HELPING:
-    // if (command.mode == moteus::Mode::kPositionContinue) {
-    //  servo_reply_[joint_name].result.mode = moteus::Mode::kPosition;
-    // } else {
-    //  servo_reply_[joint_name].result.mode = command.mode;
-    // }
-    servo_reply_[joint_name].result.mode = command.mode;
+    servo_reply_[joint_name].result.mode =
+        (command.mode == moteus::Mode::kPositionContinue)
+            ? moteus::Mode::kPosition
+            : command.mode;
 
     spdlog::info(
         "[BulletInterface::send_commands] command mode for servo {} is {}, "

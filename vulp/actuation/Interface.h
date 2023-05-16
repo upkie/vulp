@@ -123,9 +123,7 @@ class Interface {
    */
   inline void write_position_continue_commands() noexcept {
     for (auto& command : commands_) {
-      if (command.mode != actuation::moteus::Mode::kPosition) {
-        spdlog::error("what? command.mode == {}", command.mode);
-      } else {
+      if (command.mode == actuation::moteus::Mode::kPosition) {
         command.mode = actuation::moteus::Mode::kPositionContinue;
       }
     }
