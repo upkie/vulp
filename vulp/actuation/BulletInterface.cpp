@@ -223,7 +223,8 @@ void BulletInterface::send_commands(const moteus::Data& data) {
       continue;
     }
 
-    if (command.mode != moteus::Mode::kPosition) {
+    if (command.mode != moteus::Mode::kPosition &&
+        command.mode != moteus::Mode::kPositionContinue) {
       throw std::runtime_error(
           "Bullet interface does not support command mode " +
           std::to_string(static_cast<unsigned>(command.mode)));
