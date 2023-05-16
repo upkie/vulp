@@ -182,7 +182,7 @@ void Spine::cycle_actuation() {
       spdlog::info("[Spine] position");
     } else {
       spdlog::info("[Spine] position continue");
-      actuation_.write_position_continue_commands();
+      // actuation_.write_position_continue_commands();
     }
   } catch (const std::exception& e) {
     spdlog::error("[Spine] Caught an exception: {}", e.what());
