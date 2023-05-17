@@ -125,9 +125,6 @@ class Interface {
     for (auto& command : commands_) {
       if (command.mode == actuation::moteus::Mode::kPosition) {
         command.mode = actuation::moteus::Mode::kPositionContinue;
-      } else if (command.mode != actuation::moteus::Mode::kPositionContinue) {
-        spdlog::error("HA HA! you didn't think of this one! ;p mode={}",
-                      command.mode);
       }
     }
   }

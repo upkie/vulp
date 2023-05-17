@@ -149,4 +149,36 @@ TEST_F(InterfaceTest, ForwardVelocityCommands) {
   }
 }
 
+TEST_F(InterfaceTest, PositionContinueAfterFault) {
+  for (auto& command : interface_->commands()) {
+    command.mode = actuation::moteus::Mode::kFault;
+  }
+  interface_->write_position_continue_commands();
+  for (const auto& command : interface_->commands()) {
+    ASSERT_EQ(command.mode, actuation::moteus::Mode::kFault);
+  }
+}
+
+TEST_F(InterfaceTest, PositionContinueAfterStop) {
+  interface_->write_stop_commands();
+  interface_->write_position_continue_commands();
+  for (const auto& command : interface_->commands()) {
+    ASSERT_EQ(command.mode, actuation::moteus::Mode::kStopped);
+  }
+}
+
+TEST_F(InterfaceTest, PositionContinueAfterPosition) {
+  Dictionary action;
+  for (auto servo_name :
+       {"left_pump", "left_grinder", "right_pump", "right_grinder"}) {
+    action("servo")(servo_name)("position") = 2 * M_PI;  // [rad]
+    action("servo")(servo_name)("velocity") = M_PI;      // [rad] / [s]
+  }
+  interface_->write_position_commands(action);
+  interface_->write_position_continue_commands();
+  for (const auto& command : interface_->commands()) {
+    ASSERT_EQ(command.mode, actuation::moteus::Mode::kPositionContinue);
+  }
+}
+
 }  // namespace vulp::actuation
