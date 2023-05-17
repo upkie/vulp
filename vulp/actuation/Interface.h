@@ -121,7 +121,7 @@ class Interface {
    *
    * \param[out] commands Servo commands.
    */
-  inline void write_position_continue_commands() noexcept {
+  inline void continue_position_commands() noexcept {
     for (auto& command : commands_) {
       if (command.mode == actuation::moteus::Mode::kPosition) {
         command.mode = actuation::moteus::Mode::kPositionContinue;
