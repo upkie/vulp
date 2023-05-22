@@ -34,9 +34,7 @@ class StateMachineTest : public ::testing::Test {
     const auto* test_info =
         ::testing::UnitTest::GetInstance()->current_test_info();
     const size_t shm_size = 1 * (1 << 20);
-    const std::string shm_name =
-        std::string("/") + test_info->test_case_name() + "_" +
-        test_info->name() + "_" + utils::random_string();
+    const std::string shm_name = std::string("/") + utils::random_string();
     agent_interface_ = std::make_unique<AgentInterface>(shm_name, shm_size);
     state_machine_ = std::make_unique<StateMachine>(*agent_interface_);
   }
