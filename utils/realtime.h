@@ -44,7 +44,7 @@ inline void configure_cpu(int cpu) {
   }
 #else
   spdlog::warn(
-      "This function has not been implemented for MacOS, doing nothing...");
+      "This function has not been implemented for macOS, doing nothing...");
 #endif
 }
 
