@@ -177,7 +177,7 @@ TEST_F(InterfaceTest, ContinuePositionAfterPosition) {
   interface_->write_position_commands(action);
   interface_->continue_position_commands();
   for (const auto& command : interface_->commands()) {
-    ASSERT_EQ(command.mode, actuation::moteus::Mode::kContinuePosition);
+    ASSERT_EQ(command.mode, actuation::moteus::Mode::kPositionContinue);
   }
 }
 
