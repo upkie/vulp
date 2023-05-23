@@ -43,8 +43,7 @@ inline void configure_cpu(int cpu) {
     throw std::runtime_error("Error setting CPU affinity");
   }
 #else
-  spdlog::warn(
-      "[utils::configure_cpu] This function does nothing on macOS");
+  spdlog::warn("[utils::configure_cpu] This function does nothing on macOS");
 #endif
 }
 
