@@ -26,13 +26,15 @@
 
 #include "gtest/gtest.h"
 #include "vulp/spine/AgentInterface.h"
+#include "vulp/utils/random_string.h"
 
 namespace vulp::spine {
 
 class AgentInterfaceTest : public ::testing::Test {
  protected:
   void SetUp() override {
-    agent_interface_ = std::make_unique<AgentInterface>("tester", 1024);
+    agent_interface_ =
+        std::make_unique<AgentInterface>("/" + utils::random_string(), 1024);
   }
 
   void TearDown() {}
