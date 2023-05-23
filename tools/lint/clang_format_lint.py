@@ -53,7 +53,7 @@ def get_clang_format_path():
         elif len(candidates) > 1:
             print(
                 f"WARNING: multiple versions of clang-format: {candidates},"
-                "selecting {candidates[0]}"
+                f"selecting {candidates[0]}"
             )
         path = candidates[0]
     else:  # platform.system() == "Linux"
