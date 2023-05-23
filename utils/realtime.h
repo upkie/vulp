@@ -67,7 +67,7 @@ inline void configure_scheduler(int priority) {
   }
 #else
   spdlog::warn(
-      "This function has not been implemented for MacOS, doing nothing...");
+      "[utils::configure_scheduler] This function does nothing on macOS");
 #endif
 }
 
