@@ -27,12 +27,13 @@ namespace vulp::spine {
  * \param[in] bytes Number of bytes to allocate.
  */
 void allocate_file(int file_descriptor, int bytes) {
-  ::lseek(file_descriptor, bytes, SEEK_SET);
-  if (::write(file_descriptor, "", 1) < 1) {
-    throw std::runtime_error(
-        "Error allocating file (writing a single byte at the end)");
+  struct ::stat file_stats;
+  ::ftruncate(file_descriptor, bytes);
+  ::fstat(file_descriptor, &file_stats);
+  if (file_stats.st_size < bytes) {
+    throw std::runtime_error("Error allocating " + std::to_string(bytes) +
+                             " bytes in shared memory");
   }
-  ::lseek(file_descriptor, 0, SEEK_SET);
 }
 
 AgentInterface::AgentInterface(const std::string& name, size_t size)
