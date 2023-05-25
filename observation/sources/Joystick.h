@@ -43,7 +43,7 @@ class Joystick : public Source {
    *
    * \param[in] required If true, throw an exception if no joystick is found.
    */
-  Joystick(bool required = false);
+  explicit Joystick(bool required = false);
 
   //! Close device file.
   ~Joystick() override;
