@@ -220,10 +220,6 @@ void BulletInterface::send_commands(const moteus::Data& data) {
             ? moteus::Mode::kPosition
             : command.mode;
 
-    spdlog::info(
-        "[BulletInterface::send_commands] command mode for servo {} is {}, "
-        "velocity is {}",
-        servo_id, command.mode, command.position.velocity);
     if (command.mode == moteus::Mode::kStopped) {
       motor_args.m_controlMode = CONTROL_MODE_VELOCITY;
       motor_args.m_maxTorqueValue = 100.;  // [N m]
