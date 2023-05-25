@@ -43,7 +43,7 @@ class Joystick : public Source {
    *
    * \note Use \ref present to check if the joystick was opened successfully.
    */
-  explicit Joystick();
+  Joystick();
 
   //! Close device file.
   ~Joystick() override;
