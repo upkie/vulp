@@ -8,15 +8,13 @@
 [![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
 [![Chat](https://img.shields.io/badge/matrix-joint%20chat-%234eb899)](https://app.element.io/#/room/#tasts-robots:matrix.org)
 
-Vulp provides a standard action-observation loop to control actuators/simulators from Python. It looks like this:
+Vulp provides an action-observation loop to control robots from Python, like this:
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/tasts-robots/vulp/main/doc/figures/action-observation-loop-full.svg" alt="Action-observation loop with Vulp" class="center"/>
 </p>
 
-More accurately, Vulp is a tiny inter-process communication (IPC) protocol shipped with reference libraries (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing, as there is [theoretical and empirical evidence](https://arxiv.org/abs/1907.01805) suggesting that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, although balance control is frequently implemented at 200–1000 Hz. And if you are wondering whether Python is suitable for real-time applications, we were too! Until we [tried it out](#performance).
-
-In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. For instance, ``action`` can be a set of joint commands and ``observation`` a set of joint observations. Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver, or output its own ground contact estimation.
+Vulp works on Linux (desktop and Raspberry Pi) with [moteus](https://github.com/mjbots/moteus/) actuators and [Bullet](https://github.com/bulletphysics/bullet3) for simulation.
 
 ### Try it out!
 
@@ -32,13 +30,19 @@ cd upkie_locomotion
 
 Connect a USB controller to move the robot around. 🎮
 
-The syntax is the same to deploy to the Raspberry Pi of a real robot like [Upkie](https://hackaday.io/project/185729-upkie-homemade-wheeled-biped-robot).
+Check out the [``upkie_locomotion``](https://github.com/tasts-robots/upkie_locomotion) repository for an example where Vulp is used with Upkie wheeled biped, including simulation environments, real-robot spines, state observers and locomotion agents.
 
-## Features and non-features
+## Details
+
+More accurately, Vulp is a tiny inter-process communication (IPC) protocol shipped with reference libraries (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing, as there is [theoretical and empirical evidence](https://arxiv.org/abs/1907.01805) suggesting that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, although balance control is frequently implemented at 200–1000 Hz. And if you are wondering whether Python is suitable for real-time applications, we were too! Until we [tried it out](#performance).
+
+In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. For instance, ``action`` can be a set of joint commands and ``observation`` a set of joint observations. Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver, or output its own ground contact estimation.
+
+### Features and non-features
 
 All design decisions have their pros and cons. Take a look at the features and non-features below to decide if Vulp is a fit to your use case.
 
-### Features
+#### Features
 
 - Run the same Python code on simulated and real robots
 - Interfaces with to the [mjbots pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b) and mjbots actuators
@@ -48,7 +52,7 @@ All design decisions have their pros and cons. Take a look at the features and n
 - Soft real-time: spine-agent loop interactions are predictable and repeatable
 - Unit tested, and not only with end-to-end tests
 
-### Non-features
+#### Non-features
 
 - Low frequency: Vulp is designed for tasks that run in the 1–400 Hz range (like balancing bipeds or quadrupeds)
 - Soft, not hard real-time guarantee: the code is empirically reliable by a large margin, that's it
@@ -68,10 +72,6 @@ If your robot is built with some of the following open hardware components, you 
 * [odri_control_interface](https://github.com/open-dynamic-robot-initiative/odri_control_interface) - interface to control robots built with the [ODRI](https://github.com/open-dynamic-robot-initiative) Master Board.
 
 Using control bindings directly is a simpler alternative if you don't need the action-observation loop and simulation/real-robot switch from Vulp.
-
-## Getting started
-
-Check out [``upkie_locomotion``](https://github.com/tasts-robots/upkie_locomotion) to get started with a simulation and real-robot spines, custom observers and locomotion agents.
 
 ## Q and A
 
