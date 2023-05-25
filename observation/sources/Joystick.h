@@ -39,8 +39,11 @@ constexpr double kJoystickDeadband = 0.1;
  */
 class Joystick : public Source {
  public:
-  //! Open the device file.
-  Joystick();
+  /*! Open the device file.
+   *
+   * \param[in] required If true, throw an exception if no joystick is found.
+   */
+  Joystick(bool required = false);
 
   //! Close device file.
   ~Joystick() override;

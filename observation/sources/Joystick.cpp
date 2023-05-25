@@ -18,10 +18,14 @@
 
 namespace vulp::observation::sources {
 
-Joystick::Joystick() {
+Joystick::Joystick(bool required) {
   fd_ = ::open("/dev/input/js0", O_RDONLY | O_NONBLOCK);
   if (fd_ < 0) {
-    spdlog::warn("Joystick observation disabled: no joystick found");
+    if (required) {
+      throw std::runtime_error("Joystick required, but no joystick found");
+    } else {
+      spdlog::warn("Joystick observation disabled: no joystick found");
+    }
   }
 }
 
