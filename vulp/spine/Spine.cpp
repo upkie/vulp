@@ -182,9 +182,7 @@ void Spine::cycle_actuation() {
     } else if (state_machine_.state() == State::kAct) {
       Dictionary& action = working_dict_("action");
       actuation_.write_position_commands(action);
-      spdlog::info("[Spine] position");
     } else {
-      spdlog::info("[Spine] position continue");
       actuation_.continue_position_commands();
     }
   } catch (const std::exception& e) {
