@@ -41,9 +41,9 @@ class Joystick : public Source {
  public:
   /*! Open the device file.
    *
-   * \param[in] required If true, throw an exception if no joystick is found.
+   * \note Use \ref present to check if the joystick was opened successfully.
    */
-  explicit Joystick(bool required = false);
+  explicit Joystick();
 
   //! Close device file.
   ~Joystick() override;
