@@ -14,7 +14,10 @@
 
 #include <limits>
 
+#include "vulp/actuation/moteus/Mode.h"
 #include "vulp/exceptions/ObserverError.h"
+
+namespace moteus = vulp::actuation::moteus;
 
 namespace vulp::spine {
 
@@ -207,6 +210,7 @@ void Spine::cycle_actuation() {
     std::copy(actuation_.replies().begin(),
               actuation_.replies().begin() + rx_count, latest_replies_.begin());
     latest_imu_data_ = actuation_.imu_data();
+    check_replies(latest_replies_);
   }
 
   // Now we are after the previous cycle (we called actuation_output_.get())
@@ -228,6 +232,44 @@ void Spine::cycle_actuation() {
                      promise->set_value(output);
                    });
   actuation_output_ = promise->get_future();
+}
+
+void Spine::check_replies(
+    const std::vector<actuation::moteus::ServoReply>& servo_replies) {
+  const auto& servo_joint_map = actuation_.servo_joint_map();
+  for (const auto& reply : servo_replies) {
+    const int servo_id = reply.id;
+    auto it = servo_joint_map.find(servo_id);
+    if (it == servo_joint_map.end()) {
+      spdlog::error("Unknown servo ID {} in CAN reply", servo_id);
+      continue;
+    }
+
+    const auto& joint = it->second;
+    switch (reply.result.mode) {
+      case moteus::Mode::kStopped:
+      case moteus::Mode::kPosition:
+      case moteus::Mode::kZeroVelocity:
+      case moteus::Mode::kPositionContinue: {
+        // expected mode, nothing to report
+        break;
+      }
+      case moteus::Mode::kEnabling: {
+        spdlog::info("{} servo is being enabled...", joint);
+        break;
+      }
+      case moteus::Mode::kCalibrating: {
+        spdlog::info("{} servo is calibrating...", joint);
+        break;
+      }
+      default: {
+        const unsigned mode = static_cast<unsigned>(reply.result.mode);
+        const std::string label = moteus::to_string(reply.result.mode);
+        spdlog::error("{} servo is in mode {} ({})", joint, mode, label);
+        break;
+      }
+    }
+  }
 }
 
 }  // namespace vulp::spine

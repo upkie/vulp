@@ -124,6 +124,7 @@ All notable changes to this project will be documented in this file.
 - Bullet: Gravity parameter
 - Bullet: Initial orientation parameter
 - Optional constructor parameter to require the joystick to be present
+- Spine: check servo replies upon reception, report unusual modes
 - Unit tests for the internal agent interface
 
 ### Changed
