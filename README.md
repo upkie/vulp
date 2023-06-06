@@ -5,7 +5,7 @@
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
-[![Example project](https://img.shields.io/badge/example-upkie_locomotion-green)](https://github.com/tasts-robots/upkie_locomotion)
+[![Example project](https://img.shields.io/badge/example-upkie-green)](https://github.com/tasts-robots/upkie)
 [![Chat](https://img.shields.io/badge/matrix-joint%20chat-%234eb899)](https://app.element.io/#/room/#tasts-robots:matrix.org)
 
 Vulp provides an action-observation loop to control robots from Python, like this:
@@ -23,14 +23,14 @@ No installation required on Linux:
 <img src="https://user-images.githubusercontent.com/1189580/170496331-e1293dd3-b50c-40ee-9c2e-f75f3096ebd8.png" height="100" align="right" />
 
 ```console
-git clone https://github.com/tasts-robots/upkie_locomotion.git
-cd upkie_locomotion
-./tools/bazelisk run -c opt //agents/blue_balancer:bullet
+$ git clone https://github.com/tasts-robots/upkie.git
+$ cd upkie
+$ ./start_test_balancer.sh
 ```
 
 Connect a USB controller to move the robot around. 🎮
 
-Check out the [``upkie_locomotion``](https://github.com/tasts-robots/upkie_locomotion) repository for an example where Vulp is used with Upkie wheeled biped, including simulation environments, real-robot spines, state observers and locomotion agents.
+Check out the [``upkie``](https://github.com/tasts-robots/upkie) repository for an example where Vulp is used with Upkie wheeled biped, including simulation environments, real-robot spines, state observers and locomotion agents.
 
 ## Details
 
@@ -79,7 +79,7 @@ Using control bindings directly is a simpler alternative if you don't need the a
 
 #### How can motion control be real-time in Python, with garbage collection and all?
 
-Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](doc/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in CPython 3.8+). To consider one data point, here are the cycle periods measured in a complete Python agent for Upkie (the Pink balancer from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion)) running on a Raspberry Pi 4 Model B (Quad core ARM Cortex-A72 @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
+Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](doc/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in CPython 3.8+). To consider one data point, here are the cycle periods measured in a complete Python agent for Upkie (the Pink balancer from [`upkie`](https://github.com/tasts-robots/upkie)) running on a Raspberry Pi 4 Model B (Quad core ARM Cortex-A72 @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/1189580/172820003-ade5aee1-fdca-41d7-958a-baf397a2caa3.png" width="800">

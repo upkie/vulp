@@ -31,7 +31,7 @@ This code runs at around 2.5 ms per cycle on the Pi. That is the expected perfor
 
 ## Vulp API
 
-We run the same test with the pi3hat spine from [`upkie_locomotion`](https://github.com/tasts-robots/upkie_locomotion/). Code without time measurements:
+We run the same test with the pi3hat spine from [`upkie`](https://github.com/tasts-robots/upkie/). Code without time measurements:
 
 ```python
 import vulp.spine
@@ -51,4 +51,4 @@ Note that we observe the same outcome, to the digit, for ``frequency in [50, 100
 ## See also
 
 - [pi3hat multi-servo example](https://github.com/mjbots/moteus/blob/main/lib/python/examples/pi3hat_multiservo.py) from the moteus repository
-- Run function of the [blue balancer](https://github.com/tasts-robots/upkie_locomotion/blob/5c4ece2577f6e71132c1ab2625142364c567e0fa/agents/blue_balancer/main.py#L54) which implements the observation-action loop for a full controller.
+- Run function of the [test balancer](https://github.com/tasts-robots/upkie/blob/5c4ece2577f6e71132c1ab2625142364c567e0fa/agents/blue_balancer/main.py#L54) which implements the observation-action loop for a full controller.
