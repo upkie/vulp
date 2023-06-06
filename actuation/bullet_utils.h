@@ -31,7 +31,7 @@ namespace vulp::actuation {
  *
  * \return Same quaternion for Bullet.
  */
-inline btVector3 bullet_from_eigen(const Eigen::Quaterniond& quat) {
+inline btQuaternion bullet_from_eigen(const Eigen::Quaterniond& quat) {
   return btQuaternion(quat.x(), quat.y(), quat.z(), quat.w());
 }
 
