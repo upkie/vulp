@@ -121,7 +121,7 @@ class BulletInterface : public Interface {
     double torque_control_kd = 1.0;
 
     //! Proportional gain for joints in position control mode
-    double torque_control_kp = 100.0;
+    double torque_control_kp = 20.0;
 
     //! Initial position of the base in the world frame
     Eigen::Vector3d position_init_base_in_world = Eigen::Vector3d::Zero();
