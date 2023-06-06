@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Bullet: floor parameter
 - Bullet: gravity parameter
+- Bullet: initial orientation parameter
 - Optional constructor parameter to require the joystick to be present
 - Unit tests for the internal agent interface
 
