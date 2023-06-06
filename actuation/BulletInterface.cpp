@@ -102,13 +102,14 @@ void BulletInterface::reset(const Dictionary& config) {
 }
 
 void BulletInterface::reset_robot(
-    const Eigen::Vector3d& position_base_in_world) {
+    const Eigen::Vector3d& position_base_in_world,
+    const Eigen::Quaternion& orientation_base_in_world) {
   const int nb_joints = bullet_.getNumJoints(robot_);
   for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
     bullet_.resetJointState(robot_, joint_index, 0.0);
   }
   const auto init_pos = bullet_from_eigen(position_base_in_world);
-  const auto init_quat = btQuaternion(0, 0, 0, 1);
+  const auto init_quat = bullet_from_eigen(orientation_base_in_world);
   bullet_.resetBasePositionAndOrientation(robot_, init_pos, init_quat);
 }
 
