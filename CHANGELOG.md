@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [1.2.0] - 2023/06/06
 
 ### Added
 
@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Find ``clang-format`` path on macOS (thanks to @boragokbakan)
-- Only apply -lrt linker flag on Linux
+- Only apply the ``-lrt`` linker flag on Linux
 - Shared-memory file permissions
 
 ## [1.1.1] - 2023/03/13
