@@ -98,7 +98,8 @@ BulletInterface::~BulletInterface() { bullet_.disconnect(); }
 void BulletInterface::reset(const Dictionary& config) {
   params_.configure(config);
   bullet_.setTimeStep(params_.dt);
-  reset_robot(params_.position_init_base_in_world);
+  reset_robot(params_.position_init_base_in_world,
+              params_.orientation_init_base_in_world);
 }
 
 void BulletInterface::reset_robot(
