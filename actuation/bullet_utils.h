@@ -25,6 +25,16 @@
 
 namespace vulp::actuation {
 
+/*! Convert an Eigen quaternion to a Bullet one.
+ *
+ * \param[in] quat Eigen quaternion.
+ *
+ * \return Same quaternion for Bullet.
+ */
+inline btVector3 bullet_from_eigen(const Eigen::Quaterniond& quat) {
+  return btQuaternion(quat.x(), quat.y(), quat.z(), quat.w());
+}
+
 /*! Convert an Eigen vector to a Bullet one.
  *
  * \param[in] v Eigen vector.
