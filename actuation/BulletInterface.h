@@ -65,7 +65,7 @@ class BulletInterface : public Interface {
       position_init_base_in_world = bullet.get<Eigen::Vector3d>(
           "position_init_base_in_world", Eigen::Vector3d::Zero());
       orientation_init_base_in_world = bullet.get<Eigen::Quaterniond>(
-          "orientation_init_base_in_world", Eigen::Quaterniond::Zero());
+          "orientation_init_base_in_world", Eigen::Quaterniond::Identity());
       if (bullet.has("torque_control")) {
         torque_control_kd = bullet("torque_control")("kd");
         torque_control_kp = bullet("torque_control")("kp");
@@ -128,7 +128,7 @@ class BulletInterface : public Interface {
 
     //! Initial position of the base in the world frame
     Eigen::Quaterniond orientation_init_base_in_world =
-        Eigen::Quaterniond::Zero();
+        Eigen::Quaterniond::Identity();
   };
 
   /*! Initialize interface.
