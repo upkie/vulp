@@ -164,8 +164,11 @@ class BulletInterface : public Interface {
   /*! Reset joint angles and the robot's position in the world frame.
    *
    * \param[in] position_base_in_world Position of the base in the world frame.
+   * \param[in] orientation_base_in_world Orientation of the base in the world
+   *     frame.
    */
-  void reset_robot(const Eigen::Vector3d& position_base_in_world);
+  void reset_robot(const Eigen::Vector3d& position_base_in_world,
+                   const Eigen::Quaterniond& orientation_base_in_world);
 
   //! Maximum torque for each joint
   const std::map<std::string, double>& max_torque() {
