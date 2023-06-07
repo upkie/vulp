@@ -104,4 +104,27 @@ TEST_F(BulletInterfaceTest, CycleDoesntThrow) {
       interface_->cycle(data_, [](const moteus::Output& output) {}));
 }
 
+TEST_F(BulletInterfaceTest, ResetBasePositionAndOrientation) {
+  Dictionary config;
+  config("bullet")("gui") = false;
+  config("bullet")("orientation_init_base_in_world") =
+      Eigen::Quaterniond(0.707, 0.0, -0.707, 0.0);
+  config("bullet")("position_init_base_in_world") =
+      Eigen::Vector3d(0.0, 0.0, 1.0);
+  interface_->reset(config);
+
+  const Eigen::Matrix4d T = interface_->transform_base_to_world();
+  const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
+  EXPECT_NEAR(R(0, 0), 0.0, 1e-7);
+  EXPECT_NEAR(R(0, 2), -1.0, 1e-7);
+  EXPECT_NEAR(R(1, 1), 1.0, 1e-7);
+  EXPECT_NEAR(R(2, 0), 1.0, 1e-7);
+  EXPECT_NEAR(R(2, 2), 0.0, 1e-7);
+
+  const Eigen::Vector3d p = T.block<3, 1>(0, 3);
+  ASSERT_DOUBLE_EQ(p.x(), 0.0);
+  ASSERT_DOUBLE_EQ(p.y(), 0.0);
+  ASSERT_DOUBLE_EQ(p.z(), 1.0);
+}
+
 }  // namespace vulp::actuation
