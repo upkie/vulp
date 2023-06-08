@@ -29,16 +29,16 @@ namespace vulp::spine {
 void allocate_file(int file_descriptor, int bytes) {
   struct ::stat file_stats;
 
-  if(::ftruncate(file_descriptor, bytes) < 0) {
+  if (::ftruncate(file_descriptor, bytes) < 0) {
     throw std::runtime_error("Error truncating file, errno is " +
                              std::to_string(errno));
   }
 
   ::fstat(file_descriptor, &file_stats);
   if (file_stats.st_size < bytes) {
-    throw std::runtime_error("Error allocating " + std::to_string(bytes) +
-                             " bytes in shared memory. Errno is : " +
-                              std::to_string(errno));
+    throw std::runtime_error(
+        "Error allocating " + std::to_string(bytes) +
+        " bytes in shared memory. Errno is : " + std::to_string(errno));
   }
 }
 
@@ -58,7 +58,8 @@ AgentInterface::AgentInterface(const std::string& name, size_t size)
       spdlog::error(
           "Cannot open shared memory \"{}\": file already exists. Is the spine "
           "already running? Did it not exit properly? If not, run "
-          "``./tools/bazelisk run " "@vulp//tools/shm:clean -- {}``",
+          "``./tools/bazelisk run "
+          "@vulp//tools/shm:clean -- {}``",
           name, name);
     } else {
       spdlog::error("Cannot open shared memory file: errno is {}", errno);
