@@ -51,8 +51,8 @@ AgentInterface::AgentInterface(const std::string& name, size_t size)
     } else if (errno == EEXIST) {
       spdlog::error(
           "Cannot open shared memory \"{}\": file already exists. Is the spine "
-          "already running? Did it not exit properly? If not, run ``bazel run "
-          "@vulp//tools/shm:clean -- {}``",
+          "already running? Did it not exit properly? If not, run "
+          "``./tools/bazelisk run " "@vulp//tools/shm:clean -- {}``",
           name, name);
     } else {
       spdlog::error("Cannot open shared memory file: errno is {}", errno);
