@@ -136,8 +136,7 @@ inline void read_imu_data(BulletImuData& imu_data,
   Eigen::Vector3d linear_acceleration_imu_in_world =
       (linear_velocity_imu_in_world - previous_linear_velocity) / dt;
 
-  Eigen::Matrix3d rotation_world_to_imu =
-      orientation_imu_in_world.normalized().inverse();
+  auto rotation_world_to_imu = orientation_imu_in_world.normalized().inverse();
   Eigen::Vector3d angular_velocity_imu_in_imu =
       rotation_world_to_imu * angular_velocity_imu_to_world_in_world;
   Eigen::Vector3d linear_acceleration_imu_in_imu =
