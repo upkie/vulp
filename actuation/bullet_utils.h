@@ -113,8 +113,10 @@ inline void read_imu_data(BulletImuData& imu_data,
   Eigen::Matrix3d rotation_world_to_ars =
       Eigen::Vector3d{1.0, -1.0, -1.0}.asDiagonal();
 
-  Eigen::Matrix3d rotation_imu_to_world = orientation_imu_in_world.toRotationMatrix();
-  Eigen::Matrix3d rotation_imu_to_ars = rotation_world_to_ars * rotation_imu_to_world;
+  Eigen::Matrix3d rotation_imu_to_world =
+      orientation_imu_in_world.toRotationMatrix();
+  Eigen::Matrix3d rotation_imu_to_ars =
+      rotation_world_to_ars * rotation_imu_to_world;
   Eigen::Quaterniond orientation_imu_in_ars(rotation_imu_to_ars);
 
   Eigen::Vector3d linear_velocity_imu_in_world = {
@@ -134,9 +136,12 @@ inline void read_imu_data(BulletImuData& imu_data,
   Eigen::Vector3d linear_acceleration_imu_in_world =
       (linear_velocity_imu_in_world - previous_linear_velocity) / dt;
 
-  Eigen::Matrix3d rotation_world_to_imu = orientation_imu_in_world.normalized().inverse();
-  Eigen::Vector3d angular_velocity_imu_in_imu = rotation_world_to_imu * angular_velocity_imu_to_world_in_world;
-  Eigen::Vector3d linear_acceleration_imu_in_imu = rotation_world_to_imu * linear_acceleration_imu_in_world;
+  Eigen::Matrix3d rotation_world_to_imu =
+      orientation_imu_in_world.normalized().inverse();
+  Eigen::Vector3d angular_velocity_imu_in_imu =
+      rotation_world_to_imu * angular_velocity_imu_to_world_in_world;
+  Eigen::Vector3d linear_acceleration_imu_in_imu =
+      rotation_world_to_imu * linear_acceleration_imu_in_world;
 
   // Fill out regular IMU data
   imu_data.orientation_imu_in_ars = orientation_imu_in_ars;
