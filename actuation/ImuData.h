@@ -24,7 +24,7 @@ namespace vulp::actuation {
 //! Data filtered from an onboard IMU such as the pi3hat's.
 struct ImuData {
   //! Orientation from the IMU frame to the world frame.
-  Eigen::Quaterniond orientation_imu_in_world = Eigen::Quaterniond::Identity();
+  Eigen::Quaterniond orientation_imu_in_ars = Eigen::Quaterniond::Identity();
 
   /*! Body angular velocity of the IMU frame in [rad] / [s].
    *
