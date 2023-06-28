@@ -122,6 +122,7 @@ inline void read_imu_data(BulletImuData& imu_data,
       link_state.m_worldLinearVelocity[1],
       link_state.m_worldLinearVelocity[2],
   };
+
   Eigen::Vector3d angular_velocity_imu_to_world_in_world = {
       link_state.m_worldAngularVelocity[0],
       link_state.m_worldAngularVelocity[1],
@@ -133,12 +134,16 @@ inline void read_imu_data(BulletImuData& imu_data,
   Eigen::Vector3d linear_acceleration_imu_in_world =
       (linear_velocity_imu_in_world - previous_linear_velocity) / dt;
 
-  auto rotation_world_to_imu =
-      imu_data.orientation_imu_in_world.normalized().inverse();
-  imu_data.angular_velocity_imu_in_imu =
-      rotation_world_to_imu * angular_velocity_imu_to_world_in_world;
-  imu_data.linear_acceleration_imu_in_imu =
-      rotation_world_to_imu * linear_acceleration_imu_in_world;
+  Eigen::Matrix3d rotation_world_to_imu = orientation_imu_in_world.normalized().inverse();
+  Eigen::Vector3d angular_velocity_imu_in_imu = rotation_world_to_imu * angular_velocity_imu_to_world_in_world;
+  Eigen::Vector3d linear_acceleration_imu_in_imu = rotation_world_to_imu * linear_acceleration_imu_in_world;
+
+  // Fill out regular IMU data
+  imu_data.orientation_imu_in_ars = orientation_imu_in_ars;
+  imu_data.angular_velocity_imu_in_imu = angular_velocity_imu_in_imu;
+  imu_data.linear_acceleration_imu_in_imu = linear_acceleration_imu_in_imu;
+
+  // ... and the extra field for the Bullet interface
   imu_data.linear_velocity_imu_in_world = linear_velocity_imu_in_world;
 }
 
