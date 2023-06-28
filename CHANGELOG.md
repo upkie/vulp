@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Improve test coverage
 
+### Fixed
+
+- Bullet interface now reports the IMU orientation in the proper ARS frame
+
 ## [1.2.0] - 2023/06/06
 
 ### Added
