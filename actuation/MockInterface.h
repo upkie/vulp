@@ -60,7 +60,7 @@ class MockInterface : public Interface {
 
   //! Orientation from the IMU frame to the world frame.
   Eigen::Quaterniond get_attitude() const noexcept {
-    return imu_data_.orientation_imu_in_world;
+    return imu_data_.orientation_imu_in_ars;
   }
 
   //! Body angular velocity of the IMU frame in [rad] / [s].

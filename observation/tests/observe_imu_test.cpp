@@ -32,7 +32,7 @@ namespace vulp::observation::tests {
 
 TEST(IMU, ReadOrientation) {
   actuation::ImuData imu_data;
-  imu_data.orientation_imu_in_world = Eigen::Quaterniond(0., 1., 0., 0.);
+  imu_data.orientation_imu_in_ars = Eigen::Quaterniond(0., 1., 0., 0.);
 
   Dictionary observation;
   observe_imu(observation, imu_data);
@@ -40,7 +40,7 @@ TEST(IMU, ReadOrientation) {
   ASSERT_TRUE(observation("imu").has("orientation"));
   ASSERT_TRUE(observation("imu")("orientation")
                   .as<Eigen::Quaterniond>()
-                  .isApprox(imu_data.orientation_imu_in_world));
+                  .isApprox(imu_data.orientation_imu_in_ars));
 }
 
 }  // namespace vulp::observation::tests
