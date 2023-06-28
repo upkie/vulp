@@ -126,7 +126,7 @@ class Pi3HatInterface : public Interface {
   //! Get the pi3hat's IMU attitude
   ImuData imu_data() const noexcept final {
     ImuData imu_data;
-    imu_data.orientation_imu_in_world = get_attitude();
+    imu_data.orientation_imu_in_ars = get_attitude();
     imu_data.angular_velocity_imu_in_imu = get_angular_velocity();
     imu_data.linear_acceleration_imu_in_imu = get_linear_acceleration();
     return imu_data;
