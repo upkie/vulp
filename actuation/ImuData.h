@@ -23,7 +23,8 @@ namespace vulp::actuation {
 
 //! Data filtered from an onboard IMU such as the pi3hat's.
 struct ImuData {
-  /*! Orientation from the IMU frame to the attitude reference system (ARS) frame.
+  /*! Orientation from the IMU frame to the attitude reference system (ARS)
+   * frame.
    *
    * The attitude reference system frame has +x forward, +y right and +z down,
    * whereas our world frame has +x forward, +y left and +z up:
