@@ -17,4 +17,4 @@
 
 """Real-time motion control for Python."""
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
