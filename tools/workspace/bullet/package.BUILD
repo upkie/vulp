@@ -57,6 +57,15 @@ bullet_defines = [
     "@//conditions:default": [],
 })
 
+bullet_linkopts = select({
+    "@//:osx": [
+        # Issue errors at link time rather than at run time
+        # See https://groups.google.com/g/bazel-discuss/c/YGVWGnhFEXc
+        "-Wl,-undefined,error",
+    ],
+    "@//conditions:default": [],
+})
+
 cc_library(
     name = "src",
     srcs = glob([
@@ -81,6 +90,7 @@ cc_library(
     defines = bullet_defines,
     includes = ["src"],
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -100,6 +110,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -121,6 +132,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -134,6 +146,7 @@ cc_library(
     strip_include_prefix = "examples/ThirdPartyLibs",
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -144,6 +157,7 @@ cc_library(
     strip_include_prefix = "examples/ThirdPartyLibs/optionalX11",
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -160,7 +174,7 @@ cc_library(
     strip_include_prefix = "examples/ThirdPartyLibs/glad",
     defines = bullet_defines,
     copts = bullet_copts,
-    linkopts = [
+    linkopts = bullet_linkopts + [
         "-ldl",
         "-lm",
     ],
@@ -180,6 +194,7 @@ cc_library(
     includes = ["examples/ThirdPartyLibs"],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -213,6 +228,7 @@ cc_library(
         ":stb_image",
     ],
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -238,6 +254,7 @@ cc_library(
     strip_include_prefix = "examples/ExampleBrowser",
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -256,6 +273,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -274,6 +292,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -296,6 +315,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -365,6 +385,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -391,6 +412,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -426,6 +448,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -447,6 +470,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -463,6 +487,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -479,6 +504,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -495,6 +521,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -511,6 +538,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -529,6 +557,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -549,6 +578,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -568,6 +598,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -585,6 +616,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -607,6 +639,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -636,6 +669,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -655,6 +689,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -675,6 +710,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -693,6 +729,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -709,6 +746,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -725,6 +763,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -741,6 +780,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -758,6 +798,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -770,6 +811,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -818,6 +860,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -837,6 +880,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -856,6 +900,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -873,6 +918,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -892,6 +938,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -910,6 +957,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -929,6 +977,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -945,6 +994,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -1098,6 +1148,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
