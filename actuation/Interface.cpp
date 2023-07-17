@@ -44,7 +44,7 @@ constexpr double kKpScale = 1.0;
 // TODO(scaron): this is a sane default for a qdd100, not for weaker servos
 constexpr double kMaximumTorque = 8.42;  // N.m
 
-constexpr double kVelocity = 0.0;  // rad/s
+constexpr double kVelocity = 0.0;        // rad/s
 
 }  // namespace defaults
 

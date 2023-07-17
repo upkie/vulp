@@ -48,16 +48,16 @@ class TestSpineInterface(unittest.TestCase):
             shm_name: Name of shared memory file.
             size: Size of shared memory file in bytes.
         """
-        shared_memory = posix_ipc.SharedMemory(
+        self.shared_memory = posix_ipc.SharedMemory(
             shm_name, posix_ipc.O_CREAT, size=size, read_only=False
         )
         _mmap = mmap.mmap(
-            shared_memory.fd,
-            shared_memory.size,
+            self.shared_memory.fd,
+            self.shared_memory.size,
             flags=mmap.MAP_SHARED,
             prot=mmap.PROT_READ | mmap.PROT_WRITE,
         )
-        shared_memory.close_fd()
+        self.shared_memory.close_fd()
         self._mmap = _mmap
         self._packer = msgpack.Packer(default=serialize, use_bin_type=True)
         self._unpacker = msgpack.Unpacker(raw=False)
@@ -92,6 +92,10 @@ class TestSpineInterface(unittest.TestCase):
         SpineInterface._wait_for_spine = wait_monkeypatch
         self.spine = SpineInterface(shm_name=shm_name)
         self.write_request(Request.kNone)  # same as Spine constructor
+
+    def tearDown(self) -> None:
+        self._mmap.close()
+        self.shared_memory.unlink()
 
     def read_request(self) -> int:
         """

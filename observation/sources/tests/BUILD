@@ -8,10 +8,16 @@ package(default_visibility = ["//visibility:public"])
 
 cc_test(
     name = "tests",
-    srcs = glob([
-        "*.cpp",
-        "*.h",
-    ]),
+    srcs = select({
+                "//:linux": glob([
+                        "*.cpp",
+                        "*.h",
+                    ]), 
+                "@//conditions:default": glob([
+                        "*.cpp",
+                        "*.h",
+                    ], exclude=["JoystickTest.cpp"]),
+            }),
     deps = [
         "//observation/sources",
         "@googletest//:main",

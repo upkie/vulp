@@ -94,8 +94,7 @@ class SpineTest : public ::testing::Test {
 
     params_.cpu = -1;         // no realtime scheduling
     params_.frequency = 400;  // Hz
-    params_.shm_name = std::string("/") + test_info->test_case_name() + "_" +
-                       test_info->name() + "_" + utils::random_string();
+    params_.shm_name = std::string("/") + utils::random_string();
     params_.shm_size = 1024;
 
     actuation::ServoLayout layout;
@@ -109,7 +108,6 @@ class SpineTest : public ::testing::Test {
     observation_.append_observer(schwifty_observer_);
     spine_ = std::make_unique<testing::Spine>(params_, *actuation_interface_,
                                               observation_);
-
     int file_descriptor =
         ::shm_open(params_.shm_name.c_str(), O_RDWR | O_CREAT, 0666);
     ASSERT_GE(file_descriptor, 0);
