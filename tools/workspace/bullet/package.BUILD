@@ -20,15 +20,23 @@ genrule(
     echo $(COMPILATION_MODE) > $@""",
 )
 
-# Disable Bullet warnings
 bullet_copts = [
     "-Wno-all",
+    "-Wno-deprecated-declarations",
     "-Wno-error=unused-but-set-variable",
     "-Wno-error=unused-variable",
-    "-Wno-format-overflow",
-    "-Wno-format-truncation",
     "-Wno-unused-result",
-]
+] + select({
+    "@//:linux": [
+        "-Wno-format-overflow",
+        "-Wno-format-truncation",
+    ],
+    "@//:osx": [
+        # See https://github.com/libigl/libigl/issues/751#issuecomment-383324059
+        "-fno-common",
+    ],
+    "@//conditions:default": [],
+})
 
 bullet_defines = [
     "BT_USE_DOUBLE_PRECISION",
