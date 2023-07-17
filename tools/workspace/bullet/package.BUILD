@@ -40,11 +40,22 @@ bullet_copts = [
 
 bullet_defines = [
     "BT_USE_DOUBLE_PRECISION",
-    "DYNAMIC_LOAD_X11_FUNCTIONS=1",
-    "GLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1",
-    "GLEW_INIT_OPENGL11_FUNCTIONS=1",
-    "GLEW_STATIC",
-]
+] + select({
+    "@//:linux": [
+        "DYNAMIC_LOAD_X11_FUNCTIONS=1",
+        "GLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1",
+        "GLEW_INIT_OPENGL11_FUNCTIONS=1",
+        "GLEW_STATIC",
+        "HAS_SOCKLEN_T",
+        "_LINUX",
+    ],
+    "@//:osx": [
+        "B3_NO_PYTHON_FRAMEWORK",
+        "HAS_SOCKLEN_T",
+        "_DARWIN",
+    ],
+    "@//conditions:default": [],
+})
 
 cc_library(
     name = "src",
