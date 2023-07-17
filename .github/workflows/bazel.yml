@@ -23,7 +23,7 @@ jobs:
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
-                  tools/bazelisk build //...
+                  tools/bazelisk build --compilation_mode=fastbuild //...
 
     coverage:
         runs-on: ${{ matrix.os }}
@@ -39,7 +39,7 @@ jobs:
 
             - name: "Report test coverage"
               run: |
-                  tools/bazelisk coverage --combined_report=lcov --instrument_test_targets //...
+                  tools/bazelisk coverage --combined_report=lcov --compilation_mode=fastbuild --instrument_test_targets //...
 
             - name: "Submit report to Coveralls"
               uses: coverallsapp/github-action@1.1.3
@@ -63,7 +63,7 @@ jobs:
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
-                  tools/bazelisk test --config lint //...
+                  tools/bazelisk test  --compilation_mode=fastbuild --config lint //...
 
     test:
         runs-on: ${{ matrix.os }}
@@ -81,4 +81,4 @@ jobs:
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
-                  tools/bazelisk test //...
+                  tools/bazelisk test --compilation_mode=fastbuild //...

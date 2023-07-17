@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+- Set default compilation mode to optimized rather than fast build
+
 ## [1.2.1] - 2023/07/07
 
 ### Added
