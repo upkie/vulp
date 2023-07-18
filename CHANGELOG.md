@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Set default compilation mode to optimized rather than fast build
 
+### Fixed
+
+- Bazel: only run lint tests when ``--config lint`` is provided
+
 ## [1.2.1] - 2023/07/07
 
 ### Added
