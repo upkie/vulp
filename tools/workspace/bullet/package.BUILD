@@ -51,6 +51,7 @@ bullet_defines = [
     ],
     "@//:osx": [
         "B3_NO_PYTHON_FRAMEWORK",
+        "GLEW_STATIC",
         "HAS_SOCKLEN_T",
         "_DARWIN",
     ],
