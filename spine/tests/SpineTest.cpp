@@ -89,9 +89,6 @@ class SpineTest : public ::testing::Test {
  protected:
   //! Initialize spine for a new test
   void SetUp() override {
-    const auto* test_info =
-        ::testing::UnitTest::GetInstance()->current_test_info();
-
     params_.cpu = -1;         // no realtime scheduling
     params_.frequency = 400;  // Hz
     params_.shm_name = std::string("/") + utils::random_string();
