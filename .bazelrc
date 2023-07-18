@@ -19,7 +19,7 @@ test --test_output=errors
 
 ## Linter
 
-# Usage: bazel test --config lint //...)
+# Usage: bazel test --config lint //...
 test:lint --build_tests_only
 test:lint --test_tag_filters=lint
 
