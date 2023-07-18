@@ -59,6 +59,9 @@ bullet_defines = [
 
 bullet_linkopts = select({
     "@//:osx": [
+        "-framework Cocoa",
+        "-framework OpenGL",
+        "-ldl",
         # Issue errors at link time rather than at run time
         # See https://groups.google.com/g/bazel-discuss/c/YGVWGnhFEXc
         "-Wl,-undefined,error",
