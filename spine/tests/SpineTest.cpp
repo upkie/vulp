@@ -113,7 +113,7 @@ class SpineTest : public ::testing::Test {
     ASSERT_GE(::close(file_descriptor), 0);
   }
 
-  void TearDown() {
+  void TearDown() override {
     ASSERT_GE(::munmap(mmap_, params_.shm_size), 0);
 
     // Check that the destructor unlinks shared memory
