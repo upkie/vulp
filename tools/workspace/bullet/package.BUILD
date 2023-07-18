@@ -219,7 +219,7 @@ objc_library(
         "examples/OpenGLWindow/MacOpenGLWindowObjC.m",
     ],
     hdrs = [
-        "examples/OpenGLWindow/MacOpenGLWindowObjC.h",
+        "examples/OpenGLWindow/**/*.h",
     ],
     deps = [
         ":common_interfaces",
