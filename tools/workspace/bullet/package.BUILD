@@ -232,9 +232,33 @@ objc_library(
 
 cc_library(
     name = "opengl_window",
-    srcs = glob([
-        "examples/OpenGLWindow/**/*.cpp",
-    ]),
+    srcs = [
+        "examples/OpenGLWindow/EGLOpenGLWindow.cpp",
+        "examples/OpenGLWindow/fontstash.cpp",
+        "examples/OpenGLWindow/GLFWOpenGLWindow.cpp",
+        "examples/OpenGLWindow/GLInstancingRenderer.cpp",
+        "examples/OpenGLWindow/GLPrimitiveRenderer.cpp",
+        "examples/OpenGLWindow/GLRenderToTexture.cpp",
+        "examples/OpenGLWindow/LoadShader.cpp",
+        "examples/OpenGLWindow/opengl_fontstashcallbacks.cpp",
+        "examples/OpenGLWindow/OpenSans.cpp",
+        "examples/OpenGLWindow/SimpleCamera.cpp",
+        "examples/OpenGLWindow/SimpleOpenGL2App.cpp",
+        "examples/OpenGLWindow/SimpleOpenGL2Renderer.cpp",
+        "examples/OpenGLWindow/SimpleOpenGL3App.cpp",
+        "examples/OpenGLWindow/TwFonts.cpp",
+    ] + select({
+        "@//:linux": [
+            "examples/OpenGLWindow/X11OpenGLWindow.cpp",
+        ],
+        "@//:osx": [
+            "examples/OpenGLWindow/MacOpenGLWindow.cpp",
+        ],
+        # Windows is not supported:
+        # "examples/OpenGLWindow/Win32OpenGLWindow.cpp",
+        # "examples/OpenGLWindow/Win32Window.cpp",
+        "@//conditions:default": [],
+    }),
     hdrs = glob([
         "examples/OpenGLWindow/**/*.h",
     ]),
@@ -244,7 +268,11 @@ cc_library(
         ":glad",
         ":src",
         ":stb_image",
-    ],
+    ] + select({
+        "@//:linux": [],
+        "@//:osx": [":mac_opengl_window"],
+        "@//conditions:default": [],
+    }),
     copts = bullet_copts,
     linkopts = bullet_linkopts,
 )
