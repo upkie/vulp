@@ -43,12 +43,6 @@ cc_library(
 )
 
 cc_library(
-    name = "spinlock",
-    hdrs = ["Spinlock.h"],
-    include_prefix = "vulp/utils",
-)
-
-cc_library(
     name = "synchronous_clock",
     hdrs = ["SynchronousClock.h"],
     srcs = ["SynchronousClock.cpp"],
