@@ -61,7 +61,6 @@ cc_library(
         ":math",
         ":random_string",
         ":realtime",
-        ":spinlock",
         ":synchronous_clock",
     ],
 )
