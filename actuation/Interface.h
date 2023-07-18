@@ -54,6 +54,9 @@ class Interface {
     data_.replies = {replies_.data(), replies_.size()};
   }
 
+  //! Virtual destructor so that derived destructors are called properly.
+  virtual ~Interface() = default;
+
   /*! Spin a new communication cycle.
    *
    * \param[in, out] data Buffer to read commands from and write replies to.

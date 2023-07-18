@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Virtual destructor to the main ``Interface`` class
+
 ### Changed
 
 - Set default compilation mode to optimized rather than fast build
