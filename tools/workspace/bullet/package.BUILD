@@ -218,9 +218,9 @@ objc_library(
     non_arc_srcs = [
         "examples/OpenGLWindow/MacOpenGLWindowObjC.m",
     ],
-    hdrs = [
+    hdrs = glob([
         "examples/OpenGLWindow/**/*.h",
-    ],
+    ]),
     deps = [
         ":common_interfaces",
         ":glad",
