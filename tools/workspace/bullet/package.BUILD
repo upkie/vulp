@@ -210,6 +210,24 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
+)
+
+objc_library(
+    name = "mac_opengl_window",
+    non_arc_srcs = [
+        "examples/OpenGLWindow/MacOpenGLWindowObjC.m",
+    ],
+    hdrs = [
+        "examples/OpenGLWindow/MacOpenGLWindowObjC.h",
+    ],
+    deps = [
+        ":common_interfaces",
+        ":glad",
+    ],
+    target_compatible_with = [
+        "@platforms//os:osx",
+    ],
 )
 
 cc_library(
