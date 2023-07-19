@@ -44,12 +44,15 @@ def _is_cxx(filename):
 def get_clang_format_path():
     """Get path to clang-format."""
     if platform.system() == "Darwin":
-        candidates = glob.glob(
-            "/opt/homebrew/*/clang-format/**/bin/clang-format",
-            recursive=True,
+        candidates = (
+            glob.glob(
+                "/opt/homebrew/*/clang-format/**/bin/clang-format",
+                recursive=True,
+            )
+            + ["/usr/local/opt/clang-format/bin/clang-format"]
         )
         if len(candidates) < 1:
-            raise RuntimeError("clang-format not found in {homebrew}")
+            raise RuntimeError("clang-format not found in homebrew paths")
         elif len(candidates) > 1:
             print(
                 f"WARNING: multiple versions of clang-format: {candidates},"

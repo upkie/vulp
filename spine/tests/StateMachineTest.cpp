@@ -31,8 +31,6 @@ class StateMachineTest : public ::testing::Test {
  protected:
   //! Prepare state machine for a new test
   void SetUp() override {
-    const auto* test_info =
-        ::testing::UnitTest::GetInstance()->current_test_info();
     const size_t shm_size = 1 * (1 << 20);
     const std::string shm_name = std::string("/") + utils::random_string();
     agent_interface_ = std::make_unique<AgentInterface>(shm_name, shm_size);

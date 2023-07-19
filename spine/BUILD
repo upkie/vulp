@@ -54,7 +54,7 @@ cc_library(
         "Spine.cpp",
     ],
     linkopts = select({
-        "//:linux": ["-lrt"],
+        "@//:linux": ["-lrt"],
         "@//conditions:default": [],
     }),
     deps = [

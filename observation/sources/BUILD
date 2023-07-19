@@ -19,13 +19,13 @@ cc_library(
 cc_library(
     name = "joystick",
     hdrs = select({
-                "//:linux": ["Joystick.h"],
-                "@//conditions:default": [],
-            }),
+        "@//:linux": ["Joystick.h"],
+        "@//conditions:default": [],
+    }),
     srcs = select({
-                "//:linux": ["Joystick.cpp"],
-                "@//conditions:default": [],
-            }),
+        "@//:linux": ["Joystick.cpp"],
+        "@//conditions:default": [],
+    }),
     deps = [
         "//observation:source",
     ],
@@ -35,9 +35,9 @@ cc_library(
 cc_library(
     name = "sources",
     deps =  select({
-                "//:linux": [":joystick", ":cpu_temperature"],
-                "@//conditions:default": [":cpu_temperature"],
-            }),
+        "@//:linux": [":joystick", ":cpu_temperature"],
+        "@//conditions:default": [":cpu_temperature"],
+    }),
 )
 
 add_lint_tests()

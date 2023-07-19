@@ -20,23 +20,55 @@ genrule(
     echo $(COMPILATION_MODE) > $@""",
 )
 
-# Disable Bullet warnings
 bullet_copts = [
     "-Wno-all",
+    "-Wno-deprecated-declarations",
     "-Wno-error=unused-but-set-variable",
     "-Wno-error=unused-variable",
-    "-Wno-format-overflow",
-    "-Wno-format-truncation",
     "-Wno-unused-result",
-]
+] + select({
+    "@//:linux": [
+        "-Wno-format-overflow",
+        "-Wno-format-truncation",
+    ],
+    "@//:osx": [
+        # See https://github.com/libigl/libigl/issues/751#issuecomment-383324059
+        "-fno-common",
+    ],
+    "@//conditions:default": [],
+})
 
 bullet_defines = [
     "BT_USE_DOUBLE_PRECISION",
-    "DYNAMIC_LOAD_X11_FUNCTIONS=1",
-    "GLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1",
-    "GLEW_INIT_OPENGL11_FUNCTIONS=1",
-    "GLEW_STATIC",
-]
+] + select({
+    "@//:linux": [
+        "DYNAMIC_LOAD_X11_FUNCTIONS=1",
+        "GLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1",
+        "GLEW_INIT_OPENGL11_FUNCTIONS=1",
+        "GLEW_STATIC",
+        "HAS_SOCKLEN_T",
+        "_LINUX",
+    ],
+    "@//:osx": [
+        "B3_NO_PYTHON_FRAMEWORK",
+        "GLEW_STATIC",
+        "HAS_SOCKLEN_T",
+        "_DARWIN",
+    ],
+    "@//conditions:default": [],
+})
+
+bullet_linkopts = select({
+    "@//:osx": [
+        "-framework Cocoa",
+        "-framework OpenGL",
+        "-ldl",
+        # Issue errors at link time rather than at run time
+        # See https://groups.google.com/g/bazel-discuss/c/YGVWGnhFEXc
+        "-Wl,-undefined,error",
+    ],
+    "@//conditions:default": [],
+})
 
 cc_library(
     name = "src",
@@ -62,6 +94,7 @@ cc_library(
     defines = bullet_defines,
     includes = ["src"],
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -81,6 +114,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -102,6 +136,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -115,6 +150,7 @@ cc_library(
     strip_include_prefix = "examples/ThirdPartyLibs",
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -125,6 +161,7 @@ cc_library(
     strip_include_prefix = "examples/ThirdPartyLibs/optionalX11",
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -141,7 +178,7 @@ cc_library(
     strip_include_prefix = "examples/ThirdPartyLibs/glad",
     defines = bullet_defines,
     copts = bullet_copts,
-    linkopts = [
+    linkopts = bullet_linkopts + [
         "-ldl",
         "-lm",
     ],
@@ -161,6 +198,7 @@ cc_library(
     includes = ["examples/ThirdPartyLibs"],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -176,13 +214,55 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
+)
+
+objc_library(
+    name = "mac_opengl_window",
+    non_arc_srcs = [
+        "examples/OpenGLWindow/MacOpenGLWindowObjC.m",
+    ],
+    hdrs = glob([
+        "examples/OpenGLWindow/**/*.h",
+    ]),
+    deps = [
+        ":common_interfaces",
+        ":glad",
+    ],
+    target_compatible_with = [
+        "@platforms//os:osx",
+    ],
 )
 
 cc_library(
     name = "opengl_window",
-    srcs = glob([
-        "examples/OpenGLWindow/**/*.cpp",
-    ]),
+    srcs = [
+        "examples/OpenGLWindow/EGLOpenGLWindow.cpp",
+        "examples/OpenGLWindow/fontstash.cpp",
+        "examples/OpenGLWindow/GLFWOpenGLWindow.cpp",
+        "examples/OpenGLWindow/GLInstancingRenderer.cpp",
+        "examples/OpenGLWindow/GLPrimitiveRenderer.cpp",
+        "examples/OpenGLWindow/GLRenderToTexture.cpp",
+        "examples/OpenGLWindow/LoadShader.cpp",
+        "examples/OpenGLWindow/opengl_fontstashcallbacks.cpp",
+        "examples/OpenGLWindow/OpenSans.cpp",
+        "examples/OpenGLWindow/SimpleCamera.cpp",
+        "examples/OpenGLWindow/SimpleOpenGL2App.cpp",
+        "examples/OpenGLWindow/SimpleOpenGL2Renderer.cpp",
+        "examples/OpenGLWindow/SimpleOpenGL3App.cpp",
+        "examples/OpenGLWindow/TwFonts.cpp",
+    ] + select({
+        "@//:linux": [
+            "examples/OpenGLWindow/X11OpenGLWindow.cpp",
+        ],
+        "@//:osx": [
+            "examples/OpenGLWindow/MacOpenGLWindow.cpp",
+        ],
+        # Windows is not supported:
+        # "examples/OpenGLWindow/Win32OpenGLWindow.cpp",
+        # "examples/OpenGLWindow/Win32Window.cpp",
+        "@//conditions:default": [],
+    }),
     hdrs = glob([
         "examples/OpenGLWindow/**/*.h",
     ]),
@@ -192,8 +272,13 @@ cc_library(
         ":glad",
         ":src",
         ":stb_image",
-    ],
+    ] + select({
+        "@//:linux": [],
+        "@//:osx": [":mac_opengl_window"],
+        "@//conditions:default": [],
+    }),
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -219,6 +304,7 @@ cc_library(
     strip_include_prefix = "examples/ExampleBrowser",
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -237,6 +323,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -255,6 +342,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -277,6 +365,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -346,6 +435,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -372,6 +462,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -407,6 +498,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -428,6 +520,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -444,6 +537,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -460,6 +554,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -476,6 +571,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -492,6 +588,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -510,6 +607,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -530,6 +628,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -549,6 +648,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -566,6 +666,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -588,6 +689,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -617,6 +719,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -636,6 +739,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -656,6 +760,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -674,6 +779,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -690,6 +796,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -706,6 +813,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -722,6 +830,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -739,6 +848,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -751,6 +861,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -799,6 +910,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -818,6 +930,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -837,6 +950,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -854,6 +968,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -873,6 +988,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -891,6 +1007,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -910,6 +1027,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -926,6 +1044,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(
@@ -1079,6 +1198,7 @@ cc_library(
     ],
     defines = bullet_defines,
     copts = bullet_copts,
+    linkopts = bullet_linkopts,
 )
 
 cc_library(

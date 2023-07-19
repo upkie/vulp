@@ -37,7 +37,7 @@ class AgentInterfaceTest : public ::testing::Test {
         std::make_unique<AgentInterface>("/" + utils::random_string(), 1024);
   }
 
-  void TearDown() {}
+  void TearDown() override {}
 
   std::unique_ptr<AgentInterface> agent_interface_;
 };

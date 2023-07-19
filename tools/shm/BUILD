@@ -10,7 +10,7 @@ cc_binary(
     name = "clean",
     srcs = ["clean.cpp"],
     linkopts = select({
-        "//:linux": ["-lrt"],
+        "@//:linux": ["-lrt"],
         "@//conditions:default": [],
     }),
     deps = [

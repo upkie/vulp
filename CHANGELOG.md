@@ -4,9 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Virtual destructor to the main ``Interface`` class
+
 ### Changed
 
 - Set default compilation mode to optimized rather than fast build
+
+### Fixed
+
+- Bazel: only run lint tests when ``--config lint`` is provided
 
 ## [1.2.1] - 2023/07/07
 

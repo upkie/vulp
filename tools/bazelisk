@@ -2,6 +2,7 @@
 #
 # Copyright 2018 The Bazel Authors
 # Copyright 2022 Stéphane Caron
+# Copyright 2023 Inria
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,13 +35,21 @@ os="$(uname -s | tr "[:upper:]" "[:lower:]")"
 readonly os
 
 # Value of BAZELISK_GITHUB_TOKEN is set as a secret in the GitHub workflow.
-readonly bazelisk_version="v1.6.1"
-readonly url="https://github.com/bazelbuild/bazelisk/releases/download/${bazelisk_version}/bazelisk-${os}-amd64"
-bazel="${TMPDIR:-/tmp}/bazelisk"
+readonly BAZELISK_VERSION="v1.16.0"
+readonly BAZELISK_URL="https://github.com/bazelbuild/bazelisk/releases/download/${BAZELISK_VERSION}/bazelisk-${os}-amd64"
+
+readonly CURDIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
+bazel="${CURDIR}/bazel"
 readonly bazel
 
-curl -L -sSf -o "${bazel}" "${url}"
-chmod a+x "${bazel}"
+if [ -f "${bazel}" ]; then
+    echo "Using existing Bazel binary from ${bazel}..."
+else
+    echo "Downloading Bazel binary from ${BAZELISK_URL}..."
+    curl -L -Sf --progress-bar -o "${bazel}" "${BAZELISK_URL}"
+    chmod a+x "${bazel}"
+fi
 
 set -x
 "${bazel}" version

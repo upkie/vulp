@@ -26,11 +26,7 @@ jobs:
                   tools/bazelisk build --compilation_mode=fastbuild //...
 
     coverage:
-        runs-on: ${{ matrix.os }}
-        strategy:
-            fail-fast: false
-            matrix:
-                os: [ubuntu-latest]
+        runs-on: ubuntu-latest
         steps:
             - name: "Checkout sources"
               uses: actions/checkout@v2
@@ -48,11 +44,7 @@ jobs:
                   path-to-lcov: ${{ github.workspace }}/bazel-out/_coverage/_coverage_report.dat
 
     lint:
-        runs-on: ${{ matrix.os }}
-        strategy:
-            fail-fast: false
-            matrix:
-                os: [ubuntu-latest]
+        runs-on: ubuntu-latest
         steps:
             - name: "Checkout sources"
               uses: actions/checkout@v2
@@ -63,7 +55,7 @@ jobs:
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
-                  tools/bazelisk test  --compilation_mode=fastbuild --config lint //...
+                  tools/bazelisk test --compilation_mode=fastbuild --config lint //...
 
     test:
         runs-on: ${{ matrix.os }}

@@ -17,6 +17,11 @@ config_setting(
 )
 
 config_setting(
+    name = "osx",
+    constraint_values = ["@platforms//os:osx"],
+)
+
+config_setting(
     name = "pi32_config",
     values = {
         "cpu": "armeabihf",
