@@ -27,7 +27,7 @@ No installation required on Linux:
 ```console
 $ git clone https://github.com/tasts-robots/upkie.git
 $ cd upkie
-$ ./start_test_balancer.sh
+$ ./start_wheel_balancer.sh
 ```
 
 Connect a USB controller to move the robot around. 🎮
