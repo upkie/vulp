@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Support macOS operating systems (with help from @boragokbakan)
 - Virtual destructor to the main ``Interface`` class
 
 ### Changed

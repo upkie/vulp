@@ -1,4 +1,4 @@
-# Vulp — Real-time motion control for Python
+# Vulp — Robot/simulation switch for the mjbots stack
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![Build](https://img.shields.io/github/actions/workflow/status/tasts-robots/vulp/bazel.yml?branch=main)](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml)
@@ -14,7 +14,9 @@ Vulp provides an action-observation loop to control robots from Python, like thi
 <img src="https://raw.githubusercontent.com/tasts-robots/vulp/main/doc/figures/action-observation-loop-full.svg" alt="Action-observation loop with Vulp" class="center"/>
 </p>
 
-Vulp works on Linux (desktop and Raspberry Pi) with [moteus](https://github.com/mjbots/moteus/) actuators and [Bullet](https://github.com/bulletphysics/bullet3) for simulation.
+Vulp works with robots that use the mjbots stack ([moteus](https://github.com/mjbots/moteus/) actuators and [pi3hat](https://github.com/mjbots/pi3hat/) for communications). It provides a robot/simulation switch to train and test agents in [Bullet](https://github.com/bulletphysics/bullet3).
+
+Vulp supports Linux and macOS for development, and Raspberry Pi OS for robot deployment.
 
 ### Try it out!
 
