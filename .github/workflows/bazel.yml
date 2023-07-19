@@ -55,7 +55,7 @@ jobs:
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
-                  tools/bazelisk test  --compilation_mode=fastbuild --config lint //...
+                  tools/bazelisk test --compilation_mode=fastbuild --config lint //...
 
     test:
         runs-on: ${{ matrix.os }}
