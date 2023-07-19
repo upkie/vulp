@@ -1,4 +1,4 @@
-# Vulp — Robot/simulation switch for the mjbots stack
+# Robot/simulation switch for the mjbots stack
 
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![Build](https://img.shields.io/github/actions/workflow/status/tasts-robots/vulp/bazel.yml?branch=main)](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml)
