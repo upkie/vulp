@@ -43,7 +43,7 @@ inline void configure_cpu(int cpu) {
     throw std::runtime_error("Error setting CPU affinity");
   }
 #else
-  spdlog::warn("[utils::configure_cpu] This function does nothing on macOS");
+  spdlog::warn("[configure_cpu] This function does nothing on macOS");
 #endif
 }
 
@@ -65,8 +65,7 @@ inline void configure_scheduler(int priority) {
         "Error setting realtime scheduler, try running as root (use sudo)");
   }
 #else
-  spdlog::warn(
-      "[utils::configure_scheduler] This function does nothing on macOS");
+  spdlog::warn("[configure_scheduler] This function does nothing on macOS");
 #endif
 }
 

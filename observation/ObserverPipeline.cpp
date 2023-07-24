@@ -41,9 +41,8 @@ void ObserverPipeline::run(Dictionary& observation) {
     } catch (const KeyError& e) {
       throw ObserverError(observer->prefix(), e.key());
     } catch (const std::exception& e) {
-      spdlog::error(
-          "[ObserverPipeline::run] Observer {} threw an exception: {}",
-          observer->prefix(), e.what());
+      spdlog::error("[ObserverPipeline] Observer {} threw an exception: {}",
+                    observer->prefix(), e.what());
       throw;
     }
   }

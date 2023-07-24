@@ -197,18 +197,18 @@ void Spine::cycle_actuation() {
       actuation_.write_position_commands(action);
       // TODO(scaron): don't re-send actuation
       // See https://github.com/tasts-robots/vulp/issues/2
-      // spdlog::info("[Spine::cycle_actuation] ok");
+      // spdlog::info("[Spine] ok");
     } else {
-      // spdlog::warn("[Spine::cycle_actuation] re-sending previous commands");
+      // spdlog::warn("[Spine] re-sending previous commands");
     }
   } catch (const std::exception& e) {
-    spdlog::error("[Spine::cycle_actuation] Caught an exception: {}", e.what());
-    spdlog::error("[Spine::cycle_actuation] Sending stop commands...");
+    spdlog::error("[Spine] Caught an exception: {}", e.what());
+    spdlog::error("[Spine] Sending stop commands...");
     state_machine_.process_event(Event::kInterrupt);
     actuation_.write_stop_commands();
   } catch (...) {
-    spdlog::error("[Spine::cycle_actuation] Caught an unknown exception!");
-    spdlog::error("[Spine::cycle_actuation] Sending stop commands...");
+    spdlog::error("[Spine] Caught an unknown exception!");
+    spdlog::error("[Spine] Sending stop commands...");
     state_machine_.process_event(Event::kInterrupt);
     actuation_.write_stop_commands();
   }
