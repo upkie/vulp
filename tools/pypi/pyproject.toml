@@ -39,9 +39,6 @@ Source = "https://github.com/tasts-robots/vulp"
 Tracker = "https://github.com/tasts-robots/vulp/issues"
 Changelog = "https://github.com/tasts-robots/vulp/blob/main/CHANGELOG.md"
 
-[tool.flit.module]
-# name = "spine"
-
 [tool.flit.sdist]
 include = [
     "vulp/spine/*.py",
