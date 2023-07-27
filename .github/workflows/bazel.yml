@@ -51,6 +51,10 @@ jobs:
               with:
                   submodules: recursive
 
+            - name: "Check clang-format version"
+              run: |
+                  clang-format --version
+
             - name: "Check code formatting"
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
