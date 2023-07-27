@@ -8,13 +8,15 @@
 [![Example project](https://img.shields.io/badge/example-upkie-green)](https://github.com/tasts-robots/upkie)
 [![Chat](https://img.shields.io/badge/matrix-chat-%234eb899)](https://app.element.io/#/room/#tasts-robots:matrix.org)
 
-Vulp provides an action-observation loop to control robots from standalone "agent" processes, like this:
+Vulp provides an action-observation loop to control robots from a standalone "agent" process, like this:
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/tasts-robots/vulp/main/doc/figures/action-observation-loop-full.svg" alt="Action-observation loop with Vulp" class="center"/>
 </p>
 
-Vulp is designed for robots built with the mjbots stack ([moteus](https://github.com/mjbots/moteus/) servo controllers and [pi3hat](https://github.com/mjbots/pi3hat/) communication board). It provides a robot/simulation switch to train or test agents in [Bullet](https://github.com/bulletphysics/bullet3) before running them on the real thing.
+The agent can be a simple Python script with few dependencies.
+
+Vulp is designed for robots built with the mjbots stack ([moteus](https://github.com/mjbots/moteus/) servo controllers and [pi3hat](https://github.com/mjbots/pi3hat/) communication board). It provides a robot/simulation switch to train or test agents in [Bullet](https://github.com/bulletphysics/bullet3) before running them on the real system.
 
 Vulp supports Linux and macOS for development, and Raspberry Pi OS for robot deployment.
 
