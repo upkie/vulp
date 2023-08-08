@@ -25,7 +25,11 @@ TEST(SynchronousClock, GetsSomeSleep) {
   for (unsigned i = 0; i < 10; ++i) {
     clock.wait_for_next_tick();
   }
-  ASSERT_GT(clock.slack(), 0.01);  // 10% of 100 ms loop
+  if (clock.skip_count() < 1) {
+    ASSERT_GT(clock.slack(), 0.01);  // 10% of 100 ms loop
+  } else /* (clock.skip_count() >= 1) */ {
+    ASSERT_DOUBLE_EQ(clock.slack(), 0.);
+  }
 }
 
 TEST(SynchronousClock, NoMarginWhenSkippingCycles) {
