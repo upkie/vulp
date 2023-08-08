@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+- Bazel: Compile coverage and test targets in debug by default
+
 ## [1.3.0] - 2023/07/24
 
 ### Added
