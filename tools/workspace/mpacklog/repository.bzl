@@ -9,6 +9,6 @@ def mpacklog_repository():
     git_repository(
         name = "mpacklog",
         remote = "https://github.com/tasts-robots/mpacklog.git",
-        commit = "cf60c19ceed1a31bf88a03645e313f1bd3ec4622",
-        shallow_since = "1684244445 +0200",
+        commit = "899db5309a99dae8bc540e7da1849b760d7f45f5",
+        shallow_since = "1691501536 +0200",
     )
