@@ -33,7 +33,7 @@
 #define KEY_POLLING_INTERVAL_MS 100 // Polling interval in milliseconds
 
 // Byte sequences that encode arrow keys are platform specific
-#ifdef __APPLE__
+#ifndef __APPLE__
 #define _HEAD 0xEF, 0x9C
 #define UP_BYTES {_HEAD, 0x80}
 #define DOWN_BYTES {_HEAD, 0x81}
