@@ -108,8 +108,6 @@ void Keyboard::write(Dictionary& observation) {
         key_code_ = key::UNKNOWN;
 
       last_key_poll_time_ = ::system_clock::now();
-  }else{
-        printf("Elapsed time: %ld\n", elapsed_ms);
   }
 
   auto& output = observation(prefix());
