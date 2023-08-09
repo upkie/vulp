@@ -50,13 +50,6 @@ int Keyboard::read_event() {
             throw std::runtime_error("All bytes could not be read from the standard input!");
         }
         
-        // Print the read bytes in hexadecimal from the buffer
-        printf("Read %ld bytes: ", read_bytes);
-        for(int i = 0; i < read_bytes; i++){
-            printf("%02X ", buf_[i]);
-        }
-        printf("\n");
-
         return 1;
     }
     
@@ -69,7 +62,16 @@ Keyboard::key Keyboard::map_char_to_key(unsigned char *buf){
         printf("\n\nDOWN arrow!\n\n");
         return key::DOWN;
     }else{
+        // Print the read bytes in hexadecimal from the buffer
         printf("\n\nNOT down arrow!\n\n");
+
+        printf("Read %ld bytes: ", MAX_KEY_BYTES);
+        for(int i = 0; i < MAX_KEY_BYTES; i++){
+            printf("%02X ", buf_[i]);
+        }
+        printf("\n");
+
+
     }
     if(!memcmp(buf_, (unsigned char[])UP_BYTES, MAX_KEY_BYTES)){
         printf("\n\nUP arrow!\n\n");
@@ -82,7 +84,7 @@ Keyboard::key Keyboard::map_char_to_key(unsigned char *buf){
         return key::RIGHT;
     }
 
-    printf("Not an arrow!\n");
+    printf("\n\n\n\nNot an arrow!\n\n\n\n");
     
     // If the first byte corresponds to a lowercase ASCII alphabetic
     if(is_lowercase_alpha(buf[0])){
