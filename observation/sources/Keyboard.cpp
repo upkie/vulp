@@ -65,10 +65,14 @@ int Keyboard::read_event() {
 
 Keyboard::key Keyboard::map_char_to_key(unsigned char *buf){
     // Check for 3-byte characters (i.e. arrows)
-    if(memcmp(buf_, (unsigned char[])DOWN_BYTES, MAX_KEY_BYTES)){
+    if(!memcmp(buf_, (unsigned char[])DOWN_BYTES, MAX_KEY_BYTES)){
+        printf("\n\nDOWN arrow!\n\n");
         return key::DOWN;
+    }else{
+        printf("\n\nNOT down arrow!\n\n");
     }
     if(!memcmp(buf_, (unsigned char[])UP_BYTES, MAX_KEY_BYTES)){
+        printf("\n\nUP arrow!\n\n");
         return key::UP;
     }
     if(!memcmp(buf_, (unsigned char[])LEFT_BYTES, MAX_KEY_BYTES)){
