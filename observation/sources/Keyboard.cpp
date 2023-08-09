@@ -43,7 +43,7 @@ int Keyboard::read_event() {
     
     // Read if that's the case!
     if(bytes){
-        long read_bytes = ::read(STDIN_FILENO, &buf_, min(bytes, MAX_KEY_BYTES));
+        long read_bytes = ::read(STDIN_FILENO, &buf_, std::min((int)bytes, MAX_KEY_BYTES));
         
         if(read_bytes != bytes){
             throw std::runtime_error("All bytes could not be read from the standard input!");
