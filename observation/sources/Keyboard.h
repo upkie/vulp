@@ -83,7 +83,7 @@ class Keyboard : public Source {
     D = 68,
     X = 88,
     // Unknown key
-    UNKNOWN = -1 // Map everything else to this key
+    UNKNOWN = 255 // Map everything else to this key
   };
 
   //! Prefix of output in the observation dictionary.

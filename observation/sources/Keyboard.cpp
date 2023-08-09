@@ -101,7 +101,12 @@ void Keyboard::write(Dictionary& observation) {
 
   if (elapsed_ms >= KEY_POLLING_INTERVAL_MS) {
       key_pressed_ = read_event();
-      key_code_ = map_char_to_key(buf_);
+
+      if (key_pressed_) 
+        key_code_ = map_char_to_key(buf_);
+      else 
+        key_code_ = key::UNKNOWN;
+
       last_key_poll_time_ = ::system_clock::now();
   }else{
         printf("Elapsed time: %ld\n", elapsed_ms);
@@ -118,7 +123,6 @@ void Keyboard::write(Dictionary& observation) {
   output("S") = key_code_ == key::S;
   output("D") = key_code_ == key::D;
   output("X") = key_code_ == key::X;
-  output("unknown_key") = key_code_ == key::UNKNOWN;
 }
 
 }  // namespace vulp::observation::sources
