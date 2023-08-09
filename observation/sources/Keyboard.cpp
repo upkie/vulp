@@ -65,7 +65,7 @@ int Keyboard::read_event() {
 
 Keyboard::key Keyboard::map_char_to_key(unsigned char *buf){
     // Check for 3-byte characters (i.e. arrows)
-    if(!memcmp(buf_, (unsigned char[])DOWN_BYTES, MAX_KEY_BYTES)){
+    if(memcmp(buf_, (unsigned char[])DOWN_BYTES, MAX_KEY_BYTES)){
         return key::DOWN;
     }
     if(!memcmp(buf_, (unsigned char[])UP_BYTES, MAX_KEY_BYTES)){
@@ -77,6 +77,8 @@ Keyboard::key Keyboard::map_char_to_key(unsigned char *buf){
     if(!memcmp(buf_, (unsigned char[])RIGHT_BYTES, MAX_KEY_BYTES)){
         return key::RIGHT;
     }
+
+    printf("Not an arrow!\n");
     
     // If the first byte corresponds to a lowercase ASCII alphabetic
     if(is_lowercase_alpha(buf[0])){
