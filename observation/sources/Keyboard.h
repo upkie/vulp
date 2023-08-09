@@ -35,25 +35,15 @@
 
 // Byte sequences that encode arrow keys are platform specific
 #ifndef __APPLE__
-#define _HEAD 0xEF, 0x9C
-#define UP_BYTES \
-  { _HEAD, 0x80 }
-#define DOWN_BYTES \
-  { _HEAD, 0x81 }
-#define RIGHT_BYTES \
-  { _HEAD, 0x83 }
-#define LEFT_BYTES \
-  { _HEAD, 0x82 }
+const unsigned char UP_BYTES[] = {0xEF, 0x9C, 0x80};
+const unsigned char DOWN_BYTES[] = {0xEF, 0x9C, 0x81};
+const unsigned char RIGHT_BYTES[] = {0xEF, 0x9C, 0x83};
+const unsigned char LEFT_BYTES[] = {0xEF, 0x9C, 0x82};
 #else
-#define _HEAD 0x1B, 0x5B
-#define UP_BYTES \
-  { _HEAD, 0x41 }
-#define DOWN_BYTES \
-  { _HEAD, 0x42 }
-#define RIGHT_BYTES \
-  { _HEAD, 0x43 }
-#define LEFT_BYTES \
-  { _HEAD, 0x44 }
+const unsigned char UP_BYTES[] = {0x1B, 0x5B, 0x41};
+const unsigned char DOWN_BYTES[] = {0x1B, 0x5B, 0x42};
+const unsigned char RIGHT_BYTES[] = {0x1B, 0x5B, 0x43};
+const unsigned char LEFT_BYTES[] = {0x1B, 0x5B, 0x44};
 #endif
 
 #define is_lowercase_alpha(c) \
