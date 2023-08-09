@@ -106,7 +106,7 @@ Make sure you configure CPU isolation and set the scaling governor to ``performa
 
 #### Why use dictionaries rather than an [interface description language](https://en.wikipedia.org/wiki/Interface_description_language) like Protocol Buffers?
 
-Interface description languages formally specify an API, which costs some overhead to write down and maintain, but can bring versioning, breaking change detection and other benefits, especially when the API is stable. Vulp, on the other hand, is designed for prototyping with rapidly-changing APIs: the spec is in the code. If an agent and spine communicate with incompatible/incomplete actions/observations, execution will immediately break, begging for developers to fix it.
+Interface description languages like Protocol Buffers are strongly typed: they formally specify a data exchange format that has to be written down and maintained, but brings benefits like versioning or breaking-change detection. Vulp, on the other hand, follows a weakly-typed, self-describing approach that is better suited to prototyping with rapidly-changing APIs: the spec is in the code. If an agent and spine communicate with incompatible/incomplete actions/observations, execution will break, begging for developers to fix it.
 
 #### Why the weakly-typed dictionary IPC rather than Python–C++ bindings?
 
