@@ -24,6 +24,12 @@ Keyboard::Keyboard() {
   term.c_lflag &= ~ICANON;
   tcsetattr(STDIN_FILENO, TCSANOW, &term);
   setbuf(stdin, NULL);
+
+  key_pressed_ = false;
+  key_code_ = key::UNKNOWN;
+
+  // Check current time in milliseconds
+  last_key_poll_time_ = ::system_clock::now() - milliseconds(KEY_POLLING_INTERVAL_MS);
 }
 
 Keyboard::~Keyboard() {
@@ -89,22 +95,28 @@ Keyboard::key Keyboard::map_char_to_key(unsigned char *buf){
 }
 
 void Keyboard::write(Dictionary& observation) {
-  bool key_pressed = read_event();
-  key key_code = map_char_to_key(buf_);
+  // Check elapsed time since last key polling
+  auto elapsed = ::system_clock::now() - last_key_poll_time_;
+  auto elapsed_ms = duration_cast<milliseconds>(elapsed).count();
+
+  if (elapsed_ms >= KEY_POLLING_INTERVAL_MS) {
+      key_pressed_ = read_event();
+      key_code_ = map_char_to_key(buf_);
+      last_key_poll_time_ = ::system_clock::now();
+  }
 
   auto& output = observation(prefix());
-  output("key_pressed") = key_pressed;
-  output("up_arrow") = key_code == key::UP;
-  output("down_arrow") = key_code == key::DOWN;
-  output("left_arrow") = key_code == key::LEFT;
-  output("right_arrow") = key_code == key::RIGHT;
-  output("W") = key_code == key::W;
-  output("A") = key_code == key::A;
-  output("S") = key_code == key::S;
-  output("D") = key_code == key::D;
-  output("X") = key_code == key::X;
-  output("unknown_key") = key_code == key::UNKNOWN;
-
+  output("key_pressed") = key_pressed_;
+  output("up_arrow") = key_code_ == key::UP;
+  output("down_arrow") = key_code_ == key::DOWN;
+  output("left_arrow") = key_code_ == key::LEFT;
+  output("right_arrow") = key_code_ == key::RIGHT;
+  output("W") = key_code_ == key::W;
+  output("A") = key_code_ == key::A;
+  output("S") = key_code_ == key::S;
+  output("D") = key_code_ == key::D;
+  output("X") = key_code_ == key::X;
+  output("unknown_key") = key_code_ == key::UNKNOWN;
 }
 
 }  // namespace vulp::observation::sources
