@@ -47,8 +47,7 @@ int Keyboard::read_event() {
     int bytes_read = ::read(STDIN_FILENO, &buf_, MAX_KEY_BYTES);
 
     if (bytes_read != bytes_available) {
-      throw std::runtime_error(
-          "All bytes could not be read from the standard input!");
+      spdlog::warn("All bytes could not be read from the standard input!");
     }
 
     return 1;
