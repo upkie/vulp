@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 ## [1.3.0] - 2023/07/24
 
 ### Added
-
+- New portable Keyboard observer
 - Support macOS operating systems (with help from @boragokbakan)
 - Virtual destructor to the main ``Interface`` class
 
