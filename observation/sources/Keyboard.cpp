@@ -43,6 +43,7 @@ int Keyboard::read_event() {
     
     // Read if that's the case!
     if(bytes){
+        printf("Bytes to be read: %ld\n", bytes);
         long read_bytes = ::read(STDIN_FILENO, &buf_, bytes);
         
         if(read_bytes != bytes){
