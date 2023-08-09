@@ -16,10 +16,6 @@
 
 #include "vulp/observation/sources/Keyboard.h"
 
-using std::chrono::duration_cast;
-using std::chrono::milliseconds;
-using std::chrono::system_clock;
-
 namespace vulp::observation::sources {
 Keyboard::Keyboard() {
   // Constructor
