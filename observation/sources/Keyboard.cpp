@@ -33,10 +33,6 @@ Keyboard::Keyboard() {
       system_clock::now() - milliseconds(KEY_POLLING_INTERVAL_MS);
 }
 
-Keyboard::~Keyboard() {
-  // Destructor
-}
-
 int Keyboard::read_event() {
   // Check if there are bytes to be read from the STDIN
   ssize_t bytes_available = 0;
@@ -49,6 +45,9 @@ int Keyboard::read_event() {
     if (bytes_read != bytes_available) {
       spdlog::warn("All bytes could not be read from the standard input!");
     }
+
+    // Flush the standard input buffer, in case there are stale commands
+    ::fflush(stdin);
 
     return 1;
   }
