@@ -62,6 +62,10 @@
   0x41 <= c&& c <= 0x5A  // Checks if 'A' <= c <= 'Z'
 #define is_printable_ascii(c) 0x20 <= c&& c <= 0x7F
 
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
+using std::chrono::system_clock;
+
 namespace vulp::observation::sources {
 
 /*! Source for a Keyboard controller.
@@ -117,7 +121,7 @@ class Keyboard : public Source {
   bool key_pressed_;        // Whether the last key pressed is still pressed
 
   // Last time a key was pressed in milliseconds
-  ::system_clock::time_point last_key_poll_time_;
+  system_clock::time_point last_key_poll_time_;
 };
 
 }  // namespace vulp::observation::sources
