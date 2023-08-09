@@ -25,10 +25,12 @@
 #include <termios.h>
 #include <string.h>
 #include <iostream>
+#include <chrono>
 
 #include "vulp/observation/Source.h"
 
 #define MAX_KEY_BYTES 3 // Maximum number of bytes to encode a key
+#define KEY_POLLING_INTERVAL_MS 100 // Polling interval in milliseconds
 
 // Byte sequences that encode arrow keys are platform specific
 #ifdef __APPLE__
@@ -48,6 +50,8 @@
 #define is_lowercase_alpha(c) 0x61 <= c && c <= 0x7A // Checks if 'a' <= c <= 'z'
 #define is_uppercase_alpha(c) 0x41 <= c && c <= 0x5A // Checks if 'A' <= c <= 'Z'
 #define is_printable_ascii(c) 0x20 <= c && c <= 0x7F
+
+using namespace std::chrono;
 
 namespace vulp::observation::sources {
 
@@ -98,6 +102,12 @@ class Keyboard : public Source {
   key map_char_to_key(unsigned char * buf);
 
   unsigned char buf_[MAX_KEY_BYTES]; // Read ASCII and non-ASCII characters (e.g. arrows)
+
+  key key_code_; // Key code of the last key pressed
+  bool key_pressed_; // Whether the last key pressed is still pressed
+
+  // Last time a key was pressed in milliseconds
+  ::system_clock::time_point last_key_poll_time_;
 
 };
 
