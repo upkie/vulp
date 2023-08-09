@@ -42,25 +42,7 @@ int Keyboard::read_event() {
         if(read_bytes != bytes){
             throw std::runtime_error("All bytes could not be read from the standard input!");
         }
-        /*
-        printf("We read %d/%d bytes \n", (int)read_bytes, bytes);
-        for(int i = 0; i < read_bytes; i++){
-            printf("0x%x [%d] ", buf_[i], buf_[i]);
-        }
-        printf("\n");
         
-        if(read_bytes >= 1){
-            printf("Arrow casting: ");
-            key key = map_char_to_key(buf_);
-            printf("%d \n", key);
-        }
-        
-        printf("\n");
-        
-        if(read_bytes < 0){
-            printf("Errno: %d \n", errno);
-        }
-        */
         return 1;
     }
     
@@ -101,10 +83,6 @@ Keyboard::key Keyboard::map_char_to_key(unsigned char *buf){
                 return key::D;
             case key::X:
                 return key::X;
-            case key::ESC:
-                return key::ESC;
-            case key::SPACE:
-                return key::SPACE;
         }
     }
     return key::UNKNOWN;
@@ -116,7 +94,17 @@ void Keyboard::write(Dictionary& observation) {
 
   auto& output = observation(prefix());
   output("key_pressed") = key_pressed;
-  output("key_code") = key_code;
+  output("up_arrow") = key_code == key::UP;
+  output("down_arrow") = key_code == key::DOWN;
+  output("left_arrow") = key_code == key::LEFT;
+  output("right_arrow") = key_code == key::RIGHT;
+  output("W") = key_code == key::W;
+  output("A") = key_code == key::A;
+  output("S") = key_code == key::S;
+  output("D") = key_code == key::D;
+  output("X") = key_code == key::X;
+  output("unknown_key") = key_code == key::UNKNOWN;
+
 }
 
 }  // namespace vulp::observation::sources
