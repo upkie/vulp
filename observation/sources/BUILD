@@ -45,7 +45,7 @@ cc_library(
 cc_library(
     name = "sources",
     deps =  select({
-        "@//:linux": [":joystick", ":cpu_temperature, ":keyboard"],
+        "@//:linux": [":joystick", ":cpu_temperature", ":keyboard"],
         "@//conditions:default": [":cpu_temperature", ":keyboard"],
     }),
 )
