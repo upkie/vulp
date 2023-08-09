@@ -1,9 +1,9 @@
 # Vulp – Robot/simulation switch
 
-![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
-[![Build](https://img.shields.io/github/actions/workflow/status/tasts-robots/vulp/bazel.yml?branch=main)](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml)
+[![CI](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml/badge.svg)](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml)
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen?style=flat)](https://tasts-robots.org/doc/vulp/)
 [![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
+![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
 [![Example project](https://img.shields.io/badge/example-upkie-green)](https://github.com/tasts-robots/upkie)
 [![Chat](https://img.shields.io/badge/matrix-chat-%234eb899)](https://app.element.io/#/room/#tasts-robots:matrix.org)
