@@ -50,6 +50,13 @@ int Keyboard::read_event() {
             throw std::runtime_error("All bytes could not be read from the standard input!");
         }
         
+        // Print the read bytes in hexadecimal from the buffer
+        printf("Read %ld bytes: ", read_bytes);
+        for(int i = 0; i < read_bytes; i++){
+            printf("%02X ", buf_[i]);
+        }
+        printf("\n");
+
         return 1;
     }
     
