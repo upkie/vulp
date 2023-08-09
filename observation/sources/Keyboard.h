@@ -72,14 +72,13 @@ class Keyboard : public Source {
     DOWN = 1,
     LEFT = 2,
     RIGHT = 3,
-    // Special keys
+    // Single char keys (alphabetical)
     W = 87,
     A = 65,
     S = 83,
     D = 68,
     X = 88,
-    SPACE = 32,
-    ESC = 27,
+    // Unknown key
     UNKNOWN = -1 // Map everything else to this key
   };
 
@@ -99,9 +98,6 @@ class Keyboard : public Source {
   key map_char_to_key(unsigned char * buf);
 
   unsigned char buf_[MAX_KEY_BYTES]; // Read ASCII and non-ASCII characters (e.g. arrows)
-  
-  // Key pressed
-  key pressed_;
 
 };
 
