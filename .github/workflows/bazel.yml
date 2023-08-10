@@ -19,6 +19,15 @@ jobs:
               with:
                   submodules: recursive
 
+            - name: "Cache the Build"
+              uses: actions/cache@v3
+              with:
+                  if: ${{ runner.os == 'Linux' }}
+                    path: ~/.cache/bazel
+                  else:
+                    path: /private/var/tmp/_bazel_${{USER}}
+                key: bazel-output # N.B. Caches are not shared between OSs, so using the same key is fine
+
             - name: "Build the library"
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
@@ -32,6 +41,12 @@ jobs:
               uses: actions/checkout@v3
               with:
                   submodules: recursive
+
+            - name: "Cache"
+              uses: actions/cache@v3
+              with:
+                path: ~/.cache/bazel
+                key: bazel-output
 
             - name: "Report test coverage"
               run: |
@@ -50,6 +65,12 @@ jobs:
               uses: actions/checkout@v3
               with:
                   submodules: recursive
+
+            - name: "Cache lint tests"
+              uses: actions/cache@v3
+              with:
+                path: ~/.cache/bazel
+                key: bazel-output
 
             - name: "Check clang-format version"
               run: |
@@ -72,6 +93,15 @@ jobs:
               uses: actions/checkout@v3
               with:
                   submodules: recursive
+
+            - name: "Cache unit tests"
+              uses: actions/cache@v3
+              with:
+                  if: ${{ runner.os == 'Linux' }}
+                    path: ~/.cache/bazel
+                  else:
+                    path: /private/var/tmp/_bazel_${{USER}}
+                key: bazel-output
 
             - name: "Check unit tests"
               env:
