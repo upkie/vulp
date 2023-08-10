@@ -7,5 +7,5 @@ runs:
       env:
         macos_path: "/private/var/tmp/$USER"
       with:
-        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || ${{ "/private/var/tmp/$USER" }} }}
+        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || env.macos_path }}
         key: bazel-output # N.B. Caches are not shared between OSs, so using the same key is fine
