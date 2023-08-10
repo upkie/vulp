@@ -26,7 +26,7 @@ TEST(Keyboard, WriteOnce) {
   ASSERT_NO_THROW(keyboard.write(observation));
 }
 
-TEST(Keyboard, ReadButtons) {
+TEST(Keyboard, ReadAlphabetical) {
   // We cannot write directly to STDIN, so we'll redirect a file to it
   char *tmpfn = tmpnam(nullptr);
   std::ofstream tmpf(tmpfn);
@@ -76,7 +76,7 @@ TEST(Keyboard, ReadArrows) {
   ASSERT_FALSE(output.get<bool>("X"));
 }
 
-TEST(Keyboard, ReadNothing) {
+TEST(Keyboard, ReadEmptySTDIN) {
   Keyboard keyboard = Keyboard();
 
   Dictionary observation;
