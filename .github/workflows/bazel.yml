@@ -21,6 +21,8 @@ jobs:
 
             - name: "Cache the build"
               uses: ./.github/actions/cache-bazel
+              with:
+                  job_name: build
 
             - name: "Build the library"
               env:
@@ -38,6 +40,8 @@ jobs:
 
             - name: "Cache coverage tests"
               uses: ./.github/actions/cache-bazel
+              with:
+                  job_name: coverage
 
             - name: "Report test coverage"
               run: |
@@ -59,6 +63,8 @@ jobs:
 
             - name: "Cache lint tests"
               uses: ./.github/actions/cache-bazel
+              with:
+                  job_name: lint
 
             - name: "Check clang-format version"
               run: |
@@ -84,6 +90,8 @@ jobs:
 
             - name: "Cache unit tests"
               uses: ./.github/actions/cache-bazel
+              with:
+                  job_name: test
 
             - name: "Check unit tests"
               env:

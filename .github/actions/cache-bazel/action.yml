@@ -1,12 +1,20 @@
 name: Cache Bazel Output
 description: Caches Bazel output directories
 
+inputs:
+  job_name:
+    description: |
+      The cache key to use for restoring the cache.
+    required: false
+    default: "build"
+    type: string
+
 runs:
   using: "composite"
   steps:
     - uses: actions/cache@v3
       with:
         path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || '/private/var/tmp/_bazel_runner/' }}
-        key: bazel-${{ runner.os }}-${{ github.sha }}
+        key: bazel-${{ runner.os }}-${{ github.sha }}-${{ inputs.job_name }}
         restore-keys: |
-          bazel-${{ runner.os }}-
+          bazel-${{ runner.os }}-${{ inputs.job_name }}
