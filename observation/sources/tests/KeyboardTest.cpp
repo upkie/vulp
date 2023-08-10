@@ -26,7 +26,7 @@ TEST(Keyboard, WriteOnce) {
   ASSERT_NO_THROW(keyboard.write(observation));
 }
 
-TEST(Joystick, ReadButtons) {
+TEST(Keyboard, ReadButtons) {
   // We cannot write directly to STDIN, so we'll redirect a file to it
   char *tmpfn = tmpnam(nullptr);
   std::ofstream tmpf(tmpfn);
@@ -49,7 +49,7 @@ TEST(Joystick, ReadButtons) {
   ASSERT_FALSE(output.get<bool>("X"));
 }
 
-TEST(Joystick, ReadArrows) {
+TEST(Keyboard, ReadArrows) {
   // We cannot write directly to STDIN, so we'll redirect a file to it
   char *tmpfn = tmpnam(nullptr);
   std::ofstream tmpf(tmpfn);
@@ -76,7 +76,7 @@ TEST(Joystick, ReadArrows) {
   ASSERT_FALSE(output.get<bool>("X"));
 }
 
-TEST(Joystick, ReadNothing) {
+TEST(Keyboard, ReadNothing) {
   Keyboard keyboard = Keyboard();
 
   Dictionary observation;
