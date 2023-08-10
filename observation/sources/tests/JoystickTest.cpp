@@ -42,4 +42,31 @@ TEST(Joystick, UnknownEvent) {
   ASSERT_NO_THROW(joystick.write(observation));
 }
 
+TEST(Joystick, ReadButtons) {
+  std::ofstream file("jsX", std::ios::binary | std::ios::out);
+  Joystick joystick("jsX");
+
+  struct js_event event;
+  event.type = JS_EVENT_BUTTON;
+  event.number = 0;
+  event.value = 1;
+  file.write(reinterpret_cast<char*>(&event), sizeof(event));
+  file.flush();
+
+  Dictionary observation;
+  joystick.write(observation);
+  const auto& output = observation(joystick.prefix());
+  ASSERT_TRUE(output.get<bool>("cross_button"));
+  ASSERT_FALSE(output.get<bool>("square_button"));
+  ASSERT_FALSE(output.get<bool>("triangle_button"));
+
+  for (uint8_t button = 2; button < 14; button++) {
+    event.number = button;
+    file.write(reinterpret_cast<char*>(&event), sizeof(event));
+    file.flush();
+    joystick.write(observation);
+    ASSERT_EQ(output.get<bool>("right_button"), (button >= 5));
+  }
+}
+
 }  // namespace vulp::observation::sources
