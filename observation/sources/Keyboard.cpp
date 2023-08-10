@@ -116,10 +116,10 @@ void Keyboard::write(Dictionary& observation) {
 
   auto& output = observation(prefix());
   output("key_pressed") = key_pressed_;
-  output("up_arrow") = key_code_ == key::UP;
-  output("down_arrow") = key_code_ == key::DOWN;
-  output("left_arrow") = key_code_ == key::LEFT;
-  output("right_arrow") = key_code_ == key::RIGHT;
+  output("UP") = key_code_ == key::UP;
+  output("DOWN") = key_code_ == key::DOWN;
+  output("LEFT") = key_code_ == key::LEFT;
+  output("RIGHT") = key_code_ == key::RIGHT;
   output("W") = key_code_ == key::W;
   output("A") = key_code_ == key::A;
   output("S") = key_code_ == key::S;
