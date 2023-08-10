@@ -18,10 +18,11 @@
 
 namespace vulp::observation::sources {
 
-Joystick::Joystick() {
-  fd_ = ::open("/dev/input/js0", O_RDONLY | O_NONBLOCK);
+Joystick::Joystick(const std::string& device_path) {
+  fd_ = ::open(device_path.c_str(), O_RDONLY | O_NONBLOCK);
   if (fd_ < 0) {
-    spdlog::warn("Joystick observation disabled: no joystick found");
+    spdlog::warn("[Joystick] Observer disabled: no joystick found at {}",
+                 device_path);
   }
 }
 
