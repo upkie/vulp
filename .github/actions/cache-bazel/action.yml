@@ -11,5 +11,5 @@ runs:
         echo "::set-output name=user_name::$(id -un)"
     - uses: actions/cache@v3
       with:
-        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || '/private/var/tmp_bazel_' + env.user_name }}
+        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || env.user_name }}
         key: bazel-output # N.B. Caches are not shared between OSs, so using the same key is fine
