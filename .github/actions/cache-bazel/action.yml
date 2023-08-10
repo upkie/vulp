@@ -9,7 +9,6 @@ runs:
       id: get_user_name
       run: |
         echo "::set-output name=user_name::$(id -un)"
-        echo user_name=$(id -un) >> $GITHUB_ENV
         echo $USER
 
     - uses: actions/cache@v3
