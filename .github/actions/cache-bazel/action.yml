@@ -4,6 +4,8 @@ description: Caches Bazel output directories
 runs:
   steps:
     - uses: actions/cache@v3
+      env:
+        macos_path: "/private/var/tmp/$USER"
       with:
-        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || ${{ '/private/var/tmp/'}} }}
+        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || ${{ "/private/var/tmp/$USER" }} }}
         key: bazel-output # N.B. Caches are not shared between OSs, so using the same key is fine
