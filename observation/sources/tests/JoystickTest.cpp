@@ -142,4 +142,27 @@ TEST(Joystick, ReadTriggers) {
   }
 }
 
+TEST(Joystick, PartialInput) {
+  std::ofstream file("jsX", std::ios::binary | std::ios::out);
+  Joystick joystick("jsX");
+
+  struct js_event event;
+  event.type = JS_EVENT_BUTTON;
+  event.number = 0;
+  event.value = 1;
+  file.write(reinterpret_cast<char*>(&event), sizeof(event) / 2);
+  file.flush();
+
+  // Skips the partial observation
+  Dictionary observation;
+  ASSERT_NO_THROW(joystick.write(observation));
+
+  // Yet successfully reads the next event
+  file.write(reinterpret_cast<char*>(&event), sizeof(event));
+  file.flush();
+  joystick.write(observation);
+  const auto& output = observation(joystick.prefix());
+  ASSERT_TRUE(output.get<bool>("cross_button"));
+}
+
 }  // namespace vulp::observation::sources
