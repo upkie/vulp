@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+#include <linux/joystick.h>
+
+#include <fstream>
+
 #include "gtest/gtest.h"
 #include "vulp/observation/sources/Joystick.h"
 
@@ -21,6 +25,19 @@ namespace vulp::observation::sources {
 
 TEST(Joystick, WriteOnce) {
   Joystick joystick;
+  Dictionary observation;
+  ASSERT_NO_THROW(joystick.write(observation));
+}
+
+TEST(Joystick, UnknownEvent) {
+  std::ofstream file("jsX", std::ios::binary | std::ios::out);
+  Joystick joystick("jsX");
+
+  struct js_event event;
+  event.type = JS_EVENT_INIT;
+  file.write(reinterpret_cast<char*>(&event), sizeof(event));
+  file.flush();
+
   Dictionary observation;
   ASSERT_NO_THROW(joystick.write(observation));
 }
