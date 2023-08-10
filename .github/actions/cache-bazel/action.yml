@@ -4,14 +4,10 @@ description: Caches Bazel output directories
 runs:
   using: "composite"
   steps:
-    - name: "Get the user name"
-      shell: bash
-      id: get_user_name
-      run: |
-        echo "::set-output name=user_name::$(id -un)"
-        echo $USER
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
 
     - uses: actions/cache@v3
       with:
-        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || '/private/var/tmp/_bazel_${{ github.repository }}'}}
+        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || '/private/var/tmp/' }}
         key: bazel-output # N.B. Caches are not shared between OSs, so using the same key is fine
