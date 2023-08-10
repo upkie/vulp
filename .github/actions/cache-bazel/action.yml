@@ -7,6 +7,6 @@ runs:
     - uses: actions/cache@v3
       with:
         path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || '/private/var/tmp/_bazel_runner/' }}
-        key: bazel-${{ runner.os }}-${{ github.sha }} 
+        key: bazel-${{ runner.os }}-${{ github.sha }}
         restore-keys: |
           bazel-${{ runner.os }}-
