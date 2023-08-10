@@ -5,8 +5,5 @@ runs:
   steps:
     - uses: actions/cache@v3
       with:
-        if: ${{ runner.os }} == 'Linux':
-          path: ~/.cache/bazel
-        else:
-          path: /private/var/tmp/_bazel_${{USER}}
+        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || "/private/var/tmp/_bazel_$USER" }}
         key: bazel-output # N.B. Caches are not shared between OSs, so using the same key is fine
