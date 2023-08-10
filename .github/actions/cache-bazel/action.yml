@@ -2,6 +2,7 @@ name: Cache Bazel Output
 description: Caches Bazel output directories
 
 runs:
+  using: "composite"
   steps:
     - uses: actions/cache@v3
       env:
