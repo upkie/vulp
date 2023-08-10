@@ -64,13 +64,8 @@ namespace vulp::observation::sources {
  */
 class Keyboard : public Source {
  public:
-  /*! Open the device file.
-   *
-   * \note Use \ref present to check if the joystick was opened successfully.
-   */
   Keyboard();
 
-  //! Close device file.
   ~Keyboard() override;
 
   enum key {
