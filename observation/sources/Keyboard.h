@@ -107,8 +107,8 @@ class Keyboard : public Source {
   unsigned char
       buf_[MAX_KEY_BYTES];  // Read ASCII and non-ASCII characters (e.g. arrows)
 
-  key key_code_;            // Key code of the last key pressed
-  bool key_pressed_;        // Whether the last key pressed is still pressed
+  key key_code_;      // Key code of the last key pressed
+  bool key_pressed_;  // Whether the last key pressed is still pressed
 
   // Last time a key was pressed in milliseconds
   system_clock::time_point last_key_poll_time_;
