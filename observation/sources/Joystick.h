@@ -41,9 +41,9 @@ class Joystick : public Source {
  public:
   /*! Open the device file.
    *
-   * \note Use \ref present to check if the joystick was opened successfully.
+   * \param[in] device_path Path to the joystick device file.
    */
-  Joystick();
+  Joystick(const std::string& device_path = "/dev/input/js0");
 
   //! Close device file.
   ~Joystick() override;
