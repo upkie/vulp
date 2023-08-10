@@ -69,4 +69,19 @@ TEST(Joystick, ReadButtons) {
   }
 }
 
+TEST(Joystick, EmergencyStop) {
+  std::ofstream file("jsX", std::ios::binary | std::ios::out);
+  Joystick joystick("jsX");
+
+  struct js_event event;
+  event.type = JS_EVENT_BUTTON;
+  event.number = 1;
+  event.value = 1;
+  file.write(reinterpret_cast<char*>(&event), sizeof(event));
+  file.flush();
+
+  Dictionary observation;
+  ASSERT_THROW(joystick.write(observation), std::runtime_error);
+}
+
 }  // namespace vulp::observation::sources
