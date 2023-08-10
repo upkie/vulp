@@ -4,12 +4,14 @@ description: Caches Bazel output directories
 runs:
   using: "composite"
   steps:
-    # Get the user name
     - name: "Get the user name"
       id: get_user_name
       run: |
         echo "::set-output name=user_name::$(id -un)"
+        echo user_name=$(id -un) >> $GITHUB_ENV
+        echo $USER
+        
     - uses: actions/cache@v3
       with:
-        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || env.user_name }}
+        path: ${{ runner.os == 'Linux' && '~/.cache/bazel' || '/private/var/tmp/_bazel_${{ github.repository }}'}}
         key: bazel-output # N.B. Caches are not shared between OSs, so using the same key is fine
