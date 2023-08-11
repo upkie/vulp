@@ -77,6 +77,8 @@ TEST(Keyboard, ReadArrows) {
 }
 
 TEST(Keyboard, ReadEmptySTDIN) {
+  fflush(stdin); // Clear STDIN
+
   Keyboard keyboard = Keyboard();
 
   Dictionary observation;
