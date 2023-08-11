@@ -38,11 +38,9 @@ Keyboard::~Keyboard() {
 }
 
 int Keyboard::read_event() {
-  // Check if there are bytes to be read from the STDIN
   ssize_t bytes_available = 0;
   ioctl(STDIN_FILENO, FIONREAD, &bytes_available);
 
-  // Read if that's the case!
   if (bytes_available) {
     int bytes_read = ::read(STDIN_FILENO, &buf_, MAX_KEY_BYTES);
 
