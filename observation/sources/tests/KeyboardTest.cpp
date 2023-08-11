@@ -42,8 +42,12 @@ TEST(Keyboard, ReadAlphabetical) {
 
   const auto& output = observation(keyboard.prefix());
   ASSERT_TRUE(output.get<bool>("key_pressed"));
-  ASSERT_TRUE(output.get<bool>("A"));
+  ASSERT_FALSE(output.get<bool>("LEFT"));
+  ASSERT_FALSE(output.get<bool>("UP")); 
+  ASSERT_FALSE(output.get<bool>("DOWN"));
+  ASSERT_FALSE(output.get<bool>("RIGHT"));
   ASSERT_FALSE(output.get<bool>("W"));
+  ASSERT_TRUE(output.get<bool>("A"));
   ASSERT_FALSE(output.get<bool>("S"));
   ASSERT_FALSE(output.get<bool>("D"));
   ASSERT_FALSE(output.get<bool>("X"));
