@@ -105,13 +105,13 @@ void Keyboard::write(Dictionary& observation) {
   if (elapsed_ms >= KEY_POLLING_INTERVAL_MS) {
     key_pressed_ = read_event();
 
-    if (key_pressed_){
+    if (key_pressed_) {
       key_code_ = map_char_to_key(buf_);
-    }else{
+    } else {
       key_code_ = key::UNKNOWN;
     }
 
-    if(key_pressed_ && key_code_ == key::UNKNOWN) {
+    if (key_pressed_ && key_code_ == key::UNKNOWN) {
       key_pressed_ = false;
     }
   }
