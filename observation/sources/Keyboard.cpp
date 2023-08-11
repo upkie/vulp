@@ -105,13 +105,15 @@ void Keyboard::write(Dictionary& observation) {
   if (elapsed_ms >= KEY_POLLING_INTERVAL_MS) {
     key_pressed_ = read_event();
 
-    if (key_pressed_)
+    if (key_pressed_){
       key_code_ = map_char_to_key(buf_);
-    else  // If no key is pressed, set the key code to unknown to avoid stale
-          // data
+    }else{
       key_code_ = key::UNKNOWN;
+    }
 
-    last_key_poll_time_ = system_clock::now();
+    if(key_pressed_ && key_code_ == key::UNKNOWN) {
+      key_pressed_ = false;
+    }
   }
 
   auto& output = observation(prefix());
