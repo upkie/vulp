@@ -37,7 +37,8 @@ bool Keyboard::read_event() {
   ioctl(STDIN_FILENO, FIONREAD, &bytes_available);
 
   if (bytes_available) {
-    int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_available);
+    int bytes_to_read = std::min(bytes_available, (ssize_t)kMaxKeyBytes);
+    int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_to_read);
 
     // DEBUG
     printf("Read %d/%d bytes from stdin:", bytes_read, bytes_available);
@@ -47,10 +48,9 @@ bool Keyboard::read_event() {
     printf("\n");
     Key mapped_key = map_char_to_key(buf_);
     printf("Mapped key: %d\n", mapped_key);
-    printf("Key pressed: %d\n", key_pressed_);
     printf("\n\n\n");
 
-    if (bytes_read != bytes_available) {
+    if (bytes_read < bytes_to_read) {
       spdlog::warn("All bytes could not be read from the standard input!");
       ::fflush(stdin);
     }
