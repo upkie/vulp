@@ -39,6 +39,13 @@ bool Keyboard::read_event() {
   if (bytes_available) {
     int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_available);
 
+    // DEBUG
+    printf("Read %d/%d bytes from stdin: ", bytes_read, bytes_available);
+    for (int i = 0; i < bytes_read; i++) {
+      printf("%d [%02x]", buf_[i], buf_[i]);
+    }
+    printf("\n");
+
     if (bytes_read != bytes_available) {
       spdlog::warn("All bytes could not be read from the standard input!");
       ::fflush(stdin);
@@ -73,15 +80,15 @@ Key Keyboard::map_char_to_key(unsigned char* buf) {
   // We treat any printable ASCII as a single key code
   if (is_printable_ascii(buf[0])) {
     switch (buf[0]) {
-      case 87:
+      case 87: // 0x57
         return Key::W;
-      case 65:
+      case 65: // 0x41
         return Key::A;
-      case 83:
+      case 83: // 0x53
         return Key::S;
-      case 68:
+      case 68: // 0x44
         return Key::D;
-      case 88:
+      case 88: // 0x58
         return Key::X;
     }
   }
