@@ -65,16 +65,16 @@ inline bool is_printable_ascii(unsigned char c) {
 
 namespace vulp::observation::sources {
 enum class Key {
-  UP = 0,
-  DOWN = 1,
-  LEFT = 2,
-  RIGHT = 3,
-  W = 87,
-  A = 65,
-  S = 83,
-  D = 68,
-  X = 88,
-  UNKNOWN = 255  // Map everything else to this key
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+  W,
+  A,
+  S,
+  D,
+  X,
+  UNKNOWN  // Map everything else to this key
 };
 
 /*! Source for reading Keyboard inputs.
