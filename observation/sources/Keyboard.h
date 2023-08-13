@@ -40,7 +40,7 @@ constexpr size_t kMaxKeyBytes = 3;
 //! Polling interval in milliseconds
 constexpr int64_t kPollingIntervalMS = 50;
 
-// Scan codes for arrow keys 
+// Scan codes for arrow keys
 constexpr unsigned char UP_BYTES[] = {0x1B, 0x5B, 0x41};
 constexpr unsigned char DOWN_BYTES[] = {0x1B, 0x5B, 0x42};
 constexpr unsigned char RIGHT_BYTES[] = {0x1B, 0x5B, 0x43};

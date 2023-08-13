@@ -40,16 +40,6 @@ bool Keyboard::read_event() {
     int bytes_to_read = std::min(bytes_available, (ssize_t)kMaxKeyBytes);
     int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_to_read);
 
-    // DEBUG
-    printf("Read %d/%d bytes from stdin:", bytes_read, bytes_available);
-    for (int i = 0; i < bytes_read; i++) {
-      printf(" %d [%02x]", buf_[i], buf_[i]);
-    }
-    printf("\n");
-    Key mapped_key = map_char_to_key(buf_);
-    printf("Mapped key: %d\n", mapped_key);
-    printf("\n\n\n");
-
     if (bytes_read < bytes_to_read) {
       spdlog::warn("All bytes could not be read from the standard input!");
       ::fflush(stdin);
@@ -84,15 +74,15 @@ Key Keyboard::map_char_to_key(unsigned char* buf) {
   // We treat any printable ASCII as a single key code
   if (is_printable_ascii(buf[0])) {
     switch (buf[0]) {
-      case 87: // 0x57
+      case 87:  // 0x57
         return Key::W;
-      case 65: // 0x41
+      case 65:  // 0x41
         return Key::A;
-      case 83: // 0x53
+      case 83:  // 0x53
         return Key::S;
-      case 68: // 0x44
+      case 68:  // 0x44
         return Key::D;
-      case 88: // 0x58
+      case 88:  // 0x58
         return Key::X;
     }
   }
