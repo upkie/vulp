@@ -38,7 +38,7 @@ using std::chrono::system_clock;
 constexpr size_t kMaxKeyBytes = 3;
 
 //! Polling interval in milliseconds
-constexpr size_t kPollingIntervalMS = 100;
+constexpr long kPollingIntervalMS = 100;
 
 // Byte sequences that encode arrow keys are platform specific
 #ifndef __APPLE__
