@@ -40,18 +40,11 @@ constexpr size_t kMaxKeyBytes = 3;
 //! Polling interval in milliseconds
 constexpr int64_t kPollingIntervalMS = 50;
 
-// Byte sequences that encode arrow keys are platform specific
-#ifndef __APPLE__
-constexpr unsigned char UP_BYTES[] = {0xEF, 0x9C, 0x80};
-constexpr unsigned char DOWN_BYTES[] = {0xEF, 0x9C, 0x81};
-constexpr unsigned char RIGHT_BYTES[] = {0xEF, 0x9C, 0x83};
-constexpr unsigned char LEFT_BYTES[] = {0xEF, 0x9C, 0x82};
-#else
+// Scan codes for arrow keys 
 constexpr unsigned char UP_BYTES[] = {0x1B, 0x5B, 0x41};
 constexpr unsigned char DOWN_BYTES[] = {0x1B, 0x5B, 0x42};
 constexpr unsigned char RIGHT_BYTES[] = {0x1B, 0x5B, 0x43};
 constexpr unsigned char LEFT_BYTES[] = {0x1B, 0x5B, 0x44};
-#endif
 
 inline bool is_lowercase_alpha(unsigned char c) {
   return 0x61 <= c && c <= 0x7A;
