@@ -30,7 +30,7 @@ TEST(Keyboard, ReadAlphabetical) {
   // We cannot write directly to STDIN, so we'll redirect a file to it
   char* tmpfn = tmpnam(nullptr);
   std::ofstream tmpf(tmpfn);
-  tmpf << "A";  //(unsigned char[]){'A'};
+  tmpf << "A";
   tmpf.close();
 
   freopen(tmpfn, "r", stdin);

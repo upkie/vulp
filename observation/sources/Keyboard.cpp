@@ -38,11 +38,13 @@ bool Keyboard::read_event() {
 
   if (bytes_available) {
     int bytes_to_read = std::min(bytes_available, (ssize_t)kMaxKeyBytes);
-    int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_to_read);
+    int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)kMaxKeyBytes);
 
-    if (bytes_read < bytes_to_read) {
+    if (bytes_read < bytes_available) {
       spdlog::warn("All bytes could not be read from the standard input!");
-      ::fflush(stdin);
+      // Clear the input buffer
+      fseek(stdin, 0, SEEK_END);
+      fpurge(stdin);
     }
 
     return 1;
