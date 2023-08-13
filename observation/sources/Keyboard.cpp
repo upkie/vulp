@@ -37,14 +37,14 @@ bool Keyboard::read_event() {
   ioctl(STDIN_FILENO, FIONREAD, &bytes_available);
 
   if (bytes_available) {
-    int bytes_to_read = std::min(bytes_available, (ssize_t)kMaxKeyBytes);
-    int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)kMaxKeyBytes);
+    ssize_t bytes_to_read = std::min(bytes_available, (ssize_t)kMaxKeyBytes);
+    ssize_t bytes_read = std::read(STDIN_FILENO, &buf_, bytes_to_read);
 
     if (bytes_read < bytes_available) {
       spdlog::warn("All bytes could not be read from the standard input!");
       // Clear the input buffer
-      fseek(stdin, 0, SEEK_END);
-      fpurge(stdin);
+      std::fseek(stdin, 0, SEEK_END);
+      std::fpurge(stdin);
     }
 
     return 1;
