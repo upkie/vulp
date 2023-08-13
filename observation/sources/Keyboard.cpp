@@ -40,11 +40,15 @@ bool Keyboard::read_event() {
     int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_available);
 
     // DEBUG
-    printf("Read %d/%d bytes from stdin: ", bytes_read, bytes_available);
+    printf("Read %d/%d bytes from stdin:", bytes_read, bytes_available);
     for (int i = 0; i < bytes_read; i++) {
-      printf("%d [%02x]", buf_[i], buf_[i]);
+      printf(" %d [%02x]", buf_[i], buf_[i]);
     }
     printf("\n");
+    Key mapped_key = map_char_to_key(buf_);
+    printf("Mapped key: %d\n", mapped_key);
+    printf("Key pressed: %d\n", key_pressed_);
+    printf("\n\n\n");
 
     if (bytes_read != bytes_available) {
       spdlog::warn("All bytes could not be read from the standard input!");
