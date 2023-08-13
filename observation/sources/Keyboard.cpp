@@ -32,41 +32,22 @@ Keyboard::Keyboard() {
 
 Keyboard::~Keyboard() {}
 
-Key Keyboard::read_event() {
+bool Keyboard::read_event() {
   ssize_t bytes_available = 0;
   ioctl(STDIN_FILENO, FIONREAD, &bytes_available);
 
-  if (bytes_available < 1) {
-    return Key::NONE;
-  }
+  if (bytes_available){
+    int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_available);
 
-  Key key_code = Key::UNKNOWN;
-
-  int bytes_to_read = std::min(bytes_available, (ssize_t)kMaxReadBytes);
-
-  // Read bytes from STDIN, shifting the buffer left by one byte each time
-  for(int i = 0; i < bytes_to_read + kMaxKeyBytes; i++) {
-    shift_left(buf_, kMaxKeyBytes);
-
-    if(i < bytes_available){
-      int bytes_read = ::read(STDIN_FILENO, &buf_[kMaxKeyBytes - 1], 1);
-
-      if (bytes_read < 1) {
-        spdlog::warn("Bytes could not be read from stdin!");
-      }
+    if (bytes_read != bytes_available) {
+      spdlog::warn("All bytes could not be read from the standard input!");
+      ::fflush(stdin);
     }
 
-    key_code = map_char_to_key(buf_);
+    return 1;
+  }
 
-    /* Return UNKNOWN only if we have read all available bytes
-     * and shifted the last byte read to the first position without
-     * finding a match.
-     */
-    if (key_code != Key::UNKNOWN)
-      return key_code;
-    
-  } // for
-  return key_code; // UNKNOWN
+  return 0;
 }
 
 Key Keyboard::map_char_to_key(unsigned char* buf) {
@@ -107,13 +88,6 @@ Key Keyboard::map_char_to_key(unsigned char* buf) {
   return Key::UNKNOWN;
 }
 
-void Keyboard::shift_left(unsigned char* arr, size_t array_size = kMaxKeyBytes) {
-  for (int i = 0; i < array_size - 1; i++) {
-    arr[i] = arr[i + 1];
-  }
-  arr[array_size - 1] = 0;
-}
-
 void Keyboard::write(Dictionary& observation) {
   // Check elapsed time since last key polling
   auto elapsed = system_clock::now() - last_key_poll_time_;
@@ -121,10 +95,16 @@ void Keyboard::write(Dictionary& observation) {
 
   // Poll for key press if enough time has elapsed or if no key is pressed
   if (elapsed_ms >= kPollingIntervalMS || !key_pressed_) {
-    key_code_ = read_event();
-    key_pressed_ = key_code_ != Key::NONE;
-    printf("Key pressed: %d\n", key_pressed_);
-    printf("Key code: %02x\n", key_code_);
+    key_pressed_ = read_event();
+
+    if (key_pressed_) {
+      key_code_ = map_char_to_key(buf_);
+    } else {
+      key_code_ = Key::UNKNOWN;
+    }
+
+    last_key_poll_time_ = system_clock::now();
+
   }
 
   auto& output = observation(prefix());

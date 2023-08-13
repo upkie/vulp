@@ -37,9 +37,6 @@ using std::chrono::system_clock;
 //! Maximum number of bytes to encode a key
 constexpr size_t kMaxKeyBytes = 3;
 
-//! Maximum number of bytes to read from STDIN
-constexpr size_t kMaxReadBytes = 10;
-
 //! Polling interval in milliseconds
 constexpr size_t kPollingIntervalMS = 100;
 
@@ -107,7 +104,7 @@ class Keyboard : public Source {
 
  private:
   //! Read the next key event from STDIN.
-  Key read_event();
+  bool read_event();
 
   /*! Map a character to a key code.
    *
@@ -115,13 +112,6 @@ class Keyboard : public Source {
    * \return Key value
    */
   Key map_char_to_key(unsigned char* buf);
-
-  /*! Shifts array elements one position to left.
-   *
-   * \param[in] buf Array to shift.
-   * \param[in] array_size Size of the array.
-   */
-  void shift_left(unsigned char* buf, size_t array_size);
 
   //! Buffer to store incoming bytes from STDIN
   unsigned char buf_[kMaxKeyBytes];

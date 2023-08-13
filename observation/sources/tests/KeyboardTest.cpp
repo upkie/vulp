@@ -19,7 +19,7 @@
 #include "vulp/observation/sources/Keyboard.h"
 
 namespace vulp::observation::sources {
-/*
+
 TEST(Keyboard, WriteOnce) {
   Keyboard keyboard;
   Dictionary observation;
@@ -78,36 +78,8 @@ TEST(Keyboard, ReadArrows) {
   ASSERT_FALSE(output.get<bool>("s"));
   ASSERT_FALSE(output.get<bool>("d"));
   ASSERT_FALSE(output.get<bool>("x"));
-}*/
-
-TEST(Keyboard, ReadArrowsWithGarbage) {
-  // We cannot write directly to STDIN, so we'll redirect a file to it
-  char* tmpfn = tmpnam(nullptr);
-  std::ofstream tmpf(tmpfn);
-  tmpf << "prefix" << LEFT_BYTES; // Garbage bytes before the arrow
-  tmpf.close();
-
-  freopen(tmpfn, "r", stdin);
-
-  Keyboard keyboard = Keyboard();
-
-  Dictionary observation;
-  keyboard.write(observation);
-
-  const auto& output = observation(keyboard.prefix());
-  ASSERT_TRUE(output.get<bool>("key_pressed"));
-  ASSERT_TRUE(output.get<bool>("left"));
-  ASSERT_FALSE(output.get<bool>("up"));
-  ASSERT_FALSE(output.get<bool>("down"));
-  ASSERT_FALSE(output.get<bool>("right"));
-  ASSERT_FALSE(output.get<bool>("w"));
-  ASSERT_FALSE(output.get<bool>("a"));
-  ASSERT_FALSE(output.get<bool>("s"));
-  ASSERT_FALSE(output.get<bool>("d"));
-  ASSERT_FALSE(output.get<bool>("x"));
 }
 
-/*
 TEST(Keyboard, ReadEmptySTDIN) {
   fflush(stdin);  // Clear STDIN
 
@@ -127,6 +99,6 @@ TEST(Keyboard, ReadEmptySTDIN) {
   ASSERT_FALSE(output.get<bool>("s"));
   ASSERT_FALSE(output.get<bool>("d"));
   ASSERT_FALSE(output.get<bool>("x"));
-}*/
+}
 
 }  // namespace vulp::observation::sources
