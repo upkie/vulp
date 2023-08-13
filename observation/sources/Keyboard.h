@@ -74,7 +74,6 @@ enum class Key {
   S = 83,
   D = 68,
   X = 88,
-  NONE = 254,      // No key pressed
   UNKNOWN = 255  // Map everything else to this key
 };
 
@@ -86,8 +85,8 @@ enum class Key {
 class Keyboard : public Source {
  public:
   /*! Constructor sets up the terminal in non-canonical mode where
-  * input is available immediately without waiting for a newline.
-  */
+   * input is available immediately without waiting for a newline.
+   */
   Keyboard();
 
   //! Destructor

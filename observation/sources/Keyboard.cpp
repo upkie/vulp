@@ -36,7 +36,7 @@ bool Keyboard::read_event() {
   ssize_t bytes_available = 0;
   ioctl(STDIN_FILENO, FIONREAD, &bytes_available);
 
-  if (bytes_available){
+  if (bytes_available) {
     int bytes_read = ::read(STDIN_FILENO, &buf_, (ssize_t)bytes_available);
 
     if (bytes_read != bytes_available) {
@@ -104,7 +104,6 @@ void Keyboard::write(Dictionary& observation) {
     }
 
     last_key_poll_time_ = system_clock::now();
-
   }
 
   auto& output = observation(prefix());
