@@ -18,7 +18,6 @@
 
 namespace vulp::observation::sources {
 Keyboard::Keyboard() {
-  // Constructor
   termios term;
   tcgetattr(STDIN_FILENO, &term);
   term.c_lflag &= ~ICANON;
@@ -26,73 +25,93 @@ Keyboard::Keyboard() {
   setbuf(stdin, NULL);
 
   key_pressed_ = false;
-  key_code_ = key::UNKNOWN;
+  key_code_ = Key::UNKNOWN;
 
-  // Check current time in milliseconds
-  last_key_poll_time_ =
-      system_clock::now() - milliseconds(KEY_POLLING_INTERVAL_MS);
+  last_key_poll_time_ = system_clock::now() - milliseconds(kPollingIntervalMS);
 }
 
-Keyboard::~Keyboard() {
-  // Destructor
-}
+Keyboard::~Keyboard() {}
 
-int Keyboard::read_event() {
+Key Keyboard::read_event() {
   ssize_t bytes_available = 0;
   ioctl(STDIN_FILENO, FIONREAD, &bytes_available);
 
-  if (bytes_available) {
-    int bytes_read = ::read(STDIN_FILENO, &buf_, MAX_KEY_BYTES);
+  if (bytes_available < 1) {
+    return Key::NONE;
+  }
 
-    if (bytes_read != bytes_available) {
-      spdlog::warn("All bytes could not be read from the standard input!");
+  Key key_code = Key::UNKNOWN;
+
+  int bytes_to_read = std::min(bytes_available, (ssize_t)kMaxReadBytes);
+
+  // Read bytes from STDIN, shifting the buffer left by one byte each time
+  for(int i = 0; i < bytes_to_read + kMaxKeyBytes; i++) {
+    shift_left(buf_, kMaxKeyBytes);
+
+    if(i < bytes_available){
+      int bytes_read = ::read(STDIN_FILENO, &buf_[kMaxKeyBytes - 1], 1);
+
+      if (bytes_read < 1) {
+        spdlog::warn("Bytes could not be read from stdin!");
+      }
     }
 
-    // Flush the standard input buffer, in case there are stale commands
-    ::fflush(stdin);
+    key_code = map_char_to_key(buf_);
 
-    return 1;
-  }
-
-  return 0;
+    /* Return UNKNOWN only if we have read all available bytes
+     * and shifted the last byte read to the first position without
+     * finding a match.
+     */
+    if (key_code != Key::UNKNOWN)
+      return key_code;
+    
+  } // for
+  return key_code; // UNKNOWN
 }
 
-Keyboard::key Keyboard::map_char_to_key(unsigned char* buf) {
-  // Check for 3-byte characters (i.e. arrows)
-  if (!memcmp(buf_, DOWN_BYTES, MAX_KEY_BYTES)) {
-    return key::DOWN;
+Key Keyboard::map_char_to_key(unsigned char* buf) {
+  // Check for 3-byte characters first (i.e. arrows)
+  if (!memcmp(buf_, DOWN_BYTES, kMaxKeyBytes)) {
+    return Key::DOWN;
   }
-  if (!memcmp(buf_, UP_BYTES, MAX_KEY_BYTES)) {
-    return key::UP;
+  if (!memcmp(buf_, UP_BYTES, kMaxKeyBytes)) {
+    return Key::UP;
   }
-  if (!memcmp(buf_, LEFT_BYTES, MAX_KEY_BYTES)) {
-    return key::LEFT;
+  if (!memcmp(buf_, LEFT_BYTES, kMaxKeyBytes)) {
+    return Key::LEFT;
   }
-  if (!memcmp(buf_, RIGHT_BYTES, MAX_KEY_BYTES)) {
-    return key::RIGHT;
+  if (!memcmp(buf_, RIGHT_BYTES, kMaxKeyBytes)) {
+    return Key::RIGHT;
   }
 
   // If the first byte corresponds to a lowercase ASCII alphabetic
   if (is_lowercase_alpha(buf[0])) {
-    buf[0] -= 32;  // Map to uppercase equivalent;
+    buf[0] -= 32;  // Map to uppercase equivalent
   }
 
   // We treat any printable ASCII as a single key code
   if (is_printable_ascii(buf[0])) {
     switch (buf[0]) {
-      case key::W:
-        return key::W;
-      case key::A:
-        return key::A;
-      case key::S:
-        return key::S;
-      case key::D:
-        return key::D;
-      case key::X:
-        return key::X;
+      case 87:
+        return Key::W;
+      case 65:
+        return Key::A;
+      case 83:
+        return Key::S;
+      case 68:
+        return Key::D;
+      case 88:
+        return Key::X;
     }
   }
-  return key::UNKNOWN;
+  return Key::UNKNOWN;
+}
+
+void Keyboard::shift_left(unsigned char* arr, size_t array_size = kMaxKeyBytes) {
+  for (int i = 0; i < array_size - 1; i++) {
+    arr[i] = arr[i + 1];
+  }
+  arr[array_size - 1] = 0;
 }
 
 void Keyboard::write(Dictionary& observation) {
@@ -100,31 +119,25 @@ void Keyboard::write(Dictionary& observation) {
   auto elapsed = system_clock::now() - last_key_poll_time_;
   auto elapsed_ms = duration_cast<milliseconds>(elapsed).count();
 
-  if (elapsed_ms >= KEY_POLLING_INTERVAL_MS) {
-    key_pressed_ = read_event();
-
-    if (key_pressed_) {
-      key_code_ = map_char_to_key(buf_);
-    } else {
-      key_code_ = key::UNKNOWN;
-    }
-
-    if (key_pressed_ && key_code_ == key::UNKNOWN) {
-      key_pressed_ = false;
-    }
+  // Poll for key press if enough time has elapsed or if no key is pressed
+  if (elapsed_ms >= kPollingIntervalMS || !key_pressed_) {
+    key_code_ = read_event();
+    key_pressed_ = key_code_ != Key::NONE;
+    printf("Key pressed: %d\n", key_pressed_);
+    printf("Key code: %02x\n", key_code_);
   }
 
   auto& output = observation(prefix());
   output("key_pressed") = key_pressed_;
-  output("UP") = key_code_ == key::UP;
-  output("DOWN") = key_code_ == key::DOWN;
-  output("LEFT") = key_code_ == key::LEFT;
-  output("RIGHT") = key_code_ == key::RIGHT;
-  output("W") = key_code_ == key::W;
-  output("A") = key_code_ == key::A;
-  output("S") = key_code_ == key::S;
-  output("D") = key_code_ == key::D;
-  output("X") = key_code_ == key::X;
+  output("up") = key_code_ == Key::UP;
+  output("down") = key_code_ == Key::DOWN;
+  output("left") = key_code_ == Key::LEFT;
+  output("right") = key_code_ == Key::RIGHT;
+  output("w") = key_code_ == Key::W;
+  output("a") = key_code_ == Key::A;
+  output("s") = key_code_ == Key::S;
+  output("d") = key_code_ == Key::D;
+  output("x") = key_code_ == Key::X;
 }
 
 }  // namespace vulp::observation::sources
