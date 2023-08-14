@@ -49,12 +49,9 @@ bool Keyboard::read_event() {
         ::read(STDIN_FILENO, &buf_, bytes_to_read);
       } while (bytes_available);
     }
+    return 1;
   }
-
-  return 1;
-}
-
-return 0;
+  return 0;
 }
 
 Key Keyboard::map_char_to_key(unsigned char* buf) {
