@@ -119,6 +119,7 @@ void Keyboard::write(Dictionary& observation) {
   output("s") = key_code_ == Key::S;
   output("d") = key_code_ == Key::D;
   output("x") = key_code_ == Key::X;
+  output("unknown") = key_code_ == Key::UNKNOWN;
 }
 
 }  // namespace vulp::observation::sources
