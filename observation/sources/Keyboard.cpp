@@ -43,13 +43,18 @@ bool Keyboard::read_event() {
     if (bytes_read < bytes_available) {
       spdlog::warn("All bytes could not be read from the standard input!");
       // Skip the remaining bytes
-      ::read(STDIN_FILENO, nullptr, bytes_available - bytes_read);
+      do {
+        ioctl(STDIN_FILENO, FIONREAD, &bytes_available);
+        bytes_to_read = std::min(bytes_available, (ssize_t)kMaxKeyBytes);
+        ::read(STDIN_FILENO, &buf_, bytes_to_read);
+      } while (bytes_available);
     }
-
-    return 1;
   }
 
-  return 0;
+  return 1;
+}
+
+return 0;
 }
 
 Key Keyboard::map_char_to_key(unsigned char* buf) {
