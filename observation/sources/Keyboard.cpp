@@ -43,7 +43,7 @@ bool Keyboard::read_event() {
     if (bytes_read < bytes_available) {
       spdlog::warn("All bytes could not be read from the standard input!");
       // Skip the remaining bytes
-      fseek(stdin, 0, SEEK_END);
+      ::read(STDIN_FILENO, nullptr, bytes_available - bytes_read);
     }
 
     return 1;
