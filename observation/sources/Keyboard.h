@@ -67,6 +67,7 @@ enum class Key {
   S,
   D,
   X,
+  NONE,    // No key pressed
   UNKNOWN  // Map everything else to this key
 };
 
