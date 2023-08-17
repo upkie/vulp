@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- observers: Keyboard source by @boragokbakan
+
 ### Changed
 
 - Bazel: Compile coverage and test targets in debug by default
