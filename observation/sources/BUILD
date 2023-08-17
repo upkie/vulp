@@ -33,10 +33,20 @@ cc_library(
 )
 
 cc_library(
+    name = "keyboard",
+    hdrs = ["Keyboard.h"],
+    srcs = ["Keyboard.cpp"],
+    deps = [
+        "//observation:source",
+    ],
+    include_prefix = "vulp/observation/sources",
+)
+
+cc_library(
     name = "sources",
     deps =  select({
-        "@//:linux": [":joystick", ":cpu_temperature"],
-        "@//conditions:default": [":cpu_temperature"],
+        "@//:linux": [":joystick", ":cpu_temperature", ":keyboard"],
+        "@//conditions:default": [":cpu_temperature", ":keyboard"],
     }),
 )
 
