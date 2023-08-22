@@ -80,11 +80,4 @@ cc_library(
     include_prefix = "vulp/utils",
 )
 
-py_library(
-    name = "serialize",
-    srcs = [
-        "serialize.py",
-    ],
-)
-
 add_lint_tests()
