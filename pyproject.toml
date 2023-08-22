@@ -41,6 +41,5 @@ Changelog = "https://github.com/tasts-robots/vulp/blob/main/CHANGELOG.md"
 
 [tool.flit.sdist]
 include = [
-    "vulp/spine/*.py",
-    "vulp/utils/*.py",
+    "vulp/**/*.py",
 ]
