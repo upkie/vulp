@@ -14,10 +14,10 @@ cc_test(
         "*.h",
     ]),
     deps = [
-        "//observation",
+        "//vulp/actuation/moteus",
+        "//vulp/observation",
         "@eigen",
         "@googletest//:main",
-        "@vulp//actuation/moteus",
     ],
 )
 

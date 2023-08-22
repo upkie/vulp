@@ -13,13 +13,13 @@ cc_test(
         "*.h",
     ]),
     deps = [
-        "//actuation:mock_interface",
-        "//observation/tests:observers",
-        "//observation:observer_pipeline",
-        "//spine:agent_interface",
-        "//spine:spine",
-        "//spine:state_machine",
-        "//utils:random_string",
+        "//vulp/actuation:mock_interface",
+        "//vulp/observation/tests:observers",
+        "//vulp/observation:observer_pipeline",
+        "//vulp/spine:agent_interface",
+        "//vulp/spine:spine",
+        "//vulp/spine:state_machine",
+        "//vulp/utils:random_string",
         "@googletest//:main",
         "@palimpsest",
     ],
@@ -29,7 +29,7 @@ py_test(
     name = "spine_interface_test",
     srcs = ["spine_interface_test.py"],
     deps = [
-        "//spine:python",
+        "//vulp/spine:python",
     ],
 )
 
