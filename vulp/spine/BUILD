@@ -71,8 +71,10 @@ cc_library(
 py_library(
     name = "python",
     deps = select({
-        # TODO(scaron): cross-compiled pip install for the Raspberry Pi
-        # Related issue: https://github.com/bazelbuild/rules_python/issues/260
+        # Selecting the right CPU architecture for the Raspberry Pi is
+        # currently a tough nut to crack for Bazel. We only enable compiled
+        # dependencies on the host side for now.
+        # Followed in: https://github.com/tasts-robots/upkie/issues/1
         "//:pi32_config": [],
         "//:pi64_config": [],
         "//conditions:default": [
