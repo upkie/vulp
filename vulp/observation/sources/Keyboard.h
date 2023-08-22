@@ -35,7 +35,7 @@ using std::chrono::milliseconds;
 using std::chrono::system_clock;
 
 //! Maximum number of bytes to encode a key
-constexpr size_t kMaxKeyBytes = 3;
+constexpr ssize_t kMaxKeyBytes = 3;
 
 //! Polling interval in milliseconds
 constexpr int64_t kPollingIntervalMS = 50;
