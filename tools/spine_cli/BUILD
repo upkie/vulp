@@ -7,9 +7,9 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 package(default_visibility = ["//visibility:public"])
 
 py_binary(
-    name = "cli",
+    name = "spine_cli",
     srcs = [
-        "cli.py",
+        "spine_cli.py",
     ],
     deps = [
         "@vulp//spine:python",
