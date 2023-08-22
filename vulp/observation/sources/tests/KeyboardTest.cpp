@@ -33,7 +33,7 @@ TEST(Keyboard, ReadAlphabetical) {
   tmpf << "A";
   tmpf.close();
 
-  freopen(tmpfn, "r", stdin);
+  ASSERT_TRUE(freopen(tmpfn, "r", stdin) != nullptr);
 
   Keyboard keyboard = Keyboard();
 
@@ -60,7 +60,7 @@ TEST(Keyboard, ReadArrows) {
   tmpf << LEFT_BYTES;
   tmpf.close();
 
-  freopen(tmpfn, "r", stdin);
+  ASSERT_TRUE(freopen(tmpfn, "r", stdin) != nullptr);
 
   Keyboard keyboard = Keyboard();
 
