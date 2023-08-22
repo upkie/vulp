@@ -11,6 +11,7 @@ cc_library(
     deps = [
         ":controller",
     ],
+    include_prefix = "vulp/control",
 )
 
 cc_library(
@@ -19,6 +20,7 @@ cc_library(
     deps = [
         "@palimpsest",
     ],
+    include_prefix = "vulp/control",
 )
 
 add_lint_tests()

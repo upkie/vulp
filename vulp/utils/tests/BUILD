@@ -23,6 +23,7 @@ cc_test(
         "@eigen",
         "@googletest//:main",
     ],
+    include_prefix = "vulp/utils/tests",
 )
 
 add_lint_tests()
