@@ -72,28 +72,4 @@ cc_library(
     include_prefix = "vulp/spine",
 )
 
-py_library(
-    name = "python",
-    deps = select({
-        # Selecting the right CPU architecture for the Raspberry Pi is
-        # currently a tough nut to crack for Bazel. We only enable compiled
-        # dependencies on the host side for now.
-        # Followed in: https://github.com/tasts-robots/upkie/issues/1
-        "//:pi32_config": [],
-        "//:pi64_config": [],
-        "//conditions:default": [
-            requirement("msgpack"),
-            requirement("posix_ipc"),
-        ],
-    }) + [
-        "//vulp/utils:serialize",
-    ],
-    srcs = [
-        "__init__.py",
-        "request.py",
-        "spine_error.py",
-        "spine_interface.py",
-    ],
-)
-
 add_lint_tests()

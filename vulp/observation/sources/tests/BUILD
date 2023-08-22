@@ -22,7 +22,6 @@ cc_test(
         "//vulp/observation/sources",
         "@googletest//:main",
     ],
-    include_prefix = "vulp/observation/sources/tests",
 )
 
 add_lint_tests()
