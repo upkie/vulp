@@ -40,6 +40,17 @@ Tracker = "https://github.com/tasts-robots/vulp/issues"
 Changelog = "https://github.com/tasts-robots/vulp/blob/main/CHANGELOG.md"
 
 [tool.flit.sdist]
+exclude = [
+    "**/*.cpp",
+    "**/*.h",
+    "**/*.mtl",
+    "**/*.obj",
+    "**/*.png",
+    "**/*.urdf",
+    "**/BUILD",
+    "**/LICENSE.md",
+    "**/tests/*_test.py",
+]
 include = [
     "vulp/**/*.py",
 ]
