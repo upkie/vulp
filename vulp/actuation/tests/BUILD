@@ -11,7 +11,6 @@ cc_library(
     hdrs = [
         "coffee_machine_layout.h",
     ],
-    include_prefix = "vulp/actuation/tests",
 )
 
 cc_test(

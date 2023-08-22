@@ -10,7 +10,6 @@ cc_library(
     name = "handle_interrupts",
     hdrs = ["handle_interrupts.h"],
     srcs = ["handle_interrupts.cpp"],
-    include_prefix = "vulp/utils",
 )
 
 cc_library(
@@ -21,25 +20,21 @@ cc_library(
     deps = [
         "@eigen",
     ],
-    include_prefix = "vulp/utils",
 )
 
 cc_library(
     name = "math",
     hdrs = ["math.h"],
-    include_prefix = "vulp/utils",
 )
 
 cc_library(
     name = "random_string",
     hdrs = ["random_string.h"],
-    include_prefix = "vulp/utils",
 )
 
 cc_library(
     name = "realtime",
     hdrs = ["realtime.h"],
-    include_prefix = "vulp/utils",
 )
 
 cc_library(
@@ -50,7 +45,6 @@ cc_library(
         ":math",
         "@spdlog",
     ],
-    include_prefix = "vulp/utils",
 )
 
 cc_library(

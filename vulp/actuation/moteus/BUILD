@@ -10,7 +10,6 @@ cc_library(
     name = "moteus",
     hdrs = glob(["*.h"]),
     deps = [],
-    include_prefix = "vulp/actuation/moteus",
 )
 
 add_lint_tests()
