@@ -22,8 +22,8 @@ cc_library(
         "observe_imu.cpp",
     ],
     deps = [
+        "//vulp/actuation:imu_data",
         "@palimpsest",
-        "@vulp//actuation:imu_data",
     ],
 )
 
@@ -36,8 +36,8 @@ cc_library(
         "observe_servos.cpp",
     ],
     deps = [
+        "//vulp/actuation/moteus",
         "@palimpsest",
-        "@vulp//actuation/moteus",
     ],
 )
 

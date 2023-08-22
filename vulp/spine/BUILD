@@ -38,7 +38,7 @@ cc_library(
     ],
     deps = [
         ":agent_interface",
-        "//utils:handle_interrupts",
+        "//vulp/utils:handle_interrupts",
     ],
 )
 
@@ -55,14 +55,14 @@ cc_library(
         "@//conditions:default": [],
     }),
     deps = [
-        "//actuation:imu_data",
-        "//actuation:interface",
-        "//observation:observe_imu",
-        "//observation:observe_servos",
-        "//observation:observe_time",
-        "//observation:observer_pipeline",
-        "//utils:realtime",
-        "//utils:synchronous_clock",
+        "//vulp/actuation:imu_data",
+        "//vulp/actuation:interface",
+        "//vulp/observation:observe_imu",
+        "//vulp/observation:observe_servos",
+        "//vulp/observation:observe_time",
+        "//vulp/observation:observer_pipeline",
+        "//vulp/utils:realtime",
+        "//vulp/utils:synchronous_clock",
         ":state_machine",
         "@mpacklog",
     ],
@@ -80,7 +80,7 @@ py_library(
             requirement("posix_ipc"),
         ],
     }) + [
-        "//utils:serialize",
+        "//vulp/utils:serialize",
     ],
     srcs = [
         "__init__.py",

@@ -11,7 +11,7 @@ cc_library(
     hdrs = ["CpuTemperature.h"],
     srcs = ["CpuTemperature.cpp"],
     deps = [
-        "//observation:source",
+        "//vulp/observation:source",
     ],
 )
 
@@ -26,7 +26,7 @@ cc_library(
         "@//conditions:default": [],
     }),
     deps = [
-        "//observation:source",
+        "//vulp/observation:source",
     ],
 )
 
@@ -35,7 +35,7 @@ cc_library(
     hdrs = ["Keyboard.h"],
     srcs = ["Keyboard.cpp"],
     deps = [
-        "//observation:source",
+        "//vulp/observation:source",
     ],
 )
 
