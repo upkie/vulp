@@ -12,7 +12,7 @@ py_binary(
         "spine_cli.py",
     ],
     deps = [
-        "@vulp//spine:python",
+        "//vulp/spine:python",
     ],
 )
 
