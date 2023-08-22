@@ -7,5 +7,6 @@ bazel-testlogs
 bazel-vulp
 build
 coverage
+dist/
 doc/html
 tools/bazel
