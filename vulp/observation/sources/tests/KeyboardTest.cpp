@@ -28,7 +28,7 @@ TEST(Keyboard, WriteOnce) {
 
 TEST(Keyboard, ReadAlphabetical) {
   // We cannot write directly to STDIN, so we'll redirect a file to it
-  char* tmpfn = tmpnam(nullptr);
+  char* tmpfn = std::tmpnam(nullptr);
   std::ofstream tmpf(tmpfn);
   tmpf << "A";
   tmpf.close();
@@ -55,7 +55,7 @@ TEST(Keyboard, ReadAlphabetical) {
 
 TEST(Keyboard, ReadArrows) {
   // We cannot write directly to STDIN, so we'll redirect a file to it
-  char* tmpfn = tmpnam(nullptr);
+  char* tmpfn = std::tmpnam(nullptr);
   std::ofstream tmpf(tmpfn, std::ios::binary | std::ios::out);
   tmpf.write(reinterpret_cast<const char*>(LEFT_BYTES), sizeof(LEFT_BYTES));
   tmpf.close();
