@@ -13,6 +13,7 @@ cc_library(
     deps = [
         "//vulp/observation:source",
     ],
+    include_prefix = "vulp/observation/sources",
 )
 
 cc_library(
@@ -28,6 +29,7 @@ cc_library(
     deps = [
         "//vulp/observation:source",
     ],
+    include_prefix = "vulp/observation/sources",
 )
 
 cc_library(
@@ -37,6 +39,7 @@ cc_library(
     deps = [
         "//vulp/observation:source",
     ],
+    include_prefix = "vulp/observation/sources",
 )
 
 cc_library(
@@ -45,6 +48,7 @@ cc_library(
         "@//:linux": [":joystick", ":cpu_temperature", ":keyboard"],
         "@//conditions:default": [":cpu_temperature", ":keyboard"],
     }),
+    include_prefix = "vulp/observation/sources",
 )
 
 add_lint_tests()
