@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Bazel: Compile coverage and test targets in debug by default
+- Refactor project directories for simpler Bazel and PyPI distributions
 
 ## [1.3.0] - 2023/07/24
 
