@@ -19,7 +19,6 @@ cc_library(
     deps = [
         "@palimpsest",
     ],
-    include_prefix = "vulp/control",
 )
 
 add_lint_tests()

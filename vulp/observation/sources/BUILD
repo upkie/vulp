@@ -13,7 +13,6 @@ cc_library(
     deps = [
         "//observation:source",
     ],
-    include_prefix = "vulp/observation/sources",
 )
 
 cc_library(
@@ -29,7 +28,6 @@ cc_library(
     deps = [
         "//observation:source",
     ],
-    include_prefix = "vulp/observation/sources",
 )
 
 cc_library(
@@ -39,7 +37,6 @@ cc_library(
     deps = [
         "//observation:source",
     ],
-    include_prefix = "vulp/observation/sources",
 )
 
 cc_library(

@@ -14,7 +14,6 @@ cc_library(
     deps = [
         "@eigen",
     ],
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(
@@ -22,7 +21,6 @@ cc_library(
     hdrs = [
         "ServoLayout.h",
     ],
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(
@@ -33,7 +31,6 @@ cc_library(
     deps = [
         "//actuation/moteus",
     ],
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(
@@ -51,7 +48,6 @@ cc_library(
         ":servo_layout",
         "@palimpsest",
     ],
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(
@@ -67,7 +63,6 @@ cc_library(
         "//utils:synchronous_clock",
         "@eigen",
     ],
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(
@@ -82,7 +77,6 @@ cc_library(
         "@eigen",
         "@palimpsest",
     ],
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(
@@ -106,7 +100,6 @@ cc_library(
         "@vulp//actuation:interface",
         "@vulp//utils:synchronous_clock",
     ],
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(
@@ -133,7 +126,6 @@ cc_library(
         ],
         "//conditions:default": [],
     }),
-    include_prefix = "vulp/actuation",
 )
 
 cc_library(

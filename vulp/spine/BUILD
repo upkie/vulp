@@ -12,7 +12,6 @@ cc_library(
     hdrs = [
         "Request.h",
     ],
-    include_prefix = "vulp/spine",
 )
 
 cc_library(
@@ -27,7 +26,6 @@ cc_library(
         ":request",
         "@spdlog",
     ],
-    include_prefix = "vulp/spine",
 )
 
 cc_library(
@@ -42,7 +40,6 @@ cc_library(
         ":agent_interface",
         "//utils:handle_interrupts",
     ],
-    include_prefix = "vulp/spine",
 )
 
 cc_library(
@@ -69,7 +66,6 @@ cc_library(
         ":state_machine",
         "@mpacklog",
     ],
-    include_prefix = "vulp/spine",
 )
 
 py_library(

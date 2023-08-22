@@ -11,7 +11,6 @@ cc_library(
     hdrs = [
         "ObserverError.h",
     ],
-    include_prefix = "vulp/observation",
 )
 
 cc_library(
@@ -26,7 +25,6 @@ cc_library(
         "@palimpsest",
         "@vulp//actuation:imu_data",
     ],
-    include_prefix = "vulp/observation",
 )
 
 cc_library(
@@ -41,7 +39,6 @@ cc_library(
         "@palimpsest",
         "@vulp//actuation/moteus",
     ],
-    include_prefix = "vulp/observation",
 )
 
 cc_library(
@@ -55,7 +52,6 @@ cc_library(
     deps = [
         "@palimpsest",
     ],
-    include_prefix = "vulp/observation",
 )
 
 cc_library(
@@ -66,7 +62,6 @@ cc_library(
     deps = [
         "@palimpsest",
     ],
-    include_prefix = "vulp/observation",
 )
 
 cc_library(
@@ -77,7 +72,6 @@ cc_library(
     deps = [
         "@palimpsest",
     ],
-    include_prefix = "vulp/observation",
 )
 
 cc_library(
@@ -93,7 +87,6 @@ cc_library(
         ":observer_error",
         ":source",
     ],
-    include_prefix = "vulp/observation",
 )
 
 cc_library(
