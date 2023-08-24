@@ -22,7 +22,7 @@ from time import perf_counter_ns
 import msgpack
 import posix_ipc
 
-from vulp.utils.serialize import serialize
+from vulp.utils import serialize
 
 from .request import Request
 from .spine_error import SpineError
