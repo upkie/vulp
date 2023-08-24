@@ -27,7 +27,9 @@ cc_test(
 
 py_test(
     name = "spine_interface_test",
-    srcs = ["spine_interface_test.py"],
+    srcs = [
+        "spine_interface_test.py",
+    ],
     deps = [
         "//vulp:python",
     ],
