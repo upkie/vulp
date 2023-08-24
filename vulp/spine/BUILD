@@ -8,23 +8,15 @@ load("@pip_vulp//:requirements.bzl", "requirement")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "request",
-    hdrs = [
-        "Request.h",
-    ],
-    include_prefix = "vulp/spine",
-)
-
-cc_library(
     name = "agent_interface",
     hdrs = [
         "AgentInterface.h",
+        "Request.h",
     ],
     srcs = [
         "AgentInterface.cpp",
     ],
     deps = [
-        ":request",
         "@spdlog",
     ],
     include_prefix = "vulp/spine",
