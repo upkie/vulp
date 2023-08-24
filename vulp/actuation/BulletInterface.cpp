@@ -34,7 +34,7 @@ std::string find_plane_urdf(const std::string argv0) {
     throw std::runtime_error(
         "Could not retrieve the package path to plane.urdf: " + error);
   }
-  return runfiles->Rlocation("vulp/actuation/bullet/plane/plane.urdf");
+  return runfiles->Rlocation("vulp/vulp/actuation/bullet/plane/plane.urdf");
 }
 
 BulletInterface::BulletInterface(const ServoLayout& layout,
