@@ -80,4 +80,11 @@ cc_library(
     include_prefix = "vulp/utils",
 )
 
+py_library(
+    name = "python",
+    srcs = glob([
+        "*.py",
+    ]),
+)
+
 add_lint_tests()
