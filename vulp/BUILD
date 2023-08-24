@@ -11,7 +11,6 @@ py_library(
     srcs = [
         "__init__.py",
     ],
-    imports = ["."],
     deps = [
         "//vulp/spine:python",
         "//vulp/utils:python",
