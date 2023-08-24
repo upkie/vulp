@@ -35,4 +35,11 @@ config_setting(
     }
 )
 
+py_library(
+    name = "python",
+    deps = [
+        "//vulp:python",
+    ],
+)
+
 add_lint_tests()
