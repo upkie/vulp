@@ -37,6 +37,7 @@ config_setting(
 
 py_library(
     name = "python",
+    imports = ["."],
     deps = [
         "//vulp:python",
     ],
