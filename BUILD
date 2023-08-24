@@ -38,6 +38,7 @@ config_setting(
 py_library(
     name = "python",
     imports = ["."],
+    legacy_create_init = False,
     deps = [
         "//vulp:python",
     ],
