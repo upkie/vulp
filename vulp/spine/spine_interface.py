@@ -17,7 +17,9 @@
 
 import mmap
 import sys
+import time
 from time import perf_counter_ns
+from typing import Optional
 
 import msgpack
 import posix_ipc
@@ -28,6 +30,30 @@ from .request import Request
 from .spine_error import SpineError
 
 
+def wait_for_shared_memory(
+    shm_name: str,
+    retries: int,
+) -> Optional[posix_ipc.SharedMemory]:
+    """!
+    Connect to the spine shared memory.
+
+    @param shm_name Name of the shared memory object.
+    @param retries Number of times to try opening the shared-memory file.
+    """
+    shared_memory = None
+    for trial in range(retries):
+        if trial > 0:
+            print(f"Waiting for spine to start (trial {trial} / {retries})...")
+            time.sleep(1.0)
+        try:
+            shared_memory = posix_ipc.SharedMemory(
+                shm_name, size=0, read_only=False
+            )
+        except posix_ipc.ExistentialError:
+            pass
+    return shared_memory
+
+
 class SpineInterface:
 
     """!
@@ -36,18 +62,20 @@ class SpineInterface:
 
     _mmap: mmap.mmap
 
-    def __init__(self, shm_name: str = "/vulp"):
+    def __init__(
+        self,
+        shm_name: str = "/vulp",
+        retries: int = 1,
+    ):
         """!
         Connect to the spine shared memory.
 
         @param shm_name Name of the shared memory object.
+        @param retries Number of times to try opening the shared-memory file.
         """
-        try:
-            shared_memory = posix_ipc.SharedMemory(
-                shm_name, size=0, read_only=False
-            )
-        except posix_ipc.ExistentialError as exn:
-            raise RuntimeError(f"spine {shm_name} is not running") from exn
+        shared_memory = wait_for_shared_memory(shm_name, retries)
+        if shared_memory is None:
+            raise RuntimeError(f"spine {shm_name} is not running")
         try:
             _mmap = mmap.mmap(
                 shared_memory.fd,
