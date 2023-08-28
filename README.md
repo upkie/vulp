@@ -114,7 +114,7 @@ Vulp is designed for prototyping: it strives to eliminate intermediaries when it
 
 #### Is it possible to run two agents at the same time?
 
-That is not possible.
+That is not possible. One of the core assumptions in Vulp is that the agent and the spine are two respective processes communicating via one single shared-memory area. In this Vulp differs from *e.g.* ROS, which is multi-process by design. This design choice is discussed in [#55](https://github.com/tasts-robots/vulp/discussions/55).
 
 #### Why the name "Vulp"?
 
