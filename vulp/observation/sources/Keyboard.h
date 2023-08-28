@@ -75,6 +75,11 @@ enum class Key {
  *
  * \note This source reads from the standard input, and does
  * not listen to Keyboard events. It can only read one key at a time.
+ *
+ * \note Long key presses will yield an output boolean that goes to true, then
+ * false, then stays at true until the key is released. This behavior is tied
+ * to the key repetition delay of the keyboard:
+ * https://github.com/tasts-robots/vulp/issues/49
  */
 class Keyboard : public Source {
  public:
