@@ -75,7 +75,9 @@ class SpineInterface:
         """
         shared_memory = wait_for_shared_memory(shm_name, retries)
         if shared_memory is None:
-            raise RuntimeError(f"spine {shm_name} is not running")
+            raise RuntimeError(
+                f"spine {shm_name} did not respond after {retries} attempts"
+            )
         try:
             _mmap = mmap.mmap(
                 shared_memory.fd,
