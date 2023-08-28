@@ -40,18 +40,15 @@ def wait_for_shared_memory(
     @param shm_name Name of the shared memory object.
     @param retries Number of times to try opening the shared-memory file.
     """
-    shared_memory = None
     for trial in range(retries):
         if trial > 0:
             print(f"Waiting for spine to start (trial {trial} / {retries})...")
             time.sleep(1.0)
         try:
-            shared_memory = posix_ipc.SharedMemory(
-                shm_name, size=0, read_only=False
-            )
+            return posix_ipc.SharedMemory(shm_name, size=0, read_only=False)
         except posix_ipc.ExistentialError:
             pass
-    return shared_memory
+    return None
 
 
 class SpineInterface:
