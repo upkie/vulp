@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- SpineInterface: ``retries`` parameter to wait for the spine to start
 - observers: Keyboard source by @boragokbakan
 
 ### Changed
