@@ -1,0 +1,40 @@
+name: Documentation
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    docs:
+        name: "GitHub Pages"
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: "Checkout Git repository"
+              uses: actions/checkout@v3
+
+            - name: "Install dependencies"
+              run: |
+                  sudo apt install doxygen graphviz inkscape
+
+            - name: "Make figures"
+              run: |
+                  cd ${{ github.workspace }}/docs/
+                  make figures
+
+            - name: "Build documentation"
+              run: |
+                  cd ${{ github.workspace }}
+                  doxygen docs/Doxyfile
+
+            - name: "Deploy to GitHub Pages"
+              uses: peaceiris/actions-gh-pages@v3
+              if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+              with:
+                  publish_branch: gh-pages
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: docs/html/
+                  force_orphan: true
