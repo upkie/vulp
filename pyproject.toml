@@ -34,7 +34,7 @@ dependencies = [
 keywords = ["motion control", "real time", "robotics"]
 
 [project.urls]
-Documentation = "https://tasts-robots.org/doc/vulp/"
+Documentation = "https://tasts-robots.github.io/vulp/"
 Source = "https://github.com/tasts-robots/vulp"
 Tracker = "https://github.com/tasts-robots/vulp/issues"
 Changelog = "https://github.com/tasts-robots/vulp/blob/main/CHANGELOG.md"

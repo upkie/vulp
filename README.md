@@ -1,7 +1,7 @@
 # Vulp – Robot/simulation switch
 
 [![CI](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml/badge.svg)](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml)
-[![Documentation](https://img.shields.io/badge/docs-online-brightgreen?style=flat)](https://tasts-robots.org/doc/vulp/)
+[![Documentation](https://img.shields.io/badge/docs-online-brightgreen?style=flat)](https://tasts-robots.github.io/vulp/)
 [![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
@@ -11,7 +11,7 @@
 Vulp provides an action-observation loop to control robots from a standalone "agent" process, like this:
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/tasts-robots/vulp/main/doc/figures/action-observation-loop-full.svg" alt="Action-observation loop with Vulp" class="center"/>
+<img src="https://raw.githubusercontent.com/tasts-robots/vulp/main/docs/figures/action-observation-loop-full.svg" alt="Action-observation loop with Vulp" class="center"/>
 </p>
 
 The agent can be a simple Python script with few dependencies.
@@ -71,7 +71,7 @@ If any of the non-features is a no-go to you, you may also want to check out the
 
 If your robot is built with some of the following open hardware components, you can also use their corresponding Python bindings directly:
 
-* [moteus](https://pypi.org/project/moteus/) - bindings for moteus brushless controllers also [run well up to 200 Hz](https://github.com/tasts-robots/vulp/blob/main/doc/loop_cycles.md#moteus-python-api).
+* [moteus](https://pypi.org/project/moteus/) - bindings for moteus brushless controllers also [run well up to 200 Hz](https://github.com/tasts-robots/vulp/blob/main/docs/loop_cycles.md#moteus-python-api).
 * [odri_control_interface](https://github.com/open-dynamic-robot-initiative/odri_control_interface) - interface to control robots built with the [ODRI](https://github.com/open-dynamic-robot-initiative) Master Board.
 
 Using control bindings directly is a simpler alternative if you don't need the action-observation loop and simulation/real-robot switch from Vulp.
@@ -82,7 +82,7 @@ Using control bindings directly is a simpler alternative if you don't need the a
 
 #### How can motion control be real-time in Python, with garbage collection and all?
 
-Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](doc/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in CPython 3.8+). To consider one data point, here are the cycle periods measured in a complete Python agent for Upkie (the Pink balancer from [`upkie`](https://github.com/tasts-robots/upkie)) running on a Raspberry Pi 4 Model B (Quad core ARM Cortex-A72 @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
+Python agents talk with Vulp spines via the ``SpineInterface``, which can process both actions and observations in [about 0.7 ± 0.3 ms](docs/loop_cycles.md). This leaves plenty of room to implement other control components in a low-frequency loop. You may also be surprised at how Python performance has improved in recent years (most "tricks" that were popular ten years ago have been optimized away in CPython 3.8+). To consider one data point, here are the cycle periods measured in a complete Python agent for Upkie (the Pink balancer from [`upkie`](https://github.com/tasts-robots/upkie)) running on a Raspberry Pi 4 Model B (Quad core ARM Cortex-A72 @ 1.5GHz). It performs non-trivial tasks like balancing and whole-body inverse kinematics by quadratic programming:
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/1189580/172820003-ade5aee1-fdca-41d7-958a-baf397a2caa3.png" width="800">
@@ -96,7 +96,7 @@ Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/co
 
 #### I have a Bullet simulation where the robot balances fine, but the agent repeatedly warns it "Skipped X clock cycles". What could be causing this?
 
-This happens when your CPU is not powerful enough to run the simulator in real-time along with your agent and spine. You can call [`Spine::simulate`](https://tasts-robots.org/doc/vulp/classvulp_1_1spine_1_1Spine.html#a886ef5562b33f365d86e77465dd86204) with ``nb_substeps = 1`` instead of ``Spine::run``, which will result in the correct simulation time from the agent's point of view but make the simulation slower than real-time from your point of view.
+This happens when your CPU is not powerful enough to run the simulator in real-time along with your agent and spine. You can call [`Spine::simulate`](https://tasts-robots.org/docs/vulp/classvulp_1_1spine_1_1Spine.html#a886ef5562b33f365d86e77465dd86204) with ``nb_substeps = 1`` instead of ``Spine::run``, which will result in the correct simulation time from the agent's point of view but make the simulation slower than real-time from your point of view.
 
 #### I'm running a pi3hat spine, why are my timings more erratic than the ones plotted above?
 
