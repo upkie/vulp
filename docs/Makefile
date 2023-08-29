@@ -3,9 +3,8 @@
 # Copyright 2022 Stéphane Caron
 
 # You can also set these variables from the command line.
-DOXYGEN      = doxygen
-HTMLDIR      = html
-REMOTEDIR    = tasts-robots.org:public_html/doc/vulp
+DOXYGEN = doxygen
+HTMLDIR = html
 
 .PHONY: html
 html:
@@ -31,7 +30,3 @@ images/%.svg : figures/%.dot
 
 .PHONY: figures
 figures: images/state-machine.eps images/state-machine.png
-
-.PHONY: upload
-upload: clean figures html
-	rsync -auvz --delete-after $(HTMLDIR)/ $(REMOTEDIR)/
