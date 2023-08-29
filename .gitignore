@@ -8,5 +8,5 @@ bazel-vulp
 build
 coverage
 dist/
-doc/html
+docs/html
 tools/bazel
