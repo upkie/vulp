@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Added
+
+- SpineInterface: Mention spine we are waiting for at startup
+
 ## [1.4.0] - 2023/08/22
 
 ### Added
@@ -27,7 +33,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Bazel: only run lint tests when ``--config lint`` is provided
+- Bazel: Only run lint tests when ``--config lint`` is provided
 
 ## [1.2.1] - 2023/07/07
 
@@ -43,9 +49,9 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Bullet: floor parameter
-- Bullet: gravity parameter
-- Bullet: initial orientation parameter
+- Bullet: Floor parameter
+- Bullet: Gravity parameter
+- Bullet: Initial orientation parameter
 - Optional constructor parameter to require the joystick to be present
 - Unit tests for the internal agent interface
 
@@ -71,7 +77,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- CPU temperature observer: add disabled state
+- CPU temperature observer: disabled state
 - Distribute a PyPI package
 - Spine state machine documentation
 - Unit tests for ``ObserverError``
@@ -79,9 +85,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Bazel: update PyPI dependencies to a requirements lock
-- CI: merge into a single workflow with multiple jobs
-- CPU temperature observer: read from custom file
+- Bazel: Update PyPI dependencies to a requirements lock
+- CI: Merge into a single workflow with multiple jobs
+- CPU temperature observer: Read from custom file
 - Moved Python `serialize` function to utils
 - Moved logging to [mpacklog](https://github.com/tasts-robots/mpacklog/)
 - Removed unused ``//models``
@@ -90,7 +96,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Bazel: clean up unused models and redundant targets
+- Bazel: Clean up unused models and redundant targets
 - Bullet interface test
 - Clean up empty observation and observers directories
 - Fix calls to mpacklog logger functions

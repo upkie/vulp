@@ -42,7 +42,10 @@ def wait_for_shared_memory(
     """
     for trial in range(retries):
         if trial > 0:
-            print(f"Waiting for spine to start (trial {trial} / {retries})...")
+            print(
+                f"Waiting for spine {shm_name} to start "
+                f"(trial {trial} / {retries})..."
+            )
             time.sleep(1.0)
         try:
             return posix_ipc.SharedMemory(shm_name, size=0, read_only=False)
