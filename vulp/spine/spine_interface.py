@@ -15,6 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import mmap
 import sys
 import time
@@ -42,7 +43,7 @@ def wait_for_shared_memory(
     """
     for trial in range(retries):
         if trial > 0:
-            print(
+            logging.info(
                 f"Waiting for spine {shm_name} to start "
                 f"(trial {trial} / {retries})..."
             )
