@@ -1,7 +1,7 @@
 # Vulp – Robot/simulation switch
 
 [![CI](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml/badge.svg)](https://github.com/tasts-robots/vulp/actions/workflows/bazel.yml)
-[![Documentation](https://img.shields.io/badge/docs-online-brightgreen?style=flat)](https://tasts-robots.github.io/vulp/)
+[![Documentation](https://img.shields.io/github/actions/workflow/status/tasts-robots/vulp/docs.yml?branch=main&label=docs)](https://tasts-robots.github.io/vulp/)
 [![Coverage](https://coveralls.io/repos/github/tasts-robots/vulp/badge.svg?branch=main)](https://coveralls.io/github/tasts-robots/vulp?branch=main)
 ![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
