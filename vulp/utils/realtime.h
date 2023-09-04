@@ -50,8 +50,8 @@ inline void configure_cpu(int cpu) {
 /*! Configure the scheduler policy to round-robin for this thread.
  *
  * \param priority Priority of this thread for the scheduler, ranging from 1
- *     (low) to 99 (high). See `man sched`. For the brain, this priority should
- *     be lower than that of the spine.
+ *     (low) to 99 (high). See `man sched`. For agents, this priority should be
+ *     lower than that of the spine.
  *
  * \throw std::runtime_error If the operation failed.
  */

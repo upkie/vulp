@@ -195,7 +195,6 @@ TEST_F(SpineTest, ResetConfiguresAction) {
   spine_->reset(config);
   ASSERT_TRUE(spine_->dict().has("action"));
   const Dictionary& action = spine_->dict()("action");
-  ASSERT_TRUE(action.has("brain_time"));
   ASSERT_TRUE(action.has("servo"));
 }
 

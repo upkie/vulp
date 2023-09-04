@@ -33,16 +33,6 @@ namespace vulp::spine {
 using observation::ObserverError;
 using palimpsest::Dictionary;
 
-/*! Expect a timestamp in the action dictionary.
- *
- * \note We expect action/brain_time to be present so that we can run combine
- * brain and spine logs. NB: this operation has been deprecated. However the
- * mapping could still be useful for database purposes. Keeping it for now.
- */
-inline void expect_timestamp(Dictionary& action) {
-  action("brain_time") = std::numeric_limits<double>::quiet_NaN();
-}
-
 Spine::Spine(const Parameters& params, actuation::Interface& actuation,
              observation::ObserverPipeline& observers)
     : frequency_(params.frequency),
@@ -80,7 +70,6 @@ Spine::Spine(const Parameters& params, actuation::Interface& actuation,
 void Spine::reset(const Dictionary& config) {
   actuation_.reset(config);
   dict_("action").clear();
-  expect_timestamp(dict_("action"));
   actuation_.initialize_action(dict_("action"));
   observer_pipeline_.reset(config);
 }
