@@ -1,14 +1,14 @@
 # -*- python -*-
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 def mpacklog_repository():
     """
     Clone repository from GitHub and make its targets available for binding.
     """
-    git_repository(
+    http_archive(
         name = "mpacklog",
-        remote = "https://github.com/tasts-robots/mpacklog.git",
-        commit = "899db5309a99dae8bc540e7da1849b760d7f45f5",
-        shallow_since = "1691501536 +0200",
+        sha256 = "389cbd249607f1d0a2bbf6d11cbf0690604966e29a8e75e50160cf0faab068c7",
+        strip_prefix = "mpacklog.cpp-3.1.0",
+        url = "https://github.com/tasts-robots/mpacklog.cpp/archive/refs/tags/v3.1.0.tar.gz",
     )
