@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - SpineInterface: Mention spine we are waiting for at startup
 
+### Changed
+
+- Update mpacklog.cpp to v3.1.0
+
 ## [1.4.0] - 2023/08/22
 
 ### Added
