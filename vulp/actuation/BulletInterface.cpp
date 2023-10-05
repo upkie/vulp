@@ -98,8 +98,8 @@ BulletInterface::~BulletInterface() { bullet_.disconnect(); }
 void BulletInterface::reset(const Dictionary& config) {
   params_.configure(config);
   bullet_.setTimeStep(params_.dt);
-  reset_base_state(params_.position_init_base_in_world,
-                   params_.orientation_init_base_in_world,
+  reset_base_state(params_.position_base_in_world,
+                   params_.orientation_base_in_world,
                    params_.linear_velocity_base_to_world_in_world,
                    params_.angular_velocity_base_in_base);
   reset_joint_angles();
