@@ -98,17 +98,23 @@ BulletInterface::~BulletInterface() { bullet_.disconnect(); }
 void BulletInterface::reset(const Dictionary& config) {
   params_.configure(config);
   bullet_.setTimeStep(params_.dt);
-  reset_robot(params_.position_init_base_in_world,
-              params_.orientation_init_base_in_world);
+  reset_base_pose(params_.position_init_base_in_world,
+                  params_.orientation_init_base_in_world);
+  // reset_base_velocity(params_.linear_velocity_base_in_world,
+  // params_.angular_velocity_base_in_base);
+  reset_joint_angles();
 }
 
-void BulletInterface::reset_robot(
-    const Eigen::Vector3d& position_base_in_world,
-    const Eigen::Quaterniond& orientation_base_in_world) {
+void BulletInterface::reset_joint_angles() {
   const int nb_joints = bullet_.getNumJoints(robot_);
   for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
     bullet_.resetJointState(robot_, joint_index, 0.0);
   }
+}
+
+void BulletInterface::reset_base_pose(
+    const Eigen::Vector3d& position_base_in_world,
+    const Eigen::Quaterniond& orientation_base_in_world) {
   const auto init_pos = bullet_from_eigen(position_base_in_world);
   const auto init_quat = bullet_from_eigen(orientation_base_in_world);
   bullet_.resetBasePositionAndOrientation(robot_, init_pos, init_quat);

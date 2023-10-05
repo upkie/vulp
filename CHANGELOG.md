@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- BulletInterface: Refactor internal reset functions
 - Update mpacklog.cpp to v3.1.0
 
 ## [1.4.0] - 2023/08/22
