@@ -89,11 +89,11 @@ TEST_F(BulletTest, IMULinearAccelerationSeesGravityInFreeFall) {
   bullet_->setTimeStep(dt);
 
   // Rotate the base so that the IMU frame has its x-axis downward
-  auto position_init_base_in_world = btVector3(0., 0., 0.);
-  auto orientation_init_base_in_world =
+  auto position_base_in_world = btVector3(0., 0., 0.);
+  auto orientation_base_in_world =
       bullet_->getQuaternionFromEuler(btVector3(0., -M_PI / 2, 0.));
-  bullet_->resetBasePositionAndOrientation(robot_, position_init_base_in_world,
-                                           orientation_init_base_in_world);
+  bullet_->resetBasePositionAndOrientation(robot_, position_base_in_world,
+                                           orientation_base_in_world);
 
   BulletImuData imu_data;
   read_imu_data(imu_data, *bullet_, robot_, imu_link_index, dt);

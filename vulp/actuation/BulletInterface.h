@@ -62,14 +62,17 @@ class BulletInterface : public Interface {
       gui = bullet.get<bool>("gui", gui);
       const auto& mode = bullet.get<std::string>("control_mode", "torque");
       use_torque_control = (mode == "torque");
-      position_init_base_in_world = bullet.get<Eigen::Vector3d>(
-          "position_init_base_in_world", Eigen::Vector3d::Zero());
-      orientation_init_base_in_world = bullet.get<Eigen::Quaterniond>(
-          "orientation_init_base_in_world", Eigen::Quaterniond::Identity());
-      linear_velocity_base_to_world_in_world = bullet.get<Eigen::Vector3d>(
-          "linear_velocity_base_to_world_in_world", Eigen::Vector3d::Zero());
-      angular_velocity_base_in_base = bullet.get<Eigen::Vector3d>(
-          "angular_velocity_base_in_base", Eigen::Vector3d::Zero());
+      if (bullet.has("reset")) {
+        const auto& reset = bullet("reset");
+        position_base_in_world = reset.get<Eigen::Vector3d>(
+            "position_base_in_world", Eigen::Vector3d::Zero());
+        orientation_base_in_world = reset.get<Eigen::Quaterniond>(
+            "orientation_base_in_world", Eigen::Quaterniond::Identity());
+        linear_velocity_base_to_world_in_world = reset.get<Eigen::Vector3d>(
+            "linear_velocity_base_to_world_in_world", Eigen::Vector3d::Zero());
+        angular_velocity_base_in_base = reset.get<Eigen::Vector3d>(
+            "angular_velocity_base_in_base", Eigen::Vector3d::Zero());
+      }
       if (bullet.has("torque_control")) {
         torque_control_kd = bullet("torque_control")("kd");
         torque_control_kp = bullet("torque_control")("kp");
@@ -127,18 +130,18 @@ class BulletInterface : public Interface {
     //! Proportional gain for joints in position control mode
     double torque_control_kp = 20.0;
 
-    //! Initial position of the base in the world frame
-    Eigen::Vector3d position_init_base_in_world = Eigen::Vector3d::Zero();
+    //! Position of the base in the world frame upon reset
+    Eigen::Vector3d position_base_in_world = Eigen::Vector3d::Zero();
 
-    //! Initial position of the base in the world frame
-    Eigen::Quaterniond orientation_init_base_in_world =
+    //! Orientation of the base in the world frame upon reset
+    Eigen::Quaterniond orientation_base_in_world =
         Eigen::Quaterniond::Identity();
 
-    //! Initial linear velocity of the base in the world frame
+    //! Linear velocity of the base in the world frame upon reset
     Eigen::Vector3d linear_velocity_base_to_world_in_world =
         Eigen::Vector3d::Zero();
 
-    //! Initial body angular velocity of the base
+    //! Body angular velocity of the base upon reset
     Eigen::Vector3d angular_velocity_base_in_base = Eigen::Vector3d::Zero();
   };
 
