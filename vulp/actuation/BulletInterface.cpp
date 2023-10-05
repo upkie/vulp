@@ -100,8 +100,8 @@ void BulletInterface::reset(const Dictionary& config) {
   bullet_.setTimeStep(params_.dt);
   reset_base_pose(params_.position_init_base_in_world,
                   params_.orientation_init_base_in_world);
-  // reset_base_velocity(params_.linear_velocity_base_in_world,
-  // params_.angular_velocity_base_in_base);
+  reset_base_velocity(params_.linear_velocity_base_in_world,
+                      params_.angular_velocity_base_in_base);
   reset_joint_angles();
 }
 
@@ -119,6 +119,10 @@ void BulletInterface::reset_base_pose(
   const auto init_quat = bullet_from_eigen(orientation_base_in_world);
   bullet_.resetBasePositionAndOrientation(robot_, init_pos, init_quat);
 }
+
+void BulletInterface::reset_base_velocity(
+    const Eigen::Vector3d& linear_velocity_base_in_world,
+    const Eigen::Vector3d& angular_velocity_base_in_base) {}
 
 void BulletInterface::cycle(
     const moteus::Data& data,
