@@ -129,6 +129,12 @@ class BulletInterface : public Interface {
     //! Initial position of the base in the world frame
     Eigen::Quaterniond orientation_init_base_in_world =
         Eigen::Quaterniond::Identity();
+
+    //! Initial linear velocity of the base in the world frame
+    Eigen::Vector3d linear_velocity_base_in_world = Eigen::Vector3d::Zero();
+
+    //! Initial body angular velocity of the base
+    Eigen::Vector3d angular_velocity_base_in_base = Eigen::Vector3d::Zero();
   };
 
   /*! Initialize interface.
@@ -178,6 +184,17 @@ class BulletInterface : public Interface {
    */
   void reset_base_pose(const Eigen::Vector3d& position_base_in_world,
                        const Eigen::Quaterniond& orientation_base_in_world);
+
+  /*! Reset the velocity of the floating base in the world frame.
+   *
+   * \param[in] linear_velocity_base_in_world Linear velocity of the base in
+   *     the world frame.
+   * \param[in] angular_velocity_base_in_base Body angular velocity of the base
+   *     (in the base frame).
+   */
+  void reset_base_velocity(
+      const Eigen::Vector3d& linear_velocity_base_in_world,
+      const Eigen::Vector3d& angular_velocity_base_in_base);
 
   //! Maximum torque for each joint
   const std::map<std::string, double>& max_torque() {
