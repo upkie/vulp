@@ -107,12 +107,13 @@ TEST_F(BulletInterfaceTest, CycleDoesntThrow) {
 TEST_F(BulletInterfaceTest, ResetBaseState) {
   Dictionary config;
   config("bullet")("gui") = false;
-  config("bullet")("orientation_base_in_world") =
+  config("bullet")("reset")("orientation_base_in_world") =
       Eigen::Quaterniond(0.707, 0.0, -0.707, 0.0);
-  config("bullet")("position_base_in_world") = Eigen::Vector3d(0.0, 0.0, 1.0);
-  config("bullet")("linear_velocity_base_to_world_in_world") =
+  config("bullet")("reset")("position_base_in_world") =
+      Eigen::Vector3d(0.0, 0.0, 1.0);
+  config("bullet")("reset")("linear_velocity_base_to_world_in_world") =
       Eigen::Vector3d(4.0, 5.0, 6.0);
-  config("bullet")("angular_velocity_base_in_base") =
+  config("bullet")("reset")("angular_velocity_base_in_base") =
       Eigen::Vector3d(7.0, 8.0, 9.0);
   interface_->reset(config);
 
