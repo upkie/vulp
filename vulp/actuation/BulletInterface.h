@@ -66,6 +66,10 @@ class BulletInterface : public Interface {
           "position_init_base_in_world", Eigen::Vector3d::Zero());
       orientation_init_base_in_world = bullet.get<Eigen::Quaterniond>(
           "orientation_init_base_in_world", Eigen::Quaterniond::Identity());
+      linear_velocity_base_to_world_in_world = bullet.get<Eigen::Vector3d>(
+          "linear_velocity_base_to_world_in_world", Eigen::Vector3d::Zero());
+      angular_velocity_base_in_base = bullet.get<Eigen::Vector3d>(
+          "angular_velocity_base_in_base", Eigen::Vector3d::Zero());
       if (bullet.has("torque_control")) {
         torque_control_kd = bullet("torque_control")("kd");
         torque_control_kp = bullet("torque_control")("kp");
@@ -131,7 +135,8 @@ class BulletInterface : public Interface {
         Eigen::Quaterniond::Identity();
 
     //! Initial linear velocity of the base in the world frame
-    Eigen::Vector3d linear_velocity_base_in_world = Eigen::Vector3d::Zero();
+    Eigen::Vector3d linear_velocity_base_to_world_in_world =
+        Eigen::Vector3d::Zero();
 
     //! Initial body angular velocity of the base
     Eigen::Vector3d angular_velocity_base_in_base = Eigen::Vector3d::Zero();
@@ -173,27 +178,37 @@ class BulletInterface : public Interface {
   //! Get the groundtruth floating base transform
   Eigen::Matrix4d transform_base_to_world() const noexcept;
 
+  /*! Get the groundtruth floating base linear velocity
+   *
+   * \note This function is only used for testing and does not need to be
+   * optimized.
+   */
+  Eigen::Vector3d linear_velocity_base_to_world_in_world() const noexcept;
+
+  /*! Get the groundtruth floating base angular velocity
+   *
+   * \note This function is only used for testing and does not need to be
+   * optimized.
+   */
+  Eigen::Vector3d angular_velocity_base_in_base() const noexcept;
+
   //! Reset joint angles to zero.
   void reset_joint_angles();
 
-  /*! Reset the pose of the floating base in the world frame.
+  /*! Reset the pose and velocity of the floating base in the world frame.
    *
    * \param[in] position_base_in_world Position of the base in the world frame.
    * \param[in] orientation_base_in_world Orientation of the base in the world
    *     frame.
-   */
-  void reset_base_pose(const Eigen::Vector3d& position_base_in_world,
-                       const Eigen::Quaterniond& orientation_base_in_world);
-
-  /*! Reset the velocity of the floating base in the world frame.
-   *
-   * \param[in] linear_velocity_base_in_world Linear velocity of the base in
-   *     the world frame.
+   * \param[in] linear_velocity_base_to_world_in_world Linear velocity of the
+   *     base in the world frame.
    * \param[in] angular_velocity_base_in_base Body angular velocity of the base
    *     (in the base frame).
    */
-  void reset_base_velocity(
-      const Eigen::Vector3d& linear_velocity_base_in_world,
+  void reset_base_state(
+      const Eigen::Vector3d& position_base_in_world,
+      const Eigen::Quaterniond& orientation_base_in_world,
+      const Eigen::Vector3d& linear_velocity_base_to_world_in_world,
       const Eigen::Vector3d& angular_velocity_base_in_base);
 
   //! Maximum torque for each joint

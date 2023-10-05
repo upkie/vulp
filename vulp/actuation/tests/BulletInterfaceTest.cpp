@@ -104,13 +104,17 @@ TEST_F(BulletInterfaceTest, CycleDoesntThrow) {
       interface_->cycle(data_, [](const moteus::Output& output) {}));
 }
 
-TEST_F(BulletInterfaceTest, ResetBasePositionAndOrientation) {
+TEST_F(BulletInterfaceTest, ResetBaseState) {
   Dictionary config;
   config("bullet")("gui") = false;
   config("bullet")("orientation_init_base_in_world") =
       Eigen::Quaterniond(0.707, 0.0, -0.707, 0.0);
   config("bullet")("position_init_base_in_world") =
       Eigen::Vector3d(0.0, 0.0, 1.0);
+  config("bullet")("linear_velocity_base_to_world_in_world") =
+      Eigen::Vector3d(4.0, 5.0, 6.0);
+  config("bullet")("angular_velocity_base_in_base") =
+      Eigen::Vector3d(7.0, 8.0, 9.0);
   interface_->reset(config);
 
   const Eigen::Matrix4d T = interface_->transform_base_to_world();
@@ -125,6 +129,17 @@ TEST_F(BulletInterfaceTest, ResetBasePositionAndOrientation) {
   ASSERT_DOUBLE_EQ(p.x(), 0.0);
   ASSERT_DOUBLE_EQ(p.y(), 0.0);
   ASSERT_DOUBLE_EQ(p.z(), 1.0);
+
+  const Eigen::Vector3d v =
+      interface_->linear_velocity_base_to_world_in_world();
+  ASSERT_DOUBLE_EQ(v.x(), 4.0);
+  ASSERT_DOUBLE_EQ(v.y(), 5.0);
+  ASSERT_DOUBLE_EQ(v.z(), 6.0);
+
+  const Eigen::Vector3d omega = interface_->angular_velocity_base_in_base();
+  ASSERT_NEAR(omega.x(), 7.0, 1e-3);
+  ASSERT_NEAR(omega.y(), 8.0, 1e-3);
+  ASSERT_NEAR(omega.z(), 9.0, 7e-3);
 }
 
 }  // namespace vulp::actuation
