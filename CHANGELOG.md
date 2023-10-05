@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- BulletInterface: Extend initial state to include the floating base velocity
 - SpineInterface: Mention spine we are waiting for at startup
 
 ### Changed
