@@ -167,14 +167,17 @@ class BulletInterface : public Interface {
   //! Get the groundtruth floating base transform
   Eigen::Matrix4d transform_base_to_world() const noexcept;
 
-  /*! Reset joint angles and the robot's position in the world frame.
+  //! Reset joint angles to zero.
+  void reset_joint_angles();
+
+  /*! Reset the pose of the floating base in the world frame.
    *
    * \param[in] position_base_in_world Position of the base in the world frame.
    * \param[in] orientation_base_in_world Orientation of the base in the world
    *     frame.
    */
-  void reset_robot(const Eigen::Vector3d& position_base_in_world,
-                   const Eigen::Quaterniond& orientation_base_in_world);
+  void reset_base_pose(const Eigen::Vector3d& position_base_in_world,
+                       const Eigen::Quaterniond& orientation_base_in_world);
 
   //! Maximum torque for each joint
   const std::map<std::string, double>& max_torque() {
