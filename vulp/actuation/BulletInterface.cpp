@@ -105,13 +105,6 @@ void BulletInterface::reset(const Dictionary& config) {
   reset_joint_angles();
 }
 
-void BulletInterface::reset_joint_angles() {
-  const int nb_joints = bullet_.getNumJoints(robot_);
-  for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
-    bullet_.resetJointState(robot_, joint_index, 0.0);
-  }
-}
-
 void BulletInterface::reset_base_state(
     const Eigen::Vector3d& position_base_in_world,
     const Eigen::Quaterniond& orientation_base_in_world,
@@ -128,6 +121,13 @@ void BulletInterface::reset_base_state(
   bullet_.resetBaseVelocity(
       robot_, bullet_from_eigen(linear_velocity_base_to_world_in_world),
       bullet_from_eigen(angular_velocity_base_in_world));
+}
+
+void BulletInterface::reset_joint_angles() {
+  const int nb_joints = bullet_.getNumJoints(robot_);
+  for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
+    bullet_.resetJointState(robot_, joint_index, 0.0);
+  }
 }
 
 void BulletInterface::cycle(
