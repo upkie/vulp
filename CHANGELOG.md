@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - **Breaking:** Add "reset" sub-dictionary to Bullet interface config
+- Action dictionaries read by the spine are now fully logged
 - BulletInterface: Refactor internal reset functions
 - Update mpacklog.cpp to v3.1.0
 
