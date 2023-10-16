@@ -166,13 +166,13 @@ class Spine {
   //! Latest IMU data. It is copied and thread-safe.
   actuation::ImuData latest_imu_data_;
 
-  //! All data from observation and control goes to this dictionary
-  palimpsest::Dictionary dict_;
+  //! All data from observation to action goes to this dictionary
+  palimpsest::Dictionary working_dict_;
 
   //! Pipeline of observers, executed in that order
   observation::ObserverPipeline observer_pipeline_;
 
-  //! Logger for the dictionary \ref dict_ produced at each cycle
+  //! Logger for the \ref working_dict_ produced at each cycle
   mpacklog::Logger logger_;
 
   //! Buffer used to serialize/deserialize dictionaries in IPC.
