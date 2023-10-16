@@ -135,7 +135,8 @@ void Spine::begin_cycle() {
     Dictionary config;
     const char* data = agent_interface_.data();
     size_t size = agent_interface_.size();
-    config.extend(data, size);
+    config.clear();
+    config.update(data, size);
     reset(config);
   } else if (state_machine_.state() == State::kAct) {
     Dictionary& action = dict_("action");
