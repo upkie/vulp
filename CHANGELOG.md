@@ -15,6 +15,10 @@ All notable changes to this project will be documented in this file.
 - BulletInterface: Refactor internal reset functions
 - Update mpacklog.cpp to v3.1.0
 
+### Fixed
+
+- Clear configuration dictionary when resetting the spine
+
 ## [1.4.0] - 2023/08/22
 
 ### Added
@@ -30,6 +34,7 @@ All notable changes to this project will be documented in this file.
 ## [1.3.0] - 2023/07/24
 
 ### Added
+
 - Portable and SSH-compatible Keyboard source
 - Support macOS operating systems (with help from @boragokbakan)
 - Virtual destructor to the main ``Interface`` class
