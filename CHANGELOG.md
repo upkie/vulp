@@ -2,12 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [1.5.0] - 2023/10/16
 
 ### Added
 
 - BulletInterface: Extend initial state to include the floating base velocity
-- SpineInterface: Mention spine we are waiting for at startup
+- SpineInterface: Mention name of the spine we are waiting for at startup
 
 ### Changed
 
@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Action dictionaries read by the spine are now fully logged
 - BulletInterface: Refactor internal reset functions
 - Update mpacklog.cpp to v3.1.0
+- Update palimpsest to v2.0.0
 
 ### Fixed
 
