@@ -16,13 +16,13 @@
 
 #include "vulp/observation/ObserverPipeline.h"
 
-#include <palimpsest/KeyError.h>
+#include <palimpsest/exceptions/KeyError.h>
 
 #include "vulp/observation/ObserverError.h"
 
 namespace vulp::observation {
 
-using palimpsest::KeyError;
+using palimpsest::exceptions::KeyError;
 
 void ObserverPipeline::reset(const Dictionary& config) {
   for (auto observer : observers_) {
