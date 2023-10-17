@@ -63,8 +63,8 @@ class Spine : public vulp::spine::Spine {
     return true;
   }
 
-  //! Get current observation.
-  const palimpsest::Dictionary& dict() { return dict_; }
+  //! Expose internal working dictionary to tests
+  const palimpsest::Dictionary& working_dict() { return working_dict_; }
 
   //! Get current (state of the) state machine.
   const State& state() { return state_machine_.state(); }
@@ -182,8 +182,8 @@ class SpineTest : public ::testing::Test {
 };
 
 TEST_F(SpineTest, ObservationInitializedInConstructor) {
-  ASSERT_TRUE(spine_->dict().has("observation"));
-  ASSERT_TRUE(spine_->dict().has("time"));
+  ASSERT_TRUE(spine_->working_dict().has("observation"));
+  ASSERT_TRUE(spine_->working_dict().has("time"));
 }
 
 TEST_F(SpineTest, InitiallyStopped) {
@@ -193,8 +193,8 @@ TEST_F(SpineTest, InitiallyStopped) {
 TEST_F(SpineTest, ResetConfiguresAction) {
   Dictionary config;
   spine_->reset(config);
-  ASSERT_TRUE(spine_->dict().has("action"));
-  const Dictionary& action = spine_->dict()("action");
+  ASSERT_TRUE(spine_->working_dict().has("action"));
+  const Dictionary& action = spine_->working_dict()("action");
   ASSERT_TRUE(action.has("servo"));
 }
 
@@ -234,7 +234,7 @@ TEST_F(SpineTest, CatchObserverErrors) {
 
 TEST_F(SpineTest, DontRunObserversWhenStopped) {
   ASSERT_EQ(spine_->state(), State::kSendStops);
-  const Dictionary& observation = spine_->dict()("observation");
+  const Dictionary& observation = spine_->working_dict()("observation");
   spine_->cycle();
   ASSERT_FALSE(observation.has("schwifty"));
 
@@ -248,7 +248,7 @@ TEST_F(SpineTest, SetObservationOnIdle) {
   start_spine();
   ASSERT_EQ(spine_->state(), State::kIdle);
   spine_->cycle();
-  const Dictionary& observation = spine_->dict()("observation");
+  const Dictionary& observation = spine_->working_dict()("observation");
   ASSERT_TRUE(observation.get<bool>("schwifty"));
 }
 
@@ -256,7 +256,7 @@ TEST_F(SpineTest, WriteObservationOnRequest) {
   start_spine();
   write_mmap_request(Request::kObservation);
   spine_->cycle();
-  const Dictionary& observation = spine_->dict()("observation");
+  const Dictionary& observation = spine_->working_dict()("observation");
   ASSERT_TRUE(observation.get<bool>("schwifty"));
 }
 
@@ -284,7 +284,7 @@ TEST_F(SpineTest, ShutdownExecutesFixedNumberOfStopCycles) {
 TEST_F(SpineTest, ResetInitializesAction) {
   Dictionary config;
   spine_->reset(config);
-  const Dictionary& spine_dict = spine_->dict();
+  const Dictionary& spine_dict = spine_->working_dict();
   ASSERT_TRUE(spine_dict.has("action"));
   ASSERT_TRUE(spine_dict("action").has("servo"));
   ASSERT_TRUE(spine_dict("action")("servo").has("bar"));
@@ -302,7 +302,7 @@ TEST_F(SpineTest, SpineReadsAction) {
                          '\x00', '\x00', '\x00'};
   const size_t size = 31;
   write_mmap_data(data, size);
-  const Dictionary& action = spine_->dict()("action");
+  const Dictionary& action = spine_->working_dict()("action");
   write_mmap_request(Request::kAction);
   ASSERT_TRUE(std::isnan(action("servo")("bar").get<double>("position")));
   ASSERT_EQ(spine_->state(), State::kIdle);

@@ -2,11 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [1.5.0] - 2023/10/16
 
 ### Added
 
-- SpineInterface: Mention spine we are waiting for at startup
+- BulletInterface: Extend initial state to include the floating base velocity
+- SpineInterface: Mention name of the spine we are waiting for at startup
+
+### Changed
+
+- **Breaking:** Add "reset" sub-dictionary to Bullet interface config
+- Action dictionaries read by the spine are now fully logged
+- BulletInterface: Refactor internal reset functions
+- Update mpacklog.cpp to v3.1.0
+- Update palimpsest to v2.0.0
+
+### Fixed
+
+- Clear configuration dictionary when resetting the spine
 
 ## [1.4.0] - 2023/08/22
 
@@ -23,6 +36,7 @@ All notable changes to this project will be documented in this file.
 ## [1.3.0] - 2023/07/24
 
 ### Added
+
 - Portable and SSH-compatible Keyboard source
 - Support macOS operating systems (with help from @boragokbakan)
 - Virtual destructor to the main ``Interface`` class

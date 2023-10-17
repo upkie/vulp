@@ -62,29 +62,29 @@ Spine::Spine(const Parameters& params, actuation::Interface& actuation,
   agent_interface_.set_request(Request::kNone);
 
   // Initialize internal dictionary
-  Dictionary& observation = dict_("observation");
+  Dictionary& observation = working_dict_("observation");
   observation::observe_time(observation);
-  dict_.insert<double>("time", observation.get<double>("time"));
+  working_dict_.insert<double>("time", observation.get<double>("time"));
 }
 
 void Spine::reset(const Dictionary& config) {
   actuation_.reset(config);
-  dict_("action").clear();
-  actuation_.initialize_action(dict_("action"));
+  working_dict_("action").clear();
+  actuation_.initialize_action(working_dict_("action"));
   observer_pipeline_.reset(config);
 }
 
 void Spine::log_dict() {
-  Dictionary& spine = dict_("spine");
+  Dictionary& spine = working_dict_("spine");
   spine("logger")("last_size") = logger_.last_size();
   spine("state")("cycle_beginning") =
       static_cast<uint32_t>(state_cycle_beginning_);
   spine("state")("cycle_end") = static_cast<uint32_t>(state_cycle_end_);
-  logger_.put(dict_);
+  logger_.put(working_dict_);
 }
 
 void Spine::run() {
-  Dictionary& spine = dict_("spine");
+  Dictionary& spine = working_dict_("spine");
   utils::SynchronousClock clock(frequency_);
   while (state_machine_.state() != State::kOver) {
     cycle();
@@ -135,10 +135,11 @@ void Spine::begin_cycle() {
     Dictionary config;
     const char* data = agent_interface_.data();
     size_t size = agent_interface_.size();
-    config.extend(data, size);
+    config.clear();
+    config.update(data, size);
     reset(config);
   } else if (state_machine_.state() == State::kAct) {
-    Dictionary& action = dict_("action");
+    Dictionary& action = working_dict_("action");
     const char* data = agent_interface_.data();
     size_t size = agent_interface_.size();
     action.update(data, size);
@@ -147,8 +148,8 @@ void Spine::begin_cycle() {
 
 void Spine::end_cycle() {
   // Write observation if applicable
-  const Dictionary& observation = dict_("observation");
-  dict_("time") = observation.get<double>("time");
+  const Dictionary& observation = working_dict_("observation");
+  working_dict_("time") = observation.get<double>("time");
   if (state_machine_.state() == State::kObserve) {
     size_t size = observation.serialize(ipc_buffer_);
     agent_interface_.write(ipc_buffer_.data(), size);
@@ -161,7 +162,7 @@ void Spine::end_cycle() {
 void Spine::cycle_actuation() {
   try {
     // 1. Observation
-    Dictionary& observation = dict_("observation");
+    Dictionary& observation = working_dict_("observation");
     observation::observe_time(observation);
     observation::observe_servos(observation, actuation_.servo_joint_map(),
                                 latest_replies_);
@@ -182,7 +183,7 @@ void Spine::cycle_actuation() {
         state_machine_.state() == State::kShutdown) {
       actuation_.write_stop_commands();
     } else if (state_machine_.state() == State::kAct) {
-      Dictionary& action = dict_("action");
+      Dictionary& action = working_dict_("action");
       actuation_.write_position_commands(action);
       // TODO(scaron): don't re-send actuation
       // See https://github.com/tasts-robots/vulp/issues/2

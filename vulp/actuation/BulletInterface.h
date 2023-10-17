@@ -62,10 +62,17 @@ class BulletInterface : public Interface {
       gui = bullet.get<bool>("gui", gui);
       const auto& mode = bullet.get<std::string>("control_mode", "torque");
       use_torque_control = (mode == "torque");
-      position_init_base_in_world = bullet.get<Eigen::Vector3d>(
-          "position_init_base_in_world", Eigen::Vector3d::Zero());
-      orientation_init_base_in_world = bullet.get<Eigen::Quaterniond>(
-          "orientation_init_base_in_world", Eigen::Quaterniond::Identity());
+      if (bullet.has("reset")) {
+        const auto& reset = bullet("reset");
+        position_base_in_world = reset.get<Eigen::Vector3d>(
+            "position_base_in_world", Eigen::Vector3d::Zero());
+        orientation_base_in_world = reset.get<Eigen::Quaterniond>(
+            "orientation_base_in_world", Eigen::Quaterniond::Identity());
+        linear_velocity_base_to_world_in_world = reset.get<Eigen::Vector3d>(
+            "linear_velocity_base_to_world_in_world", Eigen::Vector3d::Zero());
+        angular_velocity_base_in_base = reset.get<Eigen::Vector3d>(
+            "angular_velocity_base_in_base", Eigen::Vector3d::Zero());
+      }
       if (bullet.has("torque_control")) {
         torque_control_kd = bullet("torque_control")("kd");
         torque_control_kp = bullet("torque_control")("kp");
@@ -123,12 +130,19 @@ class BulletInterface : public Interface {
     //! Proportional gain for joints in position control mode
     double torque_control_kp = 20.0;
 
-    //! Initial position of the base in the world frame
-    Eigen::Vector3d position_init_base_in_world = Eigen::Vector3d::Zero();
+    //! Position of the base in the world frame upon reset
+    Eigen::Vector3d position_base_in_world = Eigen::Vector3d::Zero();
 
-    //! Initial position of the base in the world frame
-    Eigen::Quaterniond orientation_init_base_in_world =
+    //! Orientation of the base in the world frame upon reset
+    Eigen::Quaterniond orientation_base_in_world =
         Eigen::Quaterniond::Identity();
+
+    //! Linear velocity of the base in the world frame upon reset
+    Eigen::Vector3d linear_velocity_base_to_world_in_world =
+        Eigen::Vector3d::Zero();
+
+    //! Body angular velocity of the base upon reset
+    Eigen::Vector3d angular_velocity_base_in_base = Eigen::Vector3d::Zero();
   };
 
   /*! Initialize interface.
@@ -167,14 +181,38 @@ class BulletInterface : public Interface {
   //! Get the groundtruth floating base transform
   Eigen::Matrix4d transform_base_to_world() const noexcept;
 
-  /*! Reset joint angles and the robot's position in the world frame.
+  /*! Get the groundtruth floating base linear velocity
+   *
+   * \note This function is only used for testing and does not need to be
+   * optimized.
+   */
+  Eigen::Vector3d linear_velocity_base_to_world_in_world() const noexcept;
+
+  /*! Get the groundtruth floating base angular velocity
+   *
+   * \note This function is only used for testing and does not need to be
+   * optimized.
+   */
+  Eigen::Vector3d angular_velocity_base_in_base() const noexcept;
+
+  //! Reset joint angles to zero.
+  void reset_joint_angles();
+
+  /*! Reset the pose and velocity of the floating base in the world frame.
    *
    * \param[in] position_base_in_world Position of the base in the world frame.
    * \param[in] orientation_base_in_world Orientation of the base in the world
    *     frame.
+   * \param[in] linear_velocity_base_to_world_in_world Linear velocity of the
+   *     base in the world frame.
+   * \param[in] angular_velocity_base_in_base Body angular velocity of the base
+   *     (in the base frame).
    */
-  void reset_robot(const Eigen::Vector3d& position_base_in_world,
-                   const Eigen::Quaterniond& orientation_base_in_world);
+  void reset_base_state(
+      const Eigen::Vector3d& position_base_in_world,
+      const Eigen::Quaterniond& orientation_base_in_world,
+      const Eigen::Vector3d& linear_velocity_base_to_world_in_world,
+      const Eigen::Vector3d& angular_velocity_base_in_base);
 
   //! Maximum torque for each joint
   const std::map<std::string, double>& max_torque() {

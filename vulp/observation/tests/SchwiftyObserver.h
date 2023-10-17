@@ -17,13 +17,13 @@
 #pragma once
 
 #include <palimpsest/Dictionary.h>
-#include <palimpsest/KeyError.h>
+#include <palimpsest/exceptions/KeyError.h>
 
 #include "vulp/observation/Observer.h"
 
 namespace vulp::observation::tests {
 
-using palimpsest::KeyError;
+using palimpsest::exceptions::KeyError;
 
 //! An observer that gets schwifty
 class SchwiftyObserver : public observation::Observer {

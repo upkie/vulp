@@ -98,20 +98,36 @@ BulletInterface::~BulletInterface() { bullet_.disconnect(); }
 void BulletInterface::reset(const Dictionary& config) {
   params_.configure(config);
   bullet_.setTimeStep(params_.dt);
-  reset_robot(params_.position_init_base_in_world,
-              params_.orientation_init_base_in_world);
+  reset_base_state(params_.position_base_in_world,
+                   params_.orientation_base_in_world,
+                   params_.linear_velocity_base_to_world_in_world,
+                   params_.angular_velocity_base_in_base);
+  reset_joint_angles();
 }
 
-void BulletInterface::reset_robot(
+void BulletInterface::reset_base_state(
     const Eigen::Vector3d& position_base_in_world,
-    const Eigen::Quaterniond& orientation_base_in_world) {
+    const Eigen::Quaterniond& orientation_base_in_world,
+    const Eigen::Vector3d& linear_velocity_base_to_world_in_world,
+    const Eigen::Vector3d& angular_velocity_base_in_base) {
+  bullet_.resetBasePositionAndOrientation(
+      robot_, bullet_from_eigen(position_base_in_world),
+      bullet_from_eigen(orientation_base_in_world));
+
+  const auto& rotation_base_to_world =
+      orientation_base_in_world;  // transforms are coordinates
+  const Eigen::Vector3d angular_velocity_base_in_world =
+      rotation_base_to_world * angular_velocity_base_in_base;
+  bullet_.resetBaseVelocity(
+      robot_, bullet_from_eigen(linear_velocity_base_to_world_in_world),
+      bullet_from_eigen(angular_velocity_base_in_world));
+}
+
+void BulletInterface::reset_joint_angles() {
   const int nb_joints = bullet_.getNumJoints(robot_);
   for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
     bullet_.resetJointState(robot_, joint_index, 0.0);
   }
-  const auto init_pos = bullet_from_eigen(position_base_in_world);
-  const auto init_quat = bullet_from_eigen(orientation_base_in_world);
-  bullet_.resetBasePositionAndOrientation(robot_, init_pos, init_quat);
 }
 
 void BulletInterface::cycle(
@@ -248,6 +264,25 @@ Eigen::Matrix4d BulletInterface::transform_base_to_world() const noexcept {
   T.block<3, 3>(0, 0) = quat.normalized().toRotationMatrix();
   T.block<3, 1>(0, 3) = eigen_from_bullet(position_base_in_world);
   return T;
+}
+
+Eigen::Vector3d BulletInterface::linear_velocity_base_to_world_in_world()
+    const noexcept {
+  btVector3 linear_velocity_base_to_world_in_world;
+  btVector3 _;
+  bullet_.getBaseVelocity(robot_, linear_velocity_base_to_world_in_world, _);
+  return eigen_from_bullet(linear_velocity_base_to_world_in_world);
+}
+
+Eigen::Vector3d BulletInterface::angular_velocity_base_in_base()
+    const noexcept {
+  btVector3 angular_velocity_base_to_world_in_world;
+  btVector3 _;
+  bullet_.getBaseVelocity(robot_, _, angular_velocity_base_to_world_in_world);
+  Eigen::Matrix4d T = transform_base_to_world();
+  Eigen::Matrix3d rotation_base_to_world = T.block<3, 3>(0, 0);
+  return rotation_base_to_world.transpose() *
+         eigen_from_bullet(angular_velocity_base_to_world_in_world);
 }
 
 void BulletInterface::translate_camera_to_robot() {

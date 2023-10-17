@@ -17,7 +17,6 @@
 #pragma once
 
 #include <palimpsest/Dictionary.h>
-#include <palimpsest/KeyError.h>
 
 #include "vulp/observation/Observer.h"
 
