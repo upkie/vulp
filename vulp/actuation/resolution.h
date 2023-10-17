@@ -38,8 +38,8 @@ inline actuation::moteus::QueryCommand get_query_resolution() {
   query.q_current = Resolution::kIgnore;
   query.d_current = Resolution::kIgnore;
   query.rezero_state = Resolution::kIgnore;
-  query.voltage = Resolution::kIgnore;
-  query.temperature = Resolution::kIgnore;
+  query.voltage = Resolution::kInt16;
+  query.temperature = Resolution::kInt8;
   query.fault = Resolution::kInt8;
   return query;
 }
