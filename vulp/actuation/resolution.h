@@ -32,11 +32,11 @@ inline actuation::moteus::QueryCommand get_query_resolution() {
   using actuation::moteus::Resolution;
   actuation::moteus::QueryCommand query;
   query.mode = Resolution::kInt16;
-  query.position = Resolution::kInt16;
-  query.velocity = Resolution::kInt16;
-  query.torque = Resolution::kInt16;
-  query.q_current = Resolution::kInt16;
-  query.d_current = Resolution::kInt16;
+  query.position = Resolution::kInt32;
+  query.velocity = Resolution::kInt32;
+  query.torque = Resolution::kInt32;
+  query.q_current = Resolution::kIgnore;
+  query.d_current = Resolution::kIgnore;
   query.rezero_state = Resolution::kIgnore;
   query.voltage = Resolution::kInt8;
   query.temperature = Resolution::kInt8;
