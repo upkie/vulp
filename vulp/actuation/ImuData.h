@@ -42,7 +42,13 @@ struct ImuData {
    */
   Eigen::Vector3d angular_velocity_imu_in_imu = Eigen::Vector3d::Zero();
 
-  //! Body linear acceleration of the IMU, in [m] / [s]².
+  /*! Body linear acceleration of the IMU, in [m] / [s]².
+   *
+   * \note This quantity corresponds to SPI register 34 from the pi3hat
+   * https://github.com/mjbots/pi3hat/blob/master/docs/reference.md#imu-register-mapping
+   * from which gravity has been substracted out. Raw IMU data (including
+   * gravity) is returned in register 33.
+   */
   Eigen::Vector3d linear_acceleration_imu_in_imu = Eigen::Vector3d::Zero();
 };
 
