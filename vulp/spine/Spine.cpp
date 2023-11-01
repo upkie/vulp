@@ -83,7 +83,7 @@ void Spine::reset(const Dictionary& config) {
   logger_.put(config_wrapper);
 }
 
-void Spine::log_dict() {
+void Spine::log_working_dict() {
   Dictionary& spine = working_dict_("spine");
   spine("logger")("last_size") = logger_.last_size();
   spine("state")("cycle_beginning") =
@@ -101,7 +101,7 @@ void Spine::run() {
       spine("clock")("measured_period") = clock.measured_period();
       spine("clock")("skip_count") = clock.skip_count();
       spine("clock")("slack") = clock.slack();
-      log_dict();
+      log_working_dict();
     }
     clock.wait_for_next_tick();
   }

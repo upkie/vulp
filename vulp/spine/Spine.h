@@ -141,7 +141,7 @@ class Spine {
   void end_cycle();
 
   //! Log internal dictionary
-  void log_dict();
+  void log_working_dict();
 
  protected:
   //! Frequency of the spine loop in [Hz].
