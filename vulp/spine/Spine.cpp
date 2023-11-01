@@ -68,9 +68,11 @@ Spine::Spine(const Parameters& params, actuation::Interface& actuation,
 }
 
 void Spine::reset(const Dictionary& config) {
+  // Reset actuation and observer pipeline
+  Dictionary& action = working_dict_("action");
   actuation_.reset(config);
-  working_dict_("action").clear();
-  actuation_.initialize_action(working_dict_("action"));
+  action.clear();
+  actuation_.initialize_action(action);
   observer_pipeline_.reset(config);
 }
 
