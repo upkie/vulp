@@ -68,19 +68,11 @@ Spine::Spine(const Parameters& params, actuation::Interface& actuation,
 }
 
 void Spine::reset(const Dictionary& config) {
-  // Reset actuation and observer pipeline
   Dictionary& action = working_dict_("action");
   actuation_.reset(config);
   action.clear();
   actuation_.initialize_action(action);
   observer_pipeline_.reset(config);
-
-  // Log configuration
-  Dictionary& observation = working_dict_("observation");
-  Dictionary config_wrapper;
-  config_wrapper("config") = config;
-  config_wrapper.insert<double>("time", observation.get<double>("time"));
-  logger_.put(config_wrapper);
 }
 
 void Spine::log_working_dict() {
@@ -90,6 +82,11 @@ void Spine::log_working_dict() {
       static_cast<uint32_t>(state_cycle_beginning_);
   spine("state")("cycle_end") = static_cast<uint32_t>(state_cycle_end_);
   logger_.put(working_dict_);
+
+  // Log configuration dictionary at most once (at reset)
+  if (working_dict_.has("config")) {
+    working_dict_.remove("config");
+  }
 }
 
 void Spine::run() {
@@ -141,7 +138,7 @@ void Spine::begin_cycle() {
 
   // Read input dictionary if applicable
   if (state_machine_.state() == State::kReset) {
-    Dictionary config;
+    Dictionary& config = working_dict_("config");
     const char* data = agent_interface_.data();
     size_t size = agent_interface_.size();
     config.clear();
