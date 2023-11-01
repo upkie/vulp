@@ -74,6 +74,13 @@ void Spine::reset(const Dictionary& config) {
   action.clear();
   actuation_.initialize_action(action);
   observer_pipeline_.reset(config);
+
+  // Log configuration
+  Dictionary& observation = working_dict_("observation");
+  Dictionary config_wrapper;
+  config_wrapper("config") = config;
+  config_wrapper.insert<double>("time", observation.get<double>("time"));
+  logger_.put(config_wrapper);
 }
 
 void Spine::log_dict() {

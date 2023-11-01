@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.5.0] - 2023/10/16
+## [Unreleased]
+
+### Added
+
+- Log configuration dictionary every time the spine is reset
+
+## [1.5.0] - 2023-10-16
 
 ### Added
 
