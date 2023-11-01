@@ -27,7 +27,7 @@ All notable changes to this project will be documented in this file.
 
 - Clear configuration dictionary when resetting the spine
 
-## [1.4.0] - 2023/08/22
+## [1.4.0] - 2023-08-22
 
 ### Added
 
@@ -39,7 +39,7 @@ All notable changes to this project will be documented in this file.
 - Bazel: Compile coverage and test targets in debug by default
 - Refactor project directories for simpler Bazel and PyPI distributions
 
-## [1.3.0] - 2023/07/24
+## [1.3.0] - 2023-07-24
 
 ### Added
 
@@ -55,7 +55,7 @@ All notable changes to this project will be documented in this file.
 
 - Bazel: Only run lint tests when ``--config lint`` is provided
 
-## [1.2.1] - 2023/07/07
+## [1.2.1] - 2023-07-07
 
 ### Added
 
@@ -65,7 +65,7 @@ All notable changes to this project will be documented in this file.
 
 - Bullet interface now reports the IMU orientation in the proper ARS frame
 
-## [1.2.0] - 2023/06/06
+## [1.2.0] - 2023-06-06
 
 ### Added
 
@@ -87,13 +87,13 @@ All notable changes to this project will be documented in this file.
 - Only apply the ``-lrt`` linker flag on Linux
 - Shared-memory file permissions
 
-## [1.1.1] - 2023/03/13
+## [1.1.1] - 2023-03-13
 
 ### Changed
 
 - Remove setuptools from Python dependencies
 
-## [1.1.0] - 2023/03/06
+## [1.1.0] - 2023-03-06
 
 ### Added
 
@@ -121,6 +121,16 @@ All notable changes to this project will be documented in this file.
 - Clean up empty observation and observers directories
 - Fix calls to mpacklog logger functions
 
-## [1.0.0] - 2022/06/10
+## [1.0.0] - 2022-06-10
 
 First release of the project.
+
+[unreleased]: https://github.com/tasts-robots/vulp/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/tasts-robots/vulp/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/tasts-robots/vulp/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/tasts-robots/vulp/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/tasts-robots/vulp/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/tasts-robots/vulp/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/tasts-robots/vulp/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/tasts-robots/vulp/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/tasts-robots/vulp/releases/tag/v1.0.0
