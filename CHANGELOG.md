@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Log configuration dictionary every time the spine is reset
 
+### Removed
+
+- **Breaking:** Remove ``pi32_config`` as 64-bit is the new default
+
 ## [1.5.0] - 2023-10-16
 
 ### Added

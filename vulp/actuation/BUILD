@@ -115,7 +115,6 @@ cc_library(
         "Pi3HatInterface.h",
     ],
     srcs = select({
-        "//:pi32_config": ["Pi3HatInterface.cpp"],
         "//:pi64_config": ["Pi3HatInterface.cpp"],
         "//conditions:default": [],
     }),
@@ -123,10 +122,6 @@ cc_library(
         "//vulp/utils:realtime",
         ":interface",
     ] + select({
-        "//:pi32_config": [
-            "@org_llvm_libcxx//:libcxx",
-            "@pi3hat//lib/cpp/mjbots/pi3hat:libpi3hat",
-        ],
         "//:pi64_config": [
             "@org_llvm_libcxx//:libcxx",
             "@pi3hat//lib/cpp/mjbots/pi3hat:libpi3hat",
@@ -142,7 +137,6 @@ cc_library(
         ":bullet_interface",
         ":mock_interface",
     ] + select({
-        "//:pi32_config": [":pi3hat_interface"],
         "//:pi64_config": [":pi3hat_interface"],
         "//conditions:default": [],
     }),
