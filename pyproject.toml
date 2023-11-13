@@ -34,10 +34,10 @@ dependencies = [
 keywords = ["motion control", "real time", "robotics"]
 
 [project.urls]
-Documentation = "https://tasts-robots.github.io/vulp/"
-Source = "https://github.com/tasts-robots/vulp"
-Tracker = "https://github.com/tasts-robots/vulp/issues"
-Changelog = "https://github.com/tasts-robots/vulp/blob/main/CHANGELOG.md"
+Documentation = "https://upkie.github.io/vulp/"
+Source = "https://github.com/upkie/vulp"
+Tracker = "https://github.com/upkie/vulp/issues"
+Changelog = "https://github.com/upkie/vulp/blob/main/CHANGELOG.md"
 
 [tool.flit.sdist]
 exclude = [

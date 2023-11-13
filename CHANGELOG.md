@@ -113,7 +113,7 @@ All notable changes to this project will be documented in this file.
 - CI: Merge into a single workflow with multiple jobs
 - CPU temperature observer: Read from custom file
 - Moved Python `serialize` function to utils
-- Moved logging to [mpacklog](https://github.com/tasts-robots/mpacklog/)
+- Moved logging to [mpacklog.cpp](https://github.com/upkie/mpacklog.cpp/)
 - Removed unused ``//models``
 - Switch from aiorate to loop-rate-limiters
 - Update mpacklog dependency
@@ -129,12 +129,12 @@ All notable changes to this project will be documented in this file.
 
 First release of the project.
 
-[unreleased]: https://github.com/tasts-robots/vulp/compare/v1.5.0...HEAD
-[1.5.0]: https://github.com/tasts-robots/vulp/compare/v1.4.0...v1.5.0
-[1.4.0]: https://github.com/tasts-robots/vulp/compare/v1.3.0...v1.4.0
-[1.3.0]: https://github.com/tasts-robots/vulp/compare/v1.2.1...v1.3.0
-[1.2.1]: https://github.com/tasts-robots/vulp/compare/v1.2.0...v1.2.1
-[1.2.0]: https://github.com/tasts-robots/vulp/compare/v1.1.1...v1.2.0
-[1.1.1]: https://github.com/tasts-robots/vulp/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/tasts-robots/vulp/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/tasts-robots/vulp/releases/tag/v1.0.0
+[unreleased]: https://github.com/upkie/vulp/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/upkie/vulp/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/upkie/vulp/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/upkie/vulp/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/upkie/vulp/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/upkie/vulp/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/upkie/vulp/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/upkie/vulp/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/upkie/vulp/releases/tag/v1.0.0
