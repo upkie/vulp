@@ -199,8 +199,8 @@ TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
   const double left_target_velocity = left_wheel.velocity * (2.0 * M_PI);
   const double left_torque = interface_->compute_joint_torque(
       "left_wheel", no_position, left_target_velocity, 1.0, 1.0, 1.0);
-  ASSERT_GT(left_wheel.velocity, 0.1);
-  ASSERT_NEAR(left_torque, -kLeftWheelFriction, 1e-3);
+  ASSERT_GT(left_wheel.velocity, 0.1);                  // positive velocity
+  ASSERT_NEAR(left_torque, -kLeftWheelFriction, 1e-3);  // negative torque
 }
 
 }  // namespace vulp::actuation
