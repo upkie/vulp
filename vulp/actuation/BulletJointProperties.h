@@ -19,4 +19,3 @@ struct BulletJointProperties {
 };
 
 }  // namespace vulp::actuation
-
