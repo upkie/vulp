@@ -128,10 +128,10 @@ class BulletInterface : public Interface {
      */
     std::string urdf_path;
 
-    //! Derivative gain for joints in position control mode
+    //! Gain for joint velocity control feedback
     double torque_control_kd = 1.0;
 
-    //! Proportional gain for joints in position control mode
+    //! Gain for joint position control feedback
     double torque_control_kp = 20.0;
 
     //! Position of the base in the world frame upon reset
@@ -221,9 +221,14 @@ class BulletInterface : public Interface {
       const Eigen::Vector3d& linear_velocity_base_to_world_in_world,
       const Eigen::Vector3d& angular_velocity_base_in_base);
 
-  //! Maximum torque for each joint
+  //! Joint properties (accessor used for testing)
   const std::map<std::string, BulletJointProperties>& joint_properties() {
     return joint_properties_;
+  }
+
+  //! Internal map of servo replies (accessor used for testing)
+  const std::map<std::string, moteus::ServoReply>& servo_reply() {
+    return servo_reply_;
   }
 
   /*! Reproduce the moteus position controller in Bullet.
