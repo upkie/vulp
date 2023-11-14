@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+- **Breaking:** Narrow down Bullet interface to a single control mode (torque)
 - **Breaking:** Remove ``pi32_config`` as 64-bit is the new default
 
 ## [1.5.0] - 2023-10-16

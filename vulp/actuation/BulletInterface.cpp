@@ -178,7 +178,7 @@ void BulletInterface::send_commands(const moteus::Data& data) {
     const int joint_index = joint_index_map_[joint_name];
 
     const auto previous_mode = servo_reply_[joint_name].result.mode;
-    if (params_.use_torque_control && previous_mode == moteus::Mode::kStopped &&
+    if (previous_mode == moteus::Mode::kStopped &&
         command.mode != moteus::Mode::kStopped) {
       // disable velocity controllers to enable torque control
       motor_args.m_controlMode = CONTROL_MODE_VELOCITY;
@@ -205,29 +205,15 @@ void BulletInterface::send_commands(const moteus::Data& data) {
     // See https://github.com/mjbots/moteus/blob/main/docs/reference.md
     const double target_position = command.position.position * (2.0 * M_PI);
     const double target_velocity = command.position.velocity * (2.0 * M_PI);
-    if (params_.use_torque_control) {
-      const double kp_scale = command.position.kp_scale;
-      const double kd_scale = command.position.kd_scale;
-      const double maximum_torque = command.position.maximum_torque;
-      const double joint_torque =
-          compute_joint_torque(joint_name, target_position, target_velocity,
-                               kp_scale, kd_scale, maximum_torque);
-      motor_args.m_controlMode = CONTROL_MODE_TORQUE;
-      motor_args.m_maxTorqueValue = joint_torque;
-      servo_reply_[joint_name].result.torque = joint_torque;
-    } else if (std::isnan(target_position)) {
-      motor_args.m_controlMode = CONTROL_MODE_VELOCITY;
-      motor_args.m_kd = 0.9;
-      motor_args.m_maxTorqueValue = urdf_maximum_torque_[joint_name];
-      motor_args.m_targetVelocity = target_velocity;
-    } else {
-      motor_args.m_controlMode = CONTROL_MODE_POSITION_VELOCITY_PD;
-      motor_args.m_kd = 0.1;
-      motor_args.m_kp = 0.9;
-      motor_args.m_maxTorqueValue = urdf_maximum_torque_[joint_name];
-      motor_args.m_targetPosition = target_position;
-      motor_args.m_targetVelocity = target_velocity;
-    }
+    const double kp_scale = command.position.kp_scale;
+    const double kd_scale = command.position.kd_scale;
+    const double maximum_torque = command.position.maximum_torque;
+    const double joint_torque =
+        compute_joint_torque(joint_name, target_position, target_velocity,
+                             kp_scale, kd_scale, maximum_torque);
+    motor_args.m_controlMode = CONTROL_MODE_TORQUE;
+    motor_args.m_maxTorqueValue = joint_torque;
+    servo_reply_[joint_name].result.torque = joint_torque;
     bullet_.setJointMotorControl(robot_, joint_index, motor_args);
   }
 }
@@ -269,7 +255,7 @@ Eigen::Matrix4d BulletInterface::transform_base_to_world() const noexcept {
 Eigen::Vector3d BulletInterface::linear_velocity_base_to_world_in_world()
     const noexcept {
   btVector3 linear_velocity_base_to_world_in_world;
-  btVector3 _;
+  btVector3 _;  // anonymous, we only get the linear velocity
   bullet_.getBaseVelocity(robot_, linear_velocity_base_to_world_in_world, _);
   return eigen_from_bullet(linear_velocity_base_to_world_in_world);
 }
@@ -277,7 +263,7 @@ Eigen::Vector3d BulletInterface::linear_velocity_base_to_world_in_world()
 Eigen::Vector3d BulletInterface::angular_velocity_base_in_base()
     const noexcept {
   btVector3 angular_velocity_base_to_world_in_world;
-  btVector3 _;
+  btVector3 _;  // anonymous, we only get the angular velocity
   bullet_.getBaseVelocity(robot_, _, angular_velocity_base_to_world_in_world);
   Eigen::Matrix4d T = transform_base_to_world();
   Eigen::Matrix3d rotation_base_to_world = T.block<3, 3>(0, 0);

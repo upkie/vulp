@@ -60,8 +60,6 @@ class BulletInterface : public Interface {
       const auto& bullet = config("bullet");
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
-      const auto& mode = bullet.get<std::string>("control_mode", "torque");
-      use_torque_control = (mode == "torque");
       if (bullet.has("reset")) {
         const auto& reset = bullet("reset");
         position_base_in_world = reset.get<Eigen::Vector3d>(
@@ -120,9 +118,6 @@ class BulletInterface : public Interface {
      * data loaded from a dependency: ``data = ["@upkie_description"]``.
      */
     std::string urdf_path;
-
-    //! Whether to use CONTROL_MODE_TORQUE or CONTROL_MODE_POSITION_VELOCITY_PD
-    bool use_torque_control = true;
 
     //! Derivative gain for joints in position control mode
     double torque_control_kd = 1.0;
