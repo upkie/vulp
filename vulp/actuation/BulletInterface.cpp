@@ -84,7 +84,14 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
     std::string joint_name = joint_info.m_jointName;
     if (joint_index_map_.find(joint_name) != joint_index_map_.end()) {
       joint_index_map_[joint_name] = joint_index;
-      urdf_maximum_torque_.try_emplace(joint_name, joint_info.m_jointMaxForce);
+
+      BulletJointProperties props;
+      const auto friction_it = params.joint_friction.find(joint_name);
+      if (friction_it != params.joint_friction.end()) {
+        props.friction = friction_it->second;
+      }
+      props.maximum_torque = joint_info.m_jointMaxForce;
+      joint_properties_.try_emplace(joint_name, props);
     }
   }
 
@@ -225,18 +232,22 @@ double BulletInterface::compute_joint_torque(const std::string& joint_name,
                                              const double kd_scale,
                                              const double maximum_torque) {
   assert(!std::isnan(target_velocity));
+  const BulletJointProperties& joint_props = joint_properties_[joint_name];
   const auto& measurements = servo_reply_[joint_name].result;
   const double measured_position = measurements.position * (2.0 * M_PI);
   const double measured_velocity = measurements.velocity * (2.0 * M_PI);
   const double kp = kp_scale * params_.torque_control_kp;
   const double kd = kd_scale * params_.torque_control_kd;
-  const double max_torque =
-      std::min(maximum_torque, urdf_maximum_torque_[joint_name]);
+  const double tau_max = std::min(maximum_torque, joint_props.maximum_torque);
   double torque = kd * (target_velocity - measured_velocity);
   if (!std::isnan(target_position)) {
     torque += kp * (target_position - measured_position);
   }
-  torque = std::max(std::min(torque, max_torque), -max_torque);
+  constexpr double kMaxStictionVelocity = 1e-3;  // rad/s
+  if (std::abs(measured_velocity) > kMaxStictionVelocity) {
+    torque += joint_props.friction * ((measured_velocity > 0.0) ? -1.0 : +1.0);
+  }
+  torque = std::max(std::min(torque, tau_max), -tau_max);
   return torque;
 }
 

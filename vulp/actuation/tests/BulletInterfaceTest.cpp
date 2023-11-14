@@ -83,20 +83,30 @@ TEST_F(BulletInterfaceTest, CycleCallsCallback) {
   ASSERT_TRUE(callback_called);
 }
 
-TEST_F(BulletInterfaceTest, MaxTorquesFromURDF) {
-  const auto& max_torque = interface_->max_torque();
-  ASSERT_NO_THROW(max_torque.at("left_hip"));
-  ASSERT_NO_THROW(max_torque.at("left_knee"));
-  ASSERT_NO_THROW(max_torque.at("left_wheel"));
-  ASSERT_NO_THROW(max_torque.at("right_hip"));
-  ASSERT_NO_THROW(max_torque.at("right_knee"));
-  ASSERT_NO_THROW(max_torque.at("right_wheel"));
-  ASSERT_GT(max_torque.at("left_hip"), 5.0);
-  ASSERT_GT(max_torque.at("left_knee"), 5.0);
-  ASSERT_GT(max_torque.at("left_wheel"), 0.5);
-  ASSERT_GT(max_torque.at("right_hip"), 5.0);
-  ASSERT_GT(max_torque.at("right_knee"), 5.0);
-  ASSERT_GT(max_torque.at("right_wheel"), 0.5);
+TEST_F(BulletInterfaceTest, JointProperties) {
+  const auto& joint_props = interface_->joint_properties();
+
+  ASSERT_NO_THROW(joint_props.at("left_hip"));
+  ASSERT_NO_THROW(joint_props.at("left_knee"));
+  ASSERT_NO_THROW(joint_props.at("left_wheel"));
+  ASSERT_NO_THROW(joint_props.at("right_hip"));
+  ASSERT_NO_THROW(joint_props.at("right_knee"));
+  ASSERT_NO_THROW(joint_props.at("right_wheel"));
+
+  constexpr double kNoFriction = 1e-5;
+  ASSERT_LT(joint_props.at("left_hip").friction, kNoFriction);
+  ASSERT_LT(joint_props.at("left_knee").friction, kNoFriction);
+  ASSERT_LT(joint_props.at("left_wheel").friction, kNoFriction);
+  ASSERT_LT(joint_props.at("right_hip").friction, kNoFriction);
+  ASSERT_LT(joint_props.at("right_knee").friction, kNoFriction);
+  ASSERT_LT(joint_props.at("right_wheel").friction, kNoFriction);
+
+  ASSERT_GT(joint_props.at("left_hip").maximum_torque, 5.0);
+  ASSERT_GT(joint_props.at("left_knee").maximum_torque, 5.0);
+  ASSERT_GT(joint_props.at("left_wheel").maximum_torque, 0.5);
+  ASSERT_GT(joint_props.at("right_hip").maximum_torque, 5.0);
+  ASSERT_GT(joint_props.at("right_knee").maximum_torque, 5.0);
+  ASSERT_GT(joint_props.at("right_wheel").maximum_torque, 0.5);
 }
 
 TEST_F(BulletInterfaceTest, CycleDoesntThrow) {

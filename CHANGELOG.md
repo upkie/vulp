@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- BulletInterface: Model joint kinetic friction
 - Log configuration dictionary every time the spine is reset
 
 ### Removed
