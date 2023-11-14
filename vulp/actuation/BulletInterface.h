@@ -61,14 +61,6 @@ class BulletInterface : public Interface {
       const auto& bullet = config("bullet");
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
-      if (bullet.has("joint_properties")) {
-        for (const auto& joint : bullet("joint_properties").keys()) {
-          const auto& props = bullet("joint_properties")(joint);
-          if (props.has("friction")) {
-            joint_friction.try_emplace(joint, props.get<double>("friction"));
-          }
-        }
-      }
       if (bullet.has("reset")) {
         const auto& reset = bullet("reset");
         position_base_in_world = reset.get<Eigen::Vector3d>(
@@ -83,6 +75,16 @@ class BulletInterface : public Interface {
       if (bullet.has("torque_control")) {
         torque_control_kd = bullet("torque_control")("kd");
         torque_control_kp = bullet("torque_control")("kp");
+      }
+
+      joint_properties.clear();
+      if (bullet.has("joint_properties")) {
+        for (const auto& joint : bullet("joint_properties").keys()) {
+          const auto& props = bullet("joint_properties")(joint);
+          if (props.has("friction")) {
+            joint_friction.try_emplace(joint, props.get<double>("friction"));
+          }
+        }
       }
     }
 
@@ -204,6 +206,9 @@ class BulletInterface : public Interface {
 
   //! Reset joint angles to zero.
   void reset_joint_angles();
+
+  //! Reset joint properties to defaults.
+  void reset_joint_properties();
 
   /*! Reset the pose and velocity of the floating base in the world frame.
    *
