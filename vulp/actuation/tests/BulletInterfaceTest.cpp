@@ -27,6 +27,9 @@ namespace vulp::actuation {
 
 using bazel::tools::cpp::runfiles::Runfiles;
 
+constexpr double kNoFriction = 1e-5;
+constexpr double kLeftWheelFriction = 0.1;
+
 class BulletInterfaceTest : public ::testing::Test {
  protected:
   //! Set up a new test fixture
@@ -48,6 +51,8 @@ class BulletInterfaceTest : public ::testing::Test {
 
     BulletInterface::Parameters params(config);
     params.dt = 1.0 / 1000.0;
+    params.floor = false;  // wheels roll freely during testing
+    params.joint_friction.try_emplace("left_wheel", kLeftWheelFriction);
     params.urdf_path = runfiles->Rlocation("upkie_description/urdf/upkie.urdf");
     interface_ = std::make_unique<BulletInterface>(layout, params);
 
@@ -93,10 +98,9 @@ TEST_F(BulletInterfaceTest, JointProperties) {
   ASSERT_NO_THROW(joint_props.at("right_knee"));
   ASSERT_NO_THROW(joint_props.at("right_wheel"));
 
-  constexpr double kNoFriction = 1e-5;
   ASSERT_LT(joint_props.at("left_hip").friction, kNoFriction);
   ASSERT_LT(joint_props.at("left_knee").friction, kNoFriction);
-  ASSERT_LT(joint_props.at("left_wheel").friction, kNoFriction);
+  ASSERT_GE(joint_props.at("left_wheel").friction, kLeftWheelFriction);
   ASSERT_LT(joint_props.at("right_hip").friction, kNoFriction);
   ASSERT_LT(joint_props.at("right_knee").friction, kNoFriction);
   ASSERT_LT(joint_props.at("right_wheel").friction, kNoFriction);
@@ -150,6 +154,53 @@ TEST_F(BulletInterfaceTest, ResetBaseState) {
   ASSERT_NEAR(omega.x(), 7.0, 1e-3);
   ASSERT_NEAR(omega.y(), 8.0, 1e-3);
   ASSERT_NEAR(omega.z(), 9.0, 7e-3);
+}
+
+TEST_F(BulletInterfaceTest, ComputeJointTorquesStopped) {
+  // Commands in data_ have defaults, thus in moteus::Mode::kStopped
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+
+  // Stopped joint and no target => no velocity and no torque
+  const auto& measurements = interface_->servo_reply().at("left_wheel").result;
+  const double target_position = std::numeric_limits<double>::quiet_NaN();
+  const double target_velocity = measurements.velocity * (2.0 * M_PI);
+  double tau = interface_->compute_joint_torque("left_wheel", target_position,
+                                                target_velocity, 1.0, 1.0, 1.0);
+  ASSERT_NEAR(measurements.velocity, 0.0, 1e-3);  // should be zero here
+  ASSERT_NEAR(tau, 0.0, 1e-3);
+}
+
+TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
+  const double no_position = std::numeric_limits<double>::quiet_NaN();
+  for (auto& command : data_.commands) {
+    command.mode = moteus::Mode::kPosition;
+    command.position.position = no_position;
+    command.position.velocity = 1.0;  // rev/s
+    command.position.kp_scale = 1.0;
+    command.position.kd_scale = 1.0;
+    command.position.maximum_torque = 1.0;  // N.m
+  }
+
+  // Cycle a couple of times so that both wheels spin up
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+
+  // Right wheel has no kinetic friction
+  const auto& right_wheel = interface_->servo_reply().at("right_wheel").result;
+  const double right_target_velocity = right_wheel.velocity * (2.0 * M_PI);
+  const double right_torque = interface_->compute_joint_torque(
+      "right_wheel", no_position, right_target_velocity, 1.0, 1.0, 1.0);
+  ASSERT_GT(right_wheel.velocity, 0.1);
+  ASSERT_NEAR(right_torque, 0.0, 1e-3);
+
+  // Left wheel has kinetic friction
+  const auto& left_wheel = interface_->servo_reply().at("left_wheel").result;
+  const double left_target_velocity = left_wheel.velocity * (2.0 * M_PI);
+  const double left_torque = interface_->compute_joint_torque(
+      "left_wheel", no_position, left_target_velocity, 1.0, 1.0, 1.0);
+  ASSERT_GT(left_wheel.velocity, 0.1);
+  ASSERT_NEAR(left_torque, -kLeftWheelFriction, 1e-3);
 }
 
 }  // namespace vulp::actuation
