@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - BulletInterface: Model joint kinetic friction
+- BulletInterface: Unit tests for joint torque computations
 - Log configuration dictionary every time the spine is reset
 
 ### Removed
