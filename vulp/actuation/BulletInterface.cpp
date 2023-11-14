@@ -86,10 +86,6 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
       joint_index_map_[joint_name] = joint_index;
 
       BulletJointProperties props;
-      const auto friction_it = params.joint_friction.find(joint_name);
-      if (friction_it != params.joint_friction.end()) {
-        props.friction = friction_it->second;
-      }
       props.maximum_torque = joint_info.m_jointMaxForce;
       joint_properties_.try_emplace(joint_name, props);
     }
@@ -110,6 +106,7 @@ void BulletInterface::reset(const Dictionary& config) {
                    params_.linear_velocity_base_to_world_in_world,
                    params_.angular_velocity_base_in_base);
   reset_joint_angles();
+  reset_joint_properties();
 }
 
 void BulletInterface::reset_base_state(
@@ -134,6 +131,23 @@ void BulletInterface::reset_joint_angles() {
   const int nb_joints = bullet_.getNumJoints(robot_);
   for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
     bullet_.resetJointState(robot_, joint_index, 0.0);
+  }
+}
+
+void BulletInterface::reset_joint_properties() {
+  b3JointInfo joint_info;
+  const int nb_joints = bullet_.getNumJoints(robot_);
+  for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
+    bullet_.getJointInfo(robot_, joint_index, &joint_info);
+    std::string joint_name = joint_info.m_jointName;
+    if (joint_index_map_.find(joint_name) != joint_index_map_.end()) {
+      const auto friction_it = params_.joint_friction.find(joint_name);
+      if (friction_it != params_.joint_friction.end()) {
+        joint_properties_[joint_name].friction = friction_it->second;
+      } else {
+        joint_properties_[joint_name].friction = 0.0;
+      }
+    }
   }
 }
 
