@@ -90,6 +90,7 @@ cc_library(
     hdrs = [
         "BulletImuData.h",
         "BulletInterface.h",
+        "BulletJointProperties.h",
         "bullet_utils.h",
     ],
     srcs = [

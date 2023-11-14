@@ -24,6 +24,7 @@
 
 #include "RobotSimulator/b3RobotSimulatorClientAPI.h"
 #include "vulp/actuation/BulletImuData.h"
+#include "vulp/actuation/BulletJointProperties.h"
 #include "vulp/actuation/Interface.h"
 #include "vulp/actuation/moteus/Output.h"
 #include "vulp/actuation/moteus/ServoReply.h"
@@ -55,11 +56,19 @@ class BulletInterface : public Interface {
         spdlog::debug("No \"bullet\" runtime configuration");
         return;
       }
-
       spdlog::info("Applying \"bullet\" runtime configuration...");
+
       const auto& bullet = config("bullet");
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
+      if (bullet.has("joint_properties")) {
+        for (const auto& joint : bullet("joint_properties").keys()) {
+          const auto& props = bullet("joint_properties")(joint);
+          if (props.has("friction")) {
+            joint_friction.try_emplace(joint, props.get<double>("friction"));
+          }
+        }
+      }
       if (bullet.has("reset")) {
         const auto& reset = bullet("reset");
         position_base_in_world = reset.get<Eigen::Vector3d>(
@@ -138,6 +147,9 @@ class BulletInterface : public Interface {
 
     //! Body angular velocity of the base upon reset
     Eigen::Vector3d angular_velocity_base_in_base = Eigen::Vector3d::Zero();
+
+    //! Joint friction parameters
+    std::map<std::string, double> joint_friction;
   };
 
   /*! Initialize interface.
@@ -210,8 +222,8 @@ class BulletInterface : public Interface {
       const Eigen::Vector3d& angular_velocity_base_in_base);
 
   //! Maximum torque for each joint
-  const std::map<std::string, double>& max_torque() {
-    return urdf_maximum_torque_;
+  const std::map<std::string, BulletJointProperties>& joint_properties() {
+    return joint_properties_;
   }
 
   /*! Reproduce the moteus position controller in Bullet.
@@ -261,7 +273,7 @@ class BulletInterface : public Interface {
   int robot_;
 
   //! Maximum joint torques read from the URDF model
-  std::map<std::string, double> urdf_maximum_torque_;
+  std::map<std::string, BulletJointProperties> joint_properties_;
 
   //! Link index of the IMU in Bullet
   int imu_link_index_;
