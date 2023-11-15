@@ -61,6 +61,17 @@ class BulletInterface : public Interface {
       const auto& bullet = config("bullet");
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
+
+      joint_friction.clear();
+      if (bullet.has("joint_properties")) {
+        for (const auto& joint : bullet("joint_properties").keys()) {
+          const auto& props = bullet("joint_properties")(joint);
+          if (props.has("friction")) {
+            joint_friction.try_emplace(joint, props.get<double>("friction"));
+          }
+        }
+      }
+
       if (bullet.has("reset")) {
         const auto& reset = bullet("reset");
         position_base_in_world = reset.get<Eigen::Vector3d>(
@@ -72,19 +83,10 @@ class BulletInterface : public Interface {
         angular_velocity_base_in_base = reset.get<Eigen::Vector3d>(
             "angular_velocity_base_in_base", Eigen::Vector3d::Zero());
       }
+
       if (bullet.has("torque_control")) {
         torque_control_kd = bullet("torque_control")("kd");
         torque_control_kp = bullet("torque_control")("kp");
-      }
-
-      joint_friction.clear();
-      if (bullet.has("joint_properties")) {
-        for (const auto& joint : bullet("joint_properties").keys()) {
-          const auto& props = bullet("joint_properties")(joint);
-          if (props.has("friction")) {
-            joint_friction.try_emplace(joint, props.get<double>("friction"));
-          }
-        }
       }
     }
 
