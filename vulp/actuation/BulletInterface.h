@@ -77,7 +77,7 @@ class BulletInterface : public Interface {
         torque_control_kp = bullet("torque_control")("kp");
       }
 
-      joint_properties.clear();
+      joint_friction.clear();
       if (bullet.has("joint_properties")) {
         for (const auto& joint : bullet("joint_properties").keys()) {
           const auto& props = bullet("joint_properties")(joint);
