@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.0] - 2023-11-15
+
 ### Added
 
 - BulletInterface: Model joint kinetic friction
@@ -132,7 +134,8 @@ All notable changes to this project will be documented in this file.
 
 First release of the project.
 
-[unreleased]: https://github.com/upkie/vulp/compare/v1.5.0...HEAD
+[unreleased]: https://github.com/upkie/vulp/compare/v2.0.0...HEAD
+[1.5.0]: https://github.com/upkie/vulp/compare/v1.5.0...v2.0.0
 [1.5.0]: https://github.com/upkie/vulp/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/upkie/vulp/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/upkie/vulp/compare/v1.2.1...v1.3.0
