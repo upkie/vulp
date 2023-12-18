@@ -6,7 +6,7 @@
 # notice:
 #
 #     Copyright 2012-2016 Robot Locomotion Group @ CSAIL
-#     License: BSD-3-Clause (see licenses/LICENSE-drake)
+#     SPDX-License-Identifier: BSD-3-Clause
 #
 # Custom build file to use the package with Bazel.
 
