@@ -24,18 +24,7 @@
 
 namespace vulp::actuation {
 
-namespace defaults {
-
-constexpr double kKdScale = 1.0;
-
-constexpr double kKpScale = 1.0;
-
-// TODO(scaron): this is a sane default for a qdd100, not for weaker servos
-constexpr double kMaximumTorque = 8.42;  // N.m
-
-constexpr double kVelocity = 0.0;  // rad/s
-
-}  // namespace defaults
+constexpr double kMaximumTorque = 1.0;  // N.m
 
 void Interface::initialize_action(palimpsest::Dictionary& action) {
   for (const auto& id_joint : servo_layout_.servo_joint_map()) {
@@ -43,9 +32,9 @@ void Interface::initialize_action(palimpsest::Dictionary& action) {
     auto& servo_action = action("servo")(joint_name);
     servo_action("position") = std::numeric_limits<double>::quiet_NaN();
     servo_action("velocity") = 0.0;
-    servo_action("kp_scale") = defaults::kKpScale;
-    servo_action("kd_scale") = defaults::kKdScale;
-    servo_action("maximum_torque") = defaults::kMaximumTorque;
+    servo_action("kp_scale") = 1.0;
+    servo_action("kd_scale") = 1.0;
+    servo_action("maximum_torque") = kMaximumTorque;
   }
 }
 
@@ -81,14 +70,13 @@ void Interface::write_position_commands(const palimpsest::Dictionary& action) {
     }
 
     const double position_rad = servo_action("position");
-    const double velocity_rad_s =
-        servo_action.get<double>("velocity", defaults::kVelocity);
-    const double kp_scale =
-        servo_action.get<double>("kp_scale", defaults::kKpScale);
-    const double kd_scale =
-        servo_action.get<double>("kd_scale", defaults::kKdScale);
+    const double velocity_rad_s = servo_action.get<double>("velocity", 0.0);
+    const double kp_scale = servo_action.get<double>("kp_scale", 1.0);
+    const double kd_scale = servo_action.get<double>("kd_scale", 1.0);
+    const double feedforward_torque =
+        servo_action.get<double>("feedforward_torque", 0.0);
     const double maximum_torque =
-        servo_action.get<double>("maximum_torque", defaults::kMaximumTorque);
+        servo_action.get<double>("maximum_torque", kMaximumTorque);
 
     // The moteus convention is that positive angles correspond to clockwise
     // rotations when looking at the rotor / back of the moteus board. See:
@@ -101,6 +89,7 @@ void Interface::write_position_commands(const palimpsest::Dictionary& action) {
     command.position.velocity = velocity_rev_s;
     command.position.kp_scale = kp_scale;
     command.position.kd_scale = kd_scale;
+    command.position.feedforward_torque = feedforward_torque;
     command.position.maximum_torque = maximum_torque;
   }
 }
