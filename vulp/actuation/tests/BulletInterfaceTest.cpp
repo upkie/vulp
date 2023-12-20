@@ -159,15 +159,16 @@ TEST_F(BulletInterfaceTest, ComputeJointTorquesStopped) {
   ASSERT_NEAR(tau, 0.0, 1e-3);
 }
 
-TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
+TEST_F(BulletInterfaceTest, ComputeJointFeedforwardTorque) {
   const double no_position = std::numeric_limits<double>::quiet_NaN();
   for (auto& command : data_.commands) {
     command.mode = moteus::Mode::kPosition;
     command.position.position = no_position;
-    command.position.velocity = 1.0;  // rev/s
-    command.position.kp_scale = 1.0;
-    command.position.kd_scale = 1.0;
-    command.position.maximum_torque = 1.0;  // N.m
+    command.position.velocity = 0.0;  // rev/s
+    command.position.kp_scale = 0.0;
+    command.position.kd_scale = 0.0;
+    command.position.feedforward_torque = 0.42;  // N.m
+    command.position.maximum_torque = 1.0;       // N.m
   }
 
   // Cycle a couple of times so that both wheels spin up
@@ -180,16 +181,7 @@ TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
   const double right_target_velocity = right_wheel.velocity * (2.0 * M_PI);
   const double right_torque = interface_->compute_joint_torque(
       "right_wheel", no_position, right_target_velocity, 1.0, 1.0, 1.0);
-  ASSERT_GT(right_wheel.velocity, 0.1);
-  ASSERT_NEAR(right_torque, 0.0, 1e-3);
-
-  // Left wheel has kinetic friction
-  const auto& left_wheel = interface_->servo_reply().at("left_wheel").result;
-  const double left_target_velocity = left_wheel.velocity * (2.0 * M_PI);
-  const double left_torque = interface_->compute_joint_torque(
-      "left_wheel", no_position, left_target_velocity, 1.0, 1.0, 1.0);
-  ASSERT_GT(left_wheel.velocity, 0.1);                  // positive velocity
-  ASSERT_NEAR(left_torque, -kLeftWheelFriction, 1e-3);  // negative torque
+  ASSERT_NEAR(right_torque, 0.42, 1e-3);
 }
 
 }  // namespace vulp::actuation
