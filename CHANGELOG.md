@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Changed
+### Added
 
-- BulletInterface: Take feedforward torque commands into account
+- Take feedforward torque commands into account in all actuation interfaces
 
 ## [2.0.0] - 2023-11-15
 
