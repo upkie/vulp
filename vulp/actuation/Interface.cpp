@@ -29,6 +29,7 @@ void Interface::initialize_action(palimpsest::Dictionary& action) {
   for (const auto& id_joint : servo_layout_.servo_joint_map()) {
     const std::string& joint_name = id_joint.second;
     auto& servo_action = action("servo")(joint_name);
+    servo_action("feedforward_torque") = 0.0;
     servo_action("position") = std::numeric_limits<double>::quiet_NaN();
     servo_action("velocity") = 0.0;
     servo_action("kp_scale") = 1.0;
