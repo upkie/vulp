@@ -228,6 +228,7 @@ class BulletInterface : public Interface {
   /*! Reproduce the moteus position controller in Bullet.
    *
    * \param[in] joint_name Name of the joint.
+   * \param[in] feedforward_torque Feedforward torque command in [N] * [m].
    * \param[in] target_position Target angular position in [rad].
    * \param[in] target_velocity Target angular velocity in [rad] / [s].
    * \param[in] kp_scale Multiplicative factor applied to the proportional gain
@@ -237,6 +238,7 @@ class BulletInterface : public Interface {
    * \param[in] maximum_torque Maximum torque in [N] * [m] from the command.
    */
   double compute_joint_torque(const std::string& joint_name,
+                              const double feedforward_torque,
                               const double target_position,
                               const double target_velocity,
                               const double kp_scale, const double kd_scale,

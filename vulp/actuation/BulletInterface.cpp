@@ -213,12 +213,13 @@ void BulletInterface::send_commands(const moteus::Data& data) {
     // See https://github.com/mjbots/moteus/blob/main/docs/reference.md
     const double target_position = command.position.position * (2.0 * M_PI);
     const double target_velocity = command.position.velocity * (2.0 * M_PI);
+    const double feedforward_torque = command.position.feedforward_torque;
     const double kp_scale = command.position.kp_scale;
     const double kd_scale = command.position.kd_scale;
     const double maximum_torque = command.position.maximum_torque;
-    const double joint_torque =
-        compute_joint_torque(joint_name, target_position, target_velocity,
-                             kp_scale, kd_scale, maximum_torque);
+    const double joint_torque = compute_joint_torque(
+        joint_name, feedforward_torque, target_position, target_velocity,
+        kp_scale, kd_scale, maximum_torque);
     motor_args.m_controlMode = CONTROL_MODE_TORQUE;
     motor_args.m_maxTorqueValue = joint_torque;
     servo_reply_[joint_name].result.torque = joint_torque;
@@ -226,12 +227,10 @@ void BulletInterface::send_commands(const moteus::Data& data) {
   }
 }
 
-double BulletInterface::compute_joint_torque(const std::string& joint_name,
-                                             const double target_position,
-                                             const double target_velocity,
-                                             const double kp_scale,
-                                             const double kd_scale,
-                                             const double maximum_torque) {
+double BulletInterface::compute_joint_torque(
+    const std::string& joint_name, const double feedforward_torque,
+    const double target_position, const double target_velocity,
+    const double kp_scale, const double kd_scale, const double maximum_torque) {
   assert(!std::isnan(target_velocity));
   const BulletJointProperties& joint_props = joint_properties_[joint_name];
   const auto& measurements = servo_reply_[joint_name].result;
@@ -240,7 +239,8 @@ double BulletInterface::compute_joint_torque(const std::string& joint_name,
   const double kp = kp_scale * params_.torque_control_kp;
   const double kd = kd_scale * params_.torque_control_kd;
   const double tau_max = std::min(maximum_torque, joint_props.maximum_torque);
-  double torque = kd * (target_velocity - measured_velocity);
+  double torque = feedforward_torque;
+  torque += kd * (target_velocity - measured_velocity);
   if (!std::isnan(target_position)) {
     torque += kp * (target_position - measured_position);
   }
