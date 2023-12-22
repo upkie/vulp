@@ -198,7 +198,6 @@ TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
 }
 
 TEST_F(BulletInterfaceTest, ComputeJointFeedforwardTorque) {
-  const double no_feedforward_torque = 0.0;
   const double no_position = std::numeric_limits<double>::quiet_NaN();
   for (auto& command : data_.commands) {
     command.mode = moteus::Mode::kPosition;
@@ -216,12 +215,8 @@ TEST_F(BulletInterfaceTest, ComputeJointFeedforwardTorque) {
   interface_->cycle(data_, [](const moteus::Output& output) {});
 
   // Right wheel has no kinetic friction
-  const auto& right_wheel = interface_->servo_reply().at("right_wheel").result;
-  const double right_target_velocity = right_wheel.velocity * (2.0 * M_PI);
-  const double right_torque = interface_->compute_joint_torque(
-      "right_wheel", no_feedforward_torque, no_position, right_target_velocity,
-      1.0, 1.0, 1.0);
-  ASSERT_NEAR(right_torque, 0.42, 1e-3);
+  const auto& right_wheel_reply = interface_->servo_reply().at("right_wheel");
+  ASSERT_NEAR(right_wheel_reply.result.torque, 0.42, 1e-3);
 }
 
 }  // namespace vulp::actuation
