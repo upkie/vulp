@@ -50,6 +50,13 @@ exclude = [
     "**/BUILD",
     "**/LICENSE.md",
     "**/tests/*_test.py",
+    ".bazel*",
+    ".clang-format",
+    ".git*",
+    "CPPLINT.cfg",
+    "WORKSPACE",
+    "docs/",
+    "tools/",
 ]
 include = [
     "vulp/**/*.py",
