@@ -19,9 +19,6 @@ from vulp.utils import serialize
 from .exceptions import PerformanceIssue, SpineError
 from .request import Request
 
-if "fallback" in str(msgpack.Packer) or "fallback" in str(msgpack.Unpacker):
-    raise PerformanceIssue("msgpack is running in pure Python")
-
 
 def wait_for_shared_memory(
     shm_name: str,
@@ -59,12 +56,14 @@ class SpineInterface:
         self,
         shm_name: str = "/vulp",
         retries: int = 1,
+        perf_checks: bool = True,
     ):
         """!
         Connect to the spine shared memory.
 
         @param shm_name Name of the shared memory object.
         @param retries Number of times to try opening the shared-memory file.
+        @param perf_checks If true, run performance checks after construction.
         """
         shared_memory = wait_for_shared_memory(shm_name, retries)
         if shared_memory is None:
@@ -87,6 +86,14 @@ class SpineInterface:
         self._packer = msgpack.Packer(default=serialize, use_bin_type=True)
         self._unpacker = msgpack.Unpacker(raw=False)
         self._stop_waiting = set([Request.kNone, Request.kError])
+        if perf_checks:
+            self.__perf_checks()
+
+    def __perf_checks(self):
+        packer_cls = str(msgpack.Packer)
+        unpacker_cls = str(msgpack.Unpacker)
+        if "fallback" in packer_cls or "fallback" in unpacker_cls:
+            raise PerformanceIssue("msgpack is running in pure Python")
 
     def __del__(self):
         """!

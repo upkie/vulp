@@ -78,7 +78,7 @@ class TestSpineInterface(unittest.TestCase):
 
         self.assertTrue(hasattr(SpineInterface, "_wait_for_spine"))
         SpineInterface._wait_for_spine = wait_monkeypatch
-        self.spine = SpineInterface(shm_name=shm_name)
+        self.spine = SpineInterface(shm_name=shm_name, perf_checks=False)
         self.write_request(Request.kNone)  # same as Spine constructor
 
     def tearDown(self) -> None:

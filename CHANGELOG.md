@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Base class ``VulpException`` for all exceptions
 - Check that msgpack is not running the pure-Python implementation
-- New ``PerformanceIssue`` exception
+- Optional performance check parameter in SpineInterface constructor
 - Take feedforward torque commands into account in all actuation interfaces
 
 ## [2.0.0] - 2023-11-15
