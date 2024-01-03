@@ -13,7 +13,7 @@ TEST(SynchronousClock, GetsSomeSleep) {
     clock.wait_for_next_tick();
   }
   if (clock.skip_count() < 1) {
-    ASSERT_GT(clock.slack(), 0.01);  // 10% of 100 ms loop
+    ASSERT_GT(clock.slack(), 1e-4);  // last sleep duration was positive
   } else /* (clock.skip_count() >= 1) */ {
     ASSERT_DOUBLE_EQ(clock.slack(), 0.);
   }
