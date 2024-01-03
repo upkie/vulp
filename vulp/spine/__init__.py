@@ -8,12 +8,14 @@
 Python library for an agent to interact with a spine.
 """
 
+from .exceptions import PerformanceIssue, SpineError, VulpException
 from .request import Request
-from .spine_error import SpineError
 from .spine_interface import SpineInterface
 
 __all__ = [
+    "PerformanceIssue",
     "Request",
     "SpineError",
     "SpineInterface",
+    "VulpException",
 ]
