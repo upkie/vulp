@@ -12,7 +12,7 @@ class VulpException(Exception):
     """
 
 
-class PerformanceException(VulpException):
+class PerformanceIssue(VulpException):
     """!
     Exception raised when a performance issue is detected.
     """
