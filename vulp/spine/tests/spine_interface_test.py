@@ -175,7 +175,7 @@ class TestSpineInterface(unittest.TestCase):
         no spine) times out.
         """
         SpineInterface._wait_for_spine = wait_pre_monkeypatch
-        spine = SpineInterface(shm_name=self.shm_name)
+        spine = SpineInterface(shm_name=self.shm_name, perf_checks=False)
         with self.assertRaises(TimeoutError):
             spine.get_observation()
         with self.assertRaises(TimeoutError):
