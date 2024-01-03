@@ -3,10 +3,9 @@
 [![CI](https://github.com/upkie/vulp/actions/workflows/bazel.yml/badge.svg)](https://github.com/upkie/vulp/actions/workflows/bazel.yml)
 [![Documentation](https://img.shields.io/github/actions/workflow/status/upkie/vulp/docs.yml?branch=main&label=docs)](https://upkie.github.io/vulp/)
 [![Coverage](https://coveralls.io/repos/github/upkie/vulp/badge.svg?branch=main)](https://coveralls.io/github/upkie/vulp?branch=main)
-![C++ version](https://img.shields.io/badge/C++-17/20-blue.svg?style=flat)
+![C++ version](https://img.shields.io/badge/C++-17-blue.svg?style=flat)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
 [![Example project](https://img.shields.io/badge/example-upkie-green)](https://github.com/upkie/upkie)
-[![Chat](https://img.shields.io/badge/matrix-chat-%234eb899)](https://app.element.io/#/room/#tasts-robots:matrix.org)
 
 Vulp provides an action-observation loop to control robots from a standalone "agent" process, like this:
 
