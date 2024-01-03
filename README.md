@@ -29,7 +29,7 @@ Assuming you already have a C++ compiler and Python interpreter, you can try a r
 ```console
 $ git clone https://github.com/upkie/upkie.git
 $ cd upkie
-$ ./start_wheel_balancer.sh
+$ ./try_wheel_balancer.sh
 ```
 
 Check out the [``upkie``](https://github.com/upkie/upkie) repository for an example where Vulp is used with Upkie wheeled biped, including simulation environments, real-robot spines, state observers and locomotion agents.
