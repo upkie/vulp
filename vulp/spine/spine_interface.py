@@ -15,10 +15,9 @@ import msgpack
 import posix_ipc
 
 from vulp.utils import serialize
-from vulp.utils.exceptions import PerformanceIssue
 
+from .exceptions import PerformanceIssue, SpineError
 from .request import Request
-from .spine_error import SpineError
 
 if "fallback" in str(msgpack.Packer) or "fallback" in str(msgpack.Unpacker):
     raise PerformanceIssue("msgpack is running in pure Python")

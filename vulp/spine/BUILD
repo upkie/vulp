@@ -66,9 +66,12 @@ cc_library(
 
 py_library(
     name = "python",
-    srcs = glob([
-        "*.py",
-    ]),
+    srcs = [
+        "__init__.py",
+        "exceptions.py",
+        "request.py",
+        "spine_interface.py",
+    ],
     deps = select({
         # Selecting the right CPU architecture for the Raspberry Pi is
         # currently a tough nut to crack for Bazel. We only enable compiled
