@@ -81,10 +81,22 @@ cc_library(
 )
 
 py_library(
+    name = "exceptions",
+    srcs = ["exceptions.py"],
+)
+
+py_library(
+    name = "serialize",
+    srcs = ["serialize.py"],
+)
+
+py_library(
     name = "python",
-    srcs = glob([
-        "*.py",
-    ]),
+    srcs = ["__init__.py"],
+    deps = [
+        ":exceptions",
+        ":serialize",
+    ],
 )
 
 add_lint_tests()
