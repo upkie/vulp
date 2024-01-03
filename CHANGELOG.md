@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Check that msgpack is not running the pure-Python implementation
+- Python: ``vulp.utils.exceptions`` submodule
 - Take feedforward torque commands into account in all actuation interfaces
 
 ## [2.0.0] - 2023-11-15
