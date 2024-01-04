@@ -93,6 +93,7 @@ class SpineInterface:
         packer_cls = str(msgpack.Packer)
         unpacker_cls = str(msgpack.Unpacker)
         if "fallback" in packer_cls or "fallback" in unpacker_cls:
+            # See https://github.com/upkie/vulp/issues/74
             raise PerformanceIssue("msgpack is running in pure Python")
 
     def __del__(self):
