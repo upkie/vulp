@@ -3,18 +3,15 @@
 
 #pragma once
 
-#include <limits>
-
 namespace vulp::actuation {
 
 namespace default_action {
 
-constexpr double kFeedforwardTorque = 0.0;
-constexpr double kPosition = std::numeric_limits<double>::quiet_NaN();
-constexpr double kVelocity = 0.0;
-constexpr double kKpScale = 1.0;
-constexpr double kKdScale = 1.0;
-constexpr double kMaximumTorque = 1.0;  // N.m
+constexpr double kFeedforwardTorque = 0.0;  // N.m
+constexpr double kVelocity = 0.0;           // rad/s
+constexpr double kKpScale = 1.0;            // no unit
+constexpr double kKdScale = 1.0;            // no unit
+constexpr double kMaximumTorque = 1.0;      // N.m
 
 }  // namespace default_action
 

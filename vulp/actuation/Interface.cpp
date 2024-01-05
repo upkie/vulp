@@ -29,7 +29,7 @@ void Interface::initialize_action(palimpsest::Dictionary& action) {
     const std::string& joint_name = id_joint.second;
     auto& servo_action = action("servo")(joint_name);
     servo_action("feedforward_torque") = default_action::kFeedforwardTorque;
-    servo_action("position") = default_action::kPosition;
+    servo_action("position") = std::numeric_limits<double>::quiet_NaN();
     servo_action("velocity") = default_action::kVelocity;
     servo_action("kp_scale") = default_action::kKpScale;
     servo_action("kd_scale") = default_action::kKdScale;
