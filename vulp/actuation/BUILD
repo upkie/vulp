@@ -39,6 +39,7 @@ cc_library(
 cc_library(
     name = "interface",
     hdrs = [
+        "default_action.h",
         "Interface.h",
     ],
     srcs = [
