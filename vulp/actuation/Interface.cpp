@@ -70,7 +70,8 @@ void Interface::write_position_commands(const palimpsest::Dictionary& action) {
 
     const double feedforward_torque = servo_action.get<double>(
         "feedforward_torque", default_action::kFeedforwardTorque);
-    const double position_rad = servo_action("position");
+    const double position_rad =
+        servo_action.get<double>("position", default_action::kPosition);
     const double velocity_rad_s =
         servo_action.get<double>("velocity", default_action::kVelocity);
     const double kp_scale =
