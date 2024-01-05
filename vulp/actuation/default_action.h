@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <limits>
+
 namespace vulp::actuation {
 
 namespace default_action {
