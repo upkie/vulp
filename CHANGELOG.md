@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Removed
+
+- Bazel: dependencies based on ``pip_parse`` from ``rules_python``
+
 ## [2.1.0] - 2024-01-03
 
 ### Added
