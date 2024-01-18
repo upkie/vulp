@@ -19,19 +19,15 @@ Vulp is designed for robots built with the mjbots stack ([moteus](https://github
 
 Vulp supports Linux and macOS for development, and Raspberry Pi OS for robot deployment.
 
-### Try it out!
-
-Assuming you already have a C++ compiler and Python interpreter, you can try a robot simulation without installing any software on your system:
-
-<img src="https://user-images.githubusercontent.com/1189580/170496331-e1293dd3-b50c-40ee-9c2e-f75f3096ebd8.png" height="100" align="right" />
+## Installation
 
 ```console
-$ git clone https://github.com/upkie/upkie.git
-$ cd upkie
-$ ./start_pid_balancer.sh
+pip install vulp
 ```
 
-Check out the [``upkie``](https://github.com/upkie/upkie) repository for an example where Vulp is used with Upkie wheeled biped, including simulation environments, real-robot spines, state observers and locomotion agents.
+## Example
+
+Check out the [``upkie``](https://github.com/upkie/upkie) repository for an example where Vulp is used to implement simulation environments, real-robot spines, state observers and locomotion agents.
 
 ## Details
 
