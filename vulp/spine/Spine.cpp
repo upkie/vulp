@@ -14,12 +14,12 @@
 
 #include <limits>
 
-#include "vulp/observation/ObserverError.h"
+#include "vulp/exceptions/ObserverError.h"
 
 namespace vulp::spine {
 
-using observation::ObserverError;
 using palimpsest::Dictionary;
+using vulp::exceptions::ObserverError;
 
 Spine::Spine(const Parameters& params, actuation::Interface& actuation,
              observation::ObserverPipeline& observers)
