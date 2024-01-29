@@ -7,14 +7,6 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "observer_error",
-    hdrs = [
-        "ObserverError.h",
-    ],
-    include_prefix = "vulp/observation",
-)
-
-cc_library(
     name = "observe_imu",
     hdrs = [
         "observe_imu.h",
@@ -84,8 +76,8 @@ cc_library(
         "ObserverPipeline.cpp",
     ],
     deps = [
+        "//vulp/exceptions:observer_error",
         ":observer",
-        ":observer_error",
         ":source",
     ],
     include_prefix = "vulp/observation",
@@ -98,7 +90,6 @@ cc_library(
         ":observe_servos",
         ":observe_time",
         ":observer",
-        ":observer_error",
         ":observer_pipeline",
         ":source",
     ],
