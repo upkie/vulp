@@ -46,12 +46,7 @@ cc_library(
 
 cc_library(
     name = "observe_time",
-    hdrs = [
-        "observe_time.h",
-    ],
-    srcs = [
-        "observe_time.cpp",
-    ],
+    hdrs = ["observe_time.h"],
     deps = [
         "@palimpsest",
     ],
