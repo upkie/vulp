@@ -1,11 +1,11 @@
-// Copyright 2022 Stéphane Caron
 // SPDX-License-Identifier: Apache-2.0
+// Copyright 2022 Stéphane Caron
 
 #pragma once
 
 #include <string>
 
-namespace vulp::observation {
+namespace vulp::exceptions {
 
 //! Exception thrown when an observer fails.
 class ObserverError : public std::runtime_error {
@@ -45,4 +45,4 @@ class ObserverError : public std::runtime_error {
   std::string message_;
 };
 
-}  // namespace vulp::observation
+}  // namespace vulp::exceptions

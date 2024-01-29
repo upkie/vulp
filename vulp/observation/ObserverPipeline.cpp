@@ -5,11 +5,12 @@
 
 #include <palimpsest/exceptions/KeyError.h>
 
-#include "vulp/observation/ObserverError.h"
+#include "vulp/exceptions/ObserverError.h"
 
 namespace vulp::observation {
 
 using palimpsest::exceptions::KeyError;
+using vulp::exceptions::ObserverError;
 
 void ObserverPipeline::reset(const Dictionary& config) {
   for (auto observer : observers_) {
