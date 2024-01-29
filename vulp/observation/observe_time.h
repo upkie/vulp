@@ -14,6 +14,8 @@ using palimpsest::Dictionary;
  * \param[out] observation Dictionary to write observations to.
  */
 inline void observe_time(Dictionary& observation) {
+  using std::chrono::duration_cast;
+  using std::chrono::microseconds;
   const auto now = std::chrono::system_clock::now();
   const auto time_since_epoch = now.time_since_epoch();
   const auto nb_us = duration_cast<microseconds>(time_since_epoch).count();
