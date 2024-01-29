@@ -1,9 +1,11 @@
-// Copyright 2022 Stéphane Caron
 // SPDX-License-Identifier: Apache-2.0
+// Copyright 2022 Stéphane Caron
+// Copyright 2024 Inria
 
 #include "vulp/utils/low_pass_filter.h"
 
 #include "gtest/gtest.h"
+#include "vulp/exceptions/FilterError.h"
 
 namespace vulp::utils {
 

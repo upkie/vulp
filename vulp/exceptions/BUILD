@@ -16,4 +16,13 @@ cc_library(
     include_prefix = "vulp/exceptions",
 )
 
+cc_library(
+    name = "exceptions",
+    deps = [
+        ":filter_error",
+        ":observer_error",
+    ],
+    include_prefix = "vulp/exceptions",
+)
+
 add_lint_tests()
