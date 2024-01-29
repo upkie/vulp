@@ -51,6 +51,7 @@ cc_library(
     deps = [
         "//vulp/actuation:imu_data",
         "//vulp/actuation:interface",
+        "//vulp/exceptions",
         "//vulp/observation:observe_imu",
         "//vulp/observation:observe_servos",
         "//vulp/observation:observe_time",

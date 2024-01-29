@@ -1,7 +1,5 @@
-// Copyright 2022 Stéphane Caron
 // SPDX-License-Identifier: Apache-2.0
-
-#include <palimpsest/Dictionary.h>
+// Copyright 2022 Stéphane Caron
 
 #include <Eigen/Geometry>
 #include <map>

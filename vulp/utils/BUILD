@@ -23,6 +23,7 @@ cc_library(
         "low_pass_filter.h",
     ],
     deps = [
+        "//vulp/exceptions:filter_error",
         "@eigen",
     ],
     include_prefix = "vulp/utils",
