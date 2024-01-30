@@ -81,7 +81,7 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
   // Load external URDFs
   for (const auto& urdf_path : params.extra_urdf_paths) {
     // Log URDF path
-    std::cout << "Loading external URDF: " << urdf_path << std::endl;
+    spdlog::info("Loading external URDF: ", urdf_path);
     if(!bullet_.loadURDF(urdf_path)) {
       throw std::runtime_error("Could not load the external URDF: " + urdf_path);
     }
