@@ -78,6 +78,15 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
     }
   }
 
+  // Load external URDFs
+  for (const auto& urdf_path : params.external_urdfs) {
+    // Log URDF path
+    std::cout << "Loading external URDF: " << urdf_path << std::endl;
+    if(!bullet_.loadURDF(urdf_path)) {
+      throw std::runtime_error("Could not load the external URDF: " + urdf_path);
+    }
+  }
+
   // Start visualizer and configure simulation
   bullet_.configureDebugVisualizer(COV_ENABLE_RENDERING, 1);
   reset(Dictionary{});
