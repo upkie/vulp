@@ -4,11 +4,11 @@
 #pragma once
 
 #include <palimpsest/Dictionary.h>
+#include <spdlog/spdlog.h>
 
 #include <limits>
 #include <map>
 #include <string>
-#include <spdlog/spdlog.h>
 
 #include "RobotSimulator/b3RobotSimulatorClientAPI.h"
 #include "vulp/actuation/BulletImuData.h"
