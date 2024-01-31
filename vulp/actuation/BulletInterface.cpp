@@ -78,6 +78,15 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
     }
   }
 
+  // Load additional URDFs
+  for (const auto& urdf_path : params.extra_urdf_paths) {
+    spdlog::info("Loading additional URDF: ", urdf_path);
+    if (bullet_.loadURDF(urdf_path) < 0) {
+      throw std::runtime_error("Could not load the additional URDF: " +
+                               urdf_path);
+    }
+  }
+
   // Start visualizer and configure simulation
   bullet_.configureDebugVisualizer(COV_ENABLE_RENDERING, 1);
   reset(Dictionary{});

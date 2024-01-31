@@ -4,10 +4,12 @@
 #pragma once
 
 #include <palimpsest/Dictionary.h>
+#include <spdlog/spdlog.h>
 
 #include <limits>
 #include <map>
 #include <string>
+#include <vector>
 
 #include "RobotSimulator/b3RobotSimulatorClientAPI.h"
 #include "vulp/actuation/BulletImuData.h"
@@ -118,6 +120,9 @@ class BulletInterface : public Interface {
      * data loaded from a dependency: ``data = ["@upkie_description"]``.
      */
     std::string urdf_path;
+
+    //! Paths to extra URDFs to load.
+    std::vector<std::string> extra_urdf_paths;
 
     //! Gain for joint velocity control feedback
     double torque_control_kd = 1.0;
