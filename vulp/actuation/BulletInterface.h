@@ -9,6 +9,7 @@
 #include <limits>
 #include <map>
 #include <string>
+#include <vector>
 
 #include "RobotSimulator/b3RobotSimulatorClientAPI.h"
 #include "vulp/actuation/BulletImuData.h"
