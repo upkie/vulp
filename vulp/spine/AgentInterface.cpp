@@ -47,10 +47,9 @@ AgentInterface::AgentInterface(const std::string& name, size_t size)
           "already running?",
           name);
       spdlog::info(
-          "If a previous spine did not exit properly, run "
-          "``sudo rm /dev/shm/{}`` for short, or ``./tools/bazelisk run "
-          "@vulp//tools/shm:clean -- {}`` for a full cleanup.",
-          name, name);
+          "If not other spine is running but a previous spine did not exit "
+          "properly, you can run ``sudo rm /dev/shm/{}`` to clean this error.",
+          name);
     } else {
       spdlog::error("Cannot open shared memory file: errno is {}", errno);
     }
