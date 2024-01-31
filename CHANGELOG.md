@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- BulletInterface: Add a new parameter to allow additional URDFs.
+
 ### Removed
 
 - Bazel: dependencies based on ``pip_parse`` from ``rules_python``
