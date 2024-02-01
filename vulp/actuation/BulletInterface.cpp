@@ -42,9 +42,6 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
     bullet_.setGravity(btVector3(0, 0, -9.81));
   }
   bullet_.setRealTimeSimulation(false);  // making sure
-  if (params.floor) {
-    bullet_.loadURDF(find_plane_urdf(params.argv0));
-  }
 
   // Load robot model
   robot_ = bullet_.loadURDF(params.urdf_path);
