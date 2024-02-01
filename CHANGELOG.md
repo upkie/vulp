@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 - Move exceptions to a dedicated namespace
 
 ### Removed
-
+- BulletInterface: Removed hardcoded ground plane URDF
 - Bazel: dependencies based on ``pip_parse`` from ``rules_python``
 
 ## [2.1.0] - 2024-01-03
