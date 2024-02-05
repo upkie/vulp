@@ -1,7 +1,5 @@
-// Copyright 2022 Stéphane Caron
 // SPDX-License-Identifier: Apache-2.0
-
-#include <palimpsest/Dictionary.h>
+// Copyright 2022 Stéphane Caron
 
 #include <Eigen/Geometry>
 #include <map>
@@ -9,9 +7,9 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-#include "vulp/observation/ObserverError.h"
+#include "vulp/exceptions/ObserverError.h"
 
-namespace vulp::observation::tests {
+namespace vulp::exceptions::tests {
 
 TEST(ObserverError, NineteenSixtyWho) {
   const std::string prefix = "nineteen_sixty";
@@ -22,4 +20,4 @@ TEST(ObserverError, NineteenSixtyWho) {
   ASSERT_NE(msg.find(key), std::string::npos);
 }
 
-}  // namespace vulp::observation::tests
+}  // namespace vulp::exceptions::tests

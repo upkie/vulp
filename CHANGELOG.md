@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - BulletInterface: Add a new parameter to allow additional URDFs.
 
+### Changed
+
+- Move exceptions to a dedicated namespace
+
 ### Removed
 
 - BulletInterface: Removed hardcoded ground plane URDF
