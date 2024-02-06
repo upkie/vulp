@@ -42,7 +42,7 @@ class BulletInterfaceTest : public ::testing::Test {
     params.dt = 1.0 / 1000.0;
     params.floor = false;  // wheels roll freely during testing
     params.joint_friction.try_emplace("left_wheel", kLeftWheelFriction);
-    params.urdf_path = runfiles->Rlocation("upkie_description/urdf/upkie.urdf");
+    params.robot_urdf_path = runfiles->Rlocation("upkie_description/urdf/upkie.urdf");
     interface_ = std::make_unique<BulletInterface>(layout, params);
 
     for (const auto& pair : layout.servo_joint_map()) {
