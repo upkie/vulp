@@ -6,11 +6,12 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- BulletInterface: Add a new parameter to allow environment URDFs.
+- BulletInterface: Add a new parameter `env_urdf_paths` to allow environment URDFs.
 
 ### Changed
 
 - Move exceptions to a dedicated namespace
+- BulletInterface: Rename `urdf_path` to `robot_urdf_path`.
 
 ### Removed
 
