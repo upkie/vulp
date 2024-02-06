@@ -119,7 +119,7 @@ class BulletInterface : public Interface {
      * "external/upkie_description/urdf/upkie.urdf" to load the URDF from Bazel
      * data loaded from a dependency: ``data = ["@upkie_description"]``.
      */
-    std::string urdf_path;
+    std::string robot_urdf_path;
 
     //! Paths to environment URDFs to load.
     std::vector<std::string> env_urdf_paths;

@@ -47,7 +47,7 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
   }
 
   // Load robot model
-  robot_ = bullet_.loadURDF(params.urdf_path);
+  robot_ = bullet_.loadURDF(params.robot_urdf_path);
   imu_link_index_ = find_link_index(bullet_, robot_, "imu");
   if (imu_link_index_ < 0) {
     throw std::runtime_error("Robot does not have a link named \"imu\"");
