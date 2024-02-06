@@ -97,9 +97,6 @@ class BulletInterface : public Interface {
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
 
-    //! If true, add a horizontal floor at height z=0 in the inertial frame.
-    bool floor = true;
-
     //! Translate the camera to follow the robot
     bool follower_camera = false;
 
