@@ -97,9 +97,6 @@ class BulletInterface : public Interface {
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
 
-    //! If true, add a horizontal floor at height z=0 in the inertial frame.
-    bool floor = true;
-
     //! Translate the camera to follow the robot
     bool follower_camera = false;
 
@@ -119,7 +116,7 @@ class BulletInterface : public Interface {
      * "external/upkie_description/urdf/upkie.urdf" to load the URDF from Bazel
      * data loaded from a dependency: ``data = ["@upkie_description"]``.
      */
-    std::string urdf_path;
+    std::string robot_urdf_path;
 
     //! Paths to environment URDFs to load.
     std::vector<std::string> env_urdf_paths;
