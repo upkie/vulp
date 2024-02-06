@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- BulletInterface: Add a new parameter to allow additional URDFs.
+- BulletInterface: Add a new parameter to allow environment URDFs.
 
 ### Changed
 
