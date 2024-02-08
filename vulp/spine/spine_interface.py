@@ -81,7 +81,7 @@ class SpineInterface:
             if "empty file" in str(exn):
                 raise RuntimeError("spine is not running") from exn
             raise exn
-        shared_memory.close_fd()
+        shared_memory.close()
         self._mmap = _mmap
         self._packer = msgpack.Packer(default=serialize, use_bin_type=True)
         self._unpacker = msgpack.Unpacker(raw=False)
