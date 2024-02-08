@@ -45,10 +45,10 @@ jobs:
               with:
                   submodules: recursive
 
-            - name: "Set up Python ${{ matrix.python-version }}"
+            - name: "Set up Python 3.10"
               uses: actions/setup-python@v4
               with:
-                  python-version: "${{ matrix.python-version }}"
+                  python-version: "3.10"
 
             - name: "Install PyPI dependencies"
               run: |
