@@ -70,20 +70,11 @@ class SpineInterface:
         @param perf_checks If true, run performance checks after construction.
         """
         shared_memory = wait_for_shared_memory(shm_name, retries)
-        try:
-            _mmap = mmap.mmap(
-                shared_memory._fd,
-                shared_memory.size,
-            )
-        except ValueError as exn:
-            if "empty file" in str(exn):
-                raise RuntimeError("spine is not running") from exn
-            raise exn
-        shared_memory.close()
-        self._mmap = _mmap
+        self._mmap = shared_memory._mmap
         self._packer = msgpack.Packer(default=serialize, use_bin_type=True)
-        self._unpacker = msgpack.Unpacker(raw=False)
+        self._shared_memory = shared_memory
         self._stop_waiting = set([Request.kNone, Request.kError])
+        self._unpacker = msgpack.Unpacker(raw=False)
         if perf_checks:
             self.__perf_checks()
 
@@ -101,8 +92,8 @@ class SpineInterface:
         Note that the spine process will unlink the shared memory object, so we
         don't unlink it here.
         """
-        if hasattr(self, "_mmap"):  # handle ctor exceptions
-            self._mmap.close()
+        if hasattr(self, "_shared_memory"):  # handle ctor exceptions
+            self._shared_memory.close()
 
     def get_observation(self) -> dict:
         """!
