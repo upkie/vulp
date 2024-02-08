@@ -28,7 +28,7 @@ class TestSpineInterface(unittest.TestCase):
     next_observation: dict
     spine: SpineInterface
 
-    def setUp(self, shm_name="/vulp", size=1024):
+    def setUp(self, shm_name="vulp", size=1024):
         """
         Initialize a new fixture instance.
 
@@ -38,12 +38,12 @@ class TestSpineInterface(unittest.TestCase):
         """
         self.shared_memory = SharedMemory(shm_name, create=True, size=size)
         _mmap = mmap.mmap(
-            self.shared_memory.fd,
+            self.shared_memory._fd,
             self.shared_memory.size,
             flags=mmap.MAP_SHARED,
             prot=mmap.PROT_READ | mmap.PROT_WRITE,
         )
-        self.shared_memory.close_fd()
+        self.shared_memory.close()
         self._mmap = _mmap
         self._packer = msgpack.Packer(default=serialize, use_bin_type=True)
         self._unpacker = msgpack.Unpacker(raw=False)
