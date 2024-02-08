@@ -10,13 +10,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Move exceptions to a dedicated namespace
 - BulletInterface: Rename `urdf_path` to `robot_urdf_path`.
+- Move exceptions to a dedicated namespace
+- Replace posix-ipc by the shared-memory class from Python standard library
 
 ### Removed
 
-- BulletInterface: Removed hardcoded ground plane URDF
 - Bazel: dependencies based on ``pip_parse`` from ``rules_python``
+- BulletInterface: Removed hardcoded ground plane URDF
 
 ## [2.1.0] - 2024-01-03
 

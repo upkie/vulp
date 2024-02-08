@@ -11,9 +11,9 @@ Test the spine interface.
 import mmap
 import sys
 import unittest
+from multiprocessing.shared_memory import SharedMemory
 
 import msgpack
-import posix_ipc
 
 from vulp.spine import Request, SpineInterface
 from vulp.utils import serialize
@@ -36,9 +36,7 @@ class TestSpineInterface(unittest.TestCase):
             shm_name: Name of shared memory file.
             size: Size of shared memory file in bytes.
         """
-        self.shared_memory = posix_ipc.SharedMemory(
-            shm_name, posix_ipc.O_CREAT, size=size, read_only=False
-        )
+        self.shared_memory = SharedMemory(shm_name, create=True, size=size)
         _mmap = mmap.mmap(
             self.shared_memory.fd,
             self.shared_memory.size,

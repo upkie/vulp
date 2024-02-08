@@ -3,16 +3,17 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2022 Stéphane Caron
+# Copyright 2024 Inria
 
 import logging
 import mmap
 import sys
 import time
+from multiprocessing.shared_memory import SharedMemory
 from time import perf_counter_ns
 from typing import Optional
 
 import msgpack
-import posix_ipc
 
 from vulp.utils import serialize
 
@@ -23,7 +24,7 @@ from .request import Request
 def wait_for_shared_memory(
     shm_name: str,
     retries: int,
-) -> Optional[posix_ipc.SharedMemory]:
+) -> Optional[SharedMemory]:
     """!
     Connect to the spine shared memory.
 
@@ -38,8 +39,8 @@ def wait_for_shared_memory(
             )
             time.sleep(1.0)
         try:
-            return posix_ipc.SharedMemory(shm_name, size=0, read_only=False)
-        except posix_ipc.ExistentialError:
+            return SharedMemory(shm_name, size=0, create=False)
+        except FileNotFoundError:
             pass
     return None
 
