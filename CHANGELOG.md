@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - BulletInterface: Rename `urdf_path` to `robot_urdf_path`.
+- CICD: Match Python versions with project description
 - Move exceptions to a dedicated namespace
 - Raise a ``SpineError`` when the spine does not reply in time
 - Replace posix-ipc by the shared-memory class from Python standard library
