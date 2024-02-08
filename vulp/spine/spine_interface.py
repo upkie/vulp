@@ -72,7 +72,7 @@ class SpineInterface:
         shared_memory = wait_for_shared_memory(shm_name, retries)
         try:
             _mmap = mmap.mmap(
-                shared_memory.fd,
+                shared_memory._fd,
                 shared_memory.size,
                 flags=mmap.MAP_SHARED,
                 prot=mmap.PROT_READ | mmap.PROT_WRITE,
