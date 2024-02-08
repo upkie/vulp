@@ -74,9 +74,6 @@ class SpineInterface:
             _mmap = mmap.mmap(
                 shared_memory._fd,
                 shared_memory.size,
-                flags=mmap.MAP_SHARED,  # this is the default*
-                prot=mmap.PROT_READ | mmap.PROT_WRITE,  # this is the default*
-                # *) https://docs.python.org/3/library/mmap.html
             )
         except ValueError as exn:
             if "empty file" in str(exn):
