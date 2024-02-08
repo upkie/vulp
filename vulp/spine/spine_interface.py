@@ -11,7 +11,6 @@ import sys
 import time
 from multiprocessing.shared_memory import SharedMemory
 from time import perf_counter_ns
-from typing import Optional
 
 import msgpack
 
@@ -24,12 +23,14 @@ from .request import Request
 def wait_for_shared_memory(
     shm_name: str,
     retries: int,
-) -> Optional[SharedMemory]:
+) -> SharedMemory:
     """!
     Connect to the spine shared memory.
 
     @param shm_name Name of the shared memory object.
     @param retries Number of times to try opening the shared-memory file.
+    @raise SpineError If the spine did not respond after the prescribed number
+        of trials.
     """
     for trial in range(retries):
         if trial > 0:
@@ -42,7 +43,9 @@ def wait_for_shared_memory(
             return SharedMemory(shm_name, size=0, create=False)
         except FileNotFoundError:
             pass
-    return None
+    raise SpineError(
+        f"spine {shm_name} did not respond after {retries} attempts"
+    )
 
 
 class SpineInterface:
@@ -67,10 +70,6 @@ class SpineInterface:
         @param perf_checks If true, run performance checks after construction.
         """
         shared_memory = wait_for_shared_memory(shm_name, retries)
-        if shared_memory is None:
-            raise RuntimeError(
-                f"spine {shm_name} did not respond after {retries} attempts"
-            )
         try:
             _mmap = mmap.mmap(
                 shared_memory.fd,
