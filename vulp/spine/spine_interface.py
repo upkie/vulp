@@ -74,8 +74,9 @@ class SpineInterface:
             _mmap = mmap.mmap(
                 shared_memory._fd,
                 shared_memory.size,
-                flags=mmap.MAP_SHARED,
-                prot=mmap.PROT_READ | mmap.PROT_WRITE,
+                flags=mmap.MAP_SHARED,  # this is the default*
+                prot=mmap.PROT_READ | mmap.PROT_WRITE,  # this is the default*
+                # *) https://docs.python.org/3/library/mmap.html
             )
         except ValueError as exn:
             if "empty file" in str(exn):
@@ -187,6 +188,7 @@ class SpineInterface:
 
         @param timeout_ns Don't wait for more than this duration in
             nanoseconds.
+        @raise SpineError If the request read from spine has an error flag.
         """
         stop = perf_counter_ns() + timeout_ns
         while self._read_request() not in self._stop_waiting:  # sets are fast
