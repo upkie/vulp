@@ -4,11 +4,10 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2022 Stéphane Caron
 
-"""
+"""!
 Test the spine interface.
 """
 
-import mmap
 import sys
 import unittest
 from multiprocessing.shared_memory import SharedMemory
@@ -36,18 +35,11 @@ class TestSpineInterface(unittest.TestCase):
             shm_name: Name of shared memory file.
             size: Size of shared memory file in bytes.
         """
-        self.shared_memory = SharedMemory(shm_name, create=True, size=size)
-        _mmap = mmap.mmap(
-            self.shared_memory._fd,
-            self.shared_memory.size,
-            flags=mmap.MAP_SHARED,
-            prot=mmap.PROT_READ | mmap.PROT_WRITE,
-        )
-        self.shared_memory.close()
-        self._mmap = _mmap
+        shared_memory = SharedMemory(shm_name, create=True, size=size)
+        self._mmap = shared_memory._mmap
         self._packer = msgpack.Packer(default=serialize, use_bin_type=True)
+        self._shared_memory = shared_memory
         self._unpacker = msgpack.Unpacker(raw=False)
-
         self.last_action = {}
         self.last_config = {}
         self.shm_name = shm_name
@@ -80,8 +72,8 @@ class TestSpineInterface(unittest.TestCase):
         self.write_request(Request.kNone)  # same as Spine constructor
 
     def tearDown(self) -> None:
-        self._mmap.close()
-        self.shared_memory.unlink()
+        self._shared_memory.close()
+        self._shared_memory.unlink()
 
     def read_request(self) -> int:
         """
