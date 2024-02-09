@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.2.0] - 2024-02-09
+
 ### Added
 
 - BulletInterface: Add a new parameter `env_urdf_paths` to allow environment URDFs.
@@ -160,7 +162,8 @@ All notable changes to this project will be documented in this file.
 
 First release of the project.
 
-[unreleased]: https://github.com/upkie/vulp/compare/v2.1.0...HEAD
+[unreleased]: https://github.com/upkie/vulp/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/upkie/vulp/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/upkie/vulp/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/upkie/vulp/compare/v1.5.0...v2.0.0
 [1.5.0]: https://github.com/upkie/vulp/compare/v1.4.0...v1.5.0
