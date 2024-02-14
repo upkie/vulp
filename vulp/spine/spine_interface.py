@@ -44,7 +44,7 @@ def wait_for_shared_memory(
             shared_memory = SharedMemory(shm_name, size=0, create=False)
             # Why we unregister: https://github.com/upkie/vulp/issues/88
             # Upstream issue: https://github.com/python/cpython/issues/82300
-            resource_tracker.unregister(shm_name, "shared_memory")
+            resource_tracker.unregister(shared_memory._name, "shared_memory")
             return shared_memory
         except FileNotFoundError:
             pass
