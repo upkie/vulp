@@ -18,6 +18,10 @@ All notable changes to this project will be documented in this file.
 - Raise a ``SpineError`` when the spine does not reply in time
 - Replace posix-ipc by the shared-memory class from Python standard library
 
+### Fixed
+
+- Unregister shared-memory management in Python spine interface
+
 ### Removed
 
 - Bazel: dependencies based on ``pip_parse`` from ``rules_python``

@@ -9,6 +9,7 @@ import logging
 import mmap
 import sys
 import time
+from multiprocessing import resource_tracker
 from multiprocessing.shared_memory import SharedMemory
 from time import perf_counter_ns
 
@@ -40,7 +41,11 @@ def wait_for_shared_memory(
             )
             time.sleep(1.0)
         try:
-            return SharedMemory(shm_name, size=0, create=False)
+            shared_memory = SharedMemory(shm_name, size=0, create=False)
+            # Why we unregister: https://github.com/upkie/vulp/issues/88
+            # Upstream issue: https://github.com/python/cpython/issues/82300
+            resource_tracker.unregister(shm_name, "shared_memory")
+            return shared_memory
         except FileNotFoundError:
             pass
     raise SpineError(
