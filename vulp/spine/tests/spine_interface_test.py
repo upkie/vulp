@@ -58,38 +58,38 @@ class TestSpineInterface(unittest.TestCase):
             Args:
                 spine: The spine interface waiting for a free request slot.
             """
-            if self.read_request() == Request.kObservation:
-                self.write_observation(self.next_observation)
-            elif self.read_request() == Request.kAction:
-                self.last_action = self.read_dict()
-            elif self.read_request() == Request.kStart:
-                self.last_config = self.read_dict()
-            self.assertEqual(self.read_request(), Request.kNone)
+            if self.__read_request() == Request.kObservation:
+                self.__write_observation(self.next_observation)
+            elif self.__read_request() == Request.kAction:
+                self.last_action = self.__read_dict()
+            elif self.__read_request() == Request.kStart:
+                self.last_config = self.__read_dict()
+            self.assertEqual(self.__read_request(), Request.kNone)
 
         self.assertTrue(hasattr(SpineInterface, "_wait_for_spine"))
         SpineInterface._wait_for_spine = wait_monkeypatch
         self.spine = SpineInterface(shm_name=shm_name, perf_checks=False)
-        self.write_request(Request.kNone)  # same as Spine constructor
+        self.__write_request(Request.kNone)  # same as Spine constructor
 
     def tearDown(self) -> None:
         self._shared_memory.close()
         self._shared_memory.unlink()
 
-    def read_request(self) -> int:
+    def __read_request(self) -> int:
         """
         Get shared memory request.
         """
         self._mmap.seek(0)
         return int.from_bytes(self._mmap.read(4), byteorder=sys.byteorder)
 
-    def write_request(self, request: int) -> None:
+    def __write_request(self, request: int) -> None:
         """
         Set shared memory request.
         """
         self._mmap.seek(0)
         self._mmap.write(request.to_bytes(4, byteorder=sys.byteorder))
 
-    def write_observation(self, observation: dict) -> None:
+    def __write_observation(self, observation: dict) -> None:
         """
         Set shared memory dictionary to a given observation.
 
@@ -102,9 +102,9 @@ class TestSpineInterface(unittest.TestCase):
         self._mmap.read(4)
         self._mmap.write(size.to_bytes(4, byteorder=sys.byteorder))
         self._mmap.write(data)
-        self.write_request(Request.kNone)
+        self.__write_request(Request.kNone)
 
-    def read_dict(self) -> dict:
+    def __read_dict(self) -> dict:
         """
         Read dictionary from the memory shared with the spine interface.
 
@@ -122,7 +122,7 @@ class TestSpineInterface(unittest.TestCase):
             output = unpacked
             nb_unpacked += 1
         self.assertEqual(nb_unpacked, 1)
-        self.write_request(Request.kNone)
+        self.__write_request(Request.kNone)
         return output
 
     def test_reset(self):
@@ -130,9 +130,9 @@ class TestSpineInterface(unittest.TestCase):
         Spine gets the proper configuration dictionary.
         """
         config = {"foo": {"bar": {"land": 42.0}}}
-        self.assertEqual(self.read_request(), Request.kNone)
+        self.assertEqual(self.__read_request(), Request.kNone)
         self.spine.start(config)
-        self.assertEqual(self.read_request(), Request.kStart)
+        self.assertEqual(self.__read_request(), Request.kStart)
         self.spine.get_observation()  # triggers wait_for_monkeypatch
         self.assertEqual(self.last_config, config)
 
@@ -140,9 +140,9 @@ class TestSpineInterface(unittest.TestCase):
         """
         Spine switches the request back to none and returns an observation.
         """
-        self.assertEqual(self.read_request(), Request.kNone)
+        self.assertEqual(self.__read_request(), Request.kNone)
         observation = self.spine.get_observation()
-        self.assertEqual(self.read_request(), Request.kNone)
+        self.assertEqual(self.__read_request(), Request.kNone)
         self.assertEqual(observation, self.next_observation)
 
     def test_set_action(self):
@@ -152,9 +152,9 @@ class TestSpineInterface(unittest.TestCase):
         """
         action = {"servo": {"foo": {"position": 3.0}}}
         self.next_observation["servo"]["foo"]["position"] = 2.0
-        self.assertEqual(self.read_request(), Request.kNone)
+        self.assertEqual(self.__read_request(), Request.kNone)
         self.spine.set_action(action)
-        self.assertEqual(self.read_request(), Request.kAction)
+        self.assertEqual(self.__read_request(), Request.kAction)
         observation = self.spine.get_observation()
         self.assertEqual(self.last_action, action)
         self.assertEqual(observation, self.next_observation)
