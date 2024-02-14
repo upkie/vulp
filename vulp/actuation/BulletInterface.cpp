@@ -14,16 +14,6 @@ using bazel::tools::cpp::runfiles::Runfiles;
 
 namespace vulp::actuation {
 
-std::string find_plane_urdf(const std::string argv0) {
-  std::string error;
-  std::unique_ptr<Runfiles> runfiles(Runfiles::Create(argv0, &error));
-  if (runfiles == nullptr) {
-    throw std::runtime_error(
-        "Could not retrieve the package path to plane.urdf: " + error);
-  }
-  return runfiles->Rlocation("vulp/vulp/actuation/bullet/plane/plane.urdf");
-}
-
 BulletInterface::BulletInterface(const ServoLayout& layout,
                                  const Parameters& params)
     : Interface(layout), params_(params) {
