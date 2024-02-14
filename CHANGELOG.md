@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 - Bazel: dependencies based on ``pip_parse`` from ``rules_python``
-- BulletInterface: Removed hardcoded ground plane URDF
+- BulletInterface: Removed hardcoded ground plane URDF (thanks to @boragokbakan)
 
 ## [2.1.0] - 2024-01-03
 
