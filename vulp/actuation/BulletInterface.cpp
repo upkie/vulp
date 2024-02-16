@@ -84,6 +84,10 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
     }
   }
 
+  if (params.env_urdf_paths.empty()) {
+    spdlog::info("Loading an empty environment! Make sure the gravity is unset if you want to simulate a space environment.");
+  }
+
   // Start visualizer and configure simulation
   bullet_.configureDebugVisualizer(COV_ENABLE_RENDERING, 1);
   reset(Dictionary{});
