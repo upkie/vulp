@@ -1,5 +1,6 @@
 *.mpack
 *.out
+*.swp
 __pycache__
 bazel-bin
 bazel-out
