@@ -85,7 +85,7 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
   }else {
     spdlog::info("Not loading plane URDF!");
     if (params.gravity){
-      spdlog::warn("No ground plane was loaded, but gravity is enabled! The robot will fall!");
+      spdlog::warn("No ground plane was loaded, but gravity is enabled. The robot will fall!");
     }
   }
 
