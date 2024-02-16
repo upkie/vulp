@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - BulletInterface: Add a new parameter `env_urdf_paths` to allow environment URDFs.
-- BulletInterface: Add a switch the load the ground plane URDF.
+- BulletInterface: Add a switch the load the floor plane URDF.
 
 ### Changed
 
