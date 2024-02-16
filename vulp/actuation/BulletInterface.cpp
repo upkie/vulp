@@ -77,13 +77,13 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
 
   // Load plane URDF
   if (params.ground){
-    spdlog::info("Loading plane URDF!");
+    spdlog::info("Loading the plane URDF!");
     std::string plane_urdf_path = find_plane_urdf(params.argv0);
     if (bullet_.loadURDF(plane_urdf_path) < 0) {
       throw std::runtime_error("Could not load the plane URDF: " + plane_urdf_path);
     }
   }else {
-    spdlog::info("Not loading plane URDF!");
+    spdlog::info("Not loading the plane URDF!");
     if (params.gravity){
       spdlog::warn("No ground plane was loaded, but gravity is enabled. The robot will fall!");
     }
