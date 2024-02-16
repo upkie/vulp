@@ -103,6 +103,9 @@ class BulletInterface : public Interface {
     //! If true, set gravity to -9.81 m/s².
     bool gravity = true;
 
+    //! If true, load a ground plane.
+    bool ground = true;
+
     //! If true, fire up the graphical user interface.
     bool gui = false;
 
