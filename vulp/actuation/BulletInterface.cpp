@@ -76,7 +76,7 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
   }
 
   // Load plane URDF
-  if (params.ground) {
+  if (params.floor) {
     spdlog::info("Loading the plane URDF!");
     std::string plane_urdf_path = find_plane_urdf(params.argv0);
     if (bullet_.loadURDF(plane_urdf_path) < 0) {
