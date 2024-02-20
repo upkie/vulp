@@ -176,7 +176,8 @@ All notable changes to this project will be documented in this file.
 
 First release of the project.
 
-[unreleased]: https://github.com/upkie/vulp/compare/v2.2.0...HEAD
+[unreleased]: https://github.com/upkie/vulp/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/upkie/vulp/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/upkie/vulp/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/upkie/vulp/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/upkie/vulp/compare/v1.5.0...v2.0.0
