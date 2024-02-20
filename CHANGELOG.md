@@ -4,12 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.2.1] - 2024-02-20
+
+### Added
+
+- BulletInterface: Add a switch the load the floor plane URDF.
+
+### Fixed
+
+- Unregister shared-memory management in Python spine interface
+
 ## [2.2.0] - 2024-02-09
 
 ### Added
 
 - BulletInterface: Add a new parameter `env_urdf_paths` to allow environment URDFs.
-- BulletInterface: Add a switch the load the floor plane URDF.
 
 ### Changed
 
