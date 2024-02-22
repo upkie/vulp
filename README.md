@@ -4,8 +4,8 @@
 [![Documentation](https://img.shields.io/github/actions/workflow/status/upkie/vulp/docs.yml?branch=main&label=docs)](https://upkie.github.io/vulp/)
 [![Coverage](https://coveralls.io/repos/github/upkie/vulp/badge.svg?branch=main)](https://coveralls.io/github/upkie/vulp?branch=main)
 ![C++ version](https://img.shields.io/badge/C++-17-blue.svg?style=flat)
+[![Conda version](https://anaconda.org/conda-forge/vulp/badges/version.svg)](https://anaconda.org/conda-forge/vulp)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
-[![Example project](https://img.shields.io/badge/example-upkie-green)](https://github.com/upkie/upkie)
 
 Vulp provides an action-observation loop to control robots from a standalone "agent" process, like this:
 
