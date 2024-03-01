@@ -130,6 +130,13 @@ class Spine {
   //! Log internal dictionary
   void log_working_dict();
 
+  /*! Check servo replies.
+   *
+   * \param[in] servo_replies Sequence of servo replies.
+   */
+  void check_replies(
+      const std::vector<actuation::moteus::ServoReply>& servo_replies);
+
  protected:
   //! Frequency of the spine loop in [Hz].
   const unsigned frequency_;

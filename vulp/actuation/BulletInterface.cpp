@@ -3,6 +3,8 @@
 
 #include "vulp/actuation/BulletInterface.h"
 
+#include <spdlog/spdlog.h>
+
 #include <algorithm>
 #include <memory>
 #include <string>
@@ -213,7 +215,10 @@ void BulletInterface::send_commands(const moteus::Data& data) {
       motor_args.m_maxTorqueValue = 0.;  // [N m]
       bullet_.setJointMotorControl(robot_, joint_index, motor_args);
     }
-    servo_reply_[joint_name].result.mode = command.mode;
+    servo_reply_[joint_name].result.mode =
+        (command.mode == moteus::Mode::kPositionContinue)
+            ? moteus::Mode::kPosition
+            : command.mode;
 
     if (command.mode == moteus::Mode::kStopped) {
       motor_args.m_controlMode = CONTROL_MODE_VELOCITY;
@@ -223,14 +228,13 @@ void BulletInterface::send_commands(const moteus::Data& data) {
       continue;
     }
 
-    if (command.mode != moteus::Mode::kPosition) {
+    if (command.mode != moteus::Mode::kPosition &&
+        command.mode != moteus::Mode::kPositionContinue) {
       throw std::runtime_error(
           "Bullet interface does not support command mode " +
           std::to_string(static_cast<unsigned>(command.mode)));
     }
 
-    // TODO(scaron): introduce control_position/velocity intermediates
-    // See https://github.com/mjbots/moteus/blob/main/docs/reference.md
     const double target_position = command.position.position * (2.0 * M_PI);
     const double target_velocity = command.position.velocity * (2.0 * M_PI);
     const double feedforward_torque = command.position.feedforward_torque;

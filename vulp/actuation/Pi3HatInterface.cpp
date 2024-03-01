@@ -113,6 +113,10 @@ moteus::Output Pi3HatInterface::cycle_can_thread() {
         moteus::EmitPositionCommand(&write_frame, cmd.position, cmd.resolution);
         break;
       }
+      case moteus::Mode::kPositionContinue: {
+        // keep going with last position command
+        break;
+      }
       default: {
         throw std::logic_error("unsupported mode");
       }

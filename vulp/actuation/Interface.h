@@ -117,6 +117,18 @@ class Interface {
     }
   }
 
+  /*! Keep going with current position commands.
+   *
+   * \param[out] commands Servo commands.
+   */
+  inline void continue_position_commands() noexcept {
+    for (auto& command : commands_) {
+      if (command.mode == actuation::moteus::Mode::kPosition) {
+        command.mode = actuation::moteus::Mode::kPositionContinue;
+      }
+    }
+  }
+
  private:
   //! Servo layout.
   ServoLayout servo_layout_;
