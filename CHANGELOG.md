@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- BulletInterface: Set a default servo temperature of 20 °C
+- BulletInterface: Set a default servo voltage of 18 V
+
 ## [2.2.1] - 2024-02-20
 
 ### Added
