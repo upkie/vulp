@@ -220,4 +220,22 @@ TEST_F(BulletInterfaceTest, ComputeJointFeedforwardTorque) {
   ASSERT_NEAR(right_wheel_reply.result.torque, 0.42, 1e-3);
 }
 
+TEST_F(BulletInterfaceTest, JointRepliesHaveTemperature) {
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  for (const auto& pair : interface_->servo_reply()) {
+    const auto& reply = pair.second;
+    ASSERT_GT(reply.result.temperature, 0.0);
+    ASSERT_LT(reply.result.temperature, 100.0);
+  }
+}
+
+TEST_F(BulletInterfaceTest, JointRepliesHaveVoltage) {
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  for (const auto& pair : interface_->servo_reply()) {
+    const auto& reply = pair.second;
+    ASSERT_GT(reply.result.voltage, 10.0);  // moteus min 10 V
+    ASSERT_LT(reply.result.voltage, 44.0);  // moteus max 44 V
+  }
+}
+
 }  // namespace vulp::actuation
