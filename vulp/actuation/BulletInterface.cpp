@@ -56,6 +56,8 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
     const std::string& joint_name = id_joint.second;
     moteus::ServoReply reply;
     reply.id = servo_id;
+    reply.result.temperature = 20.0;  // ['C], simulation room temperature
+    reply.result.voltage = 18.0;      // [V], nominal voltage of a RYOBI battery
     joint_index_map_.try_emplace(joint_name, -1);
     servo_reply_.try_emplace(joint_name, reply);
   }
