@@ -23,11 +23,15 @@ Vulp supports Linux and macOS for development, and Raspberry Pi OS for robot dep
 
 ### From Conda
 
+[![Conda version](https://anaconda.org/conda-forge/vulp/badges/version.svg)](https://anaconda.org/conda-forge/vulp)
+
 ```console
 conda install -c conda-forge vulp
 ```
 
 ### From PyPI
+
+[![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
 
 ```console
 pip install vulp
