@@ -103,9 +103,9 @@ void Spine::simulate(unsigned nb_substeps) {
   while (state_machine_.state() != State::kOver) {
     begin_cycle();
     if (state_machine_.state() == State::kReset) {
-      cycle_actuation();  // replies promised but not waited upon yet
-      cycle_actuation();  // wait and fill latest_replies_
-      cycle_actuation();  // read latest_replies_ and fill observation
+      cycle_actuation();  // S1: cycle the simulator, promise actuation_output_
+      cycle_actuation();  // S2: fill latest_replies_ from actuation_output_
+      cycle_actuation();  // S3: fill observation dict from latest_replies_
       // now the first observation is ready to be read by the agent
     } else if (state_machine_.state() == State::kAct) {
       for (unsigned substep = 0; substep < nb_substeps; ++substep) {
