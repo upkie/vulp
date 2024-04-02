@@ -106,6 +106,12 @@ class Spine {
    * observation) and at each action request.
    *
    * \note As its name suggests, do not use this function on a real robot.
+   *
+   * Note that there is currently a delay of three substeps between observation
+   * and simulation. That is, the internal simulation state is always three
+   * substeps ahead compared to the values written to the observation
+   * dictionary in \ref cycle_actuation. This decision is discussed in
+   * https://github.com/orgs/upkie/discussions/238#discussioncomment-8984290
    */
   void simulate(unsigned nb_substeps);
 
