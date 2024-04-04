@@ -171,6 +171,7 @@ void BulletInterface::cycle(
   send_commands(data);
   bullet_.stepSimulation();
 
+  report_collisions();
   if (params_.follower_camera) {
     translate_camera_to_robot();
   }
@@ -303,6 +304,10 @@ Eigen::Vector3d BulletInterface::angular_velocity_base_in_base()
   Eigen::Matrix3d rotation_base_to_world = T.block<3, 3>(0, 0);
   return rotation_base_to_world.transpose() *
          eigen_from_bullet(angular_velocity_base_to_world_in_world);
+}
+
+void BulletInterface::report_collisions() {
+  // not implemented yet
 }
 
 void BulletInterface::translate_camera_to_robot() {
