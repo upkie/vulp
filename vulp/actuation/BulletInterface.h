@@ -267,6 +267,9 @@ class BulletInterface : public Interface {
   //! Read joint sensors from the simulator
   void read_joint_sensors();
 
+  //! Report collisions between pairs specified in input parameters
+  void report_collisions();
+
   /*! Send commands to simulated joints
    *
    * \param data Buffer to read commands from.
