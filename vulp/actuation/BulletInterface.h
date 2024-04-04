@@ -51,6 +51,16 @@ class BulletInterface : public Interface {
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
 
+      collision_reports.clear();
+      if (bullet.has("collision_reports")) {
+        const auto& collision_reports = bullet("collision_reports");
+        for (const auto& body1 : collision_reports.keys()) {
+          for (const auto& body2 : collision_reports(body1).keys()) {
+            collision_reports.try_emplace(std::pair<std::string>(body1, body2));
+          }
+        }
+      }
+
       joint_friction.clear();
       if (bullet.has("joint_properties")) {
         for (const auto& joint : bullet("joint_properties").keys()) {
@@ -93,6 +103,9 @@ class BulletInterface : public Interface {
      * https://github.com/bazelbuild/bazel/issues/7994
      */
     std::string argv0 = "";
+
+    //! Collision pairs to report
+    std::vector<std::pair<std::string, std::string>> collision_reports;
 
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
