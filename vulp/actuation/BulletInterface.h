@@ -51,14 +51,10 @@ class BulletInterface : public Interface {
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
 
-      collision_reports.clear();
-      if (bullet.has("collision_reports")) {
-        const auto& reports = bullet("collision_reports");
-        for (const auto& body1 : reports.keys()) {
-          for (const auto& body2 : reports(body1).keys()) {
-            collision_reports.push_back(
-                std::pair<std::string, std::string>(body1, body2));
-          }
+      contact_reports.clear();
+      if (bullet.has("contact_reports")) {
+        for (const auto& body : bullet("contact_reports").keys()) {
+          contact_reports.push_back(body);
         }
       }
 
@@ -105,8 +101,8 @@ class BulletInterface : public Interface {
      */
     std::string argv0 = "";
 
-    //! Collision pairs to report
-    std::vector<std::pair<std::string, std::string>> collision_reports;
+    //! Contact wrenches to report
+    std::vector<std::pair<std::string, std::string>> contact_reports;
 
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
@@ -268,7 +264,7 @@ class BulletInterface : public Interface {
   void read_joint_sensors();
 
   //! Report collisions between pairs specified in input parameters
-  void report_collisions();
+  void report_contacts();
 
   /*! Send commands to simulated joints
    *
