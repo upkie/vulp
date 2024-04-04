@@ -53,10 +53,11 @@ class BulletInterface : public Interface {
 
       collision_reports.clear();
       if (bullet.has("collision_reports")) {
-        const auto& collision_reports = bullet("collision_reports");
-        for (const auto& body1 : collision_reports.keys()) {
-          for (const auto& body2 : collision_reports(body1).keys()) {
-            collision_reports.try_emplace(std::pair<std::string>(body1, body2));
+        const auto& reports = bullet("collision_reports");
+        for (const auto& body1 : reports.keys()) {
+          for (const auto& body2 : reports(body1).keys()) {
+            collision_reports.push_back(
+                std::pair<std::string, std::string>(body1, body2));
           }
         }
       }
