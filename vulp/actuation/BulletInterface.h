@@ -101,8 +101,8 @@ class BulletInterface : public Interface {
      */
     std::string argv0 = "";
 
-    //! Contact wrenches to report
-    std::vector<std::pair<std::string, std::string>> contact_reports;
+    //! Contacts to report along with observations
+    std::vector<std::string> contact_reports;
 
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
