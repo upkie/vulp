@@ -307,7 +307,17 @@ Eigen::Vector3d BulletInterface::angular_velocity_base_in_base()
 }
 
 void BulletInterface::report_collisions() {
-  // not implemented yet
+  b3ContactInformation contact_info;
+  b3RobotSimulatorGetContactPointsArgs contact_args;
+  for (const auto& pair : params_.collision_reports) {
+    const std::string& body1 = pair.first;
+    const std::string& body2 = pair.second;
+    contact_args.m_bodyUniqueIdA = body1;
+    contact_args.m_bodyUniqueIdB = body2;
+    bullet_.getContactPoints(args, &contact_info);
+    spdlog::info("Num contact points between {} and {}: {}", body1, body2,
+                 contact_info.m_numContactPoints);
+  }
 }
 
 void BulletInterface::translate_camera_to_robot() {
