@@ -171,7 +171,7 @@ void BulletInterface::cycle(
   send_commands(data);
   bullet_.stepSimulation();
 
-  report_collisions();
+  report_contacts();
   if (params_.follower_camera) {
     translate_camera_to_robot();
   }
@@ -306,16 +306,15 @@ Eigen::Vector3d BulletInterface::angular_velocity_base_in_base()
          eigen_from_bullet(angular_velocity_base_to_world_in_world);
 }
 
-void BulletInterface::report_collisions() {
+void BulletInterface::report_contacts() {
   b3ContactInformation contact_info;
   b3RobotSimulatorGetContactPointsArgs contact_args;
-  for (const auto& pair : params_.collision_reports) {
-    const std::string& body1 = pair.first;
-    const std::string& body2 = pair.second;
-    contact_args.m_bodyUniqueIdA = body1;
-    contact_args.m_bodyUniqueIdB = body2;
+  for (const auto& body : params_.contact_reports) {
+    contact_args.m_bodyUniqueIdA = robot_;
+    contact_args.m_linkIndexA =
+        find_link_index(bullet_, robot_, body);  // TODO: inefficient
     bullet_.getContactPoints(args, &contact_info);
-    spdlog::info("Num contact points between {} and {}: {}", body1, body2,
+    spdlog::info("Num contact points on {}: {}", body,
                  contact_info.m_numContactPoints);
   }
 }
