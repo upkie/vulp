@@ -51,10 +51,13 @@ class BulletInterface : public Interface {
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
 
-      contact_reports.clear();
-      if (bullet.has("contact_reports")) {
-        for (const auto& body : bullet("contact_reports").keys()) {
-          contact_reports.push_back(body);
+      groundtruth_contacts.clear();
+      if (bullet.has("groundtruth")) {
+        const auto& groundtruth = bullet("groundtruth");
+        if (bullet.has("contacts")) {
+          for (const auto& body : groundtruth("contacts").keys()) {
+            groundtruth_contacts.push_back(body);
+          }
         }
       }
 
@@ -102,7 +105,7 @@ class BulletInterface : public Interface {
     std::string argv0 = "";
 
     //! Contacts to report along with observations
-    std::vector<std::string> contact_reports;
+    std::vector<std::string> groundtruth_contacts;
 
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
