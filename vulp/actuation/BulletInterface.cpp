@@ -309,7 +309,7 @@ Eigen::Vector3d BulletInterface::angular_velocity_base_in_base()
 void BulletInterface::report_contacts() {
   b3ContactInformation contact_info;
   b3RobotSimulatorGetContactPointsArgs contact_args;
-  for (const auto& body : params_.contact_reports) {
+  for (const auto& body : params_.groundtruth_contacts) {
     contact_args.m_bodyUniqueIdA = robot_;
     contact_args.m_linkIndexA =
         find_link_index(bullet_, robot_, body);  // TODO: inefficient
