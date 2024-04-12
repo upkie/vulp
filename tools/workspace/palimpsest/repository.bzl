@@ -1,14 +1,14 @@
 # -*- python -*-
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 def palimpsest_repository():
     """
     Clone repository from GitHub and make its targets available for binding.
     """
-    http_archive(
+    git_repository(
         name = "palimpsest",
-        sha256 = "244ffe888888bc12d6d5270020993a79e56ddb38f2beafa7647f17cf0192d4c9",
-        strip_prefix = "palimpsest-2.0.0",
-        url = "https://github.com/upkie/palimpsest/archive/refs/tags/v2.0.0.tar.gz",
+        remote = "https://github.com/upkie/palimpsest",
+        commit = "c0ea282fbc69e8bfa510fe60f6ae1e582350cfba",
+        shallow_since = "1655469414 -0400"
     )
