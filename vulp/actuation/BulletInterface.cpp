@@ -314,6 +314,7 @@ void BulletInterface::report_contacts() {
     contact_args.m_linkIndexA =
         find_link_index(bullet_, robot_, body);  // TODO: inefficient
     bullet_.getContactPoints(contact_args, &contact_info);
+    spdlog::info("Link index for {}: {}", body, contact_args.m_linkIndexA);
     spdlog::info("Num contact points on {}: {}", body,
                  contact_info.m_numContactPoints);
   }
