@@ -54,8 +54,9 @@ class BulletInterface : public Interface {
       groundtruth_contacts.clear();
       if (bullet.has("groundtruth")) {
         const auto& groundtruth = bullet("groundtruth");
-        if (bullet.has("contacts")) {
+        if (groundtruth.has("contacts")) {
           for (const auto& body : groundtruth("contacts").keys()) {
+            spdlog::info("Adding body {} to contacts", body);
             groundtruth_contacts.push_back(body);
           }
         }
