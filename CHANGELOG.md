@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Introduce ``observe`` method in actuation interfaces
 
+### Removed:
+
+- Remove ``imu_data`` getter from actuation interfaces
+
 ## [2.2.2] - 2024-03-28
 
 ### Added
