@@ -160,7 +160,7 @@ void Spine::cycle_actuation() {
     observation::observe_time(observation);
     observation::observe_servos(observation, actuation_.servo_joint_map(),
                                 latest_replies_);
-    observation::observe_imu(observation, latest_imu_data_);
+    actuation_.observe(observation);
     // Observers need configuration, so they cannot run at stop
     if (state_machine_.state() != State::kSendStops &&
         state_machine_.state() != State::kShutdown) {

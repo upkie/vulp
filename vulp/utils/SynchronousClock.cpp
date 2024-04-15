@@ -5,8 +5,8 @@
  * permission notice:
  *
  *     moteus_control_example.cc from github.com:mjbots/pi3hat
- *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  *     SPDX-License-Identifier: Apache-2.0
+ *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  */
 
 #include "vulp/utils/SynchronousClock.h"
