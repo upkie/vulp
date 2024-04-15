@@ -8,7 +8,14 @@ All notable changes to this project will be documented in this file.
 
 - Introduce ``observe`` method in actuation interfaces
 
-### Removed:
+### Changed
+
+- Pi3HatInterface: make ``get_angular_velocity`` private
+- Pi3HatInterface: make ``get_attitude`` private
+- Pi3HatInterface: make ``get_linear_acceleration`` private
+- Pi3HatInterface: make ``imu_data`` private
+
+### Removed
 
 - Clean up unused ``MockInterface::get_angular_velocity``
 - Clean up unused ``MockInterface::get_attitude``
