@@ -1,5 +1,5 @@
-// Copyright 2022 Stéphane Caron
 // SPDX-License-Identifier: Apache-2.0
+// Copyright 2022 Stéphane Caron
 
 #include <fcntl.h>
 #include <spdlog/spdlog.h>
