@@ -1,5 +1,5 @@
-// Copyright 2023 Inria
 // SPDX-License-Identifier: Apache-2.0
+// Copyright 2023 Inria
 
 #include "vulp/observation/sources/Keyboard.h"
 

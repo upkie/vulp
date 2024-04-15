@@ -1,5 +1,5 @@
-// Copyright 2022 Stéphane Caron
 // SPDX-License-Identifier: Apache-2.0
+// Copyright 2022 Stéphane Caron
 
 #include "gtest/gtest.h"
 #include "vulp/observation/sources/CpuTemperature.h"
