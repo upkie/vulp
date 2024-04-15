@@ -4,8 +4,8 @@
  * This file incorporates work covered by the following copyright and
  * permission notice:
  *
- *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  *     SPDX-License-Identifier: Apache-2.0
+ *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  */
 
 #include "vulp/actuation/Pi3HatInterface.h"
@@ -35,7 +35,7 @@ Pi3HatInterface::~Pi3HatInterface() {
   }
 }
 
-void Pi3HatInterface::reset(const palimpsest::Dictionary& config) {}
+void Pi3HatInterface::reset(const Dictionary& config) {}
 
 void Pi3HatInterface::cycle(
     const moteus::Data& data,

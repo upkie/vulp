@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <palimpsest/Dictionary.h>
 #include <spdlog/spdlog.h>
 
 #include <Eigen/Geometry>
@@ -59,9 +60,6 @@ class MockInterface : public Interface {
   Eigen::Vector3d get_linear_acceleration() const noexcept {
     return imu_data_.linear_acceleration_imu_in_imu;
   }
-
-  //! Get the IMU attitude
-  ImuData imu_data() const noexcept final { return imu_data_; }
 
  private:
   //! Spine timestep in [s].
