@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Introduce ``observe`` method in actuation interfaces
+
 ## [2.2.2] - 2024-03-28
 
 ### Added

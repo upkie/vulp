@@ -67,6 +67,12 @@ class Interface {
   //! Orientation of the IMU with respect to the inertial frame.
   virtual ImuData imu_data() const noexcept = 0;
 
+  /*! Write servo and IMU observations to dictionary.
+   *
+   * \param[out] observation Dictionary to write ot.
+   */
+  virtual void observe(Dictionary& observation) const = 0;
+
   //! Get servo layout.
   const ServoLayout& servo_layout() const noexcept { return servo_layout_; }
 
