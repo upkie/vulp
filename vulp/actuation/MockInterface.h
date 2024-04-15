@@ -32,7 +32,13 @@ class MockInterface : public Interface {
    *
    * \param[in] config Additional configuration dictionary.
    */
-  void reset(const palimpsest::Dictionary& config) override;
+  void reset(const Dictionary& config) override;
+
+  /*! Write actuation-interface observations to dictionary.
+   *
+   * \param[out] observation Dictionary to write ot.
+   */
+  void observe(Dictionary& observation) const;
 
   /*! Simulate a new communication cycle.
    *
