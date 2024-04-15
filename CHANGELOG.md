@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file.
 
 ### Removed:
 
+- Clean up unused ``MockInterface::get_angular_velocity``
+- Clean up unused ``MockInterface::get_attitude``
+- Clean up unused ``MockInterface::get_linear_acceleration``
 - Remove ``imu_data`` getter from actuation interfaces
 
 ## [2.2.2] - 2024-03-28
