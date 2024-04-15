@@ -4,8 +4,8 @@
  * This file incorporates work covered by the following copyright and
  * permission notice:
  *
- *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  *     SPDX-License-Identifier: Apache-2.0
+ *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  */
 
 #include "vulp/spine/Spine.h"
@@ -207,7 +207,6 @@ void Spine::cycle_actuation() {
     latest_replies_.resize(rx_count);
     std::copy(actuation_.replies().begin(),
               actuation_.replies().begin() + rx_count, latest_replies_.begin());
-    latest_imu_data_ = actuation_.imu_data();
   }
 
   // Now we are after the previous cycle (we called actuation_output_.get())
