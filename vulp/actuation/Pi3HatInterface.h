@@ -72,6 +72,19 @@ class Pi3HatInterface : public Interface {
   void cycle(const moteus::Data& data,
              std::function<void(const moteus::Output&)> callback) final;
 
+ private:
+  /*! Main loop of the CAN thread.
+   *
+   * Synchronizes with \ref cycle via the internal condition variable.
+   */
+  void run_can_thread();
+
+  /*! Execute one communication cycle on the CAN bus.
+   *
+   * Also, request the latest filtered attitude from the pi3hat.
+   */
+  moteus::Output cycle_can_thread();
+
   /*! Get orientation from the IMU frame to the world frame.
    *
    * This orientation is computed by the Unscented Kalman filter in
@@ -110,19 +123,6 @@ class Pi3HatInterface : public Interface {
     const double a_z = attitude_.accel_mps2.z;
     return {a_x, a_y, a_z};
   }
-
- private:
-  /*! Main loop of the CAN thread.
-   *
-   * Synchronizes with \ref cycle via the internal condition variable.
-   */
-  void run_can_thread();
-
-  /*! Execute one communication cycle on the CAN bus.
-   *
-   * Also, request the latest filtered attitude from the pi3hat.
-   */
-  moteus::Output cycle_can_thread();
 
   //! Get the pi3hat's IMU attitude
   ImuData imu_data() const noexcept final {
