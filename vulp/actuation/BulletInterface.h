@@ -192,8 +192,11 @@ class BulletInterface : public Interface {
   void cycle(const moteus::Data& data,
              std::function<void(const moteus::Output&)> callback) final;
 
-  //! Get the IMU attitude
-  ImuData imu_data() const noexcept final { return imu_data_; }
+  /*! Write actuation-interface observations to dictionary.
+   *
+   * \param[out] observation Dictionary to write ot.
+   */
+  void observe(Dictionary& observation) const;
 
   //! Get the groundtruth floating base transform
   Eigen::Matrix4d transform_base_to_world() const noexcept;
