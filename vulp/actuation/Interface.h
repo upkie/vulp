@@ -18,6 +18,8 @@
 //! Send actions to actuators or simulators.
 namespace vulp::actuation {
 
+using palimpsest::Dictionary;
+
 //! Base class for actuation interfaces.
 class Interface {
  public:
@@ -62,10 +64,7 @@ class Interface {
    *
    * \param[in] config Additional configuration dictionary.
    */
-  virtual void reset(const palimpsest::Dictionary& config) = 0;
-
-  //! Orientation of the IMU with respect to the inertial frame.
-  virtual ImuData imu_data() const noexcept = 0;
+  virtual void reset(const Dictionary& config) = 0;
 
   /*! Write servo and IMU observations to dictionary.
    *
@@ -102,13 +101,13 @@ class Interface {
    *
    * \param[out] action Action dictionary.
    */
-  void initialize_action(palimpsest::Dictionary& action);
+  void initialize_action(Dictionary& action);
 
   /*! Write position commands from an action dictionary.
    *
    * \param[in] action Action to read commands from.
    */
-  void write_position_commands(const palimpsest::Dictionary& action);
+  void write_position_commands(const Dictionary& action);
 
   /*! Stop all servos.
    *

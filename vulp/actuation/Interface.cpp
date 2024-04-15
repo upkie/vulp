@@ -24,7 +24,7 @@
 
 namespace vulp::actuation {
 
-void Interface::initialize_action(palimpsest::Dictionary& action) {
+void Interface::initialize_action(Dictionary& action) {
   for (const auto& id_joint : servo_layout_.servo_joint_map()) {
     const std::string& joint_name = id_joint.second;
     auto& servo_action = action("servo")(joint_name);
@@ -37,7 +37,7 @@ void Interface::initialize_action(palimpsest::Dictionary& action) {
   }
 }
 
-void Interface::write_position_commands(const palimpsest::Dictionary& action) {
+void Interface::write_position_commands(const Dictionary& action) {
   using Mode = actuation::moteus::Mode;
   if (!action.has("servo")) {
     spdlog::warn("No position command at key \"servo\" of action");

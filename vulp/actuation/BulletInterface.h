@@ -20,8 +20,6 @@
 
 namespace vulp::actuation {
 
-using palimpsest::Dictionary;
-
 //! Actuation interface for the Bullet simulator.
 class BulletInterface : public Interface {
  public:
