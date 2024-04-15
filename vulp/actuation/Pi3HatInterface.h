@@ -4,8 +4,8 @@
  * This file incorporates work covered by the following copyright and
  * permission notice:
  *
- *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  *     SPDX-License-Identifier: Apache-2.0
+ *     Copyright 2020 Josh Pieper, jjp@pobox.com.
  */
 
 #pragma once
@@ -58,7 +58,7 @@ class Pi3HatInterface : public Interface {
    *
    * \param[in] config Additional configuration dictionary.
    */
-  void reset(const palimpsest::Dictionary& config) override;
+  void reset(const Dictionary& config) override;
 
   /*! Spin a new communication cycle.
    *
@@ -111,15 +111,6 @@ class Pi3HatInterface : public Interface {
     return {a_x, a_y, a_z};
   }
 
-  //! Get the pi3hat's IMU attitude
-  ImuData imu_data() const noexcept final {
-    ImuData imu_data;
-    imu_data.orientation_imu_in_ars = get_attitude();
-    imu_data.angular_velocity_imu_in_imu = get_angular_velocity();
-    imu_data.linear_acceleration_imu_in_imu = get_linear_acceleration();
-    return imu_data;
-  }
-
  private:
   /*! Main loop of the CAN thread.
    *
@@ -132,6 +123,15 @@ class Pi3HatInterface : public Interface {
    * Also, request the latest filtered attitude from the pi3hat.
    */
   moteus::Output cycle_can_thread();
+
+  //! Get the pi3hat's IMU attitude
+  ImuData imu_data() const noexcept final {
+    ImuData imu_data;
+    imu_data.orientation_imu_in_ars = get_attitude();
+    imu_data.angular_velocity_imu_in_imu = get_angular_velocity();
+    imu_data.linear_acceleration_imu_in_imu = get_linear_acceleration();
+    return imu_data;
+  }
 
  private:
   //! CPUID of the core to run the CAN thread on.

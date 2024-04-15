@@ -12,8 +12,6 @@
 
 namespace vulp::actuation {
 
-using palimpsest::Dictionary;
-
 class SmallInterface : public Interface {
  public:
   using Interface::Interface;
@@ -23,7 +21,7 @@ class SmallInterface : public Interface {
   void cycle(const moteus::Data& data,
              std::function<void(const moteus::Output&)> callback) final {}
 
-  ImuData imu_data() const noexcept final { return ImuData(); }
+  void observe(Dictionary& observation) const {}
 };
 
 class InterfaceTest : public ::testing::Test {
