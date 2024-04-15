@@ -52,21 +52,6 @@ class MockInterface : public Interface {
   void cycle(const moteus::Data& data,
              std::function<void(const moteus::Output&)> callback) final;
 
-  //! Orientation from the IMU frame to the world frame.
-  Eigen::Quaterniond get_attitude() const noexcept {
-    return imu_data_.orientation_imu_in_ars;
-  }
-
-  //! Body angular velocity of the IMU frame in [rad] / [s].
-  Eigen::Vector3d get_angular_velocity() const noexcept {
-    return imu_data_.angular_velocity_imu_in_imu;
-  }
-
-  //! Linear acceleration of the IMU, in [m] / [s]².
-  Eigen::Vector3d get_linear_acceleration() const noexcept {
-    return imu_data_.linear_acceleration_imu_in_imu;
-  }
-
  private:
   //! Spine timestep in [s].
   const double dt_;
