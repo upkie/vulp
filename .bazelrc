@@ -24,19 +24,6 @@ test --test_tag_filters=-lint
 test:lint --build_tests_only
 test:lint --test_tag_filters=lint
 
-## Target platform: 32-bit Raspberry Pi OS
-
-build:pi32 --compilation_mode=opt
-build:pi32 --compiler=clang
-build:pi32 --cpu=armeabihf
-build:pi32 --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
-
-test:pi32 --compilation_mode=opt
-test:pi32 --compiler=clang
-test:pi32 --cpu=armeabihf
-test:pi32 --crosstool_top=@rpi_bazel//tools/cc_toolchain:toolchain
-test:pi32 --test_output=errors
-
 # Target platform: 64-bit Raspberry Pi OS
 
 build:pi64 --compilation_mode=opt
