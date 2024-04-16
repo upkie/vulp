@@ -12,7 +12,6 @@
 #include <string>
 #include <vector>
 
-#include "vulp/actuation/ImuData.h"
 #include "vulp/actuation/Interface.h"
 #include "vulp/observation/ObserverPipeline.h"
 #include "vulp/observation/observe_imu.h"
@@ -155,9 +154,6 @@ class Spine {
 
   //! Latest servo replies. They are copied and thread-safe.
   std::vector<actuation::moteus::ServoReply> latest_replies_;
-
-  //! Latest IMU data. It is copied and thread-safe.
-  actuation::ImuData latest_imu_data_;
 
   //! All data from observation to action goes to this dictionary
   palimpsest::Dictionary working_dict_;

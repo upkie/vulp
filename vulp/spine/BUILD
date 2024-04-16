@@ -49,7 +49,6 @@ cc_library(
         "@//conditions:default": [],
     }),
     deps = [
-        "//vulp/actuation:imu_data",
         "//vulp/actuation:interface",
         "//vulp/exceptions",
         "//vulp/observation:observe_imu",
