@@ -194,7 +194,7 @@ class BulletInterface : public Interface {
    *
    * \param[out] observation Dictionary to write ot.
    */
-  void observe(Dictionary& observation) const;
+  void observe(Dictionary& observation) const override;
 
   //! Get the groundtruth floating base transform
   Eigen::Matrix4d transform_base_to_world() const noexcept;
