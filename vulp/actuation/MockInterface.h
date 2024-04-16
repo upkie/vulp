@@ -38,7 +38,7 @@ class MockInterface : public Interface {
    *
    * \param[out] observation Dictionary to write ot.
    */
-  void observe(Dictionary& observation) const;
+  void observe(Dictionary& observation) const override;
 
   /*! Simulate a new communication cycle.
    *
