@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Build test for the pi3hat interface
 - Introduce ``observe`` method in actuation interfaces
 
 ### Changed
