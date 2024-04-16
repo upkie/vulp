@@ -37,6 +37,20 @@ Pi3HatInterface::~Pi3HatInterface() {
 
 void Pi3HatInterface::reset(const Dictionary& config) {}
 
+void Pi3HatInterface::observe(Dictionary& observation) const {
+  ImuData imu_data;
+  imu_data.orientation_imu_in_ars = get_attitude();
+  imu_data.angular_velocity_imu_in_imu = get_angular_velocity();
+  imu_data.linear_acceleration_imu_in_imu = get_linear_acceleration();
+
+  // Eigen quaternions are serialized as [w, x, y, z]
+  // See include/palimpsest/mpack/eigen.h in palimpsest
+  observation("imu")("orientation") = imu_data.orientation_imu_in_ars;
+  observation("imu")("angular_velocity") = imu_data.angular_velocity_imu_in_imu;
+  observation("imu")("linear_acceleration") =
+      imu_data.linear_acceleration_imu_in_imu;
+}
+
 void Pi3HatInterface::cycle(
     const moteus::Data& data,
     std::function<void(const moteus::Output&)> callback) {
