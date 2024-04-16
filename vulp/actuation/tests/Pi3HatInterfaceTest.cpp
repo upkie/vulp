@@ -12,9 +12,6 @@
 
 namespace vulp::actuation {
 
-constexpr double kNoFriction = 1e-5;
-constexpr double kLeftWheelFriction = 0.1;
-
 TEST(Pi3HatInterface, Create) {
   ServoLayout layout;
   layout.add_servo(1, 1, "right_hip");
