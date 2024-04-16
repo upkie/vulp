@@ -69,4 +69,18 @@ cc_test(
     ],
 )
 
+cc_test(
+    name = "pi3hat_interface_test",
+    srcs = select({
+        "//:pi64_config": ["Pi3HatInterfaceTest.cpp"],
+        "//conditions:default": [],
+    }),
+    deps = [
+        "//vulp/actuation:pi3hat_interface",
+        ":test_common",
+        "@bazel_tools//tools/cpp/runfiles",
+        "@googletest//:main",
+    ],
+)
+
 add_lint_tests()

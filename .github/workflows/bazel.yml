@@ -31,11 +31,17 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install msgpack
 
-            - name: "Build the library"
+            - name: "Build the library with default configuration"
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
                   tools/bazelisk build --compilation_mode=fastbuild //...
+
+            - name: "Build targets for the pi64 configuration"
+              env:
+                  BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
+              run: |
+                  tools/bazel build //vulp/actuation/tests:pi3hat_interface_test --config pi64
 
     coverage:
         runs-on: ubuntu-latest
