@@ -60,6 +60,12 @@ class Pi3HatInterface : public Interface {
    */
   void reset(const Dictionary& config) override;
 
+  /*! Write actuation-interface observations to dictionary.
+   *
+   * \param[out] observation Dictionary to write ot.
+   */
+  void observe(Dictionary& observation) const override;
+
   /*! Spin a new communication cycle.
    *
    * \param[in] data Buffer to read commands from and write replies to.
@@ -122,15 +128,6 @@ class Pi3HatInterface : public Interface {
     const double a_y = attitude_.accel_mps2.y;
     const double a_z = attitude_.accel_mps2.z;
     return {a_x, a_y, a_z};
-  }
-
-  //! Get the pi3hat's IMU attitude
-  ImuData imu_data() const noexcept final {
-    ImuData imu_data;
-    imu_data.orientation_imu_in_ars = get_attitude();
-    imu_data.angular_velocity_imu_in_imu = get_angular_velocity();
-    imu_data.linear_acceleration_imu_in_imu = get_linear_acceleration();
-    return imu_data;
   }
 
  private:
