@@ -11,7 +11,6 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-#include "vulp/observation/observe_imu.h"
 
 using palimpsest::Dictionary;
 

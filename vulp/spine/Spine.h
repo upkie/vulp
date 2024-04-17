@@ -14,7 +14,6 @@
 
 #include "vulp/actuation/Interface.h"
 #include "vulp/observation/ObserverPipeline.h"
-#include "vulp/observation/observe_imu.h"
 #include "vulp/observation/observe_servos.h"
 #include "vulp/observation/observe_time.h"
 #include "vulp/spine/AgentInterface.h"
