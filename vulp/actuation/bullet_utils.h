@@ -89,10 +89,10 @@ inline void read_imu_data(BulletImuData& imu_data,
                       /* computeForwardKinematics = */ true, &link_state);
 
   Eigen::Quaterniond orientation_imu_in_world;
+  orientation_imu_in_world.w() = link_state.m_worldLinkFrameOrientation[3];
   orientation_imu_in_world.x() = link_state.m_worldLinkFrameOrientation[0];
   orientation_imu_in_world.y() = link_state.m_worldLinkFrameOrientation[1];
   orientation_imu_in_world.z() = link_state.m_worldLinkFrameOrientation[2];
-  orientation_imu_in_world.w() = link_state.m_worldLinkFrameOrientation[3];
 
   // The attitude reference system frame has +x forward, +y right and +z down,
   // whereas our world frame has +x forward, +y left and +z up:

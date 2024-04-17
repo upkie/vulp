@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - Clean up unused ``MockInterface::get_attitude``
 - Clean up unused ``MockInterface::get_linear_acceleration``
 - Remove ``imu_data`` getter from actuation interfaces
+- Remove ``observe_imu`` function from observations
 
 ## [2.2.2] - 2024-03-28
 

@@ -6,7 +6,6 @@
 #include <string>
 
 #include "RobotSimulator/b3RobotSimulatorClientAPI.h"
-#include "vulp/actuation/ImuData.h"
 
 namespace vulp::actuation {
 

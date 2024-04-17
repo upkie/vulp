@@ -7,21 +7,6 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "observe_imu",
-    hdrs = [
-        "observe_imu.h",
-    ],
-    srcs = [
-        "observe_imu.cpp",
-    ],
-    deps = [
-        "//vulp/actuation:imu_data",
-        "@palimpsest",
-    ],
-    include_prefix = "vulp/observation",
-)
-
-cc_library(
     name = "observe_servos",
     hdrs = [
         "observe_servos.h",
@@ -86,7 +71,6 @@ cc_library(
 cc_library(
     name = "observation",
     deps = [
-        ":observe_imu",
         ":observe_servos",
         ":observe_time",
         ":observer",
