@@ -238,4 +238,38 @@ TEST_F(BulletInterfaceTest, JointRepliesHaveVoltage) {
   }
 }
 
+TEST_F(BulletInterfaceTest, ObserveImuOrientation) {
+  Eigen::Quaterniond orientation_base_in_world = {0., 1., 0., 0.};
+
+  Dictionary config;
+  config("bullet")("gui") = false;
+  config("bullet")("reset")("orientation_base_in_world") =
+      orientation_base_in_world;
+  interface_->reset(config);
+
+  Dictionary observation;
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->observe(observation);
+
+  // See read_imu_data in bullet_utils.h
+  Eigen::Matrix3d rotation_world_to_ars =
+      Eigen::Vector3d{1.0, -1.0, -1.0}.asDiagonal();
+
+  // From upkie_description at b04b4dcb53eeb1af3ccabbfdcff00c5c88d548ac
+  Eigen::Matrix3d rotation_imu_to_base =
+      Eigen::Vector3d{-1.0, 1.0, -1.0}.asDiagonal();
+
+  Eigen::Matrix3d rotation_base_to_world =
+      orientation_base_in_world.toRotationMatrix();
+  Eigen::Matrix3d rotation_imu_to_ars =
+      rotation_world_to_ars * rotation_base_to_world * rotation_imu_to_base;
+  Eigen::Quaterniond orientation_imu_in_ars(rotation_imu_to_ars);
+
+  ASSERT_TRUE(observation.has("imu"));
+  ASSERT_TRUE(observation("imu").has("orientation"));
+  ASSERT_TRUE(observation("imu")("orientation")
+                  .as<Eigen::Quaterniond>()
+                  .isApprox(orientation_imu_in_ars));
+}
+
 }  // namespace vulp::actuation
