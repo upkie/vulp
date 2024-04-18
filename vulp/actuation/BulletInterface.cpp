@@ -45,7 +45,7 @@ BulletInterface::BulletInterface(const ServoLayout& layout,
 
   // Load robot model
   robot_ = bullet_.loadURDF(params.robot_urdf_path);
-  imu_link_index_ = find_link_index(bullet_, robot_, "imu");
+  imu_link_index_ = get_link_index("imu");
   if (imu_link_index_ < 0) {
     throw std::runtime_error("Robot does not have a link named \"imu\"");
   }
@@ -321,8 +321,7 @@ void BulletInterface::report_contacts() {
   b3RobotSimulatorGetContactPointsArgs contact_args;
   for (const auto& body : params_.groundtruth_contacts) {
     contact_args.m_bodyUniqueIdA = robot_;
-    contact_args.m_linkIndexA =
-        find_link_index(bullet_, robot_, body);  // TODO: inefficient
+    contact_args.m_linkIndexA = get_link_index(body);
     bullet_.getContactPoints(contact_args, &contact_info);
     spdlog::info("Link index for {}: {}", body, contact_args.m_linkIndexA);
     spdlog::info("Num contact points on {}: {}", body,
@@ -339,6 +338,15 @@ void BulletInterface::translate_camera_to_robot() {
   bullet_.getDebugVisualizerCamera(&camera_info);
   bullet_.resetDebugVisualizerCamera(camera_info.m_dist, camera_info.m_pitch,
                                      camera_info.m_yaw, position_base_in_world);
+}
+
+int get_link_index(const std::string& link_name) {
+  if (link_index_.find(link_name) != link_index_.end()) {
+    return link_index_[link_name];
+  }
+  int link_index = find_link_index(bullet_, robot_, link_name);
+  link_index_[link_name] = link_index;
+  return link_index;
 }
 
 }  // namespace vulp::actuation

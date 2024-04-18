@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Build test for the pi3hat interface
+- BulletInterface: internal ``get_link_index`` memoization
 - Introduce ``observe`` method in actuation interfaces
 
 ### Changed

@@ -265,6 +265,18 @@ class BulletInterface : public Interface {
                               const double maximum_torque);
 
  private:
+  /*! Get index of a given robot link in Bullet
+   *
+   * \param[in] link_name Name of the searched link.
+   *
+   * \return Link index if found, -1 otherwise.
+   *
+   * This is a memoization wrapper around \ref find_link_index, thus it has
+   * amortized O(log n) time complexity (that of std::map, where n is the
+   * number of links).
+   */
+  int get_link_index(const std::string& link_name);
+
   //! Read joint sensors from the simulator
   void read_joint_sensors();
 
@@ -307,6 +319,9 @@ class BulletInterface : public Interface {
 
   //! Spatial linear velocity of the IMU link, used to compute its acceleration
   Eigen::Vector3d linear_velocity_imu_in_world_;
+
+  //! Map from link name to link index in Bullet
+  std::map<std::string, int> link_index_;
 };
 
 }  // namespace vulp::actuation
