@@ -161,6 +161,23 @@ void BulletInterface::reset_joint_properties() {
 }
 
 void BulletInterface::observe(Dictionary& observation) const {
+  observe_contacts(observation);
+  observe_imu(observation);
+}
+
+void BulletInterface::observe_contacts(observation) const {
+  b3ContactInformation contact_info;
+  b3RobotSimulatorGetContactPointsArgs contact_args;
+  auto& contact = observation("bullet")("contact");
+  for (const auto& link_name : params_.groundtruth_contacts) {
+    contact_args.m_bodyUniqueIdA = robot_;
+    contact_args.m_linkIndexA = get_link_index(link_name);
+    bullet_.getContactPoints(contact_args, &contact_info);
+    contact(link_name)("num_contact_points") = contact_info.m_numContactPoints;
+  }
+}
+
+void BulletInterface::observe_imu(Dictionary& observation) const {
   // Eigen quaternions are serialized as [w, x, y, z]
   // See include/palimpsest/mpack/eigen.h in palimpsest
   observation("imu")("orientation") = imu_data_.orientation_imu_in_ars;
@@ -181,7 +198,6 @@ void BulletInterface::cycle(
   send_commands(data);
   bullet_.stepSimulation();
 
-  report_contacts();
   if (params_.follower_camera) {
     translate_camera_to_robot();
   }
@@ -369,19 +385,6 @@ Eigen::Vector3d BulletInterface::angular_velocity_base_in_base()
   Eigen::Matrix3d rotation_base_to_world = T.block<3, 3>(0, 0);
   return rotation_base_to_world.transpose() *
          eigen_from_bullet(angular_velocity_base_to_world_in_world);
-}
-
-void BulletInterface::report_contacts() {
-  b3ContactInformation contact_info;
-  b3RobotSimulatorGetContactPointsArgs contact_args;
-  for (const auto& body : params_.groundtruth_contacts) {
-    contact_args.m_bodyUniqueIdA = robot_;
-    contact_args.m_linkIndexA = get_link_index(body);
-    bullet_.getContactPoints(contact_args, &contact_info);
-    spdlog::info("Link index for {}: {}", body, contact_args.m_linkIndexA);
-    spdlog::info("Num contact points on {}: {}", body,
-                 contact_info.m_numContactPoints);
-  }
 }
 
 void BulletInterface::translate_camera_to_robot() {
