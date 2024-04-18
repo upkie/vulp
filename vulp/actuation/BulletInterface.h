@@ -277,6 +277,9 @@ class BulletInterface : public Interface {
    */
   int get_link_index(const std::string& link_name);
 
+  //! Compute IMU readings from the IMU link state.
+  void read_imu_data();
+
   //! Read joint sensors from the simulator
   void read_joint_sensors();
 

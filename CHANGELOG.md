@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Move ``read_imu_data`` from Bullet utils to BulletInterface
 - Pi3HatInterface: make ``get_angular_velocity`` private
 - Pi3HatInterface: make ``get_attitude`` private
 - Pi3HatInterface: make ``get_linear_acceleration`` private
