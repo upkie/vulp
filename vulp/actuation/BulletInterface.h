@@ -293,7 +293,7 @@ class BulletInterface : public Interface {
   void translate_camera_to_robot();
 
  private:
-  //! Interface parameters.
+  //! Interface parameters
   Parameters params_;
 
   //! Map from actuated joint name to joint index in Bullet
