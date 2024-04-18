@@ -196,6 +196,18 @@ class BulletInterface : public Interface {
    */
   void observe(Dictionary& observation) const override;
 
+  /*! Report collisions between pairs specified in input parameters
+   *
+   * \param[out] observation Dictionary to write ot.
+   */
+  void observe_contacts(Dictionary& observation) const;
+
+  /*! Observe IMU data to dictionary.
+   *
+   * \param[out] observation Dictionary to write ot.
+   */
+  void observe_imu(Dictionary& observation) const;
+
   //! Get the groundtruth floating base transform
   Eigen::Matrix4d transform_base_to_world() const noexcept;
 
@@ -282,9 +294,6 @@ class BulletInterface : public Interface {
 
   //! Read joint sensors from the simulator
   void read_joint_sensors();
-
-  //! Report collisions between pairs specified in input parameters
-  void report_contacts();
 
   /*! Send commands to simulated joints
    *
