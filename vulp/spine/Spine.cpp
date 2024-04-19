@@ -179,11 +179,6 @@ void Spine::cycle_actuation() {
     } else if (state_machine_.state() == State::kAct) {
       Dictionary& action = working_dict_("action");
       actuation_.write_position_commands(action);
-      // TODO(scaron): don't re-send actuation
-      // See https://github.com/upkie/vulp/issues/2
-      // spdlog::info("[Spine] ok");
-    } else {
-      // spdlog::warn("[Spine] re-sending previous commands");
     }
   } catch (const std::exception& e) {
     spdlog::error("[Spine] Caught an exception: {}", e.what());
