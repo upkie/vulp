@@ -49,13 +49,13 @@ class BulletInterface : public Interface {
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
 
-      groundtruth_contacts.clear();
-      if (bullet.has("groundtruth")) {
-        const auto& groundtruth = bullet("groundtruth");
-        if (groundtruth.has("contacts")) {
-          for (const auto& body : groundtruth("contacts").keys()) {
+      report_contacts.clear();
+      if (bullet.has("report")) {
+        const auto& report = bullet("report");
+        if (report.has("contacts")) {
+          for (const auto& body : report("contacts").keys()) {
             spdlog::info("Adding body {} to contacts", body);
-            groundtruth_contacts.push_back(body);
+            report_contacts.push_back(body);
           }
         }
       }
@@ -104,7 +104,7 @@ class BulletInterface : public Interface {
     std::string argv0 = "";
 
     //! Contacts to report along with observations
-    std::vector<std::string> groundtruth_contacts;
+    std::vector<std::string> report_contacts;
 
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();
@@ -196,18 +196,6 @@ class BulletInterface : public Interface {
    */
   void observe(Dictionary& observation) const override;
 
-  /*! Report collisions between pairs specified in input parameters
-   *
-   * \param[out] observation Dictionary to write ot.
-   */
-  void observe_contacts(Dictionary& observation) const;
-
-  /*! Observe IMU data to dictionary.
-   *
-   * \param[out] observation Dictionary to write ot.
-   */
-  void observe_imu(Dictionary& observation) const;
-
   //! Get the groundtruth floating base transform
   Eigen::Matrix4d transform_base_to_world() const noexcept;
 
@@ -289,6 +277,9 @@ class BulletInterface : public Interface {
    */
   int get_link_index(const std::string& link_name);
 
+  //! Read contact sensors from the simulator
+  void read_contacts();
+
   //! Read joint sensors from the simulator
   void read_joint_sensors();
 
@@ -331,6 +322,9 @@ class BulletInterface : public Interface {
 
   //! Map from link name to link index in Bullet
   std::map<std::string, int> link_index_;
+
+  //! Map from link name to link contact data
+  Dictionary contact_data_;
 };
 
 }  // namespace vulp::actuation
