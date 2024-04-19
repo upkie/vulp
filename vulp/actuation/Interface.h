@@ -54,8 +54,6 @@ class Interface {
    * The callback will be invoked from an arbitrary thread when the
    * communication cycle has completed. All memory pointed to by @p data must
    * remain valid until the callback is invoked.
-   *
-   * TODO(scaron): use internal data, const param makes no sense any more.
    */
   virtual void cycle(const moteus::Data& data,
                      std::function<void(const moteus::Output&)> callback) = 0;
