@@ -194,7 +194,7 @@ void BulletInterface::cycle(
   assert(!std::isnan(params_.dt));
 
   read_joint_sensors();
-  read_imu_data();
+  read_imu_data(imu_data_, bullet_, robot_, imu_link_index_, params_.dt);
   send_commands(data);
   bullet_.stepSimulation();
 
@@ -211,61 +211,6 @@ void BulletInterface::cycle(
     output.query_result_size = i + 1;
   }
   callback(output);
-}
-
-void read_imu_data() {
-  b3LinkState link_state;
-  bullet_.getLinkState(robot_, imu_link_index_, /* computeVelocity = */ true,
-                       /* computeForwardKinematics = */ true, &link_state);
-
-  Eigen::Quaterniond orientation_imu_in_world;
-  orientation_imu_in_world.w() = link_state.m_worldLinkFrameOrientation[3];
-  orientation_imu_in_world.x() = link_state.m_worldLinkFrameOrientation[0];
-  orientation_imu_in_world.y() = link_state.m_worldLinkFrameOrientation[1];
-  orientation_imu_in_world.z() = link_state.m_worldLinkFrameOrientation[2];
-
-  // The attitude reference system frame has +x forward, +y right and +z down,
-  // whereas our world frame has +x forward, +y left and +z up:
-  // https://github.com/mjbots/pi3hat/blob/master/docs/reference.md#orientation
-  Eigen::Matrix3d rotation_world_to_ars =
-      Eigen::Vector3d{1.0, -1.0, -1.0}.asDiagonal();
-
-  Eigen::Matrix3d rotation_imu_to_world =
-      orientation_imu_in_world.toRotationMatrix();
-  Eigen::Matrix3d rotation_imu_to_ars =
-      rotation_world_to_ars * rotation_imu_to_world;
-  Eigen::Quaterniond orientation_imu_in_ars(rotation_imu_to_ars);
-
-  Eigen::Vector3d linear_velocity_imu_in_world = {
-      link_state.m_worldLinearVelocity[0],
-      link_state.m_worldLinearVelocity[1],
-      link_state.m_worldLinearVelocity[2],
-  };
-
-  Eigen::Vector3d angular_velocity_imu_to_world_in_world = {
-      link_state.m_worldAngularVelocity[0],
-      link_state.m_worldAngularVelocity[1],
-      link_state.m_worldAngularVelocity[2],
-  };
-
-  // Compute linear acceleration in the world frame by discrete differentiation
-  const auto& previous_linear_velocity = imu_data_.linear_velocity_imu_in_world;
-  Eigen::Vector3d linear_acceleration_imu_in_world =
-      (linear_velocity_imu_in_world - previous_linear_velocity) / params_.dt;
-
-  auto rotation_world_to_imu = orientation_imu_in_world.normalized().inverse();
-  Eigen::Vector3d angular_velocity_imu_in_imu =
-      rotation_world_to_imu * angular_velocity_imu_to_world_in_world;
-  Eigen::Vector3d linear_acceleration_imu_in_imu =
-      rotation_world_to_imu * linear_acceleration_imu_in_world;
-
-  // Fill out regular IMU data
-  imu_data_.orientation_imu_in_ars = orientation_imu_in_ars;
-  imu_data_.angular_velocity_imu_in_imu = angular_velocity_imu_in_imu;
-  imu_data_.linear_acceleration_imu_in_imu = linear_acceleration_imu_in_imu;
-
-  // ... and the extra field for the Bullet interface
-  imu_data_.linear_velocity_imu_in_world = linear_velocity_imu_in_world;
 }
 
 void BulletInterface::read_joint_sensors() {
