@@ -114,6 +114,7 @@ void BulletInterface::reset(const Dictionary& config) {
                    params_.orientation_base_in_world,
                    params_.linear_velocity_base_to_world_in_world,
                    params_.angular_velocity_base_in_base);
+  reset_contact_data();
   reset_joint_angles();
   reset_joint_properties();
 }
@@ -134,6 +135,12 @@ void BulletInterface::reset_base_state(
   bullet_.resetBaseVelocity(
       robot_, bullet_from_eigen(linear_velocity_base_to_world_in_world),
       bullet_from_eigen(angular_velocity_base_in_world));
+}
+
+void BulletInterface::reset_contact_data() {
+  for (const auto& link_name : params_.report_contacts) {
+    contact_data_.try_emplace(link_name, BulletContactData());
+  }
 }
 
 void BulletInterface::reset_joint_angles() {
@@ -172,7 +179,7 @@ void BulletInterface::observe(Dictionary& observation) const {
   Dictionary& report = observation("bullet");
   for (const auto& link_name : params_.report_contacts) {
     report("contact")(link_name)("num_contact_points") =
-        contact_data_(link_name).get<int>("num_contact_points");
+        contact_data_.at(link_name).num_contact_points;
   }
 }
 
@@ -210,7 +217,7 @@ void BulletInterface::read_contacts() {
     contact_args.m_bodyUniqueIdA = robot_;
     contact_args.m_linkIndexA = get_link_index(link_name);
     bullet_.getContactPoints(contact_args, &contact_info);
-    contact_data_(link_name)("num_contact_points") =
+    contact_data_[link_name].num_contact_points =
         contact_info.m_numContactPoints;
   }
 }

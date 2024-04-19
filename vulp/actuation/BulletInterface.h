@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "RobotSimulator/b3RobotSimulatorClientAPI.h"
+#include "vulp/actuation/BulletContactData.h"
 #include "vulp/actuation/BulletImuData.h"
 #include "vulp/actuation/BulletJointProperties.h"
 #include "vulp/actuation/Interface.h"
@@ -196,22 +197,25 @@ class BulletInterface : public Interface {
    */
   void observe(Dictionary& observation) const override;
 
-  //! Get the groundtruth floating base transform
+  //! Get the groundtruth floating base transform.
   Eigen::Matrix4d transform_base_to_world() const noexcept;
 
-  /*! Get the groundtruth floating base linear velocity
+  /*! Get the groundtruth floating base linear velocity.
    *
    * \note This function is only used for testing and does not need to be
    * optimized.
    */
   Eigen::Vector3d linear_velocity_base_to_world_in_world() const noexcept;
 
-  /*! Get the groundtruth floating base angular velocity
+  /*! Get the groundtruth floating base angular velocity.
    *
    * \note This function is only used for testing and does not need to be
    * optimized.
    */
   Eigen::Vector3d angular_velocity_base_in_base() const noexcept;
+
+  //! Reset contact data.
+  void reset_contact_data();
 
   //! Reset joint angles to zero.
   void reset_joint_angles();
@@ -324,7 +328,7 @@ class BulletInterface : public Interface {
   std::map<std::string, int> link_index_;
 
   //! Map from link name to link contact data
-  Dictionary contact_data_;
+  std::map<std::string, BulletContactData> contact_data_;
 };
 
 }  // namespace vulp::actuation
