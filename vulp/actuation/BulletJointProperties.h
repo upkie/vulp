@@ -9,6 +9,7 @@
 
 namespace vulp::actuation {
 
+//! Properties for robot joints in the Bullet simulation.
 struct BulletJointProperties {
   //! Kinetic friction, in N.m
   double friction = 0.0;

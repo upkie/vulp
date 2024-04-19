@@ -168,6 +168,12 @@ void BulletInterface::observe(Dictionary& observation) const {
       imu_data_.angular_velocity_imu_in_imu;
   observation("imu")("linear_acceleration") =
       imu_data_.linear_acceleration_imu_in_imu;
+
+  Dictionary& report = observation("bullet");
+  for (const auto& link_name : params_.report_contacts) {
+    report("contact")(link_name)("num_contact_points") =
+        contact_data_(link_name).get<int>("num_contact_points");
+  }
 }
 
 void BulletInterface::cycle(
@@ -339,7 +345,7 @@ void BulletInterface::translate_camera_to_robot() {
                                      camera_info.m_yaw, position_base_in_world);
 }
 
-int get_link_index(const std::string& link_name) {
+int BulletInterface::get_link_index(const std::string& link_name) {
   if (link_index_.find(link_name) != link_index_.end()) {
     return link_index_[link_name];
   }
