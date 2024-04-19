@@ -161,23 +161,6 @@ void BulletInterface::reset_joint_properties() {
 }
 
 void BulletInterface::observe(Dictionary& observation) const {
-  observe_contacts(observation);
-  observe_imu(observation);
-}
-
-void BulletInterface::observe_contacts(observation) const {
-  b3ContactInformation contact_info;
-  b3RobotSimulatorGetContactPointsArgs contact_args;
-  auto& contact = observation("bullet")("contact");
-  for (const auto& link_name : params_.groundtruth_contacts) {
-    contact_args.m_bodyUniqueIdA = robot_;
-    contact_args.m_linkIndexA = get_link_index(link_name);
-    bullet_.getContactPoints(contact_args, &contact_info);
-    contact(link_name)("num_contact_points") = contact_info.m_numContactPoints;
-  }
-}
-
-void BulletInterface::observe_imu(Dictionary& observation) const {
   // Eigen quaternions are serialized as [w, x, y, z]
   // See include/palimpsest/mpack/eigen.h in palimpsest
   observation("imu")("orientation") = imu_data_.orientation_imu_in_ars;
@@ -195,6 +178,7 @@ void BulletInterface::cycle(
 
   read_joint_sensors();
   read_imu_data(imu_data_, bullet_, robot_, imu_link_index_, params_.dt);
+  read_contacts();
   send_commands(data);
   bullet_.stepSimulation();
 
@@ -211,6 +195,18 @@ void BulletInterface::cycle(
     output.query_result_size = i + 1;
   }
   callback(output);
+}
+
+void BulletInterface::read_contacts() {
+  b3ContactInformation contact_info;
+  b3RobotSimulatorGetContactPointsArgs contact_args;
+  for (const auto& link_name : params_.report_contacts) {
+    contact_args.m_bodyUniqueIdA = robot_;
+    contact_args.m_linkIndexA = get_link_index(link_name);
+    bullet_.getContactPoints(contact_args, &contact_info);
+    contact_data_(link_name)("num_contact_points") =
+        contact_info.m_numContactPoints;
+  }
 }
 
 void BulletInterface::read_joint_sensors() {
