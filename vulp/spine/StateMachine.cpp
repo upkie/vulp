@@ -51,7 +51,6 @@ void StateMachine::process_cycle_beginning() {
           spdlog::warn(
               "Request::kStart is invalid from State::kIdle! Stop the spine "
               "then start it again");
-          // TODO(scaron): let the agent know by falling to some error state?
           enter_state(State::kIdle);  // reset request
           break;
         case Request::kStop:
