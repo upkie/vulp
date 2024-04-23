@@ -91,7 +91,8 @@ class Interface {
 
   /*! Get joint command-reply data.
    *
-   * TODO(scaron): this field should become internal.
+   * This field is meant to become internal when we refactor spine servo
+   * observations into actuation interfaces.
    */
   moteus::Data& data() { return data_; }
 
