@@ -193,7 +193,6 @@ class SpineInterface:
                     f"{timeout_ns / 1e6:.1f} ms, is it stopped?"
                 )
         if self._read_request() == Request.kError:
-            # TODO(scaron): cover this case by a unit test
             self._write_request(Request.kNone)
             raise SpineError("Invalid request, is the spine started?")
 
