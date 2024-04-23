@@ -129,9 +129,10 @@ class Interface {
    *
    * When running on a robot, this data is shared with the CAN thread.
    *
-   * \note Not thread-safe. TODO(scaron): really not thread-safe! CAN thread
-   * directly reads mode and position from there. We might change these
-   * inconsistently!
+   * \note Not thread-safe. Seriously, not thread-safe, for real! CAN thread
+   * directly reads mode and position from there. We depend on the
+   * implementation of \ref Spine::cycle_actuation to guarantee that commands
+   * are not modified while the CAN thread processes them.
    */
   std::vector<moteus::ServoCommand> commands_;
 
