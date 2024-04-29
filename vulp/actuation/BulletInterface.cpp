@@ -188,6 +188,9 @@ void BulletInterface::cycle(
     std::function<void(const moteus::Output&)> callback) {
   assert(data.commands.size() == data.replies.size());
   assert(!std::isnan(params_.dt));
+  if (!bullet_.isConnected()) {
+    throw std::runtime_error("simulator is not running any more");
+  }
 
   read_joint_sensors();
   read_imu_data(imu_data_, bullet_, robot_, imu_link_index_, params_.dt);
