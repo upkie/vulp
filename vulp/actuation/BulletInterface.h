@@ -50,13 +50,13 @@ class BulletInterface : public Interface {
       follower_camera = bullet.get<bool>("follower_camera", follower_camera);
       gui = bullet.get<bool>("gui", gui);
 
-      report_contacts.clear();
-      if (bullet.has("report")) {
-        const auto& report = bullet("report");
-        if (report.has("contacts")) {
-          for (const auto& body : report("contacts").keys()) {
+      monitor_contacts.clear();
+      if (bullet.has("monitor")) {
+        const auto& monitor = bullet("monitor");
+        if (monitor.has("contacts")) {
+          for (const auto& body : monitor("contacts").keys()) {
             spdlog::info("Adding body {} to contacts", body);
-            report_contacts.push_back(body);
+            monitor_contacts.push_back(body);
           }
         }
       }
@@ -104,8 +104,8 @@ class BulletInterface : public Interface {
      */
     std::string argv0 = "";
 
-    //! Contacts to report along with observations
-    std::vector<std::string> report_contacts;
+    //! Contacts to monitor and report along with observations
+    std::vector<std::string> monitor_contacts;
 
     //! Simulation timestep in [s]
     double dt = std::numeric_limits<double>::quiet_NaN();

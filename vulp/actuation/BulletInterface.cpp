@@ -138,7 +138,7 @@ void BulletInterface::reset_base_state(
 }
 
 void BulletInterface::reset_contact_data() {
-  for (const auto& link_name : params_.report_contacts) {
+  for (const auto& link_name : params_.monitor_contacts) {
     contact_data_.try_emplace(link_name, BulletContactData());
   }
 }
@@ -176,9 +176,9 @@ void BulletInterface::observe(Dictionary& observation) const {
   observation("imu")("linear_acceleration") =
       imu_data_.linear_acceleration_imu_in_imu;
 
-  Dictionary& report = observation("bullet");
-  for (const auto& link_name : params_.report_contacts) {
-    report("contact")(link_name)("num_contact_points") =
+  Dictionary& monitor = observation("bullet");
+  for (const auto& link_name : params_.monitor_contacts) {
+    monitor("contact")(link_name)("num_contact_points") =
         contact_data_.at(link_name).num_contact_points;
   }
 }
@@ -216,7 +216,7 @@ void BulletInterface::cycle(
 void BulletInterface::read_contacts() {
   b3ContactInformation contact_info;
   b3RobotSimulatorGetContactPointsArgs contact_args;
-  for (const auto& link_name : params_.report_contacts) {
+  for (const auto& link_name : params_.monitor_contacts) {
     contact_args.m_bodyUniqueIdA = robot_;
     contact_args.m_linkIndexA = get_link_index(link_name);
     bullet_.getContactPoints(contact_args, &contact_info);
