@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - BulletInterface: internal ``get_link_index`` memoization
 - BulletInterface: introduce "monitor" configuration dictionary
 - BulletInterface: report contacts to bodies specified in configuration
+- CICD: Add a workflow for the pi3hat build test
 - Introduce ``observe`` method in actuation interfaces
 
 ### Changed
