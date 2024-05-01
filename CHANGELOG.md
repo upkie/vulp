@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 
 - Build test for the pi3hat interface
 - BulletInterface: internal ``get_link_index`` memoization
+- BulletInterface: introduce "monitor" configuration dictionary
+- BulletInterface: report contacts to bodies specified in configuration
 - Introduce ``observe`` method in actuation interfaces
 
 ### Changed
