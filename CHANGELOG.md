@@ -21,6 +21,10 @@ All notable changes to this project will be documented in this file.
 - Pi3HatInterface: make ``get_linear_acceleration`` private
 - Pi3HatInterface: make ``imu_data`` private
 
+### Fixed
+
+- CICD: Clean up redundant Python build jobs
+
 ### Removed
 
 - Clean up unused ``MockInterface::get_angular_velocity``
