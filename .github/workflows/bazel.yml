@@ -7,7 +7,7 @@ on:
         branches: [ main ]
 
 jobs:
-    build:
+    build_host:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
@@ -36,6 +36,19 @@ jobs:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
                   tools/bazelisk build --compilation_mode=fastbuild //...
+
+    build_pi3hat:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: "Checkout sources"
+              uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+
+            - name: "Install build dependencies"
+              run: |
+                  sudo apt-get update && sudo apt-get install -y libtinfo5-dev
 
             - name: "Build targets for the pi64 configuration"
               env:
