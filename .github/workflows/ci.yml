@@ -45,7 +45,7 @@ jobs:
               env:
                   BAZELISK_GITHUB_TOKEN: ${{ secrets.BAZELISK_GITHUB_TOKEN }}
               run: |
-                  tools/bazel build //vulp/actuation/tests:pi3hat_interface_test --config pi64
+                  tools/bazelisk build //vulp/actuation/tests:pi3hat_interface_test --config pi64
 
     coverage:
         name: "Coverage"
