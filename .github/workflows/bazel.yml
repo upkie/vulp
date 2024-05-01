@@ -48,7 +48,7 @@ jobs:
 
             - name: "Install build dependencies"
               run: |
-                  sudo apt-get update && sudo apt-get install -y libtinfo5-dev
+                  sudo apt-get update && sudo apt-get install -y libtinfo5
 
             - name: "Build targets for the pi64 configuration"
               env:
