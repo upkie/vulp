@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- CICD: Rename bazel.yml to ci.yml for consistency with other repos
 - Pi3HatInterface: make ``get_angular_velocity`` private
 - Pi3HatInterface: make ``get_attitude`` private
 - Pi3HatInterface: make ``get_linear_acceleration`` private

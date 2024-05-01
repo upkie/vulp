@@ -1,6 +1,6 @@
 # Vulp – Robot/simulation switch
 
-[![CI](https://github.com/upkie/vulp/actions/workflows/bazel.yml/badge.svg)](https://github.com/upkie/vulp/actions/workflows/bazel.yml)
+[![CI](https://github.com/upkie/vulp/actions/workflows/ci.yml/badge.svg)](https://github.com/upkie/vulp/actions/workflows/ci.yml)
 [![Documentation](https://github.com/upkie/vulp/actions/workflows/docs.yml/badge.svg)](https://upkie.github.io/vulp/)
 [![Coverage](https://coveralls.io/repos/github/upkie/vulp/badge.svg?branch=main)](https://coveralls.io/github/upkie/vulp?branch=main)
 ![C++ version](https://img.shields.io/badge/C++-17-blue.svg?style=flat)
