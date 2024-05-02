@@ -3,9 +3,6 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- SpineInterface: Remove leading slashes from shared memory object names to avoid ambiguity.
-
-## [2.3.0] - 2024-05-02
 
 ## [2.3.0] - 2024-05-02
 
@@ -29,6 +26,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - CICD: Clean up redundant Python build jobs
+- SpineInterface: Remove leading slashes from shared memory object names
 
 ### Removed
 
