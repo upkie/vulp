@@ -3,6 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- SpineInterface: Remove leading slashes from shared memory object names to avoid ambiguity.
 
 ### Added
 
