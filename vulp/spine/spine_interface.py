@@ -35,7 +35,7 @@ def wait_for_shared_memory(
     """
     # Remove leading slash if present, as SharedMemory will prepend it
     # See https://github.com/upkie/vulp/issues/92
-    shm_name = shm_name[1:] if shm_name.startswith("/") else shm_name
+    shm_name = shm_name.lstrip("/")
 
     for trial in range(retries):
         if trial > 0:
