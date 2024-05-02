@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 - SpineInterface: Remove leading slashes from shared memory object names to avoid ambiguity.
 
+## [2.3.0] - 2024-05-02
+
 ### Added
 
 - Build test for the pi3hat interface
@@ -213,7 +215,8 @@ All notable changes to this project will be documented in this file.
 
 First release of the project.
 
-[unreleased]: https://github.com/upkie/vulp/compare/v2.2.2...HEAD
+[unreleased]: https://github.com/upkie/vulp/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/upkie/vulp/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/upkie/vulp/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/upkie/vulp/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/upkie/vulp/compare/v2.1.0...v2.2.0
