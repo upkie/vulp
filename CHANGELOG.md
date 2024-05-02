@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 
 ## [2.3.0] - 2024-05-02
 
+## [2.3.0] - 2024-05-02
+
 ### Added
 
 - Build test for the pi3hat interface
