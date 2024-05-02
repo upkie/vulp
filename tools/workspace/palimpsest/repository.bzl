@@ -10,5 +10,5 @@ def palimpsest_repository():
         name = "palimpsest",
         remote = "https://github.com/upkie/palimpsest",
         commit = "f52bcfeeda2da839107d6121e0c8ef1a0c42522e",
-        shallow_since = "1655469414 -0400"
+        shallow_since = "1712924252 +0200"
     )
