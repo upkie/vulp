@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- Spine: Cast `logger_.last_size()` explicitly to `uint32_t`.
 
 ## [2.3.0] - 2024-05-02
 
