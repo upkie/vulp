@@ -3,7 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+### Added
+
+- Python: Expose ``SpineInterface`` from top-level module
+
 ### Fixed
+
 - Spine: Cast `logger_.last_size()` explicitly to `uint32_t`.
 
 ## [2.3.0] - 2024-05-02

@@ -7,3 +7,9 @@
 """Real-time motion control for Python."""
 
 __version__ = "2.3.0"
+
+from .spine import SpineInterface
+
+__all__ = [
+    "SpineInterface",
+]
