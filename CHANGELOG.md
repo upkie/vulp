@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - BulletInterface: Monitor IMU velocity
 - BulletInterface: Unit test for IMU monitoring
+- BulletInterface: report the base state that can be used for training RL agents.
 - docs: Start a dedicated page for observers
 
 ## [2.4.0] - 2024-05-27
