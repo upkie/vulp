@@ -182,6 +182,12 @@ void BulletInterface::observe(Dictionary& observation) const {
     monitor("contact")(link_name)("num_contact_points") =
         contact_data_.at(link_name).num_contact_points;
   }
+
+  // Observe the base state
+  Eigen::Matrix4d T = transform_base_to_world();
+  monitor("base")("position") = T.block<3, 1>(0, 3);  // [m]
+  monitor("base")("orientation") =
+      Eigen::Quaterniond(T.block<3, 3>(0, 0));  // [w, x, y, z]
 }
 
 void BulletInterface::cycle(
