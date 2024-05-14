@@ -272,4 +272,27 @@ TEST_F(BulletInterfaceTest, ObserveImuOrientation) {
                   .isApprox(orientation_imu_in_ars));
 }
 
+TEST_F(BulletInterfaceTest, MonitorContacts) {
+  Dictionary config;
+  config("bullet")("gui") = false;
+  config("bullet")("monitor")("contacts")("left_wheel_tire") = true;
+  config("bullet")("monitor")("contacts")("right_wheel_tire") = true;
+  interface_->reset(config);
+
+  Dictionary observation;
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->observe(observation);
+
+  ASSERT_TRUE(observation.has("bullet"));
+  ASSERT_TRUE(observation("bullet").has("contact"));
+  ASSERT_TRUE(observation("bullet")("contact").has("left_wheel_tire"));
+  ASSERT_TRUE(observation("bullet")("contact").has("right_wheel_tire"));
+  ASSERT_EQ(observation("bullet")("contact")("left_wheel_tire")
+                .get<int>("num_contact_points"),
+            0);
+  ASSERT_EQ(observation("bullet")("contact")("right_wheel_tire")
+                .get<int>("num_contact_points"),
+            0);
+}
+
 }  // namespace vulp::actuation
