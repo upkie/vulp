@@ -185,7 +185,8 @@ void BulletInterface::observe(Dictionary& observation) const {
 
   // Observe the base state
   Eigen::Matrix4d T = transform_base_to_world();
-  monitor("base")("position") = T.block<3, 1>(0, 3);  // [m]
+  monitor("base")("position") =
+      Eigen::Vector3d(T(0, 3), T(1, 3), T(2, 3));  // [m]
   monitor("base")("orientation") =
       Eigen::Quaterniond(T.block<3, 3>(0, 0));  // [w, x, y, z]
 }
