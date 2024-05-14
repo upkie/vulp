@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- BulletInterface: Unit test for contact monitoring
 - Python: Expose ``SpineInterface`` from top-level module
 
 ### Fixed
