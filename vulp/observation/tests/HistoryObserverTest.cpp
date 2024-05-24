@@ -55,13 +55,13 @@ TEST(HistoryObserver, DoubleReadThenWrite) {
 
 TEST(HistoryObserver, Vector3dInitialization) {
   HistoryObserver<Eigen::Vector3d> history_observer(
-      /* keys = */ std::vector<std::string>{"imu", "acceleration"},
+      /* keys = */ std::vector<std::string>{"imu", "linear_acceleration"},
       /* size = */ 4,
       /* default_value = */ Eigen::Vector3d::Zero());
 
   Dictionary observation;
   history_observer.write(observation);
-  const auto& values = observation("history")("imu")("acceleration")
+  const auto& values = observation("history")("imu")("linear_acceleration")
                            .as<std::vector<Eigen::Vector3d>>();
   ASSERT_EQ(values.size(), 4);
   for (unsigned i = 0; i < values.size(); ++i) {
@@ -73,22 +73,24 @@ TEST(HistoryObserver, Vector3dInitialization) {
 
 TEST(HistoryObserver, Vector3dReadThenWrite) {
   HistoryObserver<Eigen::Vector3d> history_observer(
-      /* keys = */ std::vector<std::string>{"imu", "acceleration"},
+      /* keys = */ std::vector<std::string>{"imu", "linear_acceleration"},
       /* size = */ 3,
       /* default_value = */ Eigen::Vector3d::Zero());
 
   Dictionary observation;
-  observation("imu").insert<Eigen::Vector3d>("acceleration",
+  observation("imu").insert<Eigen::Vector3d>("linear_acceleration",
                                              Eigen::Vector3d::Zero());
-  observation("imu")("acceleration").as<Eigen::Vector3d>().z() = 3.2;
+  auto& linear_acceleration =
+      observation("imu")("linear_acceleration").as<Eigen::Vector3d>();
+  linear_acceleration.z() = 3.2;
   history_observer.read(observation);
-  observation("imu")("acceleration").as<Eigen::Vector3d>().z() = 2.1;
+  linear_acceleration.z() = 2.1;
   history_observer.read(observation);
-  observation("imu")("acceleration").as<Eigen::Vector3d>().z() = 1.0;
+  linear_acceleration.z() = 1.0;
   history_observer.read(observation);
 
   history_observer.write(observation);
-  const auto& values = observation("history")("imu")("acceleration")
+  const auto& values = observation("history")("imu")("linear_acceleration")
                            .as<std::vector<Eigen::Vector3d>>();
   ASSERT_EQ(values.size(), 3);
   ASSERT_DOUBLE_EQ(values[0].z(), 1.0);
