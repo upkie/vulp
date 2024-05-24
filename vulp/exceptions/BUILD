@@ -18,6 +18,10 @@ cc_library(
 
 cc_library(
     name = "exceptions",
+    hdrs = [
+        "TypeError.h",
+        "VulpError.h",
+    ],
     deps = [
         ":filter_error",
         ":observer_error",
