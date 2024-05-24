@@ -8,12 +8,8 @@ package(default_visibility = ["//visibility:public"])
 
 cc_library(
     name = "observe_servos",
-    hdrs = [
-        "observe_servos.h",
-    ],
-    srcs = [
-        "observe_servos.cpp",
-    ],
+    hdrs = ["observe_servos.h"],
+    srcs = ["observe_servos.cpp"],
     deps = [
         "//vulp/actuation/moteus",
         "@palimpsest",
@@ -32,9 +28,7 @@ cc_library(
 
 cc_library(
     name = "observer",
-    hdrs = [
-        "Observer.h",
-    ],
+    hdrs = ["Observer.h"],
     deps = [
         "@palimpsest",
     ],
@@ -42,10 +36,18 @@ cc_library(
 )
 
 cc_library(
-    name = "source",
-    hdrs = [
-        "Source.h",
+    name = "history_observer",
+    hdrs = ["HistoryObserver.h"],
+    deps = [
+        "@vulp//vulp/exceptions",
+        ":observer",
     ],
+    include_prefix = "vulp/observation",
+)
+
+cc_library(
+    name = "source",
+    hdrs = ["Source.h"],
     deps = [
         "@palimpsest",
     ],
@@ -54,9 +56,7 @@ cc_library(
 
 cc_library(
     name = "observer_pipeline",
-    hdrs = [
-        "ObserverPipeline.h",
-    ],
+    hdrs = ["ObserverPipeline.h"],
     srcs = [
         "ObserverPipeline.cpp",
     ],
