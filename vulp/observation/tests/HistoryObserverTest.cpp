@@ -53,4 +53,47 @@ TEST(HistoryObserver, DoubleReadThenWrite) {
   ASSERT_DOUBLE_EQ(values[2], 3.0);
 }
 
+TEST(HistoryObserver, Vector3dInitialization) {
+  HistoryObserver<Eigen::Vector3d> history_observer(
+      /* keys = */ std::vector<std::string>{"imu", "acceleration"},
+      /* size = */ 4,
+      /* default_value = */ Eigen::Vector3d::Zero());
+
+  Dictionary observation;
+  history_observer.write(observation);
+  const auto& values = observation("history")("imu")("acceleration")
+                           .as<std::vector<Eigen::Vector3d>>();
+  ASSERT_EQ(values.size(), 4);
+  for (unsigned i = 0; i < values.size(); ++i) {
+    for (unsigned j = 0; j < 3; ++j) {
+      ASSERT_DOUBLE_EQ(values[i][j], 0.0);
+    }
+  }
+}
+
+TEST(HistoryObserver, Vector3dReadThenWrite) {
+  HistoryObserver<Eigen::Vector3d> history_observer(
+      /* keys = */ std::vector<std::string>{"imu", "acceleration"},
+      /* size = */ 3,
+      /* default_value = */ Eigen::Vector3d::Zero());
+
+  Dictionary observation;
+  observation("imu").insert<Eigen::Vector3d>("acceleration",
+                                             Eigen::Vector3d::Zero());
+  observation("imu")("acceleration").as<Eigen::Vector3d>().z() = 3.2;
+  history_observer.read(observation);
+  observation("imu")("acceleration").as<Eigen::Vector3d>().z() = 2.1;
+  history_observer.read(observation);
+  observation("imu")("acceleration").as<Eigen::Vector3d>().z() = 1.0;
+  history_observer.read(observation);
+
+  history_observer.write(observation);
+  const auto& values = observation("history")("imu")("acceleration")
+                           .as<std::vector<Eigen::Vector3d>>();
+  ASSERT_EQ(values.size(), 3);
+  ASSERT_DOUBLE_EQ(values[0].z(), 1.0);
+  ASSERT_DOUBLE_EQ(values[1].z(), 2.1);
+  ASSERT_DOUBLE_EQ(values[2].z(), 3.2);
+}
+
 }  // namespace vulp::observation::tests
