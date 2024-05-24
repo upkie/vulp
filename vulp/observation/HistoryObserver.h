@@ -79,7 +79,7 @@ class HistoryObserver : public Observer {
    * \param[in] key_index Index we are at in the list of keys.
    */
   void read_value(const Dictionary& dict, unsigned key_index) {
-    if (key_index != keys_.size()) {
+    if (key_index < keys_.size()) {
       const std::string& key = keys_.at(key_index);
       return read_value(dict(key), key_index + 1);
     }
@@ -99,7 +99,7 @@ class HistoryObserver : public Observer {
    * \param[in] key_index Index we are at in the list of keys.
    */
   void write_values(Dictionary& dict, unsigned key_index) {
-    if (key_index != keys_.size()) {
+    if (key_index < keys_.size()) {
       const std::string& key = keys_.at(key_index);
       return write_values(dict(key), key_index + 1);
     }
