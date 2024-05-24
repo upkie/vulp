@@ -19,13 +19,19 @@ using palimpsest::Dictionary;
 using vulp::exceptions::TypeError;
 using vulp::observation::Observer;
 
+/*! Report high-frequency history vectors to lower-frequency agents.
+ *
+ * This observer allows processing higher-frequency signals from the spine as
+ * vectors of observations reported to lower-frequency agents.
+ */
 template <typename T>
 class HistoryObserver : public Observer {
  public:
   /*! Initialize observer.
    *
+   * \param[in] keys List of keys to read values from in input observations.
+   * \param[in] size Size of the history vector.
    * \param[in] default_value Value to initialize history vectors.
-   * \param[in] prefix Dictionary key where outputs will be written.
    */
   HistoryObserver(const std::vector<std::string>& keys, size_t size,
                   const T& default_value)
@@ -36,7 +42,7 @@ class HistoryObserver : public Observer {
 
   /*! Reset observer.
    *
-   * \param[in] config Overall configuration dictionary.
+   * \param[in] config Configuration dictionary.
    */
   void reset(const Dictionary& config) final {}
 
@@ -58,6 +64,7 @@ class HistoryObserver : public Observer {
   }
 
  private:
+  //! Concatenate keys into a single string for reporting.
   std::string concatenate_keys() {
     std::string output;
     for (const auto& key : keys_) {
@@ -66,6 +73,11 @@ class HistoryObserver : public Observer {
     return output;
   }
 
+  /*! Read value from an input dictionary.
+   *
+   * \param[in] dict Input dictionary.
+   * \param[in] key_index Index we are at in the list of keys.
+   */
   void read_value(const Dictionary& dict, unsigned key_index) {
     if (key_index != keys_.size()) {
       const std::string& key = keys_.at(key_index);
@@ -81,6 +93,11 @@ class HistoryObserver : public Observer {
     values_.insert(values_.begin(), new_value);
   }
 
+  /*! Write values to an output dictionary.
+   *
+   * \param[out] dict Output dictionary.
+   * \param[in] key_index Index we are at in the list of keys.
+   */
   void write_values(Dictionary& dict, unsigned key_index) {
     if (key_index != keys_.size()) {
       const std::string& key = keys_.at(key_index);
