@@ -6,13 +6,14 @@
 # This file incorporates work covered by the following copyright and permission
 # notice:
 #
-#     SPDX-License-Identifier: BSD-3-Clause
 #     Copyright 2012-2016 Robot Locomotion Group @ CSAIL
+#     SPDX-License-Identifier: BSD-3-Clause
 
 load("@rules_python//python:defs.bzl", "py_test")
 
 # N.B. Copied from `DEFAULT_IGNORE` in `pycodestyle.py`.
-PYTHON_LINT_IGNORE_DEFAULT = "E121,E123,E126,E226,E24,E704,W503".split(",")
+# E266 too many leading '#' for block comment -- ignored because of Doxygen
+PYTHON_LINT_IGNORE_DEFAULT = "E121,E123,E126,E226,E266,E24,E704,W503".split(",")
 
 # Internal helper.
 def _python_lint(name_prefix, files, ignore, disallow_executable):
