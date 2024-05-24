@@ -15,6 +15,7 @@ cc_test(
     ]),
     deps = [
         "//vulp/actuation/moteus",
+        "//vulp/observation:history_observer",
         "//vulp/observation",
         "@eigen",
         "@googletest//:main",
