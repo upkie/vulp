@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 - BulletInterface: Unit test for contact monitoring
 - Python: Expose ``SpineInterface`` from top-level module
 
+### Changed
+
+- Update palimpsest to v2.1.0
+
 ### Fixed
 
 - Spine: Cast `logger_.last_size()` explicitly to `uint32_t`.
