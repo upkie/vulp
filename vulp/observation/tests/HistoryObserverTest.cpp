@@ -4,7 +4,10 @@
 #include <palimpsest/Dictionary.h>
 #include <palimpsest/exceptions/KeyError.h>
 
+#include <limits>
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "gtest/gtest.h"
 #include "vulp/observation/HistoryObserver.h"
