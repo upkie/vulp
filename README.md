@@ -4,7 +4,7 @@
 [![Documentation](https://github.com/upkie/vulp/actions/workflows/docs.yml/badge.svg)](https://upkie.github.io/vulp/)
 [![Coverage](https://coveralls.io/repos/github/upkie/vulp/badge.svg?branch=main)](https://coveralls.io/github/upkie/vulp?branch=main)
 ![C++ version](https://img.shields.io/badge/C++-17-blue.svg?style=flat)
-[![Conda version](https://anaconda.org/conda-forge/vulp/badges/version.svg)](https://anaconda.org/conda-forge/vulp)
+[![Conda version](https://img.shields.io/conda/vn/conda-forge/vulp.svg)](https://anaconda.org/conda-forge/vulp)
 [![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
 
 Vulp provides an action-observation loop to control robots from a standalone "agent" process, like this:
@@ -21,17 +21,13 @@ Vulp supports Linux and macOS for development, and Raspberry Pi OS for robot dep
 
 ## Installation
 
-### From Conda
-
-[![Conda version](https://anaconda.org/conda-forge/vulp/badges/version.svg)](https://anaconda.org/conda-forge/vulp)
+### From conda-forge
 
 ```console
 conda install -c conda-forge vulp
 ```
 
 ### From PyPI
-
-[![PyPI version](https://img.shields.io/pypi/v/vulp)](https://pypi.org/project/vulp/)
 
 ```console
 pip install vulp
