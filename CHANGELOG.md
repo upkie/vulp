@@ -138,7 +138,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - SpineInterface: ``retries`` parameter to wait for the spine to start
-- observers: Keyboard source by @boragokbakan
+- observers: Keyboard source (thanks to @ubgk)
 
 ### Changed
 
@@ -150,7 +150,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Portable and SSH-compatible Keyboard source
-- Support macOS operating systems (with help from @boragokbakan)
+- Support macOS operating systems (with help from @ubgk)
 - Virtual destructor to the main ``Interface`` class
 
 ### Changed
