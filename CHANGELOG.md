@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Spine: Cast `logger_.last_size()` explicitly to `uint32_t`.
+- Spine: Cast `logger_.last_size()` explicitly to `uint32_t` (thanks to @ubgk)
 
 ## [2.3.0] - 2024-05-02
 
@@ -189,7 +189,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Find ``clang-format`` path on macOS (thanks to @boragokbakan)
+- Find ``clang-format`` path on macOS (thanks to @ubgk)
 - Only apply the ``-lrt`` linker flag on Linux
 - Shared-memory file permissions
 
