@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.4.0] - 2024-05-27
+
 ### Added
 
 - BulletInterface: Unit test for contact monitoring
@@ -229,7 +231,8 @@ All notable changes to this project will be documented in this file.
 
 First release of the project.
 
-[unreleased]: https://github.com/upkie/vulp/compare/v2.3.0...HEAD
+[unreleased]: https://github.com/upkie/vulp/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/upkie/vulp/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/upkie/vulp/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/upkie/vulp/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/upkie/vulp/compare/v2.2.0...v2.2.1
