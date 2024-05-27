@@ -4,9 +4,9 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2023 Inria
 
-"""Real-time motion control for Python."""
+"""Robot/simulation switch for the mjbots stack."""
 
-__version__ = "2.3.0"
+__version__ = "2.4.0"
 
 from .spine import SpineInterface
 
