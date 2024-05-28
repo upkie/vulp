@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- docs: Start a dedicated page for observers
+
 ## [2.4.0] - 2024-05-27
 
 ### Added
