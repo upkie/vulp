@@ -177,6 +177,7 @@ void BulletInterface::observe(Dictionary& observation) const {
       imu_data_.linear_acceleration_imu_in_imu;
 
   Dictionary& monitor = observation("bullet");
+  monitor("imu")("linear_velocity") = imu_data_.linear_velocity_imu_in_world;
   for (const auto& link_name : params_.monitor_contacts) {
     monitor("contact")(link_name)("num_contact_points") =
         contact_data_.at(link_name).num_contact_points;
