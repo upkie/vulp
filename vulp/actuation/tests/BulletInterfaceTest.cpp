@@ -39,7 +39,7 @@ class BulletInterfaceTest : public ::testing::Test {
     ASSERT_NE(runfiles, nullptr);
 
     BulletInterface::Parameters params(config);
-    params.dt = 1.0 / 1000.0;
+    params.dt = dt_;
     params.floor = false;  // wheels roll freely during testing
     params.joint_friction.try_emplace("left_wheel", kLeftWheelFriction);
     params.robot_urdf_path =
@@ -56,6 +56,9 @@ class BulletInterfaceTest : public ::testing::Test {
   }
 
  protected:
+  //! Time step in seconds
+  double dt_ = 1.0 / 1000.0;
+
   //! Bullet actuation interface
   std::unique_ptr<BulletInterface> interface_;
 
@@ -293,6 +296,24 @@ TEST_F(BulletInterfaceTest, MonitorContacts) {
   ASSERT_EQ(observation("bullet")("contact")("right_wheel_tire")
                 .get<int>("num_contact_points"),
             0);
+}
+
+TEST_F(BulletInterfaceTest, MonitorIMU) {
+  Dictionary config;
+  config("bullet")("gui") = false;
+  interface_->reset(config);
+
+  Dictionary observation;
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->observe(observation);
+
+  ASSERT_TRUE(observation.has("bullet"));
+  ASSERT_TRUE(observation("bullet").has("imu"));
+  ASSERT_TRUE(observation("bullet")("imu").has("linear_velocity"));
+  Eigen::Vector3d linear_velocity_imu_in_imu =
+      observation("bullet")("imu")("linear_velocity");
+  ASSERT_DOUBLE_EQ(linear_velocity_imu_in_imu.z(), -9.81 * dt_);
 }
 
 }  // namespace vulp::actuation
