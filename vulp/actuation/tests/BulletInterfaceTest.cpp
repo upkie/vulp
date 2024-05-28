@@ -270,6 +270,8 @@ TEST_F(BulletInterfaceTest, ObserveImuOrientation) {
 
   ASSERT_TRUE(observation.has("imu"));
   ASSERT_TRUE(observation("imu").has("orientation"));
+  ASSERT_TRUE(observation("imu").has("angular_velocity"));
+  ASSERT_TRUE(observation("imu").has("linear_acceleration"));
   ASSERT_TRUE(observation("imu")("orientation")
                   .as<Eigen::Quaterniond>()
                   .isApprox(orientation_imu_in_ars));
