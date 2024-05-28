@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- BulletInterface: Monitor IMU velocity
+- BulletInterface: Unit test for IMU monitoring
 - docs: Start a dedicated page for observers
 
 ## [2.4.0] - 2024-05-27
