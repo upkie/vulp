@@ -318,4 +318,29 @@ TEST_F(BulletInterfaceTest, MonitorIMU) {
   ASSERT_DOUBLE_EQ(linear_velocity_imu_in_imu.z(), -9.81 * dt_);
 }
 
+ TEST_F(BulletInterfaceTest, MonitorBaseState) {
+   Dictionary config;
+   config("bullet")("gui") = false;
+   interface_->reset(config);
+
+   Dictionary observation;
+   // interface_->cycle(data_, [](const moteus::Output& output) {});
+   // interface_->cycle(data_, [](const moteus::Output& output) {});
+   interface_->observe(observation);
+
+   ASSERT_TRUE(observation.has("bullet"));
+   ASSERT_TRUE(observation("bullet").has("base"));
+   ASSERT_TRUE(observation("bullet")("base").has("position"));
+   Eigen::Vector3d base_position =
+       observation("bullet")("base")("position");
+
+   // ASSERT_DOUBLE_EQ(base_position.x(), 0.0);
+   // ASSERT_DOUBLE_EQ(base_position.y(), 0.0);
+   ASSERT_DOUBLE_EQ(base_position.z(), (-9.81 * std::pow(dt_, 2.0)) / 2); // x(t) = 1/2 g t^2
+
+   ASSERT_TRUE(observation("bullet")("base").has("orientation"));
+   Eigen::Quaterniond base_orientation = observation("bullet")("imu")("orientation");
+
+ }
+
 }  // namespace vulp::actuation
