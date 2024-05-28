@@ -318,7 +318,7 @@ TEST_F(BulletInterfaceTest, MonitorIMU) {
   ASSERT_DOUBLE_EQ(linear_velocity_imu_in_imu.z(), -9.81 * dt_);
 }
 
- TEST_F(BulletInterfaceTest, MonitorBaseState) {
+TEST_F(BulletInterfaceTest, MonitorBaseState) {
   Dictionary config;
   config("bullet")("gui") = false;
   interface_->reset(config);
@@ -331,19 +331,19 @@ TEST_F(BulletInterfaceTest, MonitorIMU) {
   ASSERT_TRUE(observation.has("bullet"));
   ASSERT_TRUE(observation("bullet").has("base"));
   ASSERT_TRUE(observation("bullet")("base").has("position"));
-  Eigen::Vector3d base_position =
-       observation("bullet")("base")("position");
+  Eigen::Vector3d base_position = observation("bullet")("base")("position");
 
   ASSERT_NEAR(base_position.x(), 0.0, 1e-20);
   ASSERT_NEAR(base_position.y(), 0.0, 1e-20);
 
-  /* Bullet does not seem to double integrate accelerations, 
+  /* Bullet does not seem to double integrate accelerations,
      it first updates velocities then integrates those to get positions.
   */
   ASSERT_NEAR(base_position.z(), 3 * -9.81 * std::pow(dt_, 2.0), 1e-6);
 
   ASSERT_TRUE(observation("bullet")("base").has("orientation"));
-   Eigen::Quaterniond base_orientation = observation("bullet")("base")("orientation");
+  Eigen::Quaterniond base_orientation =
+      observation("bullet")("base")("orientation");
 
   // Rotation vector should be practically zero
   ASSERT_DOUBLE_EQ(base_orientation.w(), 1.0);
@@ -352,7 +352,6 @@ TEST_F(BulletInterfaceTest, MonitorIMU) {
   ASSERT_NEAR(base_orientation.x(), 0.0, 1e-20);
   ASSERT_NEAR(base_orientation.y(), 0.0, 1e-20);
   ASSERT_NEAR(base_orientation.z(), 0.0, 1e-20);
-
- }
+}
 
 }  // namespace vulp::actuation
