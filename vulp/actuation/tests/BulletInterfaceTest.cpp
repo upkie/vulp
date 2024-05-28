@@ -336,8 +336,9 @@ TEST_F(BulletInterfaceTest, MonitorBaseState) {
   ASSERT_NEAR(base_position.x(), 0.0, 1e-20);
   ASSERT_NEAR(base_position.y(), 0.0, 1e-20);
 
-  /* Bullet does not seem to double integrate accelerations,
-     it first updates velocities then integrates those to get positions.
+  /* Bullet does not seem to double integrate accelerations (explicit Euler),
+     it first updates velocities then integrates those to get positions
+     (semi-implicit Euler method).
   */
   ASSERT_NEAR(base_position.z(), 3 * -9.81 * std::pow(dt_, 2.0), 1e-6);
 
