@@ -319,35 +319,39 @@ TEST_F(BulletInterfaceTest, MonitorIMU) {
 }
 
  TEST_F(BulletInterfaceTest, MonitorBaseState) {
-   Dictionary config;
-   config("bullet")("gui") = false;
-   interface_->reset(config);
+  Dictionary config;
+  config("bullet")("gui") = false;
+  interface_->reset(config);
 
-   Dictionary observation;
-   interface_->cycle(data_, [](const moteus::Output& output) {});
-   // interface_->cycle(data_, [](const moteus::Output& output) {});
-   interface_->observe(observation);
+  Dictionary observation;
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->observe(observation);
 
-   ASSERT_TRUE(observation.has("bullet"));
-   ASSERT_TRUE(observation("bullet").has("base"));
-   ASSERT_TRUE(observation("bullet")("base").has("position"));
-   Eigen::Vector3d base_position =
+  ASSERT_TRUE(observation.has("bullet"));
+  ASSERT_TRUE(observation("bullet").has("base"));
+  ASSERT_TRUE(observation("bullet")("base").has("position"));
+  Eigen::Vector3d base_position =
        observation("bullet")("base")("position");
 
-   ASSERT_NEAR(base_position.x(), 0.0, 1e-20);
-   ASSERT_NEAR(base_position.y(), 0.0, 1e-20);
-   ASSERT_DOUBLE_EQ(base_position.z(), (-9.81 * std::pow(dt_, 2.0)) / 2); // x(t) = 1/2 * g * t^2
+  ASSERT_NEAR(base_position.x(), 0.0, 1e-20);
+  ASSERT_NEAR(base_position.y(), 0.0, 1e-20);
 
-   ASSERT_TRUE(observation("bullet")("base").has("orientation"));
+  /* Bullet does not seem to double integrate accelerations, 
+     it first updates velocities then integrates those to get positions.
+  */
+  ASSERT_NEAR(base_position.z(), 3 * -9.81 * std::pow(dt_, 2.0), 1e-6);
+
+  ASSERT_TRUE(observation("bullet")("base").has("orientation"));
    Eigen::Quaterniond base_orientation = observation("bullet")("base")("orientation");
 
-   // Rotation vector should be practically zero
-   ASSERT_DOUBLE_EQ(base_orientation.w(), 1.0);
+  // Rotation vector should be practically zero
+  ASSERT_DOUBLE_EQ(base_orientation.w(), 1.0);
 
-   // We cannot check for zero equality because of numerical errors
-   ASSERT_NEAR(base_orientation.x(), 0.0, 1e-20);
-   ASSERT_NEAR(base_orientation.y(), 0.0, 1e-20);
-   ASSERT_NEAR(base_orientation.z(), 0.0, 1e-20);
+  // We cannot check for zero equality because of numerical errors
+  ASSERT_NEAR(base_orientation.x(), 0.0, 1e-20);
+  ASSERT_NEAR(base_orientation.y(), 0.0, 1e-20);
+  ASSERT_NEAR(base_orientation.z(), 0.0, 1e-20);
 
  }
 
