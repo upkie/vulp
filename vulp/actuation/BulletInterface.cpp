@@ -191,6 +191,8 @@ void BulletInterface::observe(Dictionary& observation) const {
       Eigen::Quaterniond(T.block<3, 3>(0, 0));  // [w, x, y, z]
 }
 
+void BulletInterface::process_action(const Dictionary& action) {}
+
 void BulletInterface::cycle(
     std::function<void(const moteus::Output&)> callback) {
   const moteus::Data& data = this->data_;

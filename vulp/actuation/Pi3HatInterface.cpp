@@ -51,6 +51,8 @@ void Pi3HatInterface::observe(Dictionary& observation) const {
       imu_data.linear_acceleration_imu_in_imu;
 }
 
+void Pi3HatInterface::process_action(const Dictionary& action) {}
+
 void Pi3HatInterface::cycle(
     std::function<void(const moteus::Output&)> callback) {
   const moteus::Data& data = this->data_;
