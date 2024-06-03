@@ -15,9 +15,8 @@ TEST(MockInterfaceTest, CycleCallsCallback) {
   const double dt = 1e-3;
   MockInterface interface(layout, dt);
 
-  moteus::Data data;
   bool callback_called = false;
-  interface.cycle(data, [&callback_called](const moteus::Output& output) {
+  interface.cycle([&callback_called](const moteus::Output& output) {
     callback_called = true;
   });
   ASSERT_TRUE(callback_called);

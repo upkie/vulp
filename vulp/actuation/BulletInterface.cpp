@@ -192,8 +192,8 @@ void BulletInterface::observe(Dictionary& observation) const {
 }
 
 void BulletInterface::cycle(
-    const moteus::Data& data,
     std::function<void(const moteus::Output&)> callback) {
+  const moteus::Data& data = this->data_;
   assert(data.commands.size() == data.replies.size());
   assert(!std::isnan(params_.dt));
   if (!bullet_.isConnected()) {

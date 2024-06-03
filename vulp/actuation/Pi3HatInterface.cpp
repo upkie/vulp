@@ -52,8 +52,8 @@ void Pi3HatInterface::observe(Dictionary& observation) const {
 }
 
 void Pi3HatInterface::cycle(
-    const moteus::Data& data,
     std::function<void(const moteus::Output&)> callback) {
+  const moteus::Data& data = this->data_;
   std::lock_guard<std::mutex> lock(mutex_);
   if (ongoing_can_cycle_) {
     throw std::logic_error(

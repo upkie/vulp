@@ -42,15 +42,13 @@ class MockInterface : public Interface {
 
   /*! Simulate a new communication cycle.
    *
-   * \param data Buffer to read commands from and write replies to.
    * \param callback Function to call when the cycle is over.
    *
    * The callback will be invoked from an arbitrary thread when the
    * communication cycle has completed. All memory pointed to by @p data must
    * remain valid until the callback is invoked.
    */
-  void cycle(const moteus::Data& data,
-             std::function<void(const moteus::Output&)> callback) final;
+  void cycle(std::function<void(const moteus::Output&)> callback) final;
 
  private:
   //! Spine timestep in [s].
