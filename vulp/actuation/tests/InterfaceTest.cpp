@@ -18,8 +18,7 @@ class SmallInterface : public Interface {
 
   void reset(const Dictionary& config) override {}
 
-  void cycle(const moteus::Data& data,
-             std::function<void(const moteus::Output&)> callback) final {}
+  void cycle(std::function<void(const moteus::Output&)> callback) final {}
 
   void observe(Dictionary& observation) const {}
 };

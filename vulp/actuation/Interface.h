@@ -48,15 +48,13 @@ class Interface {
 
   /*! Spin a new communication cycle.
    *
-   * \param[in, out] data Buffer to read commands from and write replies to.
    * \param callback Function to call when the cycle is over.
    *
    * The callback will be invoked from an arbitrary thread when the
    * communication cycle has completed. All memory pointed to by @p data must
    * remain valid until the callback is invoked.
    */
-  virtual void cycle(const moteus::Data& data,
-                     std::function<void(const moteus::Output&)> callback) = 0;
+  virtual void cycle(std::function<void(const moteus::Output&)> callback) = 0;
 
   /*! Reset interface using a new servo layout.
    *
@@ -121,6 +119,14 @@ class Interface {
     }
   }
 
+ protected:
+  /*! Pointers to the memory shared with the CAN thread.
+   *
+   * This memory consists of \ref commands_ and \ref replies_. It is, by
+   * definition, not thread-safe.
+   */
+  moteus::Data data_;
+
  private:
   //! Servo layout.
   ServoLayout servo_layout_;
@@ -141,13 +147,6 @@ class Interface {
    * \note Not thread-safe. The variable name is tedious on purpose ;)
    */
   std::vector<moteus::ServoReply> replies_;
-
-  /*! Pointers to the memory shared with the CAN thread.
-   *
-   * This memory consists of \ref commands_ and \ref replies_. It is, by
-   * definition, not thread-safe.
-   */
-  moteus::Data data_;
 };
 
 }  // namespace vulp::actuation

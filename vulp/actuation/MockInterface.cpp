@@ -36,8 +36,8 @@ void MockInterface::observe(Dictionary& observation) const {
       imu_data_.linear_acceleration_imu_in_imu;
 }
 
-void MockInterface::cycle(const moteus::Data& data,
-                          std::function<void(const moteus::Output&)> callback) {
+void MockInterface::cycle(std::function<void(const moteus::Output&)> callback) {
+  const moteus::Data& data = this->data_;
   assert(data.replies.size() == data.commands.size());
 
   for (const auto& command : data.commands) {

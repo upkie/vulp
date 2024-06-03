@@ -216,12 +216,11 @@ void Spine::cycle_actuation() {
   // 4. Start a new cycle. Results have been copied, so actuation commands and
   // replies are available again to the actuation thread for writing.
   auto promise = std::make_shared<std::promise<actuation::moteus::Output>>();
-  actuation_.cycle(actuation_.data(),
-                   [promise](const actuation::moteus::Output& output) {
-                     // This is called from an arbitrary thread, so we
-                     // just set the promise value here.
-                     promise->set_value(output);
-                   });
+  actuation_.cycle([promise](const actuation::moteus::Output& output) {
+    // This is called from an arbitrary thread, so we
+    // just set the promise value here.
+    promise->set_value(output);
+  });
   actuation_output_ = promise->get_future();
 }
 

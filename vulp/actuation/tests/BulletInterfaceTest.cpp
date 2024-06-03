@@ -51,8 +51,6 @@ class BulletInterfaceTest : public ::testing::Test {
       commands_.back().id = pair.first;
     }
     replies_.resize(commands_.size());
-    data_.commands = {commands_.data(), commands_.size()};
-    data_.replies = {replies_.data(), replies_.size()};
   }
 
  protected:
@@ -67,15 +65,11 @@ class BulletInterfaceTest : public ::testing::Test {
 
   //! Servo replies placeholder
   std::vector<actuation::moteus::ServoReply> replies_;
-
-  //! Data buffer to call interface_->cycle()
-  moteus::Data data_;
 };
 
 TEST_F(BulletInterfaceTest, CycleCallsCallback) {
-  moteus::Data data;
   bool callback_called = false;
-  interface_->cycle(data, [&callback_called](const moteus::Output& output) {
+  interface_->cycle([&callback_called](const moteus::Output& output) {
     callback_called = true;
   });
   ASSERT_TRUE(callback_called);
@@ -107,8 +101,7 @@ TEST_F(BulletInterfaceTest, JointProperties) {
 }
 
 TEST_F(BulletInterfaceTest, CycleDoesntThrow) {
-  ASSERT_NO_THROW(
-      interface_->cycle(data_, [](const moteus::Output& output) {}));
+  ASSERT_NO_THROW(interface_->cycle([](const moteus::Output& output) {}));
 }
 
 TEST_F(BulletInterfaceTest, ResetBaseState) {
@@ -150,8 +143,7 @@ TEST_F(BulletInterfaceTest, ResetBaseState) {
 }
 
 TEST_F(BulletInterfaceTest, ComputeJointTorquesStopped) {
-  // Commands in data_ have defaults, thus in moteus::Mode::kStopped
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
 
   // Stopped joint and no target => no velocity and no torque
   const auto& measurements = interface_->servo_reply().at("left_wheel").result;
@@ -168,7 +160,7 @@ TEST_F(BulletInterfaceTest, ComputeJointTorquesStopped) {
 TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
   const double no_feedforward_torque = 0.0;
   const double no_position = std::numeric_limits<double>::quiet_NaN();
-  for (auto& command : data_.commands) {
+  for (auto& command : interface_->data().commands) {
     command.mode = moteus::Mode::kPosition;
     command.position.position = no_position;
     command.position.velocity = 1.0;  // rev/s
@@ -178,9 +170,9 @@ TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
   }
 
   // Cycle a couple of times so that both wheels spin up
-  interface_->cycle(data_, [](const moteus::Output& output) {});
-  interface_->cycle(data_, [](const moteus::Output& output) {});
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
 
   // Right wheel has no kinetic friction
   const auto& right_wheel = interface_->servo_reply().at("right_wheel").result;
@@ -203,7 +195,7 @@ TEST_F(BulletInterfaceTest, ComputeJointTorquesWhileMoving) {
 
 TEST_F(BulletInterfaceTest, ComputeJointFeedforwardTorque) {
   const double no_position = std::numeric_limits<double>::quiet_NaN();
-  for (auto& command : data_.commands) {
+  for (auto& command : interface_->data().commands) {
     command.mode = moteus::Mode::kPosition;
     command.position.position = no_position;
     command.position.velocity = 0.0;  // rev/s
@@ -214,9 +206,9 @@ TEST_F(BulletInterfaceTest, ComputeJointFeedforwardTorque) {
   }
 
   // Cycle a couple of times so that both wheels spin up
-  interface_->cycle(data_, [](const moteus::Output& output) {});
-  interface_->cycle(data_, [](const moteus::Output& output) {});
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
 
   // Right wheel has no kinetic friction
   const auto& right_wheel_reply = interface_->servo_reply().at("right_wheel");
@@ -224,7 +216,7 @@ TEST_F(BulletInterfaceTest, ComputeJointFeedforwardTorque) {
 }
 
 TEST_F(BulletInterfaceTest, JointRepliesHaveTemperature) {
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
   for (const auto& pair : interface_->servo_reply()) {
     const auto& reply = pair.second;
     ASSERT_GT(reply.result.temperature, 0.0);
@@ -233,7 +225,7 @@ TEST_F(BulletInterfaceTest, JointRepliesHaveTemperature) {
 }
 
 TEST_F(BulletInterfaceTest, JointRepliesHaveVoltage) {
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
   for (const auto& pair : interface_->servo_reply()) {
     const auto& reply = pair.second;
     ASSERT_GT(reply.result.voltage, 10.0);  // moteus min 10 V
@@ -251,7 +243,7 @@ TEST_F(BulletInterfaceTest, ObserveImuOrientation) {
   interface_->reset(config);
 
   Dictionary observation;
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
   interface_->observe(observation);
 
   // See read_imu_data in bullet_utils.h
@@ -285,7 +277,7 @@ TEST_F(BulletInterfaceTest, MonitorContacts) {
   interface_->reset(config);
 
   Dictionary observation;
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
   interface_->observe(observation);
 
   ASSERT_TRUE(observation.has("bullet"));
@@ -306,8 +298,8 @@ TEST_F(BulletInterfaceTest, MonitorIMU) {
   interface_->reset(config);
 
   Dictionary observation;
-  interface_->cycle(data_, [](const moteus::Output& output) {});
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
   interface_->observe(observation);
 
   ASSERT_TRUE(observation.has("bullet"));
@@ -324,8 +316,8 @@ TEST_F(BulletInterfaceTest, MonitorBaseState) {
   interface_->reset(config);
 
   Dictionary observation;
-  interface_->cycle(data_, [](const moteus::Output& output) {});
-  interface_->cycle(data_, [](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
+  interface_->cycle([](const moteus::Output& output) {});
   interface_->observe(observation);
 
   ASSERT_TRUE(observation.has("bullet"));

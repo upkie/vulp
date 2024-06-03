@@ -11,6 +11,10 @@ All notable changes to this project will be documented in this file.
 - BulletInterface: report the base state that can be used for training RL agents.
 - docs: Start a dedicated page for observers
 
+### Changed
+
+- Interface: Remove the redundant ``data`` argument to all ``cycle`` functions
+
 ## [2.4.0] - 2024-05-27
 
 ### Added
