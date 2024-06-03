@@ -20,7 +20,9 @@ class SmallInterface : public Interface {
 
   void cycle(std::function<void(const moteus::Output&)> callback) final {}
 
-  void observe(Dictionary& observation) const {}
+  void observe(Dictionary& observation) const override {}
+
+  void process_action(const Dictionary& action) override {}
 };
 
 class InterfaceTest : public ::testing::Test {
