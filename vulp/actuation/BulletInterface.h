@@ -179,6 +179,18 @@ class BulletInterface : public Interface {
    */
   void reset(const Dictionary& config) override;
 
+  /*! Write actuation-interface observations to dictionary.
+   *
+   * \param[out] observation Dictionary to write ot.
+   */
+  void observe(Dictionary& observation) const override;
+
+  /*! Process a new action dictionary.
+   *
+   * \param[in] action Action to read commands from.
+   */
+  void process_action(const Dictionary& action) override;
+
   /*! Spin a new communication cycle.
    *
    * \param callback Function to call when the cycle is over.
@@ -188,12 +200,6 @@ class BulletInterface : public Interface {
    * remain valid until the callback is invoked.
    */
   void cycle(std::function<void(const moteus::Output&)> callback) final;
-
-  /*! Write actuation-interface observations to dictionary.
-   *
-   * \param[out] observation Dictionary to write ot.
-   */
-  void observe(Dictionary& observation) const override;
 
   //! Get the groundtruth floating base transform.
   Eigen::Matrix4d transform_base_to_world() const noexcept;
