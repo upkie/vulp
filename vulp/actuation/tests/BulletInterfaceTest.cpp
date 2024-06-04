@@ -37,7 +37,8 @@ class BulletInterfaceTest : public ::testing::Test {
 
     BulletInterface::Parameters params;
     params.dt = dt_;
-    params.floor = false;  // wheels roll freely during testing
+    params.floor = false;   // wheels roll freely during testing
+    params.gravity = true;  // default, just a reminder
     params.joint_friction.try_emplace("left_wheel", kLeftWheelFriction);
     params.robot_urdf_path =
         runfiles->Rlocation("upkie_description/urdf/upkie.urdf");
