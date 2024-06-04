@@ -297,6 +297,9 @@ class BulletInterface : public Interface {
   //! Compute total robot mass in kg.
   double compute_robot_mass();
 
+  //! Get the position of the center of mass in the world frame.
+  Eigen::Vector3d compute_position_com_in_world();
+
  private:
   /*! Get index of a given robot link in Bullet
    *

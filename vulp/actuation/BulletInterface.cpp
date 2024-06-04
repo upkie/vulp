@@ -426,4 +426,8 @@ double BulletInterface::compute_robot_mass() {
   return vulp::actuation::compute_robot_mass(bullet_, robot_);
 }
 
+Eigen::Vector3d BulletInterface::compute_position_com_in_world() {
+  return vulp::actuation::compute_position_com_in_world(bullet_, robot_);
+}
+
 }  // namespace vulp::actuation
