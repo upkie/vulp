@@ -375,7 +375,7 @@ TEST_F(BulletInterfaceTest, ApplyExternalForces) {
   const double T = 0.05;  // trajectory duration in seconds
 
   Dictionary action, config;
-  auto& torso_force = action("bullet")("forces")("torso");
+  auto& torso_force = action("bullet")("external_forces")("torso");
   auto& external_force =
       torso_force.insert<Eigen::Vector3d>("force", Eigen::Vector3d{0., 0., 0.});
   torso_force.insert<Eigen::Vector3d>("position", Eigen::Vector3d{0., 0., 0.});
