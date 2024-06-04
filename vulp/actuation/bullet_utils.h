@@ -138,4 +138,15 @@ inline void read_imu_data(BulletImuData& imu_data,
   imu_data.linear_velocity_imu_in_world = linear_velocity_imu_in_world;
 }
 
+double compute_total_mass(b3RobotSimulatorClientAPI& bullet, int robot) {
+  b3DynamicsInfo dynamics_info;
+  double total_mass = 0;  // kg
+  const int nb_joints = bullet.getNumJoints(robot);
+  for (int joint_index = 0; joint_index < nb_joints; ++joint_index) {
+    bullet.getDynamicsInfo(robot, joint_index, &dynamics_info);
+    total_mass += dynamics_info.m_mass;
+  }
+  return total_mass;
+}
+
 }  // namespace vulp::actuation

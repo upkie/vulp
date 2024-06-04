@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Bullet utility function to compute the total robot mass
 - BulletInterface: Monitor IMU velocity
 - BulletInterface: Report the base state that can be used for training RL agents.
 - BulletInterface: Unit test for IMU monitoring
