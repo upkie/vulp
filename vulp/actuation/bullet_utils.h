@@ -138,6 +138,13 @@ inline void read_imu_data(BulletImuData& imu_data,
   imu_data.linear_velocity_imu_in_world = linear_velocity_imu_in_world;
 }
 
+/*! Get the total mass of the robot.
+ *
+ * \param[in] bullet Bullet client.
+ * \param[in] robot Index of the robot.
+ *
+ * \return Total mass of the robot, in kilograms.
+ */
 double compute_robot_mass(b3RobotSimulatorClientAPI& bullet, int robot) {
   b3DynamicsInfo dynamics_info;
   double mass = 0;  // kg
@@ -149,6 +156,16 @@ double compute_robot_mass(b3RobotSimulatorClientAPI& bullet, int robot) {
   return mass;
 }
 
+/*! Get the position of the center of mass of a robot in the world frame.
+ *
+ * \param[in] bullet Bullet client.
+ * \param[in] robot Index of the robot.
+ * \param[in] compute_forward_kinematics If true, recompute forward kinematics.
+ *
+ * \return Position of the center of mass in the world frame.
+ *
+ * \note This function will recompute forward kinematics.
+ */
 Eigen::Vector3d compute_position_com_in_world(b3RobotSimulatorClientAPI& bullet,
                                               int robot) {
   b3LinkState link_state;
