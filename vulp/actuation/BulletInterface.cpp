@@ -196,8 +196,8 @@ void BulletInterface::process_action(const Dictionary& action) {
     return;
   }
   const Dictionary& bullet_action = action("bullet");
-  if (bullet_action.has("forces")) {
-    process_forces(bullet_action("forces"));
+  if (bullet_action.has("external_forces")) {
+    process_forces(bullet_action("external_forces"));
   }
 }
 
