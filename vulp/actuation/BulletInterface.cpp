@@ -202,20 +202,25 @@ void BulletInterface::process_action(const Dictionary& action) {
 
 void BulletInterface::process_forces(const Dictionary& forces) {
   for (const auto& link_name : forces.keys()) {
-    const auto& params = forces(link_name);
-    const int link_index = get_link_index(link_name);
+    int link_index = get_link_index(link_name);
     if (link_index < 0) {
-      spdlog::warn(
-          "Link \"{}\" not found in the robot description, cannot apply an "
-          "external force to it",
-          link_name);
+      if (link_name == "base") {
+        link_index = -1;
+      } else {
+        spdlog::warn(
+            "Link \"{}\" not found in the robot description, cannot apply an "
+            "external force to it",
+            link_name);
+        continue;
+      }
     }
+    const auto& params = forces(link_name);
     btVector3 force = bullet_from_eigen(params.get<Eigen::Vector3d>("force"));
     btVector3 position =
         bullet_from_eigen(params.get<Eigen::Vector3d>("position"));
     const bool local_frame = params.get<bool>("local", false);
     const int flags = local_frame ? EF_LINK_FRAME : EF_WORLD_FRAME;
-    bullet_.applyExternalForce(robot_, -1, force, position, flags);
+    bullet_.applyExternalForce(robot_, link_index, force, position, flags);
     bullet_.stepSimulation();
   }
 }
