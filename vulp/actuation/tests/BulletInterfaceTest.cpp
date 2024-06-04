@@ -23,9 +23,6 @@ class BulletInterfaceTest : public ::testing::Test {
  protected:
   //! Set up a new test fixture
   void SetUp() override {
-    Dictionary config;
-    config("bullet")("gui") = false;
-
     ServoLayout layout;
     layout.add_servo(1, 1, "right_hip");
     layout.add_servo(2, 1, "right_knee");
@@ -38,7 +35,7 @@ class BulletInterfaceTest : public ::testing::Test {
     std::unique_ptr<Runfiles> runfiles(Runfiles::CreateForTest(&error));
     ASSERT_NE(runfiles, nullptr);
 
-    BulletInterface::Parameters params(config);
+    BulletInterface::Parameters params;
     params.dt = dt_;
     params.floor = false;  // wheels roll freely during testing
     params.joint_friction.try_emplace("left_wheel", kLeftWheelFriction);
@@ -106,7 +103,6 @@ TEST_F(BulletInterfaceTest, CycleDoesntThrow) {
 
 TEST_F(BulletInterfaceTest, ResetBaseState) {
   Dictionary config;
-  config("bullet")("gui") = false;
   config("bullet")("reset")("orientation_base_in_world") =
       Eigen::Quaterniond(0.707, 0.0, -0.707, 0.0);
   config("bullet")("reset")("position_base_in_world") =
@@ -237,7 +233,6 @@ TEST_F(BulletInterfaceTest, ObserveImuOrientation) {
   Eigen::Quaterniond orientation_base_in_world = {0., 1., 0., 0.};
 
   Dictionary config;
-  config("bullet")("gui") = false;
   config("bullet")("reset")("orientation_base_in_world") =
       orientation_base_in_world;
   interface_->reset(config);
@@ -271,7 +266,6 @@ TEST_F(BulletInterfaceTest, ObserveImuOrientation) {
 
 TEST_F(BulletInterfaceTest, MonitorContacts) {
   Dictionary config;
-  config("bullet")("gui") = false;
   config("bullet")("monitor")("contacts")("left_wheel_tire") = true;
   config("bullet")("monitor")("contacts")("right_wheel_tire") = true;
   interface_->reset(config);
@@ -294,7 +288,6 @@ TEST_F(BulletInterfaceTest, MonitorContacts) {
 
 TEST_F(BulletInterfaceTest, MonitorIMU) {
   Dictionary config;
-  config("bullet")("gui") = false;
   interface_->reset(config);
 
   Dictionary observation;
@@ -312,7 +305,6 @@ TEST_F(BulletInterfaceTest, MonitorIMU) {
 
 TEST_F(BulletInterfaceTest, MonitorBaseState) {
   Dictionary config;
-  config("bullet")("gui") = false;
   interface_->reset(config);
 
   Dictionary observation;
