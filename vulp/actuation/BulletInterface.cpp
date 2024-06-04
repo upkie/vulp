@@ -192,11 +192,12 @@ void BulletInterface::observe(Dictionary& observation) const {
 }
 
 void BulletInterface::process_action(const Dictionary& action) {
-  if (action.has("magic")) {
-    const Dictionary& magic = action("magic");
-    if (magic.has("forces")) {
-      process_forces(magic("forces"));
-    }
+  if (!action.has("bullet")) {
+    return;
+  }
+  const Dictionary& bullet_action = action("bullet");
+  if (bullet_action.has("forces")) {
+    process_forces(bullet_action("forces"));
   }
 }
 
