@@ -360,6 +360,24 @@ Eigen::Matrix4d BulletInterface::transform_base_to_world() const noexcept {
   return T;
 }
 
+Eigen::Matrix3d BulletInterface::orientation_base_in_world() const noexcept {
+  btVector3 position_base_in_world;
+  btQuaternion orientation_base_in_world;
+  bullet_.getBasePositionAndOrientation(robot_, position_base_in_world,
+                                        orientation_base_in_world);
+  auto quat = eigen_from_bullet(orientation_base_in_world);
+  Eigen::Matrix3d R = quat.normalized().toRotationMatrix();
+  return R;
+}
+
+Eigen::Vector3d BulletInterface::position_base_in_world() const noexcept {
+  btVector3 position_base_in_world;
+  btQuaternion orientation_base_in_world;
+  bullet_.getBasePositionAndOrientation(robot_, position_base_in_world,
+                                        orientation_base_in_world);
+  return eigen_from_bullet(position_base_in_world);
+}
+
 Eigen::Vector3d BulletInterface::linear_velocity_base_to_world_in_world()
     const noexcept {
   btVector3 linear_velocity_base_to_world_in_world;
