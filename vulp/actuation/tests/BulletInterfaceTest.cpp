@@ -353,13 +353,18 @@ TEST_F(BulletInterfaceTest, FreeFallBasePosition) {
   const double T = 0.05;  // seconds
   for (double t = 0.0; t < T; t += dt_) {
     interface_->cycle([](const moteus::Output& output) {});
-    base_position = interface_->transform_base_to_world().block<3, 1>(0, 3);
   }
 
   base_position = interface_->transform_base_to_world().block<3, 1>(0, 3);
   ASSERT_NEAR(base_position.x(), 0.0, 1e-4);
   ASSERT_NEAR(base_position.y(), 0.0, 1e-4);
   ASSERT_NEAR(base_position.z(), -0.5 * 9.81 * T * T, 1e-3);
+
+  Eigen::Vector3d base_velocity =
+      interface_->linear_velocity_base_to_world_in_world();
+  ASSERT_NEAR(base_velocity.x(), 0.0 * T, 1e-4);
+  ASSERT_NEAR(base_velocity.y(), 0.0 * T, 1e-4);
+  ASSERT_NEAR(base_velocity.z(), -9.81 * T, 1e-3);
 }
 
 TEST_F(BulletInterfaceTest, ComputeRobotMass) {
