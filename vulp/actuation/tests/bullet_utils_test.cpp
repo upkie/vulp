@@ -116,4 +116,8 @@ TEST_F(BulletTest, EigenFromBulletQuat) {
   ASSERT_DOUBLE_EQ(eigen_quat.z(), bullet_quat.getZ());
 }
 
+TEST_F(BulletTest, TotalMass) {
+  ASSERT_NEAR(compute_total_mass(*bullet_, robot_), 5.39222, 1e-4);
+}
+
 }  // namespace vulp::actuation
