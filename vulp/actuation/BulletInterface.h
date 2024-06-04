@@ -194,6 +194,8 @@ class BulletInterface : public Interface {
   /*! Process a dictionary of additional external forces.
    *
    * \param[in] forces Dictionary to read forces from.
+   *
+   * Note that Bullet clears external forces after each simulation step.
    */
   void process_forces(const Dictionary& forces);
 
@@ -291,6 +293,9 @@ class BulletInterface : public Interface {
                               const double target_velocity,
                               const double kp_scale, const double kd_scale,
                               const double maximum_torque);
+
+  //! Compute total robot mass in kg.
+  double compute_robot_mass();
 
  private:
   /*! Get index of a given robot link in Bullet

@@ -422,4 +422,8 @@ int BulletInterface::get_link_index(const std::string& link_name) {
   return link_index;
 }
 
+double BulletInterface::compute_robot_mass() {
+  return vulp::actuation::compute_robot_mass(bullet_, robot_);
+}
+
 }  // namespace vulp::actuation
