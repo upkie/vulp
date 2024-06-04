@@ -340,4 +340,29 @@ TEST_F(BulletInterfaceTest, MonitorBaseState) {
   ASSERT_NEAR(base_orientation.z(), 0.0, 1e-20);
 }
 
+TEST_F(BulletInterfaceTest, BasePositionFreeFall) {
+  Dictionary config, observation;
+  Eigen::Vector3d base_position;
+
+  interface_->reset(config);
+  interface_->observe(observation);
+  base_position = observation("bullet")("base")("position");
+  ASSERT_NEAR(base_position.x(), 0.0, 1e-4);
+  ASSERT_NEAR(base_position.y(), 0.0, 1e-4);
+  ASSERT_NEAR(base_position.z(), 0.0, 1e-4);
+
+  const double T = 0.05;  // seconds
+  for (double t = 0.0; t < T; t += dt_) {
+    interface_->cycle([](const moteus::Output& output) {});
+    interface_->observe(observation);
+    base_position = observation("bullet")("base")("position");
+    spdlog::info("at t={} we are at z={}", t, base_position.z());
+  }
+
+  base_position = observation("bullet")("base")("position");
+  ASSERT_NEAR(base_position.x(), 0.0, 1e-4);
+  ASSERT_NEAR(base_position.y(), 0.0, 1e-4);
+  ASSERT_NEAR(base_position.z(), -0.5 * 9.81 * T * T, 1e-4);
+}
+
 }  // namespace vulp::actuation
