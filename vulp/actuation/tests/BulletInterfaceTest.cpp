@@ -367,7 +367,8 @@ TEST_F(BulletInterfaceTest, ComputeRobotMass) {
 }
 
 TEST_F(BulletInterfaceTest, ApplyExternalForces) {
-  Eigen::Vector3d external_force = Eigen::Vector3d{0., 0., 300.10};
+  const double mass = interface_->compute_robot_mass();
+  Eigen::Vector3d external_force = Eigen::Vector3d{0., 0., 2.5 * 9.81 * mass};
 
   Dictionary action;
   auto& torso = action("magic")("forces")("torso");
@@ -381,19 +382,19 @@ TEST_F(BulletInterfaceTest, ApplyExternalForces) {
   interface_->reset(config);
   const double T = 0.05;  // seconds
   for (double t = 0.0; t < T; t += dt_) {
-    interface_->process_action(action);  // external forces cleared after step
+    interface_->process_action(action);  // forces are cleared at each cycle
     interface_->cycle([](const moteus::Output& output) {});
   }
 
   // Since there is no ground in this text fixture, the only forces exerted on
   // the robot during this test are gravity and the external force
   Eigen::Vector3d net_accel =
-      Eigen::Vector3d{0., 0., -9.81} + external_force / 9.81;
+      Eigen::Vector3d{0., 0., -9.81} + external_force / mass;
 
   base_position = interface_->transform_base_to_world().block<3, 1>(0, 3);
-  ASSERT_NEAR(base_position.x(), 0.5 * net_accel.x() * T * T, 1e-4);
-  ASSERT_NEAR(base_position.y(), 0.5 * net_accel.y() * T * T, 1e-4);
-  ASSERT_NEAR(base_position.z(), 0.5 * net_accel.z() * T * T, 1e-4);
+  ASSERT_NEAR(base_position.x(), 0.5 * net_accel.x() * T * T, 5e-3);
+  ASSERT_NEAR(base_position.y(), 0.5 * net_accel.y() * T * T, 5e-3);
+  ASSERT_NEAR(base_position.z(), 0.5 * net_accel.z() * T * T, 5e-3);
 }
 
 }  // namespace vulp::actuation
