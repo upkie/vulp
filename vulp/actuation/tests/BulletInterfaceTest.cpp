@@ -373,18 +373,18 @@ TEST_F(BulletInterfaceTest, ComputeRobotMass) {
 
 TEST_F(BulletInterfaceTest, ApplyExternalForces) {
   const double mass = interface_->compute_robot_mass();
-  Eigen::Vector3d external_force = Eigen::Vector3d{0., 0., 2.5 * 9.81 * mass};
+  Eigen::Vector3d external_force = Eigen::Vector3d{0., 0., 2.1 * 9.81 * mass};
 
   Dictionary action;
-  auto& torso = action("magic")("forces")("torso");
-  torso.insert<Eigen::Vector3d>("force", external_force);
-  torso.insert<Eigen::Vector3d>("torque", Eigen::Vector3d{0., 0., 0.});
-  torso.insert<Eigen::Vector3d>("position", Eigen::Vector3d{0., 0., 0.});
-  torso.insert<bool>("local", false);  // world frame
+  auto& torso_force = action("bullet")("forces")("torso");
+  torso_force.insert<Eigen::Vector3d>("force", external_force);
+  torso_force.insert<Eigen::Vector3d>("position", Eigen::Vector3d{0., 0., 0.});
+  torso_force.insert<bool>("local_frame", false);  // world frame
 
   Dictionary config;
-  Eigen::Vector3d base_position;
   interface_->reset(config);
+  Eigen::Vector3d init_com_position =
+      interface_->compute_position_com_in_world();
   const double T = 0.05;  // seconds
   for (double t = 0.0; t < T; t += dt_) {
     interface_->process_action(action);  // forces are cleared at each cycle
@@ -393,13 +393,14 @@ TEST_F(BulletInterfaceTest, ApplyExternalForces) {
 
   // Since there is no ground in this text fixture, the only forces exerted on
   // the robot during this test are gravity and the external force
-  Eigen::Vector3d net_accel =
+  Eigen::Vector3d com_accel =
       Eigen::Vector3d{0., 0., -9.81} + external_force / mass;
 
-  base_position = interface_->transform_base_to_world().block<3, 1>(0, 3);
-  ASSERT_NEAR(base_position.x(), 0.5 * net_accel.x() * T * T, 5e-3);
-  ASSERT_NEAR(base_position.y(), 0.5 * net_accel.y() * T * T, 5e-3);
-  ASSERT_NEAR(base_position.z(), 0.5 * net_accel.z() * T * T, 5e-3);
+  Eigen::Vector3d Delta_com =
+      interface_->compute_position_com_in_world() - init_com_position;
+  ASSERT_NEAR(Delta_com.x(), 0.5 * com_accel.x() * T * T, 5e-3);
+  ASSERT_NEAR(Delta_com.y(), 0.5 * com_accel.y() * T * T, 5e-3);
+  ASSERT_NEAR(Delta_com.z(), 0.5 * com_accel.z() * T * T, 5e-3);
 }
 
 }  // namespace vulp::actuation

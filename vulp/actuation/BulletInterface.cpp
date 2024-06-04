@@ -423,6 +423,13 @@ int BulletInterface::get_link_index(const std::string& link_name) {
   return link_index;
 }
 
+Eigen::Vector3d BulletInterface::get_position_link_in_world(
+    const std::string& link_name) {
+  int link_index = get_link_index(link_name);
+  return vulp::actuation::get_position_link_in_world(bullet_, robot_,
+                                                     link_index);
+}
+
 double BulletInterface::compute_robot_mass() {
   return vulp::actuation::compute_robot_mass(bullet_, robot_);
 }

@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Bullet utility function to compute the center of mass of a robot
 - Bullet utility function to compute the total robot mass
+- Bullet utility function to compute the world position of a robot link
 - BulletInterface: Add floating-base orientation and position getters
 - BulletInterface: Monitor IMU velocity
 - BulletInterface: Report the base state that can be used for training RL agents.
