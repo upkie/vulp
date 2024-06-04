@@ -378,7 +378,6 @@ TEST_F(BulletInterfaceTest, ApplyExternalForces) {
   auto& torso_force = action("bullet")("external_forces")("torso");
   auto& external_force =
       torso_force.insert<Eigen::Vector3d>("force", Eigen::Vector3d{0., 0., 0.});
-  torso_force.insert<Eigen::Vector3d>("position", Eigen::Vector3d{0., 0., 0.});
   torso_force.insert<bool>("local_frame", false);  // world frame
 
   const double mass = interface_->compute_robot_mass();

@@ -216,11 +216,19 @@ void BulletInterface::process_forces(const Dictionary& forces) {
       }
     }
     const auto& params = forces(link_name);
-    btVector3 force = bullet_from_eigen(params.get<Eigen::Vector3d>("force"));
-    btVector3 position =
-        bullet_from_eigen(params.get<Eigen::Vector3d>("position"));
     const bool local_frame = params.get<bool>("local_frame", false);
-    const int flags = local_frame ? EF_LINK_FRAME : EF_WORLD_FRAME;
+    Eigen::Vector3d position_eigen;
+    int flags;
+    if (local_frame) {
+      position_eigen.setZero();
+      flags = EF_LINK_FRAME;
+    } else /* world frame */ {
+      position_eigen = vulp::actuation::get_position_link_in_world(
+          bullet_, robot_, link_index);
+      flags = EF_WORLD_FRAME;
+    }
+    btVector3 position = bullet_from_eigen(position_eigen);
+    btVector3 force = bullet_from_eigen(params.get<Eigen::Vector3d>("force"));
     bullet_.applyExternalForce(robot_, link_index, force, position, flags);
   }
 }
