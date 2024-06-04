@@ -73,6 +73,29 @@ inline int find_link_index(b3RobotSimulatorClientAPI& bullet, int robot,
   return -1;
 }
 
+/*! Get the position of a link frame in the world frame.
+ *
+ * \param[in] bullet Bullet client.
+ * \param[in] robot Index of the robot to search.
+ * \param[in] link_index Index of the link frame.
+ *
+ * \return Link index if found, -1 otherwise.
+ *
+ * \note This function will recompute forward kinematics.
+ */
+inline Eigen::Vector3d get_position_link_in_world(
+    b3RobotSimulatorClientAPI& bullet, int robot, int link_index) noexcept {
+  b3LinkState link_state;
+  bullet.getLinkState(robot, link_index, /* computeVelocity = */ false,
+                      /* computeForwardKinematics = */ true, &link_state);
+  Eigen::Vector3d position_link_in_world = {
+      link_state.m_worldLinkFramePosition[0],
+      link_state.m_worldLinkFramePosition[1],
+      link_state.m_worldLinkFramePosition[2],
+  };
+  return position_link_in_world;
+}
+
 /*! Compute IMU readings from the IMU link state.
  *
  * \param[out] imu_data IMU data to update.
@@ -160,7 +183,6 @@ double compute_robot_mass(b3RobotSimulatorClientAPI& bullet, int robot) {
  *
  * \param[in] bullet Bullet client.
  * \param[in] robot Index of the robot.
- * \param[in] compute_forward_kinematics If true, recompute forward kinematics.
  *
  * \return Position of the center of mass in the world frame.
  *
@@ -182,7 +204,7 @@ Eigen::Vector3d compute_position_com_in_world(b3RobotSimulatorClientAPI& bullet,
         dynamics_info.m_localInertialFrame[2],
     };
 
-    bullet.getLinkState(robot, link_index, /* computeVelocity = */ true,
+    bullet.getLinkState(robot, link_index, /* computeVelocity = */ false,
                         /* computeForwardKinematics = */ true, &link_state);
     Eigen::Quaterniond orientation_link_in_world;
     orientation_link_in_world.w() = link_state.m_worldLinkFrameOrientation[3];
