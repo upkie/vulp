@@ -191,6 +191,12 @@ class BulletInterface : public Interface {
    */
   void process_action(const Dictionary& action) override;
 
+  /*! Process a external forces dictionary.
+   *
+   * \param[in] forces Dictionary to read forces from.
+   */
+  void process_external_forces(const Dictionary& forces);
+
   /*! Spin a new communication cycle.
    *
    * \param callback Function to call when the cycle is over.

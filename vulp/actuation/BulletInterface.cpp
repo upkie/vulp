@@ -191,7 +191,20 @@ void BulletInterface::observe(Dictionary& observation) const {
       Eigen::Quaterniond(T.block<3, 3>(0, 0));  // [w, x, y, z]
 }
 
-void BulletInterface::process_action(const Dictionary& action) {}
+void BulletInterface::process_action(const Dictionary& action) {
+  if (action.has("magic")) {
+    const Dictionary& magic = action("magic");
+    if (magic.has("external_forces")) {
+      process_external_forces(magic("external_forces"));
+    }
+  }
+}
+
+void BulletInterface::process_external_forces(const Dictionary& forces) {
+  for (const auto& body : forces.keys()) {
+    spdlog::info("force on {}", body);
+  }
+}
 
 void BulletInterface::cycle(
     std::function<void(const moteus::Output&)> callback) {
