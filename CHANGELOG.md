@@ -6,11 +6,12 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Bullet utility function to compute the center of mass of a robot
 - Bullet utility function to compute the total robot mass
+- BulletInterface: Add floating-base orientation and position getters
 - BulletInterface: Monitor IMU velocity
 - BulletInterface: Report the base state that can be used for training RL agents.
 - BulletInterface: Unit test for IMU monitoring
-- BulletInterface: Add floating-base orientation and position getters
 - Interface: Introduce ``process_action`` function for additional behaviors
 - docs: Start a dedicated page for observers
 

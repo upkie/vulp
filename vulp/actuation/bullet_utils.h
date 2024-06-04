@@ -149,4 +149,44 @@ double compute_robot_mass(b3RobotSimulatorClientAPI& bullet, int robot) {
   return mass;
 }
 
+Eigen::Vector3d compute_position_com_in_world(b3RobotSimulatorClientAPI& bullet,
+                                              int robot) {
+  b3LinkState link_state;
+  b3DynamicsInfo dynamics_info;
+  double mass = 0.0;  // kg
+  Eigen::Vector3d weighted_sum = Eigen::Vector3d::Zero();
+  const int nb_joints = bullet.getNumJoints(robot);
+  for (int link_index = 0; link_index < nb_joints; ++link_index) {
+    bullet.getDynamicsInfo(robot, link_index, &dynamics_info);
+    const double link_mass = dynamics_info.m_mass;
+    Eigen::Vector3d position_link_com_in_link = {
+        dynamics_info.m_localInertialFrame[0],
+        dynamics_info.m_localInertialFrame[1],
+        dynamics_info.m_localInertialFrame[2],
+    };
+
+    bullet.getLinkState(robot, link_index, /* computeVelocity = */ true,
+                        /* computeForwardKinematics = */ true, &link_state);
+    Eigen::Quaterniond orientation_link_in_world;
+    orientation_link_in_world.w() = link_state.m_worldLinkFrameOrientation[3];
+    orientation_link_in_world.x() = link_state.m_worldLinkFrameOrientation[0];
+    orientation_link_in_world.y() = link_state.m_worldLinkFrameOrientation[1];
+    orientation_link_in_world.z() = link_state.m_worldLinkFrameOrientation[2];
+    Eigen::Vector3d position_link_in_world = {
+        link_state.m_worldLinkFramePosition[0],
+        link_state.m_worldLinkFramePosition[1],
+        link_state.m_worldLinkFramePosition[2],
+    };
+    Eigen::Matrix3d rotation_link_to_world =
+        orientation_link_in_world.toRotationMatrix();
+    Eigen::Vector3d position_link_com_in_world =
+        rotation_link_to_world * position_link_com_in_link +
+        position_link_in_world;
+
+    weighted_sum += link_mass * position_link_com_in_world;
+    mass += link_mass;
+  }
+  return weighted_sum / mass;
+}
+
 }  // namespace vulp::actuation
