@@ -222,7 +222,6 @@ void BulletInterface::process_forces(const Dictionary& forces) {
     const bool local_frame = params.get<bool>("local_frame", false);
     const int flags = local_frame ? EF_LINK_FRAME : EF_WORLD_FRAME;
     bullet_.applyExternalForce(robot_, link_index, force, position, flags);
-    bullet_.stepSimulation();
   }
 }
 
