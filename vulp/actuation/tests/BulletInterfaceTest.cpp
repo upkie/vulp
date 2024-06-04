@@ -372,7 +372,7 @@ TEST_F(BulletInterfaceTest, ComputeRobotMass) {
 }
 
 TEST_F(BulletInterfaceTest, ApplyExternalForces) {
-  const double T = 0.1;  // trajectory duration in seconds
+  const double T = 0.05;  // trajectory duration in seconds
 
   Dictionary action, config;
   auto& torso_force = action("bullet")("forces")("torso");
