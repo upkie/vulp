@@ -193,11 +193,11 @@ class BulletInterface : public Interface {
 
   /*! Process a dictionary of additional external forces.
    *
-   * \param[in] forces Dictionary to read forces from.
+   * \param[in] external_forces Dictionary to read forces from.
    *
    * Note that Bullet clears external forces after each simulation step.
    */
-  void process_forces(const Dictionary& forces);
+  void process_forces(const Dictionary& external_forces);
 
   /*! Spin a new communication cycle.
    *
