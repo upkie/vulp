@@ -393,10 +393,9 @@ TEST_F(BulletInterfaceTest, ApplyExternalForces) {
 
     // Since there is no ground in this text fixture, the only forces exerted on
     // the robot during this test are gravity and the external force
-    Eigen::Vector3d com_accel =
-        Eigen::Vector3d{0., 0., -9.81} + external_force / mass;
-
-    Eigen::Vector3d Delta_com =
+    const Eigen::Vector3d gravity = {0., 0., -9.81};
+    const Eigen::Vector3d com_accel = gravity + external_force / mass;
+    const Eigen::Vector3d Delta_com =
         interface_->compute_position_com_in_world() - init_com_position;
 
     spdlog::info("n_g = {}", n_g);
