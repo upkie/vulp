@@ -201,8 +201,8 @@ void BulletInterface::process_action(const Dictionary& action) {
   }
 }
 
-void BulletInterface::process_forces(const Dictionary& forces) {
-  for (const auto& link_name : forces.keys()) {
+void BulletInterface::process_forces(const Dictionary& external_forces) {
+  for (const auto& link_name : external_forces.keys()) {
     int link_index = get_link_index(link_name);
     if (link_index < 0) {
       if (link_name == "base") {
@@ -215,17 +215,17 @@ void BulletInterface::process_forces(const Dictionary& forces) {
         continue;
       }
     }
-    const auto& params = forces(link_name);
+    const auto& params = external_forces(link_name);
     const bool local_frame = params.get<bool>("local_frame", false);
     Eigen::Vector3d position_eigen;
     int flags;
     if (local_frame) {
-      position_eigen.setZero();
       flags = EF_LINK_FRAME;
+      position_eigen.setZero();
     } else /* world frame */ {
+      flags = EF_WORLD_FRAME;
       position_eigen = vulp::actuation::get_position_link_in_world(
           bullet_, robot_, link_index);
-      flags = EF_WORLD_FRAME;
     }
     btVector3 position = bullet_from_eigen(position_eigen);
     btVector3 force = bullet_from_eigen(params.get<Eigen::Vector3d>("force"));
