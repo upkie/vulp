@@ -73,6 +73,8 @@ cc_library(
 cc_library(
     name = "utils",
     deps = [
+        ":datetime_now_string",
+        ":get_log_path",
         ":handle_interrupts",
         ":low_pass_filter",
         ":math",
