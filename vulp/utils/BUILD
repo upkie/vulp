@@ -7,20 +7,6 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "datetime_now_string",
-    hdrs = ["datetime_now_string.h"],
-)
-
-cc_library(
-    name = "get_log_path",
-    hdrs = ["get_log_path.h"],
-    deps = [
-        ":datetime_now_string",
-    ],
-    include_prefix = "vulp/utils",
-)
-
-cc_library(
     name = "handle_interrupts",
     hdrs = ["handle_interrupts.h"],
     srcs = [
@@ -73,8 +59,6 @@ cc_library(
 cc_library(
     name = "utils",
     deps = [
-        ":datetime_now_string",
-        ":get_log_path",
         ":handle_interrupts",
         ":low_pass_filter",
         ":math",
