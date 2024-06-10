@@ -4,10 +4,15 @@
 
 #pragma once
 
+#include <spdlog/spdlog.h>
+#include <unistd.h>
+
 #include <ctime>
 #include <iomanip>
 #include <sstream>
 #include <string>
+
+#include "vulp/utils/datetime_now_string.h"
 
 namespace vulp::utils {
 
@@ -20,7 +25,7 @@ namespace vulp::utils {
  * Uses the same format as the Python utility function.
  */
 inline const std::string get_log_path(const std::string& spine_name,
-                                      const std::string& log_dir, ) {
+                                      const std::string& log_dir) {
   const auto now = vulp::utils::datetime_now_string();
   const std::string prefix = log_dir + "/" + now + "_" + spine_name;
 
