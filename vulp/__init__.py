@@ -6,7 +6,7 @@
 
 """Robot/simulation switch for the mjbots stack."""
 
-__version__ = "2.4.0"
+__version__ = "2.5.0"
 
 from .spine import SpineInterface
 
