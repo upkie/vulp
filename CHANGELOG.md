@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Spine: log when dictionary logger is full
+
 ## [2.5.0] - 2024-06-11
 
 ### Added
