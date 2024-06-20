@@ -30,6 +30,7 @@ bullet_copts = [
     "@//:linux": [
         "-Wno-format-overflow",
         "-Wno-format-truncation",
+        "-Wnodeprecated-declarations"
     ],
     "@//:osx": [
         # See https://github.com/libigl/libigl/issues/751#issuecomment-383324059
