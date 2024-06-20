@@ -26,6 +26,7 @@ bullet_copts = [
     "-Wno-error=unused-but-set-variable",
     "-Wno-error=unused-variable",
     "-Wno-unused-result",
+    "-Wno-single-bit-bitfield-constant-conversion"
 ] + select({
     "@//:linux": [
         "-Wno-format-overflow",
