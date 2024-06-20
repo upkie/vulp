@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 
 - Spine: log when dictionary logger is full
 
+### Changed
+- More Bullet compilation warnings suppressed
+
 ## [2.5.0] - 2024-06-11
 
 ### Added
