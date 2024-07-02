@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Spine: log when dictionary logger is full
 
+### Fixed
+
+- Fix duplicate ``data_`` attribute in pi3hat actuation interface
+
 ## [2.5.0] - 2024-06-11
 
 ### Added
