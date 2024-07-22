@@ -96,7 +96,7 @@ jobs:
                   tools/bazelisk test --compilation_mode=fastbuild --config lint //...
 
     test:
-        name: "Test for ${{ matrix.os }} with python-${{ matrix.python-version }}"
+        name: "Test for ${{ matrix.os }} with Python ${{ matrix.python-version }}"
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
