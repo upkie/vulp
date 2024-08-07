@@ -19,20 +19,6 @@ Vulp is designed for robots built with the mjbots stack ([moteus](https://github
 
 Vulp supports Linux and macOS for development, and Raspberry Pi OS for robot deployment.
 
-## Installation
-
-### From conda-forge
-
-```console
-conda install -c conda-forge vulp
-```
-
-### From PyPI
-
-```console
-pip install vulp
-```
-
 ## Example
 
 Check out the [``upkie``](https://github.com/upkie/upkie) repository for an example where Vulp is used to implement simulation environments, real-robot spines, state observers and locomotion agents.
