@@ -865,7 +865,6 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = README.md \
-                         docs/observers.md \
                          vulp/actuation \
                          vulp/control \
                          vulp/observation \
