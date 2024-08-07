@@ -23,22 +23,6 @@ Vulp supports Linux and macOS for development, and Raspberry Pi OS for robot dep
 
 Check out the [``upkie``](https://github.com/upkie/upkie) repository for an example where Vulp is used to implement simulation environments, real-robot spines, state observers and locomotion agents.
 
-### Alternatives
-
-If any of the non-features is a no-go to you, you may also want to check out these existing alternatives:
-
-* [kodlab_mjbots_sdk](https://github.com/KodlabPenn/kodlab_mjbots_sdk) - C++-only framework integrated with [LCM](https://lcm-proj.github.io/lcm/) for logging and remote I/O. Still a work in progress, only supports torque commands as of writing this note.
-* [mc\_rtc](https://github.com/jrl-umi3218/mc_rtc/) - C++ real-time control framework from which Vulp inherited, among others, the idea of running the same code on simulated and real robots. The choice of a weakly-typed dictionary-based IPC was also inspired by mc\_rtc's data store. C++ controllers are bigger cathedrals to build but they can run at higher frequencies.
-* [robot\_interfaces](https://github.com/open-dynamic-robot-initiative/robot_interfaces) - Similar IPC between non-realtime Python and real-time C++ processes. The main difference lies in the use of Python bindings and action/observation types (more overhead, more safeguards) where Vulp goes structureless (faster changes, faster blunders). Also, robot\_interfaces enforces process synchronization with a [time-series API](https://people.tuebingen.mpg.de/mpi-is-software/robotfingers/docs/robot_interfaces/doc/timeseries.html) while in Vulp this is up to the agent (most agents act greedily on the latest observation).
-* [ros2_control](https://github.com/ros-controls/ros2_control) - A C++ framework for real-time control using ROS2 (still a work in progress). Its barrier of entry is steeper than the other alternatives, making it a fit for production rather than prototyping, as it aims for compatibility with other ROS frameworks like [MoveIt](https://moveit.ros.org/). A Vulp C++ spine is equivalent to a ROS ``ControllerInterface`` implementing the dictionary-based IPC protocol.
-
-If your robot is built with some of the following open hardware components, you can also use their corresponding Python bindings directly:
-
-* [moteus](https://pypi.org/project/moteus/) - bindings for moteus brushless controllers also [run well up to 200 Hz](https://github.com/upkie/vulp/blob/main/docs/loop_cycles.md#moteus-python-api).
-* [odri_control_interface](https://github.com/open-dynamic-robot-initiative/odri_control_interface) - interface to control robots built with the [ODRI](https://github.com/open-dynamic-robot-initiative) Master Board.
-
-Using control bindings directly is a simpler alternative if you don't need the action-observation loop and simulation/real-robot switch from Vulp.
-
 ## Q and A
 
 ### Performance
