@@ -37,32 +37,6 @@ pip install vulp
 
 Check out the [``upkie``](https://github.com/upkie/upkie) repository for an example where Vulp is used to implement simulation environments, real-robot spines, state observers and locomotion agents.
 
-## Details
-
-More accurately, Vulp is a tiny inter-process communication (IPC) protocol shipped with reference libraries (currently in Python and C++, other languages welcome). It is suitable for tasks that require [real-time](https://en.wiktionary.org/wiki/real-time#English) but *not* high-frequency performance. The main use case for this is balancing, as there is [theoretical and empirical evidence](https://arxiv.org/abs/1907.01805) suggesting that bipeds and quadrupeds can balance themselves as leisurely as 5–15 Hz, although balance control is frequently implemented at 200–1000 Hz. And if you are wondering whether Python is suitable for real-time applications, we were too! Until we [tried it out](#performance).
-
-In Vulp, a fast program, called a _spine_, talks to a slow program, called an _agent_, in a standard action-observation loop. Spine and agent run in separate processes and exchange ``action`` and ``observation`` dictionaries through shared memory. For instance, ``action`` can be a set of joint commands and ``observation`` a set of joint observations. Vulp provides a pipeline API to grow more complex spines with additional controllers (for higher-level actions) and observers (for richer observations). For example, a spine can run an inverse kinematics solver, or output its own ground contact estimation.
-
-### Features and non-features
-
-All design decisions have their pros and cons. Take a look at the features and non-features below to decide if Vulp is a fit to your use case.
-
-#### Features
-
-- Run the same Python code on simulated and real robots
-- Interfaces with to the [mjbots pi3hat](https://mjbots.com/products/mjbots-pi3hat-r4-4b) and mjbots actuators
-- Interfaces with to the [Bullet](http://bulletphysics.org/) simulator
-- Observer pipeline to extend observations
-- 🏗️ Controller pipeline to extend actions
-- Soft real-time: spine-agent loop interactions are predictable and repeatable
-- Unit tested, and not only with end-to-end tests
-
-#### Non-features
-
-- Low frequency: Vulp is designed for tasks that run in the 1–400 Hz range (like balancing bipeds or quadrupeds)
-- Soft, not hard real-time guarantee: the code is empirically reliable by a large margin, that's it
-- Weakly-typed IPC: typing is used within agents and spines, but the interface between them is only checked at runtime
-
 ### Alternatives
 
 If any of the non-features is a no-go to you, you may also want to check out these existing alternatives:
