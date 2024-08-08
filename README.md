@@ -25,10 +25,6 @@ Check out the [``upkie``](https://github.com/upkie/upkie) repository for an exam
 
 ## Q and A
 
-#### Is it possible to run two agents at the same time?
-
-That is not possible. One of the core assumptions in Vulp is that the agent and the spine are two respective processes communicating via one single shared-memory area. In this Vulp differs from *e.g.* ROS, which is multi-process by design. This design choice is discussed in [#55](https://github.com/upkie/vulp/discussions/55).
-
 #### Why the name "Vulp"?
 
 [Vulp](https://en.wiktionary.org/wiki/vulp#Noun_2) means "fox" in Romansh, a language spoken in the Swiss canton of the Grisons. Foxes are arguably quite reliable in their reaction times 🦊
