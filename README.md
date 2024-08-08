@@ -25,20 +25,6 @@ Check out the [``upkie``](https://github.com/upkie/upkie) repository for an exam
 
 ## Q and A
 
-### Performance
-
-#### I just started a simulation spine but it's surprisingly slow, how come?
-
-Make sure you switch Bazel's [compilation mode](https://bazel.build/reference/command-line-reference#flag--compilation_mode) to "opt" when running both robot experiments and simulations. The compilation mode is "fastbuild" by default. Note that it is totally fine to compile agents in "fastbuild" during development while testing them on a spine compiled in "opt" that keeps running in the background.
-
-#### I have a Bullet simulation where the robot balances fine, but the agent repeatedly warns it "Skipped X clock cycles". What could be causing this?
-
-This happens when your CPU is not powerful enough to run the simulator in real-time along with your agent and spine. You can call [`Spine::simulate`](https://upkie.github.io/vulp/classvulp_1_1spine_1_1Spine.html#a886ef5562b33f365d86e77465dd86204) with ``nb_substeps = 1`` instead of ``Spine::run``, which will result in the correct simulation time from the agent's point of view but make the simulation slower than real-time from your point of view.
-
-#### I'm running a pi3hat spine, why are my timings more erratic than the ones plotted above?
-
-Make sure you configure CPU isolation and set the scaling governor to ``performance`` for real-time performance on a Raspberry Pi.
-
 ### Design choices
 
 #### Why use dictionaries rather than an [interface description language](https://en.wikipedia.org/wiki/Interface_description_language) like Protocol Buffers?
