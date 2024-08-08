@@ -25,16 +25,6 @@ Check out the [``upkie``](https://github.com/upkie/upkie) repository for an exam
 
 ## Q and A
 
-### Design choices
-
-#### Why use dictionaries rather than an [interface description language](https://en.wikipedia.org/wiki/Interface_description_language) like Protocol Buffers?
-
-Interface description languages like Protocol Buffers are strongly typed: they formally specify a data exchange format that has to be written down and maintained, but brings benefits like versioning or breaking-change detection. Vulp, on the other hand, follows a weakly-typed, self-describing approach that is better suited to prototyping with rapidly-changing APIs: the spec is in the code. If an agent and spine communicate with incompatible/incomplete actions/observations, execution will break, begging for developers to fix it.
-
-#### Why the weakly-typed dictionary IPC rather than Python–C++ bindings?
-
-Vulp is designed for prototyping: it strives to eliminate intermediaries when it can, and keep a low barrier of entry. Python bindings bring the benefits of typing and are a good choice in production contexts, but like interface description languages, they also add overhead in terms of developer training, bookkeeping code and compilation time. Vulp rather goes for a crash-early approach: fast changes, fast blunders (interface errors raise exceptions that end execution), fast fixes (know immediately when an error was introduced).
-
 #### Is it possible to run two agents at the same time?
 
 That is not possible. One of the core assumptions in Vulp is that the agent and the spine are two respective processes communicating via one single shared-memory area. In this Vulp differs from *e.g.* ROS, which is multi-process by design. This design choice is discussed in [#55](https://github.com/upkie/vulp/discussions/55).
