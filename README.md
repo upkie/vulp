@@ -1,11 +1,7 @@
 # Vulp – Robot/simulation switch
 
-![C++ version](https://img.shields.io/badge/C++-17-blue.svg?style=flat)
-[![Coverage](https://coveralls.io/repos/github/upkie/vulp/badge.svg?branch=main)](https://coveralls.io/github/upkie/vulp?branch=main)
-[![Documentation](https://img.shields.io/github/actions/workflow/status/upkie/vulp/docs.yml?branch=main&label=docs)](https://upkie.github.io/vulp/)
-
 > [!IMPORTANT]\
-> Vulp has been merged into the software of [Upkie wheeled bipeds](https://github.com/upkie/upkie) and is not developed as a standalone library any more. If you need similar features for your own robot, we recommend you rather start from the latest [moteus](https://pypi.org/project/moteus/) C++ bindings.
+> Vulp has been merged into the [Upkie wheeled biped software](https://github.com/upkie/upkie) and is not developed as a standalone library any more. If you need similar features for your own robot, we recommend you rather start from the latest [moteus](https://pypi.org/project/moteus/) C++ bindings.
 
 Vulp provides an action-observation loop to control robots from a standalone "agent" process, like this:
 
