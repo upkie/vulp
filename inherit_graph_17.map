@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classvulp_1_1observation_1_1Source.html" title="Base class for sources." alt="" coords="5,71,148,112"/>
+<area shape="rect" id="node2" href="$classvulp_1_1observation_1_1sources_1_1CpuTemperature.html" title="Source for CPU temperature readings." alt="" coords="196,5,383,47"/>
+<area shape="rect" id="node3" href="$classvulp_1_1observation_1_1sources_1_1Joystick.html" title="Source for a joystick controller." alt="" coords="218,71,361,112"/>
+<area shape="rect" id="node4" href="$classvulp_1_1observation_1_1sources_1_1Keyboard.html" title="Source for reading Keyboard inputs." alt="" coords="218,136,361,177"/>
+</map>

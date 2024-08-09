@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['observe_424',['observe',['../classvulp_1_1actuation_1_1BulletInterface.html#aa6e175ab2ded82e0c2e4c0e849e67b51',1,'vulp::actuation::BulletInterface::observe()'],['../classvulp_1_1actuation_1_1Interface.html#ac5f1fd525398a0a0d290ee2aed26c66f',1,'vulp::actuation::Interface::observe()'],['../classvulp_1_1actuation_1_1MockInterface.html#a790e57ed6a6157044ae70c3e59d9967e',1,'vulp::actuation::MockInterface::observe()'],['../classvulp_1_1actuation_1_1Pi3HatInterface.html#abdec83204cb8b1bd51333d5d62f89293',1,'vulp::actuation::Pi3HatInterface::observe()']]],
+  ['observe_5fservos_425',['observe_servos',['../namespacevulp_1_1observation.html#ad2218a79b5b3865746e23d5579f97585',1,'vulp::observation::observe_servos(Dictionary &amp;observation, const std::map&lt; int, std::string &gt; &amp;servo_joint_map, const std::vector&lt; moteus::ServoReply &gt; &amp;servo_replies)'],['../namespacevulp_1_1observation.html#a0ae2b75955060fe39559b2b05f6997ed',1,'vulp::observation::observe_servos(palimpsest::Dictionary &amp;observation, const std::map&lt; int, std::string &gt; &amp;servo_joint_map, const std::vector&lt; actuation::moteus::ServoReply &gt; &amp;servo_replies)']]],
+  ['observe_5ftime_426',['observe_time',['../namespacevulp_1_1observation.html#a91251ac7479e0efd644cbd763d66d5ea',1,'vulp::observation']]],
+  ['observers_427',['observers',['../classvulp_1_1observation_1_1ObserverPipeline.html#a5137ef162e96278c44a05b146115c17b',1,'vulp::observation::ObserverPipeline']]],
+  ['orientation_5fbase_5fin_5fworld_428',['orientation_base_in_world',['../classvulp_1_1actuation_1_1BulletInterface.html#a0203bb68c28883f4baceaf2979bfa907',1,'vulp::actuation::BulletInterface']]]
+];

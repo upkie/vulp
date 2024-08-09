@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classvulp_1_1actuation_1_1Interface.html" title="Base class for actuation interfaces." alt="" coords="5,56,191,83"/>
+<area shape="rect" id="node2" href="$classvulp_1_1actuation_1_1BulletInterface.html" title="Actuation interface for the Bullet simulator." alt="" coords="241,5,464,32"/>
+<area shape="rect" id="node3" href="$classvulp_1_1actuation_1_1MockInterface.html" title=" " alt="" coords="243,56,463,83"/>
+<area shape="rect" id="node4" href="$classvulp_1_1actuation_1_1Pi3HatInterface.html" title="Interface to moteus controllers." alt="" coords="239,107,467,133"/>
+</map>
